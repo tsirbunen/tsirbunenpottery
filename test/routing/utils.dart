@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:madmudmobile/app/mad_mud_app.dart';
+import 'package:madmudmobile/widgets/drawer/drawer_route_item.dart';
 import 'package:madmudmobile/widgets/trademark/trademark.dart';
 
 setViewSizeAndAddTeardown(WidgetTester tester, Size size) {
@@ -25,8 +26,22 @@ openDrawer(WidgetTester tester) async {
 }
 
 clickDrawerRoute(WidgetTester tester, String route) async {
-  final collectionsRouteFinder = find.text(route);
-  expect(collectionsRouteFinder, findsOneWidget);
-  await tester.tap(collectionsRouteFinder);
+  final routeFinders = find.text(route);
+  // Note: routeFinders contain both the drawer items and the horizontal navBar items
+  // so when testing the drawer we need to ignore the horizontal navBar items
+  final targetFinder = find.descendant(
+    of: find.byType(DrawerRouteItem),
+    matching: routeFinders,
+  );
+  expect(targetFinder, findsOneWidget);
+  await tester.tap(targetFinder);
+  await tester.pumpAndSettle();
+}
+
+clickNavBarRoute(WidgetTester tester, String route) async {
+  // Note: When the drawer is not open, only the horizontal navBar items are available
+  final routeFinders = find.text(route);
+  expect(routeFinders, findsOneWidget);
+  await tester.tap(routeFinders);
   await tester.pumpAndSettle();
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:madmudmobile/widgets/app_bar/app_bar_action_button.dart';
+import 'package:madmudmobile/widgets/horizontal_navigation/horizontal_navigation.dart';
 import 'package:madmudmobile/widgets/hover_detector/hover_detector.dart';
 import 'package:madmudmobile/widgets/trademark/trademark.dart';
 
@@ -10,6 +11,7 @@ const double paddingMobile = 0.0;
 const double paddingDesktop = 5.0;
 const double mobilePadding = 10.0;
 const double desktopPadding = 20.0;
+const double minWidthForShowNavBar = 400;
 
 class AppBarCustomized extends StatelessWidget implements PreferredSizeWidget {
   const AppBarCustomized({super.key});
@@ -18,6 +20,8 @@ class AppBarCustomized extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     final paddings = _paddings(context);
+    final showNavBar =
+        MediaQuery.of(context).size.width > minWidthForShowNavBar;
 
     return Container(
       height: appBarHeight,
@@ -44,6 +48,7 @@ class AppBarCustomized extends StatelessWidget implements PreferredSizeWidget {
                     isInverted: !isHovering,
                   );
                 }),
+                if (showNavBar) const Expanded(child: HorizontalNavigation()),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
