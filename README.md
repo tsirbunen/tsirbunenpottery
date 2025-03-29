@@ -1,6 +1,6 @@
 # MAD MUD COMPANY WEBPAGES
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/cec72aa2-df39-4f31-b430-60965f13946f/deploy-status?branch=main)](https://app.netlify.com/sites/mad-mud/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/cec72aa2-df39-4f31-b430-60965f13946f/deploy-status)](https://app.netlify.com/sites/mad-mud/deploys)
 
 ### Code generation
 
