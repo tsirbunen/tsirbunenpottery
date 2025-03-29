@@ -1,5 +1,7 @@
 # MAD MUD COMPANY WEBPAGES
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/cec72aa2-df39-4f31-b430-60965f13946f/deploy-status?branch=main)](https://app.netlify.com/sites/mad-mud/deploys)
+
 ### Code generation
 
 To build the generated parts of immutable Freezed model classes, the go router routes, and test mocks, use the build_runner command (where "--delete-conflicting-outputs" prevents the prompt asking what to do with conflicting pre-existing files):
@@ -15,3 +17,12 @@ To build the generated parts of immutable Freezed model classes, the go router r
 ### Conventions
 
 - **File imports and exports**: To keep import statements clean and maintainable, we use barrel files (files named **barrel.dart** that re-export other files in a folder) throughout the project.
+
+### Deployment
+
+Build the app with
+
+`flutter build web`
+`flutter build web --web-renderer html`
+
+Drag the directory **/build/web/** to Netlify.
