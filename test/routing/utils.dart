@@ -41,6 +41,7 @@ clickDrawerRoute(WidgetTester tester, String route) async {
 clickNavBarRoute(WidgetTester tester, String route) async {
   // Note: When the drawer is not open, only the horizontal navBar items are available
   final routeFinders = find.text(route);
+
   expect(routeFinders, findsOneWidget);
   await tester.tap(routeFinders);
   await tester.pumpAndSettle();
