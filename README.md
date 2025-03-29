@@ -1,5 +1,7 @@
 # MAD MUD COMPANY WEBPAGES
 
+The **[MAD MUD COMPANY webpages](https://mad-mud.netlify.app)** are hosted by the **[Netlify platform](https://www.netlify.com)**.
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/cec72aa2-df39-4f31-b430-60965f13946f/deploy-status?branch=main)](https://app.netlify.com/sites/mad-mud/deploys)
 
 ### Code generation
