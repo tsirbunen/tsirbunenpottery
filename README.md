@@ -12,6 +12,16 @@ To build the generated parts of immutable Freezed model classes, the go router r
 
 (You might need to run `flutter pub global activate build_runner` prior to the file generation.)
 
+### Running tests
+
+To run unit and widget tests
+
+`flutter test`
+
+or, for a more verbose output
+
+`flutter test -r expanded`
+
 ### Packages and technologies
 
 - **ROUTING:** **[go_router](https://pub.dev/packages/go_router)** with **[type-safe routes](https://pub.dev/documentation/go_router/latest/topics/Type-safe%20routes-topic.html)** and **[go_router_builder file generation](https://pub.dev/packages/go_router_builder)**

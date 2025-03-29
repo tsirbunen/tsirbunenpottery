@@ -46,9 +46,11 @@ class DrawerRouteItem extends StatelessWidget {
                       child:
                           Icon(iconData, size: iconSize, color: colors.primary),
                     ),
-                    Padding(
-                      padding: labelPadding,
-                      child: Text(routeLabel, style: style),
+                    Expanded(
+                      child: Padding(
+                        padding: labelPadding,
+                        child: Text(routeLabel, style: style),
+                      ),
                     ),
                   ],
                 ),
