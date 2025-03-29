@@ -1,6 +1,3 @@
 [build]
-publish = "build/web"
-command = "chmod +x build.sh && ./build.sh"
-
-[build.environment]
-FLUTTER_VERSION = "3.22.1"
+  publish = "build/web"
+  command = "echo 'Skipping build, using prebuilt web files'"
