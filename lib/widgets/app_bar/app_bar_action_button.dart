@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const double containerSize = 50.0;
-const double iconSize = 35.0;
+const double iconSize = 30.0;
 
 class AppBarActionButton extends StatelessWidget {
   final IconData iconData;

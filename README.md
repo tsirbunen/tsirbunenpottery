@@ -37,4 +37,5 @@ Build the app with
 `flutter build web`
 `flutter build web --web-renderer html`
 
-Drag the directory **/build/web/** to Netlify.
+No need to drag the directory **/build/web/** to Netlify anymore as Netlify deployment happens automatically on pushing to GitHub main. You can run the web build locally with
+`flutter run -d chrome`

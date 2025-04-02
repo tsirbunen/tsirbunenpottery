@@ -8,7 +8,11 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const PageBase(
       pageBody: Center(
-        child: Text('HOME'),
+        child: Column(
+          children: [
+            Text('HOME'),
+          ],
+        ),
       ),
     );
   }

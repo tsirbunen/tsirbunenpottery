@@ -4,37 +4,27 @@ import 'package:madmudmobile/widgets/horizontal_navigation/horizontal_navigation
 import 'package:madmudmobile/widgets/hover_detector/hover_detector.dart';
 import 'package:madmudmobile/widgets/trademark/trademark.dart';
 
-const double appBarHeight = 100.0;
+const double appBarHeight = 85.0;
 const double heightBreakpoint = 800.0;
 const double widthBreakpoint = 400.0;
 const double paddingMobile = 0.0;
 const double paddingDesktop = 5.0;
-const double mobilePadding = 10.0;
-const double desktopPadding = 20.0;
-const double minWidthForShowNavBar = 400;
+const double mobilePadding = 5.0;
+const double desktopPadding = 15.0;
+const double minWidthForShowNavBar = 600;
 
 class AppBarCustomized extends StatelessWidget implements PreferredSizeWidget {
   const AppBarCustomized({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
-    final paddings = _paddings(context);
-    final showNavBar =
-        MediaQuery.of(context).size.width > minWidthForShowNavBar;
+    final isNarrow = MediaQuery.of(context).size.width < minWidthForShowNavBar;
 
     return Container(
       height: appBarHeight,
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(width: 1.0, color: colors.tertiary),
-        ),
-      ),
+      decoration: _decoration(context),
       child: Padding(
-        padding: EdgeInsets.only(
-            left: paddings.horizontal,
-            right: paddings.horizontal,
-            bottom: paddings.bottom),
+        padding: _padding(context),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -45,16 +35,17 @@ class AppBarCustomized extends StatelessWidget implements PreferredSizeWidget {
                 HoverDetector(builder: (BuildContext context, bool isHovering) {
                   return Trademark(
                     onPressed: () => _openDrawer(context),
-                    isInverted: !isHovering,
+                    isInverted: isHovering,
+                    hasBorder: true,
                   );
                 }),
-                if (showNavBar) const Expanded(child: HorizontalNavigation()),
+                if (!isNarrow) const Expanded(child: HorizontalNavigation()),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     AppBarActionButton(
-                      onPressed: () => _openDrawer(context),
+                      onPressed: () => {},
                       iconData: Icons.search,
                     ),
                   ],
@@ -71,13 +62,22 @@ class AppBarCustomized extends StatelessWidget implements PreferredSizeWidget {
     Scaffold.of(context).openDrawer();
   }
 
-  _paddings(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
-    final bottom = height > heightBreakpoint ? desktopPadding : mobilePadding;
-    final horizontal = width > widthBreakpoint ? desktopPadding : mobilePadding;
+  BoxDecoration _decoration(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    return BoxDecoration(
+      color: colors.tertiary,
+      border: Border(bottom: BorderSide(width: 1.0, color: colors.tertiary)),
+    );
+  }
 
-    return (bottom: bottom, horizontal: horizontal);
+  EdgeInsets _padding(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final bottom =
+        size.height > heightBreakpoint ? desktopPadding : mobilePadding;
+    final horizontal =
+        size.width > widthBreakpoint ? desktopPadding : mobilePadding;
+
+    return EdgeInsets.only(left: horizontal, right: horizontal, bottom: bottom);
   }
 
   @override

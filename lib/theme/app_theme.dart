@@ -18,6 +18,11 @@ class AppTheme {
           fontWeight: FontWeight.w500,
           color: veryDark,
         ),
+        headlineSmall: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: veryDark,
+        ),
       ),
       colorScheme: ColorScheme.fromSeed(
         surface: background,
