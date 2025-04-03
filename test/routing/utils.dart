@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:madmudmobile/app/mad_mud_app.dart';
 import 'package:madmudmobile/widgets/drawer/drawer_route_item.dart';
-import 'package:madmudmobile/widgets/trademark/trademark.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 setViewSizeAndAddTeardown(WidgetTester tester, Size size) {
   tester.view.physicalSize = size;
@@ -20,8 +20,8 @@ pumpMadMudApp(WidgetTester tester) async {
 }
 
 openDrawer(WidgetTester tester) async {
-  final trademarkFinder = find.byType(Trademark);
-  await tester.tap(trademarkFinder);
+  final openDrawerButtonFinder = find.byIcon(Symbols.menu);
+  await tester.tap(openDrawerButtonFinder);
   await tester.pumpAndSettle();
 }
 

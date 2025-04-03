@@ -25,6 +25,7 @@ or, for a more verbose output
 ### Packages and technologies
 
 - **ROUTING:** **[go_router](https://pub.dev/packages/go_router)** with **[type-safe routes](https://pub.dev/documentation/go_router/latest/topics/Type-safe%20routes-topic.html)** and **[go_router_builder file generation](https://pub.dev/packages/go_router_builder)**
+- **ICONS:** **[Material Symbols Icons for Flutter](https://pub.dev/packages/material_symbols_icons)** were selected for icons because their weight can be easily modified (to be lighter than the usual Material icons)
 
 ### Conventions
 

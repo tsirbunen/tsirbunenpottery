@@ -30,3 +30,18 @@ extension PathExtension on RouteEnum {
     }
   }
 }
+
+extension PageNameExtension on RouteEnum {
+  String pageName() {
+    switch (this) {
+      case RouteEnum.home:
+        return 'Home';
+      case RouteEnum.pieces:
+        return 'Pieces';
+      case RouteEnum.collections:
+        return 'Collections';
+      default:
+        throw Exception('Page name not implemented!');
+    }
+  }
+}

@@ -67,7 +67,7 @@ void main() {
           if (description == 'DESKTOP') {
             expect(find.byType(HorizontalNavigation), findsOneWidget);
           } else {
-            expect(find.byType(HorizontalNavigation), findsNothing);
+            expect(find.byType(TextButton), findsNothing);
           }
         });
       });

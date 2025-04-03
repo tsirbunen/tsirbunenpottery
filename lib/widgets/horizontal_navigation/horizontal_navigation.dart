@@ -1,37 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:madmudmobile/services/router/route_enum.dart';
-import 'package:madmudmobile/widgets/drawer/drawer_route_extension.dart';
+import 'package:madmudmobile/widgets/trademark/trademark.dart';
 
-const EdgeInsets margin = EdgeInsets.only(left: 50.0);
 const EdgeInsets padding = EdgeInsets.symmetric(horizontal: 10.0);
 const double borderRadius = 5.0;
+const SizedBox spacer = SizedBox(width: 30);
+const FontWeight selectedPageFontWeight = FontWeight.w800;
 
 class HorizontalNavigation extends StatelessWidget {
-  const HorizontalNavigation({super.key});
+  final bool isWide;
+  final String currentPage;
+  const HorizontalNavigation(
+      {super.key, required this.isWide, required this.currentPage});
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = Theme.of(context).textTheme.headlineSmall!;
+    final generalTextStyle = Theme.of(context).textTheme.headlineSmall!;
+    final emphasizedTextStyle =
+        generalTextStyle.copyWith(fontWeight: selectedPageFontWeight);
 
-    return Container(
-      margin: margin,
-      child: Row(
-        children: [
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Trademark(
+          isInverted: false,
+          hasBorder: true,
+        ),
+        if (isWide) spacer,
+        if (isWide)
           ...RouteEnum.values.map(
             (route) {
+              final pageName = route.pageName();
+              final routeIsCurrent = pageName == currentPage;
+              final textStyle =
+                  routeIsCurrent ? emphasizedTextStyle : generalTextStyle;
               return Container(
                 padding: padding,
                 decoration: _decoration,
                 child: TextButton(
                   onPressed: () => _navigateTo(context, route.path()),
-                  child: Text(route.label, style: textStyle),
+                  child: Text(pageName, style: textStyle),
                 ),
               );
             },
           ),
-        ].toList(),
-      ),
+      ].toList(),
     );
   }
 

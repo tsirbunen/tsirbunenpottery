@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const String chineseCharacter = '泥';
-const double chineseCharacterDefaultSize = 35.0;
+const double chineseCharacterDefaultSize = 34.0;
 const String tradeNameBeginning = 'MAD MUD';
 const double tradeNameDefaultSize = 10.0;
 const double textHeight = 1.0;
@@ -9,6 +9,7 @@ const double spacerHeight = 6.0;
 const EdgeInsets padding = EdgeInsets.all(2.0);
 const double borderRadius = 4.0;
 const double borderWidth = 1.0;
+const double containerWidthDefault = 60.0;
 
 class Trademark extends StatelessWidget {
   final double characterSize;
@@ -16,6 +17,7 @@ class Trademark extends StatelessWidget {
   final bool isInverted;
   final bool hasBorder;
   final void Function()? onPressed;
+  final double width;
 
   const Trademark({
     super.key,
@@ -23,6 +25,7 @@ class Trademark extends StatelessWidget {
     this.tradeNameSize = tradeNameDefaultSize,
     this.isInverted = true,
     this.hasBorder = false,
+    this.width = containerWidthDefault,
     this.onPressed,
   });
 
@@ -35,10 +38,12 @@ class Trademark extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
+        width: width,
         decoration: _decoration(colors),
         child: Padding(
           padding: padding,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 chineseCharacter,

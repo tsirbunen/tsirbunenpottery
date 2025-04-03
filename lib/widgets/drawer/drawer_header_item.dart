@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:madmudmobile/widgets/trademark/trademark.dart';
 
 const EdgeInsets padding =
-    EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0);
+    EdgeInsets.symmetric(vertical: 12.0, horizontal: 15.0);
 const String tradeName = 'MAD MUD COMPANY';
 const double tradeNameFontSize = 15.0;
 const FontWeight tradeNameFontWeight = FontWeight.w900;
 const double descriptionFontSize = 12.0;
 const FontWeight descriptionFontWeight = FontWeight.w500;
-const List<String> shortDescriptions = [
-  'Where the mud gets personal.',
-  'Handmade, unique, always.'
-];
+const String shortDescription = 'mud to unique treasures';
+const SizedBox spacer = SizedBox(width: 20);
 
 class DrawerHeaderItem extends StatelessWidget {
-  const DrawerHeaderItem({super.key});
+  final double width;
+  const DrawerHeaderItem({super.key, required this.width});
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +27,8 @@ class DrawerHeaderItem extends StatelessWidget {
             padding: padding,
             child: Row(
               children: [
-                const Trademark(isInverted: false, hasBorder: true),
-                const SizedBox(width: 25),
+                Trademark(isInverted: false, hasBorder: true, width: width),
+                spacer,
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,15 +41,13 @@ class DrawerHeaderItem extends StatelessWidget {
                           fontWeight: tradeNameFontWeight,
                         ),
                       ),
-                      ...shortDescriptions.map(
-                        (description) => Text(
-                          description,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: descriptionFontSize,
-                            color: colors.primary,
-                            fontWeight: descriptionFontWeight,
-                          ),
+                      Text(
+                        shortDescription,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: descriptionFontSize,
+                          color: colors.primary,
+                          fontWeight: descriptionFontWeight,
                         ),
                       ),
                     ],

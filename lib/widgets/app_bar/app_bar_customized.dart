@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:madmudmobile/utils/current_page_from_settings.dart';
 import 'package:madmudmobile/widgets/app_bar/app_bar_action_button.dart';
 import 'package:madmudmobile/widgets/horizontal_navigation/horizontal_navigation.dart';
-import 'package:madmudmobile/widgets/hover_detector/hover_detector.dart';
-import 'package:madmudmobile/widgets/trademark/trademark.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 
-const double appBarHeight = 85.0;
+const double appBarHeight = 80.0;
 const double heightBreakpoint = 800.0;
 const double widthBreakpoint = 400.0;
 const double paddingMobile = 0.0;
 const double paddingDesktop = 5.0;
-const double mobilePadding = 5.0;
-const double desktopPadding = 15.0;
+const double mobilePadding = 0.0;
+const double desktopPadding = 10.0;
 const double minWidthForShowNavBar = 600;
 
 class AppBarCustomized extends StatelessWidget implements PreferredSizeWidget {
@@ -18,7 +18,8 @@ class AppBarCustomized extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isNarrow = MediaQuery.of(context).size.width < minWidthForShowNavBar;
+    final isWide = MediaQuery.of(context).size.width >= minWidthForShowNavBar;
+    final currentPage = currentPageFromSettings(context);
 
     return Container(
       height: appBarHeight,
@@ -32,21 +33,21 @@ class AppBarCustomized extends StatelessWidget implements PreferredSizeWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                HoverDetector(builder: (BuildContext context, bool isHovering) {
-                  return Trademark(
+                AppBarActionButton(
                     onPressed: () => _openDrawer(context),
-                    isInverted: isHovering,
-                    hasBorder: true,
-                  );
-                }),
-                if (!isNarrow) const Expanded(child: HorizontalNavigation()),
+                    iconData: Symbols.menu),
+                Expanded(
+                    child: HorizontalNavigation(
+                  isWide: isWide,
+                  currentPage: currentPage,
+                )),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     AppBarActionButton(
                       onPressed: () => {},
-                      iconData: Icons.search,
+                      iconData: Symbols.search,
                     ),
                   ],
                 ),
