@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:madmudmobile/localization/local.dart';
 
-const String chineseCharacter = '泥';
 const double chineseCharacterDefaultSize = 34.0;
-const String tradeNameBeginning = 'MAD MUD';
 const double tradeNameDefaultSize = 10.0;
 const double textHeight = 1.0;
 const double spacerHeight = 6.0;
@@ -34,6 +33,8 @@ class Trademark extends StatelessWidget {
     final baseStyle = Theme.of(context).textTheme.titleMedium!;
     final colors = Theme.of(context).colorScheme;
     final textColor = isInverted ? colors.surface : colors.primary;
+    final chineseCharacter = context.local('chineseCharacter');
+    final tradeNameBeginning = context.local('tradeNameBeginning');
 
     return GestureDetector(
       onTap: onPressed,

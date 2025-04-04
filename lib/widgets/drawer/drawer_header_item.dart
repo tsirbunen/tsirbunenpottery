@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:madmudmobile/localization/local.dart';
 import 'package:madmudmobile/widgets/trademark/trademark.dart';
 
 const EdgeInsets padding =
-    EdgeInsets.symmetric(vertical: 12.0, horizontal: 15.0);
-const String tradeName = 'MAD MUD COMPANY';
+    EdgeInsets.symmetric(vertical: 18.0, horizontal: 15.0);
 const double tradeNameFontSize = 15.0;
 const FontWeight tradeNameFontWeight = FontWeight.w900;
 const double descriptionFontSize = 12.0;
 const FontWeight descriptionFontWeight = FontWeight.w500;
-const String shortDescription = 'mud to unique treasures';
 const SizedBox spacer = SizedBox(width: 20);
 
 class DrawerHeaderItem extends StatelessWidget {
@@ -18,6 +17,8 @@ class DrawerHeaderItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+    final tradeName = context.local('tradeName');
+    final shortDescription = context.local('appShortDescription');
 
     return Container(
       color: colors.tertiary,

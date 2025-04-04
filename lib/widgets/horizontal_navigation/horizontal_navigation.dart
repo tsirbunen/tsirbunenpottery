@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:madmudmobile/localization/local.dart';
 import 'package:madmudmobile/services/router/route_enum.dart';
 import 'package:madmudmobile/widgets/trademark/trademark.dart';
 
@@ -31,7 +32,7 @@ class HorizontalNavigation extends StatelessWidget {
         if (isWide)
           ...RouteEnum.values.map(
             (route) {
-              final pageName = route.pageName();
+              final pageName = context.local(route.pageName());
               final routeIsCurrent = pageName == currentPage;
               final textStyle =
                   routeIsCurrent ? emphasizedTextStyle : generalTextStyle;

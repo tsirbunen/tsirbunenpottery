@@ -1,18 +1,11 @@
+import 'package:madmudmobile/localization/translation.dart';
 import 'package:madmudmobile/services/router/routes.dart';
 
 enum RouteEnum {
   home,
   pieces,
   collections,
-  // IMPLEMENT SOON:
-  // contact,
-  // gallery,
-  // account,
-  // faq,
 }
-
-// IMPLEMENT LATER:
-// shopping-related stuff
 
 // Note: Let's use switch-case to return the path for each route,
 // so that if we miss a route, the code editor gives us a warning.
@@ -35,11 +28,11 @@ extension PageNameExtension on RouteEnum {
   String pageName() {
     switch (this) {
       case RouteEnum.home:
-        return 'Home';
+        return Translation.home.toKey();
       case RouteEnum.pieces:
-        return 'Pieces';
+        return Translation.pieces.toKey();
       case RouteEnum.collections:
-        return 'Collections';
+        return Translation.collections.toKey();
       default:
         throw Exception('Page name not implemented!');
     }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:madmudmobile/localization/local.dart';
 import 'package:madmudmobile/services/router/route_enum.dart';
-import 'package:madmudmobile/utils/current_page_from_settings.dart';
+import 'package:madmudmobile/utils/current_page_name_from_settings.dart';
 import 'package:madmudmobile/widgets/drawer/drawer_header_item.dart';
 import 'package:madmudmobile/widgets/drawer/drawer_route_item.dart';
 import 'package:madmudmobile/widgets/drawer/drawer_route_extension.dart';
@@ -13,7 +14,7 @@ class DrawerForAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-    final currentPage = currentPageFromSettings(context);
+    final currentPage = currentPageNameFromSettings(context);
 
     return Drawer(
       shape: const ContinuousRectangleBorder(),
@@ -23,13 +24,16 @@ class DrawerForAppBar extends StatelessWidget {
           children: [
             const DrawerHeaderItem(width: iconAndTrademarkContainerWidth),
             ...RouteEnum.values.map(
-              (route) => DrawerRouteItem(
-                routeLabel: route.pageName(),
-                iconData: route.iconData,
-                path: route.path(),
-                isCurrentRoute: route.pageName() == currentPage,
-                width: iconAndTrademarkContainerWidth,
-              ),
+              (route) {
+                final pageName = context.local(route.pageName());
+                return DrawerRouteItem(
+                  routeLabel: context.local(route.pageName()),
+                  iconData: route.iconData,
+                  path: route.path(),
+                  isCurrentRoute: pageName == currentPage,
+                  width: iconAndTrademarkContainerWidth,
+                );
+              },
             ),
           ].toList(),
         ),

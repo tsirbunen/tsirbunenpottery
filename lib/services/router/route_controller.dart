@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:madmudmobile/features/collections/presentation/collections_page.dart';
 import 'package:madmudmobile/features/home/presentation/home_page.dart';
 import 'package:madmudmobile/features/pieces/presentation/pieces_page.dart';
+import 'package:madmudmobile/localization/local.dart';
 import 'package:madmudmobile/services/router/route_enum.dart';
 import 'package:madmudmobile/services/router/routes.dart';
 
@@ -17,21 +18,21 @@ class RouteController {
         GoRoute(
           path: HomeRoute.path,
           pageBuilder: (context, state) => NoTransitionPage(
-            name: RouteEnum.home.pageName(),
+            name: context.local(RouteEnum.home.pageName()),
             child: const HomePage(),
           ),
         ),
         GoRoute(
           path: CollectionsRoute.path,
           pageBuilder: (context, state) => NoTransitionPage(
-            name: RouteEnum.collections.pageName(),
+            name: context.local(RouteEnum.collections.pageName()),
             child: const CollectionsPage(),
           ),
         ),
         GoRoute(
           path: PiecesRoute.path,
           pageBuilder: (context, state) => NoTransitionPage(
-            name: RouteEnum.pieces.pageName(),
+            name: context.local(RouteEnum.pieces.pageName()),
             child: const PiecesPage(),
           ),
         ),
