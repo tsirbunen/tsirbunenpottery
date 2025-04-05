@@ -1,35 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:madmudmobile/features/collections/presentation/collections_page.dart';
-import 'package:madmudmobile/features/home/presentation/home_page.dart';
-import 'package:madmudmobile/features/pieces/presentation/pieces_page.dart';
 import 'package:madmudmobile/widgets/horizontal_navigation/horizontal_navigation.dart';
-import 'utils.dart';
-
-final routeToPage = {
-  'Home': HomePage,
-  'Pieces': PiecesPage,
-  'Collections': CollectionsPage,
-};
-
-final routeOrder = [
-  'Home',
-  'Pieces',
-  'Collections',
-  'Home',
-  'Collections',
-  'Pieces',
-  'Home'
-];
-const devices = <String, Size>{
-  'MOBILE': Size(350, 600),
-  'DESKTOP': Size(1000, 1200),
-};
+import '../utils/barrel.dart';
+import 'routing_utils.dart';
 
 void main() {
   group('ROUTING >', () {
+    setUpAndTearDownAllBlocs();
     group('DRAWER -', () {
-      devices.forEach((String description, Size size) {
+      testDevices.forEach((String description, Size size) {
         testWidgets('drawer can be opened in $description',
             (WidgetTester tester) async {
           setViewSizeAndAddTeardown(tester, size);
@@ -57,7 +36,7 @@ void main() {
     });
 
     group('NAV BAR -', () {
-      devices.forEach((String description, Size size) {
+      testDevices.forEach((String description, Size size) {
         testWidgets(
             'horizontal navigation is${description == 'DESKTOP' ? "" : " not"} visible in $description',
             (WidgetTester tester) async {
@@ -74,7 +53,7 @@ void main() {
 
       testWidgets('routes can be navigated to and from in DESKTOP',
           (WidgetTester tester) async {
-        setViewSizeAndAddTeardown(tester, devices['DESKTOP']!);
+        setViewSizeAndAddTeardown(tester, testDevices['DESKTOP']!);
         await pumpMadMudApp(tester);
 
         for (int i = 0; i < routeOrder.length - 1; i++) {

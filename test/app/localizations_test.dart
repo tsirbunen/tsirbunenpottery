@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:madmudmobile/localization/en.dart';
 import 'package:madmudmobile/localization/translations.dart';
 import 'package:madmudmobile/localization/validate_translations.dart';
+import '../utils/prepare_blocs_for_tests.dart';
 
 class MockTranslations implements Translations {
   final Map<String, String> _all;
@@ -19,6 +20,7 @@ class MockTranslations implements Translations {
 
 void main() {
   group('LOCALIZATIONS >', () {
+    setUpAndTearDownAllBlocs();
     test('does not throw when all keys match', () {
       final en = En();
       expect(() => validateTranslations(en), returnsNormally);

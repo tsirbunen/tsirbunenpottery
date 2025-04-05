@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:madmudmobile/localization/local.dart';
+import 'package:madmudmobile/localization/app_locale.dart';
 
 const double chineseCharacterDefaultSize = 34.0;
 const double tradeNameDefaultSize = 10.0;

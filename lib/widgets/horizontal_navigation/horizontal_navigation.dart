@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:madmudmobile/localization/local.dart';
-import 'package:madmudmobile/services/router/route_enum.dart';
+import 'package:madmudmobile/localization/app_locale.dart';
+import 'package:madmudmobile/app/router/route_enum.dart';
+import 'package:madmudmobile/utils/current_page_name_from_settings.dart';
 import 'package:madmudmobile/widgets/trademark/trademark.dart';
 
-const EdgeInsets padding = EdgeInsets.symmetric(horizontal: 10.0);
+const EdgeInsets padding = EdgeInsets.symmetric(horizontal: 2.0);
 const double borderRadius = 5.0;
-const SizedBox spacer = SizedBox(width: 30);
+const SizedBox spacer = SizedBox(width: 20.0);
 const FontWeight selectedPageFontWeight = FontWeight.w800;
+const double minWidthForShowNavBarRoutes = 800;
 
 class HorizontalNavigation extends StatelessWidget {
-  final bool isWide;
-  final String currentPage;
-  const HorizontalNavigation(
-      {super.key, required this.isWide, required this.currentPage});
+  const HorizontalNavigation({super.key});
 
   @override
   Widget build(BuildContext context) {
     final generalTextStyle = Theme.of(context).textTheme.headlineSmall!;
     final emphasizedTextStyle =
         generalTextStyle.copyWith(fontWeight: selectedPageFontWeight);
+    final currentPage = currentPageNameFromSettings(context);
+
+    final isWide =
+        MediaQuery.of(context).size.width > minWidthForShowNavBarRoutes;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,

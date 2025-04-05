@@ -22,9 +22,24 @@ or, for a more verbose output
 
 `flutter test -r expanded`
 
+To run all integration tests
+`flutter drive  --driver=test_driver/integration_test.dart --target=integration_test/test.dart -d chrome`
+
+To run a specific integration test file (for example language_change_test.dart)
+`flutter drive  --driver=test_driver/integration_test.dart --target=integration_test/language_change_test.dart -d chrome`
+
+Note: you might need to install ChromeDriver into the directory of your choice
+`npx @puppeteer/browsers install chromedriver@stable`
+and add the path to ChromeDriver to your $PATH environment variable.
+
 ### Packages and technologies
 
 - **ROUTING:** **[go_router](https://pub.dev/packages/go_router)** with **[type-safe routes](https://pub.dev/documentation/go_router/latest/topics/Type-safe%20routes-topic.html)** and **[go_router_builder file generation](https://pub.dev/packages/go_router_builder)**
+- **STATE MANAGEMENT:** The Bloc based approach with the **[flutter_bloc](https://pub.dev/packages/flutter_bloc)** package was selected.
+- **OBJECT COMPARISON:** To help in comparing bloc state changes the **[equatable](https://pub.dev/packages/equatable/example)** package was selected.
+- **DEPENDENCY INJECTION:** **[get_it](https://pub.dev/packages/get_it)**
+- **TEST MOCKING:** For test mocking, the **[mockito](https://pub.dev/packages/mockito)** package was selected.
+- **BLOC TESTING:** To help in testing bloc functionality, the **[bloc_test](https://pub.dev/packages/bloc_test)** package was used.
 - **ICONS:** **[Material Symbols Icons for Flutter](https://pub.dev/packages/material_symbols_icons)** were selected for icons because their weight can be easily modified (to be lighter than the usual Material icons)
 
 ### Conventions
