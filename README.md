@@ -22,15 +22,17 @@ or, for a more verbose output
 
 `flutter test -r expanded`
 
+Before starting integration tests, start ChromeDriver with
+`chromedriver --port=4444`
+Note: you might need to install ChromeDriver into the directory of your choice
+`npx @puppeteer/browsers install chromedriver@stable`
+and add the path to ChromeDriver to your $PATH environment variable.
+
 To run all integration tests
 `flutter drive  --driver=test_driver/integration_test.dart --target=integration_test/test.dart -d chrome`
 
 To run a specific integration test file (for example language_change_test.dart)
 `flutter drive  --driver=test_driver/integration_test.dart --target=integration_test/language_change_test.dart -d chrome`
-
-Note: you might need to install ChromeDriver into the directory of your choice
-`npx @puppeteer/browsers install chromedriver@stable`
-and add the path to ChromeDriver to your $PATH environment variable.
 
 ### Packages and technologies
 
