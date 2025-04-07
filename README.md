@@ -29,10 +29,10 @@ Note: you might need to install ChromeDriver into the directory of your choice
 and add the path to ChromeDriver to your $PATH environment variable.
 
 To run all integration tests
-`flutter drive  --driver=test_driver/integration_test.dart --target=integration_test/test.dart -d chrome`
+`flutter drive --driver=test_driver/integration_test.dart --target=integration_test/test.dart -d chrome`
 
 To run a specific integration test file (for example language_change_test.dart)
-`flutter drive  --driver=test_driver/integration_test.dart --target=integration_test/language_change_test.dart -d chrome`
+`flutter drive --driver=test_driver/integration_test.dart --target=integration_test/language/language_change_test.dart -d chrome`
 
 ### Packages and technologies
 
@@ -53,6 +53,7 @@ To run a specific integration test file (for example language_change_test.dart)
 Build the app with
 
 `flutter build web`
+or
 `flutter build web --release --web-renderer html`
 
 No need to drag the directory **/build/web/** to Netlify anymore as Netlify deployment happens automatically on pushing to GitHub main. You can run the web build locally with

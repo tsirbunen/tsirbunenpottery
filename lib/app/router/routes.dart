@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:madmudmobile/features/story/presentation/story_page.dart';
-import 'package:madmudmobile/features/collections/presentation/collections_page.dart';
+import 'package:madmudmobile/features/collections_and_pieces/presentation/collections_page.dart';
 import 'package:madmudmobile/features/contact/presentation/contact_page.dart';
-import 'package:madmudmobile/features/pieces/presentation/pieces_page.dart';
+import 'package:madmudmobile/features/collections_and_pieces/presentation/pieces_page.dart';
 import 'package:madmudmobile/features/home/presentation/home_page.dart';
 
 // Note: We want to use type-safe routes, and for that, go_router supports using routes
