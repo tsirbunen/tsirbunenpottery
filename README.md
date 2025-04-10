@@ -14,13 +14,15 @@ To build the generated parts of immutable Freezed model classes, the go router r
 
 ### Running tests
 
+#### Unit and widget tests
+
 To run unit and widget tests
 
-`flutter test`
+`flutter test test/all_tests.dart -r expanded`
 
-or, for a more verbose output
+where the "-r expanded" results in a more verbose output. Note: the usual commands `flutter test` and `flutter test -r expanded` kind of work but they never result in all the tests running. Thats what the all_tests.dart is for.
 
-`flutter test -r expanded`
+#### Integration tests
 
 Before starting integration tests, start ChromeDriver with
 `chromedriver --port=4444`
@@ -36,6 +38,7 @@ To run a specific integration test file (for example language_change_test.dart)
 
 ### Packages and technologies
 
+- **IMMUTABLE MODELS:** For the immutable domain entity models the **[freezed](https://pub.dev/packages/freezed)** package was chosen. Freezed classes are annotated with **[freezed_annotation](https://pub.dev/packages/freezed_annotation)** and generated files built with the **[build_runner](https://pub.dev/packages/build_runner)** to produce \*.freezed.dart-files in the same folder as the original annotated class file. When a fromJson factory constructor is defined in a class with the @freezed-annotation, then code for (de)serialization of the freezed model class is generated (\*.g.dart). For this, also the **[json_serializable](https://pub.dev/packages/json_serializable)** with **[json_annotation](https://pub.dev/packages/json_annotation)** is needed.
 - **ROUTING:** **[go_router](https://pub.dev/packages/go_router)** with **[type-safe routes](https://pub.dev/documentation/go_router/latest/topics/Type-safe%20routes-topic.html)** and **[go_router_builder file generation](https://pub.dev/packages/go_router_builder)**
 - **STATE MANAGEMENT:** The Bloc based approach with the **[flutter_bloc](https://pub.dev/packages/flutter_bloc)** package was selected.
 - **OBJECT COMPARISON:** To help in comparing bloc state changes the **[equatable](https://pub.dev/packages/equatable/example)** package was selected.

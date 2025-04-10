@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:madmudmobile/app/blocs/blocs.dart';
 import 'package:madmudmobile/app/general_state_bloc/general_state_bloc.dart';
 import 'package:madmudmobile/app/general_state_bloc/general_state_state.dart';
-import 'package:madmudmobile/features/collections_and_pieces/domain/collections_and_pieces_bloc.dart';
+import 'package:madmudmobile/features/collections_and_pieces/domain/bloc/collections_and_pieces_bloc.dart';
 import 'package:madmudmobile/localization/languages.dart';
 import 'package:madmudmobile/localization/app_locale.dart';
 import 'package:madmudmobile/app/router/route_controller.dart';
