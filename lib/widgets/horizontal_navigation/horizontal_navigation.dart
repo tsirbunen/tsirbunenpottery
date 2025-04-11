@@ -10,15 +10,18 @@ const double borderRadius = 5.0;
 const SizedBox spacer = SizedBox(width: 20.0);
 const FontWeight selectedPageFontWeight = FontWeight.w800;
 const double minWidthForShowNavBarRoutes = 800;
+const double underlineHeight = 1.0;
+const SizedBox underlineSpacer = SizedBox(height: 2.0);
 
 class HorizontalNavigation extends StatelessWidget {
   const HorizontalNavigation({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final generalTextStyle = Theme.of(context).textTheme.headlineSmall!;
-    final emphasizedTextStyle =
-        generalTextStyle.copyWith(fontWeight: selectedPageFontWeight);
+    final generalStyle = Theme.of(context).textTheme.headlineSmall!;
+    final emphasizedStyle = generalStyle.copyWith(
+      fontWeight: selectedPageFontWeight,
+    );
     final currentPage = currentPageNameFromSettings(context);
 
     final isWide =
@@ -36,15 +39,30 @@ class HorizontalNavigation extends StatelessWidget {
           ...RouteEnum.values.map(
             (route) {
               final pageName = context.local(route.pageName());
-              final routeIsCurrent = pageName == currentPage;
-              final textStyle =
-                  routeIsCurrent ? emphasizedTextStyle : generalTextStyle;
+              final isCurrentRoute = pageName == currentPage;
+              final textStyle = isCurrentRoute ? emphasizedStyle : generalStyle;
+              final color = isCurrentRoute
+                  ? Theme.of(context).colorScheme.primary
+                  : Colors.transparent;
+
               return Container(
                 padding: padding,
                 decoration: _decoration,
-                child: TextButton(
-                  onPressed: () => _navigateTo(context, route.path()),
-                  child: Text(pageName, style: textStyle),
+                child: IntrinsicWidth(
+                  child: TextButton(
+                    onPressed: () => _navigateTo(context, route.path()),
+                    child: Column(
+                      children: [
+                        Text(pageName, style: textStyle),
+                        underlineSpacer,
+                        Container(
+                          color: color,
+                          height: underlineHeight,
+                          width: double.infinity,
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               );
             },
