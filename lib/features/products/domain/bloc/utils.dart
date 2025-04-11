@@ -1,6 +1,6 @@
-import 'package:madmudmobile/features/collections_and_pieces/domain/models/design/design.dart';
-import 'package:madmudmobile/features/collections_and_pieces/domain/models/piece/piece.dart';
-import 'package:madmudmobile/features/collections_and_pieces/domain/models/products/products.dart';
+import 'package:madmudmobile/features/products/domain/models/design/design.dart';
+import 'package:madmudmobile/features/products/domain/models/piece/piece.dart';
+import 'package:madmudmobile/features/products/domain/models/products/products.dart';
 
 Map<String, dynamic> organizeProductsData(Products products) {
   final Map<String, Piece> piecesById = {};

@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:madmudmobile/widgets/hover_detector/hover_detector.dart';
 
 const iconSize = 30.0;
-const fontSize = 18.0;
+const fontSize = 16.0;
 const itemPadding = EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0);
 const labelPadding = EdgeInsets.only(left: 20.0);
 const double selectedIconFontWeight = 800;

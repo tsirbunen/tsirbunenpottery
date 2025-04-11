@@ -3,7 +3,7 @@ import 'package:madmudmobile/app/router/routes.dart';
 
 enum RouteEnum {
   home,
-  pieces,
+  categories,
   collections,
   story,
   contact,
@@ -16,8 +16,8 @@ extension PathExtension on RouteEnum {
     switch (this) {
       case RouteEnum.home:
         return HomeRoute.path;
-      case RouteEnum.pieces:
-        return PiecesRoute.path;
+      case RouteEnum.categories:
+        return CategoriesRoute.path;
       case RouteEnum.collections:
         return CollectionsRoute.path;
       case RouteEnum.contact:
@@ -35,8 +35,8 @@ extension PageNameExtension on RouteEnum {
     switch (this) {
       case RouteEnum.home:
         return Translation.home.toKey();
-      case RouteEnum.pieces:
-        return Translation.pieces.toKey();
+      case RouteEnum.categories:
+        return Translation.categories.toKey();
       case RouteEnum.collections:
         return Translation.collections.toKey();
       case RouteEnum.contact:

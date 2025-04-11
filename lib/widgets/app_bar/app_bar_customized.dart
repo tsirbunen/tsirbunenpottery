@@ -4,7 +4,9 @@ import 'package:madmudmobile/widgets/app_bar/app_bar_right_actions.dart';
 import 'package:madmudmobile/widgets/horizontal_navigation/horizontal_navigation.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
-const double appBarHeight = 90.0;
+// FIXME: As long as the app is only available as the web version, the app bar height
+// should be lowered like here.
+const double appBarHeight = 80.0;
 const double heightBreakpoint = 800.0;
 const double widthBreakpoint = 400.0;
 const double paddingMobile = 0.0;

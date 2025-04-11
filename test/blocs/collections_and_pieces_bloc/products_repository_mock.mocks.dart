@@ -5,9 +5,9 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
-import 'package:madmudmobile/features/collections_and_pieces/domain/models/products/products.dart'
+import 'package:madmudmobile/features/products/domain/models/products/products.dart'
     as _i2;
-import 'package:madmudmobile/features/collections_and_pieces/repository/products_repository.dart'
+import 'package:madmudmobile/features/products/repository/products_repository.dart'
     as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 

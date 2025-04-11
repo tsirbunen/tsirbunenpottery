@@ -1,9 +1,9 @@
 import 'package:go_router/go_router.dart';
 import 'package:madmudmobile/features/story/presentation/story_page.dart';
-import 'package:madmudmobile/features/collections_and_pieces/presentation/collections_page.dart';
+import 'package:madmudmobile/features/products/presentation/collections_page.dart';
 import 'package:madmudmobile/features/contact/presentation/contact_page.dart';
 import 'package:madmudmobile/features/home/presentation/home_page.dart';
-import 'package:madmudmobile/features/collections_and_pieces/presentation/pieces_page.dart';
+import 'package:madmudmobile/features/products/presentation/categories_page.dart';
 import 'package:madmudmobile/localization/app_locale.dart';
 import 'package:madmudmobile/app/router/route_enum.dart';
 import 'package:madmudmobile/app/router/routes.dart';
@@ -32,10 +32,10 @@ class RouteController {
           ),
         ),
         GoRoute(
-          path: PiecesRoute.path,
+          path: CategoriesRoute.path,
           pageBuilder: (context, state) => NoTransitionPage(
-            name: context.local(RouteEnum.pieces.pageName()),
-            child: const PiecesPage(),
+            name: context.local(RouteEnum.categories.pageName()),
+            child: const CategoriesPage(),
           ),
         ),
         GoRoute(

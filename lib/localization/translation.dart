@@ -1,7 +1,7 @@
 enum Translation {
   // Page names:
   home,
-  pieces,
+  categories,
   collections,
   story,
   contact,

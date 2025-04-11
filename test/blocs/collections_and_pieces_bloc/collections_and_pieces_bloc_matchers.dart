@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:madmudmobile/app/blocs/bloc_status.dart';
-import 'package:madmudmobile/features/collections_and_pieces/domain/bloc/collections_and_pieces_state.dart';
-import 'package:madmudmobile/features/collections_and_pieces/domain/models/products/products.dart';
+import 'package:madmudmobile/features/products/domain/bloc/products_state.dart';
+import 'package:madmudmobile/features/products/domain/models/products/products.dart';
 import 'utils.dart';
 
 class BlocStatusIs extends Matcher {
@@ -10,7 +10,7 @@ class BlocStatusIs extends Matcher {
 
   @override
   bool matches(Object? actualValue, Map matchState) {
-    final state = actualValue as CollectionsAndPiecesState;
+    final state = actualValue as ProductsState;
     final blocStatus = state.blocStatus;
     return blocStatus.status == expectedBlocStatus.status &&
         blocStatus.message == expectedBlocStatus.message;
@@ -34,7 +34,7 @@ class BlocProductDataAndStatusMatch extends Matcher {
 
   @override
   bool matches(Object? actualValue, Map matchState) {
-    final state = actualValue as CollectionsAndPiecesState;
+    final state = actualValue as ProductsState;
     final organizedData = {
       'piecesById': state.piecesById,
       'designsById': state.designsById,

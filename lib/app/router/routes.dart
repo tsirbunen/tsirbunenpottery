@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:madmudmobile/features/story/presentation/story_page.dart';
-import 'package:madmudmobile/features/collections_and_pieces/presentation/collections_page.dart';
+import 'package:madmudmobile/features/products/presentation/collections_page.dart';
 import 'package:madmudmobile/features/contact/presentation/contact_page.dart';
-import 'package:madmudmobile/features/collections_and_pieces/presentation/pieces_page.dart';
+import 'package:madmudmobile/features/products/presentation/categories_page.dart';
 import 'package:madmudmobile/features/home/presentation/home_page.dart';
 
 // Note: We want to use type-safe routes, and for that, go_router supports using routes
@@ -14,7 +14,7 @@ import 'package:madmudmobile/features/home/presentation/home_page.dart';
 part 'routes.g.dart';
 
 const collectionsRoot = '/collections';
-const piecesRoot = '/pieces';
+const categoriesRoot = '/categories';
 const contactRoot = '/contact';
 const storyRoot = '/story';
 
@@ -39,11 +39,12 @@ class CollectionsRoute extends GoRouteData {
 }
 
 @immutable
-class PiecesRoute extends GoRouteData {
-  static const path = piecesRoot;
+class CategoriesRoute extends GoRouteData {
+  static const path = categoriesRoot;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) => const PiecesPage();
+  Widget build(BuildContext context, GoRouterState state) =>
+      const CategoriesPage();
 }
 
 @immutable

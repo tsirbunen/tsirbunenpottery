@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:madmudmobile/features/collections_and_pieces/domain/models/category/category.dart';
-import 'package:madmudmobile/features/collections_and_pieces/domain/models/collection/collection.dart';
+import 'package:madmudmobile/features/products/domain/models/category/category.dart';
+import 'package:madmudmobile/features/products/domain/models/collection/collection.dart';
 
 import '../design/design.dart';
 import '../piece/piece.dart';

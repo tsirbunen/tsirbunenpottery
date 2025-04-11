@@ -3,16 +3,16 @@ import 'package:madmudmobile/widgets/drawer/drawer_route_item.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:madmudmobile/localization/en.dart';
 import 'package:madmudmobile/features/story/presentation/story_page.dart';
-import 'package:madmudmobile/features/collections_and_pieces/presentation/collections_page.dart';
+import 'package:madmudmobile/features/products/presentation/collections_page.dart';
 import 'package:madmudmobile/features/contact/presentation/contact_page.dart';
 import 'package:madmudmobile/features/home/presentation/home_page.dart';
-import 'package:madmudmobile/features/collections_and_pieces/presentation/pieces_page.dart';
+import 'package:madmudmobile/features/products/presentation/categories_page.dart';
 
 final english = En();
 
 List<String> routeNames = [
   english.translate('home'),
-  english.translate('pieces'),
+  english.translate('categories'),
   english.translate('collections'),
   english.translate('contact'),
   english.translate('story'),
@@ -20,7 +20,7 @@ List<String> routeNames = [
 
 final routeToPage = {
   'Home': HomePage,
-  'Pieces': PiecesPage,
+  'Categories': CategoriesPage,
   'Collections': CollectionsPage,
   'Contact': ContactPage,
   'Story': StoryPage,

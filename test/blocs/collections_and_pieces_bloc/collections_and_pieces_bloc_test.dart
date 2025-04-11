@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:madmudmobile/app/blocs/bloc_status.dart';
-import 'package:madmudmobile/features/collections_and_pieces/domain/bloc/collections_and_pieces_bloc.dart';
-import 'package:madmudmobile/features/collections_and_pieces/domain/bloc/collections_and_pieces_event.dart';
-import 'package:madmudmobile/features/collections_and_pieces/domain/bloc/utils.dart';
-import 'package:madmudmobile/features/collections_and_pieces/repository/products_repository.dart';
+import 'package:madmudmobile/features/products/domain/bloc/products_bloc.dart';
+import 'package:madmudmobile/features/products/domain/bloc/products_event.dart';
+import 'package:madmudmobile/features/products/domain/bloc/utils.dart';
+import 'package:madmudmobile/features/products/repository/products_repository.dart';
 import 'collections_and_pieces_bloc_matchers.dart';
 import 'products_repository_mock.dart';
 import 'test_products.dart';
@@ -36,7 +36,7 @@ void main() {
     group('BLOC STATE -', () {
       test('Initial status is ok', () {
         final piecesRepository = ProductsRepository();
-        final bloc = CollectionsAndPiecesBloc(piecesRepository);
+        final bloc = ProductsBloc(piecesRepository);
         expect(bloc.state, const BlocStatusIs(okStatus));
       });
 
@@ -44,7 +44,7 @@ void main() {
         'Bloc status can be changed',
         build: () {
           final piecesRepository = ProductsRepository();
-          final bloc = CollectionsAndPiecesBloc(piecesRepository);
+          final bloc = ProductsBloc(piecesRepository);
           return bloc;
         },
         act: (bloc) => bloc..add(BlocStatusChanged(errorStatus)),
@@ -57,10 +57,10 @@ void main() {
         'Fetched product data is stored in bloc state',
         build: () {
           final piecesRepository = createTestProductRepository();
-          final bloc = CollectionsAndPiecesBloc(piecesRepository);
+          final bloc = ProductsBloc(piecesRepository);
           return bloc;
         },
-        act: (bloc) => bloc..add(FetchPieces()),
+        act: (bloc) => bloc..add(FetchProducts()),
         expect: () => [
           const BlocStatusIs(BlocStatus(Status.loading)),
           BlocProductDataAndStatusMatch(testProducts, okStatus),

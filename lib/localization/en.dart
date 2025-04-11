@@ -15,7 +15,7 @@ class En implements Translations {
         'chineseCharacter': '泥',
         'tradeNameBeginning': 'MAD MUD',
         'home': 'Home',
-        'pieces': 'Pieces',
+        'categories': 'Categories',
         'collections': 'Collections',
         'story': 'Story',
         'contact': 'Contact',

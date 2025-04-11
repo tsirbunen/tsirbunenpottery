@@ -15,7 +15,7 @@ class Fi implements Translations {
         'chineseCharacter': '泥',
         'tradeNameBeginning': 'MAD MUD',
         'home': 'Koti',
-        'pieces': 'Tuotteet',
+        'categories': 'Kategoriat',
         'collections': 'Kokoelmat',
         'story': 'Tarina',
         'contact': 'Yhteystiedot',

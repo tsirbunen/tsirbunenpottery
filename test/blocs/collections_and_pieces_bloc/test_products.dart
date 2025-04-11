@@ -1,8 +1,8 @@
-import 'package:madmudmobile/features/collections_and_pieces/domain/models/category/category.dart';
-import 'package:madmudmobile/features/collections_and_pieces/domain/models/collection/collection.dart';
-import 'package:madmudmobile/features/collections_and_pieces/domain/models/design/design.dart';
-import 'package:madmudmobile/features/collections_and_pieces/domain/models/piece/piece.dart';
-import 'package:madmudmobile/features/collections_and_pieces/domain/models/products/products.dart';
+import 'package:madmudmobile/features/products/domain/models/category/category.dart';
+import 'package:madmudmobile/features/products/domain/models/collection/collection.dart';
+import 'package:madmudmobile/features/products/domain/models/design/design.dart';
+import 'package:madmudmobile/features/products/domain/models/piece/piece.dart';
+import 'package:madmudmobile/features/products/domain/models/products/products.dart';
 import 'package:madmudmobile/localization/languages.dart';
 
 // Test Collections

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:madmudmobile/features/collections_and_pieces/repository/products_repository.dart';
+import 'package:madmudmobile/features/products/repository/products_repository.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'test_products.dart';

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:madmudmobile/app/blocs/blocs.dart';
 import 'package:madmudmobile/app/general_state_bloc/general_state_bloc.dart';
 import 'package:madmudmobile/app/general_state_bloc/general_state_state.dart';
-import 'package:madmudmobile/features/collections_and_pieces/domain/bloc/collections_and_pieces_bloc.dart';
+import 'package:madmudmobile/features/products/domain/bloc/products_bloc.dart';
 import 'package:madmudmobile/localization/languages.dart';
 import 'package:madmudmobile/localization/app_locale.dart';
 import 'package:madmudmobile/app/router/route_controller.dart';
@@ -20,7 +20,7 @@ class MadMudApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: getIt.get<GeneralStateBloc>()),
-        BlocProvider.value(value: getIt.get<CollectionsAndPiecesBloc>()),
+        BlocProvider.value(value: getIt.get<ProductsBloc>()),
       ],
       child: BlocBuilder<GeneralStateBloc, GeneralState>(
         builder: (BuildContext context, GeneralState state) {

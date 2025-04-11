@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:madmudmobile/app/blocs/bloc_status.dart';
-import 'package:madmudmobile/features/collections_and_pieces/domain/models/category/category.dart';
-import 'package:madmudmobile/features/collections_and_pieces/domain/models/collection/collection.dart';
-import 'package:madmudmobile/features/collections_and_pieces/domain/models/design/design.dart';
-import 'package:madmudmobile/features/collections_and_pieces/domain/models/piece/piece.dart';
+import 'package:madmudmobile/features/products/domain/models/category/category.dart';
+import 'package:madmudmobile/features/products/domain/models/collection/collection.dart';
+import 'package:madmudmobile/features/products/domain/models/design/design.dart';
+import 'package:madmudmobile/features/products/domain/models/piece/piece.dart';
 
-class CollectionsAndPiecesState extends Equatable {
+class ProductsState extends Equatable {
   final BlocStatus blocStatus;
   final List<Collection> collections;
   final List<Category> categories;
@@ -14,7 +14,7 @@ class CollectionsAndPiecesState extends Equatable {
   final Map<String, Map<String, List<String>>> collectionDesigns;
   final Map<String, Map<String, List<String>>> categoryDesigns;
 
-  const CollectionsAndPiecesState({
+  const ProductsState({
     this.blocStatus = const BlocStatus(Status.ok),
     this.piecesById = const {},
     this.designsById = const {},
@@ -24,8 +24,8 @@ class CollectionsAndPiecesState extends Equatable {
     this.categoryDesigns = const {},
   });
 
-  CollectionsAndPiecesState copyWithStateChange({BlocStatus? newStatus}) {
-    return CollectionsAndPiecesState(
+  ProductsState copyWithStateChange({BlocStatus? newStatus}) {
+    return ProductsState(
       blocStatus: newStatus ?? blocStatus,
       piecesById: piecesById,
       designsById: designsById,
