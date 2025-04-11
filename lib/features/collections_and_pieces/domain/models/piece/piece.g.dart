@@ -7,18 +7,16 @@ part of 'piece.dart';
 // **************************************************************************
 
 _$PieceImpl _$$PieceImplFromJson(Map<String, dynamic> json) => _$PieceImpl(
-      uuid: json['uuid'] as String,
+      id: json['id'] as String,
       serialNumber: (json['serialNumber'] as num).toInt(),
-      design: Design.fromJson(json['design'] as Map<String, dynamic>),
-      collection: json['collection'] == null
-          ? null
-          : Collection.fromJson(json['collection'] as Map<String, dynamic>),
+      designId: json['designId'] as String,
+      collectionId: json['collectionId'] as String?,
     );
 
 Map<String, dynamic> _$$PieceImplToJson(_$PieceImpl instance) =>
     <String, dynamic>{
-      'uuid': instance.uuid,
+      'id': instance.id,
       'serialNumber': instance.serialNumber,
-      'design': instance.design,
-      'collection': instance.collection,
+      'designId': instance.designId,
+      'collectionId': instance.collectionId,
     };

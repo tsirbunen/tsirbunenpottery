@@ -1,26 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'design.dart';
+part of 'category.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DesignImpl _$$DesignImplFromJson(Map<String, dynamic> json) => _$DesignImpl(
+_$CategoryImpl _$$CategoryImplFromJson(Map<String, dynamic> json) =>
+    _$CategoryImpl(
       id: json['id'] as String,
       names: (json['names'] as Map<String, dynamic>).map(
         (k, e) => MapEntry($enumDecode(_$LanguageEnumMap, k), e as String),
       ),
-      categoryIds: (json['categoryIds'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
     );
 
-Map<String, dynamic> _$$DesignImplToJson(_$DesignImpl instance) =>
+Map<String, dynamic> _$$CategoryImplToJson(_$CategoryImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'names': instance.names.map((k, e) => MapEntry(_$LanguageEnumMap[k]!, e)),
-      'categoryIds': instance.categoryIds,
     };
 
 const _$LanguageEnumMap = {

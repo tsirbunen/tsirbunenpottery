@@ -1,7 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:madmudmobile/app/blocs/bloc_status.dart';
 import 'package:madmudmobile/features/collections_and_pieces/domain/bloc/collections_and_pieces_state.dart';
-import 'package:madmudmobile/features/collections_and_pieces/domain/models/piece/piece.dart';
+import 'package:madmudmobile/features/collections_and_pieces/domain/models/products/products.dart';
+import 'utils.dart';
 
 class BlocStatusIs extends Matcher {
   final BlocStatus expectedBlocStatus;
@@ -22,23 +23,30 @@ class BlocStatusIs extends Matcher {
   }
 }
 
-class BlocPiecesAndStatusMatch extends Matcher {
-  final List<Piece> expectedPieces;
+class BlocProductDataAndStatusMatch extends Matcher {
+  final Products expectedProducts;
   final BlocStatus expectedBlocStatus;
 
-  const BlocPiecesAndStatusMatch(this.expectedPieces, this.expectedBlocStatus);
+  const BlocProductDataAndStatusMatch(
+    this.expectedProducts,
+    this.expectedBlocStatus,
+  );
 
   @override
   bool matches(Object? actualValue, Map matchState) {
     final state = actualValue as CollectionsAndPiecesState;
-    final actualPieces = state.pieces;
-    if (actualPieces.length != expectedPieces.length) return false;
+    final organizedData = {
+      'piecesById': state.piecesById,
+      'designsById': state.designsById,
+      'collectionDesigns': state.collectionDesigns,
+      'categoryDesigns': state.categoryDesigns,
+      'collections': state.collections,
+      'categories': state.categories,
+    };
 
-    for (int i = 0; i < expectedPieces.length; i++) {
-      final expected = expectedPieces[i];
-      final actual = actualPieces[i];
-      if (expected != actual) return false;
-    }
+    verifyProductsDataIsSuperficiallyProperlyOrganized(organizedData);
+    verifyNoEmptyCollectionsOrCategoriesInMappings(organizedData);
+    verifyCollectionMappingDesignPiecesAreCorrect(organizedData);
 
     return BlocStatusIs(expectedBlocStatus).matches(state, matchState);
   }

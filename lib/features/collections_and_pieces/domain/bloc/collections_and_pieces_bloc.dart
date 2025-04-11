@@ -2,11 +2,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:madmudmobile/app/blocs/bloc_status.dart';
 import 'package:madmudmobile/features/collections_and_pieces/domain/bloc/collections_and_pieces_event.dart';
 import 'package:madmudmobile/features/collections_and_pieces/domain/bloc/collections_and_pieces_state.dart';
-import 'package:madmudmobile/features/collections_and_pieces/repository/pieces_repository.dart';
+import 'package:madmudmobile/features/collections_and_pieces/domain/bloc/utils.dart';
+import 'package:madmudmobile/features/collections_and_pieces/repository/products_repository.dart';
 
 class CollectionsAndPiecesBloc
     extends Bloc<CollectionsAndPiecesEvent, CollectionsAndPiecesState> {
-  final PiecesRepository _piecesRepository;
+  final ProductsRepository _piecesRepository;
+
   CollectionsAndPiecesBloc(this._piecesRepository)
       : super(const CollectionsAndPiecesState()) {
     on<CollectionsAndPiecesEvent>(_onEvent);
@@ -25,20 +27,30 @@ class CollectionsAndPiecesBloc
 
   Future<void> _onBlocStatusChanged(
       BlocStatusChanged event, Emitter<CollectionsAndPiecesState> emit) async {
-    emit(state.copyWith(newStatus: event.status));
+    emit(state.copyWithStateChange(newStatus: event.status));
   }
 
   Future<void> _onFetchProducts(
       FetchPieces event, Emitter<CollectionsAndPiecesState> emit) async {
-    emit(state.copyWith(newStatus: const BlocStatus(Status.loading)));
+    emit(
+        state.copyWithStateChange(newStatus: const BlocStatus(Status.loading)));
+
     try {
-      final products = await _piecesRepository.fetchPieces();
-      emit(state.copyWith(
-        newStatus: const BlocStatus(Status.ok),
-        newPieces: products,
-      ));
+      final products = await _piecesRepository.fetchProductData();
+      final data = organizeProductsData(products);
+      final newState = CollectionsAndPiecesState(
+        piecesById: data["piecesById"],
+        designsById: data["designsById"],
+        collections: data["collections"],
+        categories: data["categories"],
+        collectionDesigns: data["collectionDesigns"],
+        categoryDesigns: data["categoryDesigns"],
+        blocStatus: const BlocStatus(Status.ok),
+      );
+
+      emit(newState);
     } catch (e) {
-      emit(state.copyWith(
+      emit(state.copyWithStateChange(
           newStatus: BlocStatus(Status.error, message: e.toString())));
     }
   }

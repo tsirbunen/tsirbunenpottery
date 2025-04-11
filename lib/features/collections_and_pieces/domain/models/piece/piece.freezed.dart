@@ -20,10 +20,10 @@ Piece _$PieceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Piece {
-  String get uuid => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   int get serialNumber => throw _privateConstructorUsedError;
-  Design get design => throw _privateConstructorUsedError;
-  Collection? get collection => throw _privateConstructorUsedError;
+  String get designId => throw _privateConstructorUsedError;
+  String? get collectionId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,10 +36,7 @@ abstract class $PieceCopyWith<$Res> {
       _$PieceCopyWithImpl<$Res, Piece>;
   @useResult
   $Res call(
-      {String uuid, int serialNumber, Design design, Collection? collection});
-
-  $DesignCopyWith<$Res> get design;
-  $CollectionCopyWith<$Res>? get collection;
+      {String id, int serialNumber, String designId, String? collectionId});
 }
 
 /// @nodoc
@@ -55,49 +52,29 @@ class _$PieceCopyWithImpl<$Res, $Val extends Piece>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uuid = null,
+    Object? id = null,
     Object? serialNumber = null,
-    Object? design = null,
-    Object? collection = freezed,
+    Object? designId = null,
+    Object? collectionId = freezed,
   }) {
     return _then(_value.copyWith(
-      uuid: null == uuid
-          ? _value.uuid
-          : uuid // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       serialNumber: null == serialNumber
           ? _value.serialNumber
           : serialNumber // ignore: cast_nullable_to_non_nullable
               as int,
-      design: null == design
-          ? _value.design
-          : design // ignore: cast_nullable_to_non_nullable
-              as Design,
-      collection: freezed == collection
-          ? _value.collection
-          : collection // ignore: cast_nullable_to_non_nullable
-              as Collection?,
+      designId: null == designId
+          ? _value.designId
+          : designId // ignore: cast_nullable_to_non_nullable
+              as String,
+      collectionId: freezed == collectionId
+          ? _value.collectionId
+          : collectionId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $DesignCopyWith<$Res> get design {
-    return $DesignCopyWith<$Res>(_value.design, (value) {
-      return _then(_value.copyWith(design: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $CollectionCopyWith<$Res>? get collection {
-    if (_value.collection == null) {
-      return null;
-    }
-
-    return $CollectionCopyWith<$Res>(_value.collection!, (value) {
-      return _then(_value.copyWith(collection: value) as $Val);
-    });
   }
 }
 
@@ -109,12 +86,7 @@ abstract class _$$PieceImplCopyWith<$Res> implements $PieceCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String uuid, int serialNumber, Design design, Collection? collection});
-
-  @override
-  $DesignCopyWith<$Res> get design;
-  @override
-  $CollectionCopyWith<$Res>? get collection;
+      {String id, int serialNumber, String designId, String? collectionId});
 }
 
 /// @nodoc
@@ -128,28 +100,28 @@ class __$$PieceImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uuid = null,
+    Object? id = null,
     Object? serialNumber = null,
-    Object? design = null,
-    Object? collection = freezed,
+    Object? designId = null,
+    Object? collectionId = freezed,
   }) {
     return _then(_$PieceImpl(
-      uuid: null == uuid
-          ? _value.uuid
-          : uuid // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       serialNumber: null == serialNumber
           ? _value.serialNumber
           : serialNumber // ignore: cast_nullable_to_non_nullable
               as int,
-      design: null == design
-          ? _value.design
-          : design // ignore: cast_nullable_to_non_nullable
-              as Design,
-      collection: freezed == collection
-          ? _value.collection
-          : collection // ignore: cast_nullable_to_non_nullable
-              as Collection?,
+      designId: null == designId
+          ? _value.designId
+          : designId // ignore: cast_nullable_to_non_nullable
+              as String,
+      collectionId: freezed == collectionId
+          ? _value.collectionId
+          : collectionId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -158,26 +130,26 @@ class __$$PieceImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$PieceImpl implements _Piece {
   const _$PieceImpl(
-      {required this.uuid,
+      {required this.id,
       required this.serialNumber,
-      required this.design,
-      this.collection});
+      required this.designId,
+      this.collectionId});
 
   factory _$PieceImpl.fromJson(Map<String, dynamic> json) =>
       _$$PieceImplFromJson(json);
 
   @override
-  final String uuid;
+  final String id;
   @override
   final int serialNumber;
   @override
-  final Design design;
+  final String designId;
   @override
-  final Collection? collection;
+  final String? collectionId;
 
   @override
   String toString() {
-    return 'Piece(uuid: $uuid, serialNumber: $serialNumber, design: $design, collection: $collection)';
+    return 'Piece(id: $id, serialNumber: $serialNumber, designId: $designId, collectionId: $collectionId)';
   }
 
   @override
@@ -185,18 +157,19 @@ class _$PieceImpl implements _Piece {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PieceImpl &&
-            (identical(other.uuid, uuid) || other.uuid == uuid) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.serialNumber, serialNumber) ||
                 other.serialNumber == serialNumber) &&
-            (identical(other.design, design) || other.design == design) &&
-            (identical(other.collection, collection) ||
-                other.collection == collection));
+            (identical(other.designId, designId) ||
+                other.designId == designId) &&
+            (identical(other.collectionId, collectionId) ||
+                other.collectionId == collectionId));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, uuid, serialNumber, design, collection);
+      Object.hash(runtimeType, id, serialNumber, designId, collectionId);
 
   @JsonKey(ignore: true)
   @override
@@ -214,21 +187,21 @@ class _$PieceImpl implements _Piece {
 
 abstract class _Piece implements Piece {
   const factory _Piece(
-      {required final String uuid,
+      {required final String id,
       required final int serialNumber,
-      required final Design design,
-      final Collection? collection}) = _$PieceImpl;
+      required final String designId,
+      final String? collectionId}) = _$PieceImpl;
 
   factory _Piece.fromJson(Map<String, dynamic> json) = _$PieceImpl.fromJson;
 
   @override
-  String get uuid;
+  String get id;
   @override
   int get serialNumber;
   @override
-  Design get design;
+  String get designId;
   @override
-  Collection? get collection;
+  String? get collectionId;
   @override
   @JsonKey(ignore: true)
   _$$PieceImplCopyWith<_$PieceImpl> get copyWith =>

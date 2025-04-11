@@ -6,7 +6,7 @@ part 'collection.g.dart';
 @freezed
 class Collection with _$Collection {
   const factory Collection({
-    required String uuid,
+    required String id,
     required String name,
   }) = _Collection;
 

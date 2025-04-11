@@ -8,12 +8,12 @@ part of 'collection.dart';
 
 _$CollectionImpl _$$CollectionImplFromJson(Map<String, dynamic> json) =>
     _$CollectionImpl(
-      uuid: json['uuid'] as String,
+      id: json['id'] as String,
       name: json['name'] as String,
     );
 
 Map<String, dynamic> _$$CollectionImplToJson(_$CollectionImpl instance) =>
     <String, dynamic>{
-      'uuid': instance.uuid,
+      'id': instance.id,
       'name': instance.name,
     };

@@ -20,7 +20,7 @@ Collection _$CollectionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Collection {
-  String get uuid => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +35,7 @@ abstract class $CollectionCopyWith<$Res> {
           Collection value, $Res Function(Collection) then) =
       _$CollectionCopyWithImpl<$Res, Collection>;
   @useResult
-  $Res call({String uuid, String name});
+  $Res call({String id, String name});
 }
 
 /// @nodoc
@@ -51,13 +51,13 @@ class _$CollectionCopyWithImpl<$Res, $Val extends Collection>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uuid = null,
+    Object? id = null,
     Object? name = null,
   }) {
     return _then(_value.copyWith(
-      uuid: null == uuid
-          ? _value.uuid
-          : uuid // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -75,7 +75,7 @@ abstract class _$$CollectionImplCopyWith<$Res>
       __$$CollectionImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String uuid, String name});
+  $Res call({String id, String name});
 }
 
 /// @nodoc
@@ -89,13 +89,13 @@ class __$$CollectionImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uuid = null,
+    Object? id = null,
     Object? name = null,
   }) {
     return _then(_$CollectionImpl(
-      uuid: null == uuid
-          ? _value.uuid
-          : uuid // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -108,19 +108,19 @@ class __$$CollectionImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CollectionImpl implements _Collection {
-  const _$CollectionImpl({required this.uuid, required this.name});
+  const _$CollectionImpl({required this.id, required this.name});
 
   factory _$CollectionImpl.fromJson(Map<String, dynamic> json) =>
       _$$CollectionImplFromJson(json);
 
   @override
-  final String uuid;
+  final String id;
   @override
   final String name;
 
   @override
   String toString() {
-    return 'Collection(uuid: $uuid, name: $name)';
+    return 'Collection(id: $id, name: $name)';
   }
 
   @override
@@ -128,13 +128,13 @@ class _$CollectionImpl implements _Collection {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CollectionImpl &&
-            (identical(other.uuid, uuid) || other.uuid == uuid) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, uuid, name);
+  int get hashCode => Object.hash(runtimeType, id, name);
 
   @JsonKey(ignore: true)
   @override
@@ -152,14 +152,14 @@ class _$CollectionImpl implements _Collection {
 
 abstract class _Collection implements Collection {
   const factory _Collection(
-      {required final String uuid,
+      {required final String id,
       required final String name}) = _$CollectionImpl;
 
   factory _Collection.fromJson(Map<String, dynamic> json) =
       _$CollectionImpl.fromJson;
 
   @override
-  String get uuid;
+  String get id;
   @override
   String get name;
   @override

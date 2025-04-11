@@ -7,8 +7,9 @@ part 'design.g.dart';
 @freezed
 class Design with _$Design {
   const factory Design({
-    required String uuid,
+    required String id,
     required Map<Language, String> names,
+    required List<String> categoryIds,
   }) = _Design;
 
   factory Design.fromJson(Map<String, Object?> json) => _$DesignFromJson(json);

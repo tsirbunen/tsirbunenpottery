@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'design.dart';
+part of 'category.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,33 +14,33 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-Design _$DesignFromJson(Map<String, dynamic> json) {
-  return _Design.fromJson(json);
+Category _$CategoryFromJson(Map<String, dynamic> json) {
+  return _Category.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Design {
+mixin _$Category {
   String get id => throw _privateConstructorUsedError;
   Map<Language, String> get names => throw _privateConstructorUsedError;
-  List<String> get categoryIds => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $DesignCopyWith<Design> get copyWith => throw _privateConstructorUsedError;
+  $CategoryCopyWith<Category> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $DesignCopyWith<$Res> {
-  factory $DesignCopyWith(Design value, $Res Function(Design) then) =
-      _$DesignCopyWithImpl<$Res, Design>;
+abstract class $CategoryCopyWith<$Res> {
+  factory $CategoryCopyWith(Category value, $Res Function(Category) then) =
+      _$CategoryCopyWithImpl<$Res, Category>;
   @useResult
-  $Res call({String id, Map<Language, String> names, List<String> categoryIds});
+  $Res call({String id, Map<Language, String> names});
 }
 
 /// @nodoc
-class _$DesignCopyWithImpl<$Res, $Val extends Design>
-    implements $DesignCopyWith<$Res> {
-  _$DesignCopyWithImpl(this._value, this._then);
+class _$CategoryCopyWithImpl<$Res, $Val extends Category>
+    implements $CategoryCopyWith<$Res> {
+  _$CategoryCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -52,7 +52,6 @@ class _$DesignCopyWithImpl<$Res, $Val extends Design>
   $Res call({
     Object? id = null,
     Object? names = null,
-    Object? categoryIds = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -63,30 +62,27 @@ class _$DesignCopyWithImpl<$Res, $Val extends Design>
           ? _value.names
           : names // ignore: cast_nullable_to_non_nullable
               as Map<Language, String>,
-      categoryIds: null == categoryIds
-          ? _value.categoryIds
-          : categoryIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$DesignImplCopyWith<$Res> implements $DesignCopyWith<$Res> {
-  factory _$$DesignImplCopyWith(
-          _$DesignImpl value, $Res Function(_$DesignImpl) then) =
-      __$$DesignImplCopyWithImpl<$Res>;
+abstract class _$$CategoryImplCopyWith<$Res>
+    implements $CategoryCopyWith<$Res> {
+  factory _$$CategoryImplCopyWith(
+          _$CategoryImpl value, $Res Function(_$CategoryImpl) then) =
+      __$$CategoryImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, Map<Language, String> names, List<String> categoryIds});
+  $Res call({String id, Map<Language, String> names});
 }
 
 /// @nodoc
-class __$$DesignImplCopyWithImpl<$Res>
-    extends _$DesignCopyWithImpl<$Res, _$DesignImpl>
-    implements _$$DesignImplCopyWith<$Res> {
-  __$$DesignImplCopyWithImpl(
-      _$DesignImpl _value, $Res Function(_$DesignImpl) _then)
+class __$$CategoryImplCopyWithImpl<$Res>
+    extends _$CategoryCopyWithImpl<$Res, _$CategoryImpl>
+    implements _$$CategoryImplCopyWith<$Res> {
+  __$$CategoryImplCopyWithImpl(
+      _$CategoryImpl _value, $Res Function(_$CategoryImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -94,9 +90,8 @@ class __$$DesignImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? names = null,
-    Object? categoryIds = null,
   }) {
-    return _then(_$DesignImpl(
+    return _then(_$CategoryImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -105,26 +100,19 @@ class __$$DesignImplCopyWithImpl<$Res>
           ? _value._names
           : names // ignore: cast_nullable_to_non_nullable
               as Map<Language, String>,
-      categoryIds: null == categoryIds
-          ? _value._categoryIds
-          : categoryIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$DesignImpl implements _Design {
-  const _$DesignImpl(
-      {required this.id,
-      required final Map<Language, String> names,
-      required final List<String> categoryIds})
-      : _names = names,
-        _categoryIds = categoryIds;
+class _$CategoryImpl implements _Category {
+  const _$CategoryImpl(
+      {required this.id, required final Map<Language, String> names})
+      : _names = names;
 
-  factory _$DesignImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DesignImplFromJson(json);
+  factory _$CategoryImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CategoryImplFromJson(json);
 
   @override
   final String id;
@@ -136,68 +124,53 @@ class _$DesignImpl implements _Design {
     return EqualUnmodifiableMapView(_names);
   }
 
-  final List<String> _categoryIds;
-  @override
-  List<String> get categoryIds {
-    if (_categoryIds is EqualUnmodifiableListView) return _categoryIds;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_categoryIds);
-  }
-
   @override
   String toString() {
-    return 'Design(id: $id, names: $names, categoryIds: $categoryIds)';
+    return 'Category(id: $id, names: $names)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DesignImpl &&
+            other is _$CategoryImpl &&
             (identical(other.id, id) || other.id == id) &&
-            const DeepCollectionEquality().equals(other._names, _names) &&
-            const DeepCollectionEquality()
-                .equals(other._categoryIds, _categoryIds));
+            const DeepCollectionEquality().equals(other._names, _names));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      const DeepCollectionEquality().hash(_names),
-      const DeepCollectionEquality().hash(_categoryIds));
+  int get hashCode =>
+      Object.hash(runtimeType, id, const DeepCollectionEquality().hash(_names));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DesignImplCopyWith<_$DesignImpl> get copyWith =>
-      __$$DesignImplCopyWithImpl<_$DesignImpl>(this, _$identity);
+  _$$CategoryImplCopyWith<_$CategoryImpl> get copyWith =>
+      __$$CategoryImplCopyWithImpl<_$CategoryImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DesignImplToJson(
+    return _$$CategoryImplToJson(
       this,
     );
   }
 }
 
-abstract class _Design implements Design {
-  const factory _Design(
+abstract class _Category implements Category {
+  const factory _Category(
       {required final String id,
-      required final Map<Language, String> names,
-      required final List<String> categoryIds}) = _$DesignImpl;
+      required final Map<Language, String> names}) = _$CategoryImpl;
 
-  factory _Design.fromJson(Map<String, dynamic> json) = _$DesignImpl.fromJson;
+  factory _Category.fromJson(Map<String, dynamic> json) =
+      _$CategoryImpl.fromJson;
 
   @override
   String get id;
   @override
   Map<Language, String> get names;
   @override
-  List<String> get categoryIds;
-  @override
   @JsonKey(ignore: true)
-  _$$DesignImplCopyWith<_$DesignImpl> get copyWith =>
+  _$$CategoryImplCopyWith<_$CategoryImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
