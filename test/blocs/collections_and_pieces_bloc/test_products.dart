@@ -6,9 +6,16 @@ import 'package:madmudmobile/features/products/domain/models/products/products.d
 import 'package:madmudmobile/localization/languages.dart';
 
 // Test Collections
-const whiteOnWhite = Collection(id: 'coll-1', name: 'White on white');
-const yellowCottage = Collection(id: 'coll-2', name: 'Yellow Cottage');
-const emptyCollection = Collection(id: 'coll-3', name: 'Empty Collection');
+const whiteOnWhite = Collection(id: 'coll-1', names: {
+  Language.en: 'White on White',
+  Language.fi: 'Valkoista valkoisella'
+});
+const yellowCottage = Collection(
+    id: 'coll-2',
+    names: {Language.en: 'Yellow Cottage', Language.fi: 'Keltainen mökki'});
+const emptyCollection = Collection(
+    id: 'coll-3',
+    names: {Language.en: 'Empty Collection', Language.fi: 'Tyhjät kokoelmat'});
 
 // Test Categories
 const mugsAndCups = Category(

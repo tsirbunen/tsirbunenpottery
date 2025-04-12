@@ -21,7 +21,7 @@ Collection _$CollectionFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Collection {
   String get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
+  Map<Language, String> get names => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +35,7 @@ abstract class $CollectionCopyWith<$Res> {
           Collection value, $Res Function(Collection) then) =
       _$CollectionCopyWithImpl<$Res, Collection>;
   @useResult
-  $Res call({String id, String name});
+  $Res call({String id, Map<Language, String> names});
 }
 
 /// @nodoc
@@ -52,17 +52,17 @@ class _$CollectionCopyWithImpl<$Res, $Val extends Collection>
   @override
   $Res call({
     Object? id = null,
-    Object? name = null,
+    Object? names = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
+      names: null == names
+          ? _value.names
+          : names // ignore: cast_nullable_to_non_nullable
+              as Map<Language, String>,
     ) as $Val);
   }
 }
@@ -75,7 +75,7 @@ abstract class _$$CollectionImplCopyWith<$Res>
       __$$CollectionImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name});
+  $Res call({String id, Map<Language, String> names});
 }
 
 /// @nodoc
@@ -90,17 +90,17 @@ class __$$CollectionImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? name = null,
+    Object? names = null,
   }) {
     return _then(_$CollectionImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
+      names: null == names
+          ? _value._names
+          : names // ignore: cast_nullable_to_non_nullable
+              as Map<Language, String>,
     ));
   }
 }
@@ -108,19 +108,26 @@ class __$$CollectionImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CollectionImpl implements _Collection {
-  const _$CollectionImpl({required this.id, required this.name});
+  const _$CollectionImpl(
+      {required this.id, required final Map<Language, String> names})
+      : _names = names;
 
   factory _$CollectionImpl.fromJson(Map<String, dynamic> json) =>
       _$$CollectionImplFromJson(json);
 
   @override
   final String id;
+  final Map<Language, String> _names;
   @override
-  final String name;
+  Map<Language, String> get names {
+    if (_names is EqualUnmodifiableMapView) return _names;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_names);
+  }
 
   @override
   String toString() {
-    return 'Collection(id: $id, name: $name)';
+    return 'Collection(id: $id, names: $names)';
   }
 
   @override
@@ -129,12 +136,13 @@ class _$CollectionImpl implements _Collection {
         (other.runtimeType == runtimeType &&
             other is _$CollectionImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name));
+            const DeepCollectionEquality().equals(other._names, _names));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name);
+  int get hashCode =>
+      Object.hash(runtimeType, id, const DeepCollectionEquality().hash(_names));
 
   @JsonKey(ignore: true)
   @override
@@ -153,7 +161,7 @@ class _$CollectionImpl implements _Collection {
 abstract class _Collection implements Collection {
   const factory _Collection(
       {required final String id,
-      required final String name}) = _$CollectionImpl;
+      required final Map<Language, String> names}) = _$CollectionImpl;
 
   factory _Collection.fromJson(Map<String, dynamic> json) =
       _$CollectionImpl.fromJson;
@@ -161,7 +169,7 @@ abstract class _Collection implements Collection {
   @override
   String get id;
   @override
-  String get name;
+  Map<Language, String> get names;
   @override
   @JsonKey(ignore: true)
   _$$CollectionImplCopyWith<_$CollectionImpl> get copyWith =>

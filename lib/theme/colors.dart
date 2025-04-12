@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-const Color background = Color.fromARGB(255, 229, 229, 229);
+const Color background = Color.fromARGB(255, 242, 242, 242);
+const Color extremelyPale = Color.fromARGB(255, 222, 221, 217);
 const Color pale = Color.fromARGB(255, 199, 198, 193);
 const Color medium = Color.fromARGB(255, 142, 141, 140);
 const Color veryDark = Color.fromARGB(255, 40, 41, 40);

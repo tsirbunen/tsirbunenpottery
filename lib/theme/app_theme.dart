@@ -30,6 +30,7 @@ class AppTheme {
         primary: veryDark,
         secondary: medium,
         tertiary: pale,
+        onTertiary: extremelyPale,
       ),
     );
   }

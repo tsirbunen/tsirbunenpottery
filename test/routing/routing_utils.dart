@@ -3,10 +3,10 @@ import 'package:madmudmobile/widgets/drawer/drawer_route_item.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:madmudmobile/localization/en.dart';
 import 'package:madmudmobile/features/story/presentation/story_page.dart';
-import 'package:madmudmobile/features/products/presentation/collections_page.dart';
+import 'package:madmudmobile/features/products/presentation/pages/collections_page.dart';
 import 'package:madmudmobile/features/contact/presentation/contact_page.dart';
 import 'package:madmudmobile/features/home/presentation/home_page.dart';
-import 'package:madmudmobile/features/products/presentation/categories_page.dart';
+import 'package:madmudmobile/features/products/presentation/pages/categories_page.dart';
 
 final english = En();
 

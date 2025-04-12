@@ -8,7 +8,7 @@ import 'package:material_symbols_icons/material_symbols_icons.dart';
 // should be lowered like here.
 const double appBarHeight = 80.0;
 const double heightBreakpoint = 800.0;
-const double widthBreakpoint = 400.0;
+const double widthBreakpoint = 500.0;
 const double paddingMobile = 0.0;
 const double paddingDesktop = 5.0;
 const double mobilePadding = 5.0;

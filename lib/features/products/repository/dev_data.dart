@@ -7,13 +7,20 @@ import 'package:madmudmobile/localization/languages.dart';
 
 // Define Collections
 const whiteOnWhite = Collection(
-    id: '4f7c938e-863d-4b91-9026-f097b5b5041a', name: 'White on white');
+    id: '4f7c938e-863d-4b91-9026-f097b5b5041a',
+    names: {
+      Language.en: 'White on White',
+      Language.fi: 'Valkoista valkoisella'
+    });
 const yellowCottage = Collection(
-    id: 'c2dce464-9259-4e2c-8f13-748dc9c12ff7', name: 'Yellow Cottage');
+    id: 'c2dce464-9259-4e2c-8f13-748dc9c12ff7',
+    names: {Language.en: 'Yellow Cottage', Language.fi: 'Keltainen mökki'});
 const midnightForest = Collection(
-    id: 'acc3a2c1-c002-4a6e-a05f-d6c60b9ae43f', name: 'Midnight Forest');
+    id: 'acc3a2c1-c002-4a6e-a05f-d6c60b9ae43f',
+    names: {Language.en: 'Midnight Forest', Language.fi: 'Keskiyön metsä'});
 const oceanBreeze = Collection(
-    id: '91b5b4de-bb86-4de6-b33d-7c3e0ac83c9a', name: 'Ocean Breeze');
+    id: '91b5b4de-bb86-4de6-b33d-7c3e0ac83c9a',
+    names: {Language.en: 'Ocean Breeze', Language.fi: 'Meren tuuli'});
 
 // Test Categories
 const mugsAndCups = Category(
@@ -33,11 +40,11 @@ const kitchenAccessories = Category(
 final goodMorning = Design(
     id: 'd7c17494-2c2b-4a3b-84f2-11f1391e9d6e',
     categoryIds: [mugsAndCups.id],
-    names: {Language.en: 'Lazy Morning', Language.fi: 'Laiska aamu'});
+    names: {Language.en: 'Espresso cup Rwanda', Language.fi: 'Laiska aamu'});
 final wakingLight = Design(
     id: 'a5d3e4e6-45f5-48f3-98a7-944a634c5680',
     categoryIds: [mugsAndCups.id, kitchenAccessories.id],
-    names: {Language.en: 'Waking Light', Language.fi: 'Heräävä valo'});
+    names: {Language.en: 'Coffee cup Ethiopia', Language.fi: 'Heräävä valo'});
 final softLinen = Design(
     id: '11f3b13c-716e-4ef7-952e-2b6d8a77df51',
     categoryIds: [mugsAndCups.id, kitchenAccessories.id],
