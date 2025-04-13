@@ -12,6 +12,8 @@ const FontWeight selectedPageFontWeight = FontWeight.w800;
 const double minWidthForShowNavBarRoutes = 800;
 const double underlineHeight = 1.0;
 const SizedBox underlineSpacer = SizedBox(height: 2.0);
+const double trademarkWidthEstimate = 60.0;
+const double paddingPerItemEstimate = 40.0;
 
 class HorizontalNavigation extends StatelessWidget {
   const HorizontalNavigation({super.key});
@@ -19,55 +21,82 @@ class HorizontalNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final generalStyle = Theme.of(context).textTheme.headlineSmall!;
-    final emphasizedStyle = generalStyle.copyWith(
-      fontWeight: selectedPageFontWeight,
-    );
+    final emphasizedStyle =
+        generalStyle.copyWith(fontWeight: selectedPageFontWeight);
     final currentPage = currentPageNameFromSettings(context);
 
-    final isWide =
-        MediaQuery.of(context).size.width > minWidthForShowNavBarRoutes;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final maxWidth = constraints.maxWidth;
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Trademark(
-          isInverted: false,
-          hasBorder: true,
-        ),
-        if (isWide) spacer,
-        if (isWide)
-          ...RouteEnum.values.map(
-            (route) {
-              final pageName = context.local(route.pageName());
-              final isCurrentRoute = pageName == currentPage;
-              final textStyle = isCurrentRoute ? emphasizedStyle : generalStyle;
-              final color = isCurrentRoute
-                  ? Theme.of(context).colorScheme.primary
-                  : Colors.transparent;
+        final totalWidthEstimate = _estimateRouteLabelsTotalWidth(
+          context,
+          generalStyle,
+        );
 
-              return IntrinsicWidth(
-                child: TextButton(
-                  onPressed: () => _navigateTo(context, route.path()),
-                  child: Column(
-                    children: [
-                      Text(pageName, style: textStyle),
-                      underlineSpacer,
-                      Container(
-                        color: color,
-                        height: underlineHeight,
-                        width: double.infinity,
-                      )
-                    ],
-                  ),
-                ),
-              );
-            },
-          ),
-      ].toList(),
+        final canFit = totalWidthEstimate <= maxWidth;
+        final isWide =
+            MediaQuery.of(context).size.width > minWidthForShowNavBarRoutes;
+
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Trademark(isInverted: false, hasBorder: true),
+            if (isWide && canFit) spacer,
+            if (isWide && canFit)
+              ...RouteEnum.values.map(
+                (route) {
+                  final pageName = context.local(route.pageName());
+                  final isCurrentRoute = pageName == currentPage;
+                  final textStyle =
+                      isCurrentRoute ? emphasizedStyle : generalStyle;
+                  final color = isCurrentRoute
+                      ? Theme.of(context).colorScheme.primary
+                      : Colors.transparent;
+
+                  return IntrinsicWidth(
+                    child: TextButton(
+                      onPressed: () => _navigateTo(context, route.path()),
+                      child: Column(
+                        children: [
+                          Text(pageName, style: textStyle),
+                          underlineSpacer,
+                          Container(
+                            color: color,
+                            height: underlineHeight,
+                            width: double.infinity,
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+          ],
+        );
+      },
     );
+  }
+
+  double _estimateRouteLabelsTotalWidth(BuildContext context, TextStyle style) {
+    final approxTextWidths = RouteEnum.values.map(
+      (route) => _estimateTextWidth(context.local(route.pageName()), style),
+    );
+
+    return approxTextWidths.fold(
+        trademarkWidthEstimate, (sum, w) => sum + w + paddingPerItemEstimate);
   }
 
   void _navigateTo(BuildContext context, path) {
     context.go(path);
+  }
+
+  double _estimateTextWidth(String text, TextStyle style) {
+    final tp = TextPainter(
+      text: TextSpan(text: text, style: style),
+      maxLines: 1,
+      textDirection: TextDirection.ltr,
+    )..layout();
+    return tp.width;
   }
 }

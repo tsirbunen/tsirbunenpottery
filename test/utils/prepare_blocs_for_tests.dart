@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:madmudmobile/app/app_environment/app_environment.dart';
 import 'package:madmudmobile/app/blocs/blocs.dart';
 import 'package:madmudmobile/app/general_state_bloc/general_state_bloc.dart';
 import 'package:madmudmobile/features/products/domain/bloc/products_bloc.dart';
@@ -16,8 +17,9 @@ void prepareBlocsForTests() {
   }
 }
 
-void setUpAndTearDownAllBlocs() {
+void setUpAndTearDownAllBlocsAndPreventNetworkImages() {
   setUpAll(() {
+    AppEnvironment.noNetworkImages = true;
     prepareBlocsForTests();
   });
 

@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:madmudmobile/features/products/domain/models/design/design.dart';
 import 'package:madmudmobile/localization/languages.dart';
@@ -22,10 +23,20 @@ class DesignCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final designName = design.names[language] ?? '';
+
+    // FIXME: Remove this temporary base URL once real URLs are available
+    const temporaryBaseUrl =
+        'https://raw.githubusercontent.com/tsirbunen/madmudmobile/main/assets/';
+    final photoUrls = ['espresso.png', 'plants.png', 'soap.png'];
+    final randomIndexBetween0and2 = Random().nextInt(3);
+    final photo = Photo(
+        id: 0, url: '$temporaryBaseUrl${photoUrls[randomIndexBetween0and2]}');
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         PhotoWithFallback(
+          photo: photo,
           size: Size(photoWidth, photoHeight),
         ),
         Text(designName),

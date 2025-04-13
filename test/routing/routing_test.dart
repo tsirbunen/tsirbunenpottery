@@ -6,7 +6,7 @@ import 'routing_utils.dart';
 
 void main() {
   group('ROUTING >', () {
-    setUpAndTearDownAllBlocs();
+    setUpAndTearDownAllBlocsAndPreventNetworkImages();
     group('DRAWER -', () {
       testDevices.forEach((String description, Size size) {
         testWidgets('drawer can be opened in $description',

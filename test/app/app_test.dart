@@ -5,7 +5,7 @@ import '../utils/prepare_blocs_for_tests.dart';
 void main() {
   group('MAD MUD APP >', () {
     group('APP -', () {
-      setUpAndTearDownAllBlocs();
+      setUpAndTearDownAllBlocsAndPreventNetworkImages();
       testWidgets('app launches successfully', (WidgetTester tester) async {
         await tester.pumpWidget(const MadMudApp());
 

@@ -47,3 +47,7 @@ flutter:
           weight: 600
         - asset: assets/fonts/Quicksand/Quicksand-Bold.ttf
           weight: 700
+  assets:
+    - assets/birdie512.png
+    - assets/birdie1024.png
+    - assets/birdie2048.png
