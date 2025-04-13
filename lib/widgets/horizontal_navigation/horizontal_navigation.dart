@@ -12,7 +12,7 @@ const FontWeight selectedPageFontWeight = FontWeight.w800;
 const double minWidthForShowNavBarRoutes = 800;
 const double underlineHeight = 1.0;
 const SizedBox underlineSpacer = SizedBox(height: 2.0);
-const double trademarkWidthEstimate = 60.0;
+const double trademarkWidthEstimate = 80.0;
 const double paddingPerItemEstimate = 40.0;
 
 class HorizontalNavigation extends StatelessWidget {
@@ -50,25 +50,26 @@ class HorizontalNavigation extends StatelessWidget {
                   final isCurrentRoute = pageName == currentPage;
                   final textStyle =
                       isCurrentRoute ? emphasizedStyle : generalStyle;
-                  final color = isCurrentRoute
-                      ? Theme.of(context).colorScheme.primary
-                      : Colors.transparent;
+                  // final color = isCurrentRoute
+                  //     ? Theme.of(context).colorScheme.primary
+                  //     : Colors.transparent;
 
-                  return IntrinsicWidth(
-                    child: TextButton(
-                      onPressed: () => _navigateTo(context, route.path()),
-                      child: Column(
-                        children: [
-                          Text(pageName, style: textStyle),
-                          underlineSpacer,
-                          Container(
-                            color: color,
-                            height: underlineHeight,
-                            width: double.infinity,
-                          ),
-                        ],
-                      ),
+                  // return IntrinsicWidth(
+                  //   child:
+                  return TextButton(
+                    onPressed: () => _navigateTo(context, route.path()),
+                    child: Column(
+                      children: [
+                        Text(pageName, style: textStyle),
+                        underlineSpacer,
+                        // Container(
+                        //   color: color,
+                        //   height: underlineHeight,
+                        //   width: double.infinity,
+                        // ),
+                      ],
                     ),
+                    // ),
                   );
                 },
               ),
@@ -97,6 +98,6 @@ class HorizontalNavigation extends StatelessWidget {
       maxLines: 1,
       textDirection: TextDirection.ltr,
     )..layout();
-    return tp.width;
+    return tp.width + 20.0;
   }
 }

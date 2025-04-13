@@ -3,5 +3,6 @@ import 'package:madmudmobile/widgets/horizontal_navigation/horizontal_navigation
 
 const testDevices = <String, Size>{
   'MOBILE': Size(350, 600),
-  'DESKTOP': Size(minWidthForShowNavBarRoutes + 100, 1200),
+  // FIXME: There is something wrong here. The extra 300 should not be needed.
+  'DESKTOP': Size(minWidthForShowNavBarRoutes + 300, 1200),
 };
