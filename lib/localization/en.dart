@@ -10,10 +10,9 @@ class En implements Translations {
 
   @override
   Map<String, String> get all => {
-        'tradeName': 'MAD MUD COMPANY',
+        'tradeName': 'TSIRBUNEN POTTERY',
         'appShortDescription': 'clay to unique treasures',
         'chineseCharacter': '泥',
-        'tradeNameBeginning': 'MAD MUD',
         'home': 'Home',
         'categories': 'Categories',
         'collections': 'Collections',

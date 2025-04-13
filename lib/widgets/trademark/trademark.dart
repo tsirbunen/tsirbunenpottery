@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:madmudmobile/localization/app_locale.dart';
 
-const double chineseCharacterDefaultSize = 34.0;
-const double tradeNameDefaultSize = 10.0;
+const double chineseCharacterDefaultSize = 40.0;
+const double tradeNameDefaultSize = 7.0;
 const double textHeight = 1.0;
-const double spacerHeight = 6.0;
+const double spacerHeight = 4.0;
 const EdgeInsets padding = EdgeInsets.all(2.0);
 const double borderRadius = 4.0;
 const double borderWidth = 1.0;
@@ -33,34 +33,43 @@ class Trademark extends StatelessWidget {
     final baseStyle = Theme.of(context).textTheme.titleMedium!;
     final colors = Theme.of(context).colorScheme;
     final textColor = isInverted ? colors.surface : colors.primary;
-    final chineseCharacter = context.local('chineseCharacter');
-    final tradeNameBeginning = context.local('tradeNameBeginning');
+    final tradeNameParts = context.local('tradeName').split(' ');
 
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        width: width,
         decoration: _decoration(colors),
+        width: width,
         child: Padding(
           padding: padding,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                chineseCharacter,
-                style: _style(
-                    baseStyle, textColor, characterSize, FontWeight.w500),
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  ClipOval(
+                    child: Image.asset(
+                      'assets/birdie512.png',
+                      width: characterSize,
+                      height: characterSize,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: spacerHeight),
-              Text(
-                tradeNameBeginning,
-                style: _style(
-                  baseStyle,
-                  textColor,
-                  tradeNameSize,
-                  FontWeight.w700,
-                ),
-              ),
+              ...tradeNameParts.map((part) {
+                return Text(
+                  part,
+                  style: _style(
+                    baseStyle,
+                    textColor,
+                    tradeNameSize,
+                    FontWeight.w700,
+                  ),
+                );
+              }),
             ],
           ),
         ),

@@ -10,8 +10,8 @@ import 'package:madmudmobile/app/router/route_controller.dart';
 import 'package:madmudmobile/localization/utils.dart';
 import 'package:madmudmobile/theme/app_theme.dart';
 
-class MadMudApp extends StatelessWidget {
-  const MadMudApp({super.key});
+class TsirbunenPotteryApp extends StatelessWidget {
+  const TsirbunenPotteryApp({super.key});
 
   @override
   Widget build(BuildContext context) {

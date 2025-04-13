@@ -9,7 +9,6 @@ enum Translation {
   tradeName,
   appShortDescription,
   chineseCharacter,
-  tradeNameBeginning,
   // Languages:
   english,
   finnish,

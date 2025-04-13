@@ -3,7 +3,7 @@ import 'package:madmudmobile/localization/app_locale.dart';
 import 'package:madmudmobile/widgets/trademark/trademark.dart';
 
 const EdgeInsets padding =
-    EdgeInsets.symmetric(vertical: 17.0, horizontal: 15.0);
+    EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0);
 const double tradeNameFontSize = 15.0;
 const FontWeight tradeNameFontWeight = FontWeight.w900;
 const double descriptionFontSize = 12.0;

@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:madmudmobile/app/blocs/blocs.dart';
 import 'package:madmudmobile/app/general_state_bloc/general_state_bloc.dart';
-import 'package:madmudmobile/app/mad_mud_app/mad_mud_app.dart';
+import 'package:madmudmobile/app/tsirbunen_pottery_app/tsirbunen_pottery_app.dart';
 import 'package:madmudmobile/localization/languages.dart';
 import 'language_utils.dart';
 
@@ -14,7 +14,7 @@ void main() {
     testWidgets('can be changed', (
       tester,
     ) async {
-      await tester.pumpWidget(const MadMudApp());
+      await tester.pumpWidget(const TsirbunenPotteryApp());
       await tester.pumpAndSettle();
 
       await changeLanguage(tester);
