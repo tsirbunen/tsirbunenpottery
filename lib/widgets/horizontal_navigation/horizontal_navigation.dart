@@ -61,7 +61,7 @@ class HorizontalNavigation extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(pageName, style: textStyle),
-                        underlineSpacer,
+                        // underlineSpacer,
                         // Container(
                         //   color: color,
                         //   height: underlineHeight,
