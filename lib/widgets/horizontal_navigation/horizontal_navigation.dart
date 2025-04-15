@@ -7,7 +7,8 @@ import 'package:madmudmobile/widgets/trademark/trademark.dart';
 
 const EdgeInsets padding = EdgeInsets.symmetric(horizontal: 2.0);
 const double borderRadius = 5.0;
-const SizedBox spacer = SizedBox(width: 20.0);
+const double spacerWidth = 20.0;
+const SizedBox spacer = SizedBox(width: spacerWidth);
 const FontWeight selectedPageFontWeight = FontWeight.w800;
 const double minWidthForShowNavBarRoutes = 800;
 const double underlineHeight = 1.0;
@@ -85,8 +86,8 @@ class HorizontalNavigation extends StatelessWidget {
       (route) => _estimateTextWidth(context.local(route.pageName()), style),
     );
 
-    return approxTextWidths.fold(
-        trademarkWidthEstimate, (sum, w) => sum + w + paddingPerItemEstimate);
+    return approxTextWidths.fold((trademarkWidthEstimate + spacerWidth),
+        (sum, w) => sum + w + paddingPerItemEstimate);
   }
 
   void _navigateTo(BuildContext context, path) {

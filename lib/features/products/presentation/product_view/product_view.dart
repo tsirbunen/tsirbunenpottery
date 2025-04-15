@@ -6,12 +6,12 @@ import 'package:madmudmobile/app/router/route_enum.dart';
 import 'package:madmudmobile/features/products/domain/bloc/products_bloc.dart';
 import 'package:madmudmobile/features/products/domain/bloc/products_state.dart';
 import 'package:madmudmobile/features/products/domain/models/design/design.dart';
-import 'package:madmudmobile/features/products/domain/models/piece/piece.dart';
 import 'package:madmudmobile/features/products/presentation/product_view/product_sub_view.dart';
 import 'package:madmudmobile/localization/app_locale.dart';
+import 'package:madmudmobile/localization/languages.dart';
 import 'package:madmudmobile/utils/current_page_name_from_settings.dart';
 
-enum ProductViewMode {
+enum ViewMode {
   categories,
   collections,
 }
@@ -30,44 +30,26 @@ class ProductView extends StatelessWidget {
         ProductsState state,
       ) {
         final mode = _viewMode(context);
-        final groupedDesigns = mode == ProductViewMode.categories
+        final groupedDesigns = mode == ViewMode.categories
             ? state.categoryDesigns
             : state.collectionDesigns;
-        final allDesigns = state.designsById;
+
+        final subViewDetails =
+            _commonSubViewLayoutParams(context, groupedDesigns);
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: groupedDesigns.entries.map((entry) {
-            final categoryOrCollectionId = entry.key;
+            final id = entry.key;
             final pieceIdsByDesignIds = entry.value;
 
-            final designIds = pieceIdsByDesignIds.keys.toList();
-            final designs = designIds
-                .map((id) => allDesigns[id])
-                .whereType<Design>()
-                .toList();
-
-            String title;
-
-            if (mode == ProductViewMode.categories) {
-              final category = state.categories.firstWhere(
-                (category) => category.id == categoryOrCollectionId,
-              );
-
-              title = category.names[language]!;
-            } else {
-              final collection = state.collections.firstWhere(
-                (collection) => collection.id == categoryOrCollectionId,
-              );
-
-              title = collection.names[language]!;
-            }
-
             return ProductSubView(
-              title: title,
-              designs: designs,
+              title: _subViewTitle(mode, state, id, language),
+              designs: _subViewDesigns(pieceIdsByDesignIds, state.designsById),
               pieceIdsByDesignIds: pieceIdsByDesignIds,
               language: language,
+              photoWidth: subViewDetails.width,
+              isSingleRow: subViewDetails.isSingleRow,
             );
           }).toList(),
         );
@@ -75,11 +57,50 @@ class ProductView extends StatelessWidget {
     });
   }
 
-  ProductViewMode _viewMode(BuildContext context) {
+  ViewMode _viewMode(BuildContext context) {
     final currentPage = currentPageNameFromSettings(context);
     final categoriesPage = context.local(RouteEnum.categories.pageName());
-    if (currentPage == categoriesPage) return ProductViewMode.categories;
+    if (currentPage == categoriesPage) return ViewMode.categories;
 
-    return ProductViewMode.collections;
+    return ViewMode.collections;
+  }
+
+  String _subViewTitle(mode, state, categoryOrCollectionId, Language language) {
+    return (mode == ViewMode.categories ? state.categories : state.collections)
+        .firstWhere((c) => c.id == categoryOrCollectionId)
+        .names[language]!;
+  }
+
+  _subViewDesigns(Map<String, List<String>> pieceIdsByDesignIds, designsById) {
+    final designIds = pieceIdsByDesignIds.keys.toList();
+    return designIds.map((id) => designsById[id]).whereType<Design>().toList();
+  }
+
+  // Note: We need to calculate the width of the photos in the parent of the sub views
+  // so that we can set the same width for all the photos in every sub view.
+  _commonSubViewLayoutParams(BuildContext context,
+      Map<String, Map<String, List<String>>> groupedDesigns) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final availableWidth = screenWidth - 2 * sideMargin;
+    final itemsPerRowEstimate = (availableWidth + horizontalGridSpacing) ~/
+        (minPhotoWidth + horizontalGridSpacing);
+
+    double? width;
+    bool isSingleRow = false;
+
+    for (var entry in groupedDesigns.entries) {
+      final designsCount = entry.value.length;
+      final itemsPerRow = itemsPerRowEstimate.clamp(1, designsCount);
+      if (itemsPerRow == 1) isSingleRow = true;
+
+      double totalSpacing = horizontalGridSpacing * (itemsPerRow - 1);
+      double photoWidth = ((availableWidth - totalSpacing) / itemsPerRow)
+          .clamp(minPhotoWidth, maxPhotoWidth);
+      if (width == null || photoWidth < width) {
+        width = photoWidth;
+      }
+    }
+
+    return (width: width, isSingleRow: isSingleRow);
   }
 }

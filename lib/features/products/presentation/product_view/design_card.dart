@@ -7,17 +7,15 @@ import 'package:madmudmobile/widgets/photo_with_fallback/photo_with_fallback.dar
 class DesignCard extends StatelessWidget {
   final Design design;
   final Language language;
-  final double photoWidth;
-  final double photoHeight;
   final List<String> pieceIds;
+  final Size size;
 
   const DesignCard({
     super.key,
     required this.design,
     required this.language,
     required this.pieceIds,
-    this.photoWidth = 200.0,
-    this.photoHeight = 150.0,
+    this.size = const Size(200.0, 150.0),
   });
 
   @override
@@ -37,7 +35,7 @@ class DesignCard extends StatelessWidget {
       children: [
         PhotoWithFallback(
           photo: photo,
-          size: Size(photoWidth, photoHeight),
+          size: size,
         ),
         Text(designName),
       ],
