@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:madmudmobile/localization/app_locale.dart';
 
-const double chineseCharacterDefaultSize = 40.0;
+const double logoDefaultSize = 36.0;
 const double tradeNameDefaultSize = 7.0;
 const double textHeight = 1.0;
-const double spacerHeight = 4.0;
-const EdgeInsets padding = EdgeInsets.all(2.0);
-const double borderRadius = 4.0;
+const double spacerHeight = 1.0;
+const EdgeInsets padding =
+    EdgeInsets.only(left: 6.0, right: 6.0, bottom: 5.0, top: 1.0);
+const double borderRadius = 50.0; //4.0;
 const double borderWidth = 1.0;
 const double containerWidthDefault = 60.0;
 
 class Trademark extends StatelessWidget {
-  final double characterSize;
+  final double logoSize;
   final double tradeNameSize;
   final bool isInverted;
   final bool hasBorder;
@@ -20,7 +21,7 @@ class Trademark extends StatelessWidget {
 
   const Trademark({
     super.key,
-    this.characterSize = chineseCharacterDefaultSize,
+    this.logoSize = logoDefaultSize,
     this.tradeNameSize = tradeNameDefaultSize,
     this.isInverted = true,
     this.hasBorder = false,
@@ -51,8 +52,8 @@ class Trademark extends StatelessWidget {
                   ClipOval(
                     child: Image.asset(
                       'assets/birdie512.png',
-                      width: characterSize,
-                      height: characterSize,
+                      width: logoSize,
+                      height: logoSize,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -70,6 +71,7 @@ class Trademark extends StatelessWidget {
                   ),
                 );
               }),
+              const SizedBox(height: spacerHeight),
             ],
           ),
         ),

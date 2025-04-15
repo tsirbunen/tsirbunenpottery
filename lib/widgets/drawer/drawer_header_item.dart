@@ -21,7 +21,7 @@ class DrawerHeaderItem extends StatelessWidget {
     final shortDescription = context.local('appShortDescription');
 
     return Container(
-      color: colors.tertiary,
+      color: colors.onTertiary,
       child: Column(
         children: [
           Padding(
