@@ -54,21 +54,23 @@ class HorizontalNavigation extends StatelessWidget {
                   //     ? Theme.of(context).colorScheme.primary
                   //     : Colors.transparent;
 
-                  return IntrinsicWidth(
-                    child: TextButton(
-                      onPressed: () => _navigateTo(context, route.path()),
-                      child: Column(
-                        children: [
-                          Text(pageName, style: textStyle),
-                          // underlineSpacer,
-                          // Container(
-                          //   color: color,
-                          //   height: underlineHeight,
-                          //   width: double.infinity,
-                          // ),
-                        ],
-                      ),
+                  return
+                      // IntrinsicWidth(
+                      //   child:
+                      TextButton(
+                    onPressed: () => _navigateTo(context, route.path()),
+                    child: Column(
+                      children: [
+                        Text(pageName, style: textStyle),
+                        // underlineSpacer,
+                        // Container(
+                        //   color: color,
+                        //   height: underlineHeight,
+                        //   width: double.infinity,
+                        // ),
+                      ],
                     ),
+                    // ),
                   );
                 },
               ),
