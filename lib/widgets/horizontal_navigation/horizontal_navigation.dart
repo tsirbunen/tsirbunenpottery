@@ -50,46 +50,22 @@ class HorizontalNavigation extends StatelessWidget {
                   final isCurrentRoute = pageName == currentPage;
                   final textStyle =
                       isCurrentRoute ? emphasizedStyle : generalStyle;
-                  final color = isCurrentRoute
-                      ? Theme.of(context).colorScheme.primary
-                      : Colors.transparent;
+                  // final color = isCurrentRoute
+                  //     ? Theme.of(context).colorScheme.primary
+                  //     : Colors.transparent;
 
-                  // return IntrinsicWidth(
-                  //   child: TextButton(
-                  //     onPressed: () => _navigateTo(context, route.path()),
-                  //     child: Column(
-                  //       children: [
-                  //         Text(pageName, style: textStyle),
-                  //         underlineSpacer,
-                  //         Container(
-                  //           color: color,
-                  //           height: underlineHeight,
-                  //           width: double.infinity,
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // );
-
-// DOes this work in prod?
                   return IntrinsicWidth(
                     child: TextButton(
                       onPressed: () => _navigateTo(context, route.path()),
-                      child: Stack(
-                        alignment: Alignment.bottomCenter,
+                      child: Column(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(bottom: underlineHeight),
-                            child: Text(pageName, style: textStyle),
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            child: Container(
-                              color: color,
-                              height: underlineHeight,
-                              width: double.infinity,
-                            ),
-                          ),
+                          Text(pageName, style: textStyle),
+                          // underlineSpacer,
+                          // Container(
+                          //   color: color,
+                          //   height: underlineHeight,
+                          //   width: double.infinity,
+                          // ),
                         ],
                       ),
                     ),
