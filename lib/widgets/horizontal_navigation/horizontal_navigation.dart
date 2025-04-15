@@ -50,26 +50,25 @@ class HorizontalNavigation extends StatelessWidget {
                   final isCurrentRoute = pageName == currentPage;
                   final textStyle =
                       isCurrentRoute ? emphasizedStyle : generalStyle;
-                  // final color = isCurrentRoute
-                  //     ? Theme.of(context).colorScheme.primary
-                  //     : Colors.transparent;
+                  final color = isCurrentRoute
+                      ? Theme.of(context).colorScheme.primary
+                      : Colors.transparent;
 
-                  // return IntrinsicWidth(
-                  //   child:
-                  return TextButton(
-                    onPressed: () => _navigateTo(context, route.path()),
-                    child: Column(
-                      children: [
-                        Text(pageName, style: textStyle),
-                        // underlineSpacer,
-                        // Container(
-                        //   color: color,
-                        //   height: underlineHeight,
-                        //   width: double.infinity,
-                        // ),
-                      ],
+                  return IntrinsicWidth(
+                    child: TextButton(
+                      onPressed: () => _navigateTo(context, route.path()),
+                      child: Column(
+                        children: [
+                          Text(pageName, style: textStyle),
+                          underlineSpacer,
+                          Container(
+                            color: color,
+                            height: underlineHeight,
+                            width: double.infinity,
+                          ),
+                        ],
+                      ),
                     ),
-                    // ),
                   );
                 },
               ),
@@ -98,6 +97,6 @@ class HorizontalNavigation extends StatelessWidget {
       maxLines: 1,
       textDirection: TextDirection.ltr,
     )..layout();
-    return tp.width + 20.0;
+    return tp.width + 30.0;
   }
 }
