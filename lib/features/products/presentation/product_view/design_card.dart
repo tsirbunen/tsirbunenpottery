@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:madmudmobile/features/products/domain/models/design/design.dart';
 import 'package:madmudmobile/localization/languages.dart';
 import 'package:madmudmobile/widgets/photo_with_fallback/photo_with_fallback.dart';
@@ -30,15 +31,24 @@ class DesignCard extends StatelessWidget {
     final photo = Photo(
         id: 0, url: '$temporaryBaseUrl${photoUrls[randomIndexBetween0and2]}');
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        PhotoWithFallback(
-          photo: photo,
-          size: size,
-        ),
-        Text(designName),
-      ],
+    return GestureDetector(
+      onTap: () => _navigateTo(
+        context,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          PhotoWithFallback(
+            photo: photo,
+            size: size,
+          ),
+          Text(designName),
+        ],
+      ),
     );
+  }
+
+  void _navigateTo(BuildContext context) {
+    context.go('/designs/${design.id}');
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:madmudmobile/features/products/presentation/pages/design_page.dart';
 import 'package:madmudmobile/features/story/presentation/story_page.dart';
 import 'package:madmudmobile/features/products/presentation/pages/collections_page.dart';
 import 'package:madmudmobile/features/contact/presentation/contact_page.dart';
@@ -17,9 +18,15 @@ const collectionsRoot = '/collections';
 const categoriesRoot = '/categories';
 const contactRoot = '/contact';
 const storyRoot = '/story';
+const designsRoot = '/designs';
 
 @TypedGoRoute<HomeRoute>(path: HomeRoute.path, routes: [
   TypedGoRoute<HomeRoute>(path: HomeRoute.path),
+  TypedGoRoute<CollectionsRoute>(path: CollectionsRoute.path),
+  TypedGoRoute<CategoriesRoute>(path: CategoriesRoute.path),
+  TypedGoRoute<DesignRoute>(path: DesignRoute.path),
+  TypedGoRoute<ContactRoute>(path: ContactRoute.path),
+  TypedGoRoute<StoryRoute>(path: StoryRoute.path),
 ]) // NOTE: No space here, otherwise the go router builder code generation won't work!
 @immutable
 class HomeRoute extends GoRouteData {
@@ -45,6 +52,19 @@ class CategoriesRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const CategoriesPage();
+}
+
+@immutable
+class DesignRoute extends GoRouteData {
+  static const path = '$designsRoot/:id';
+  final String id;
+
+  const DesignRoute({
+    required this.id,
+  });
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => DesignPage(id: id);
 }
 
 @immutable

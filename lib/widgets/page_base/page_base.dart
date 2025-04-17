@@ -6,11 +6,13 @@ import 'package:madmudmobile/widgets/progress_indicator/progress_indicator_page_
 class PageBase extends StatelessWidget {
   final Widget pageBody;
   final bool showProgressIndicator;
+  final ScrollController? scrollController;
 
   const PageBase({
     super.key,
     required this.pageBody,
     this.showProgressIndicator = false,
+    this.scrollController,
   });
 
   @override
@@ -26,6 +28,7 @@ class PageBase extends StatelessWidget {
           return ProgressIndicatorPageOverlay(
             isSubmitting: showProgressIndicator,
             child: SingleChildScrollView(
+              controller: scrollController,
               child: ConstrainedBox(
                 constraints: BoxConstraints(
                   minHeight: constraints.maxHeight,

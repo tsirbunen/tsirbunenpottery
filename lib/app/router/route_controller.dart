@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:madmudmobile/features/products/presentation/pages/design_page.dart';
 import 'package:madmudmobile/features/story/presentation/story_page.dart';
 import 'package:madmudmobile/features/products/presentation/pages/collections_page.dart';
 import 'package:madmudmobile/features/contact/presentation/contact_page.dart';
@@ -37,6 +38,17 @@ class RouteController {
             name: context.local(RouteEnum.categories.pageName()),
             child: const CategoriesPage(),
           ),
+        ),
+        GoRoute(
+          path: DesignRoute.path,
+          pageBuilder: (context, state) {
+            final id = state.pathParameters['id'];
+            return NoTransitionPage(
+              name: 'Design',
+              // FIXME: Perhaps some better way to get around no id?
+              child: id == null ? const HomePage() : DesignPage(id: id),
+            );
+          },
         ),
         GoRoute(
           path: ContactRoute.path,

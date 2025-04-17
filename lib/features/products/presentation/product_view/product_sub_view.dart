@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:madmudmobile/features/products/domain/models/design/design.dart';
 import 'package:madmudmobile/features/products/presentation/product_view/design_card.dart';
+import 'package:madmudmobile/features/products/presentation/product_view/scroll_position_mixin.dart';
 import 'package:madmudmobile/localization/languages.dart';
 
 const double horizontalGridSpacing = 15.0;
@@ -12,27 +13,41 @@ const double sideMargin = 25.0;
 // the user to scroll horizontally to see more designs
 const double singleRowSubtraction = 15.0;
 
-class ProductSubView extends StatelessWidget {
+class ProductSubView extends StatefulWidget {
   final String title;
+  final String id;
   final List<Design> designs;
   final Language language;
   final Map<String, List<String>> pieceIdsByDesignIds;
   final double photoWidth;
   final bool isSingleRow;
+  final String scrollTargetBaseName;
 
   const ProductSubView({
     super.key,
     required this.title,
+    required this.id,
     required this.designs,
     required this.language,
     required this.pieceIdsByDesignIds,
     required this.photoWidth,
+    required this.scrollTargetBaseName,
     this.isSingleRow = false,
   });
 
   @override
+  State<ProductSubView> createState() => _ProductSubViewState();
+}
+
+class _ProductSubViewState extends State<ProductSubView>
+    with ScrollPositionMixin<ProductSubView> {
+  @override
+  String get scrollTargetName =>
+      '${widget.scrollTargetBaseName}-sub-${widget.id}';
+
+  @override
   Widget build(BuildContext context) {
-    final size = _photoSize(isSingleRow);
+    final size = _photoSize(widget.isSingleRow);
 
     return Container(
       margin: const EdgeInsets.only(
@@ -40,21 +55,23 @@ class ProductSubView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: _titleStyle(context)),
+          Text(widget.title, style: _titleStyle(context)),
           const SizedBox(height: 10.0),
-          isSingleRow
+          widget.isSingleRow
               ? SingleChildScrollView(
+                  controller: scrollController,
                   scrollDirection: Axis.horizontal,
                   child: Row(
-                    children: designs.map((design) {
-                      final pieceIds = pieceIdsByDesignIds[design.id] ?? [];
+                    children: widget.designs.map((design) {
+                      final pieceIds =
+                          widget.pieceIdsByDesignIds[design.id] ?? [];
 
                       return Padding(
                         padding:
                             const EdgeInsets.only(right: horizontalGridSpacing),
                         child: DesignCard(
                           design: design,
-                          language: language,
+                          language: widget.language,
                           pieceIds: pieceIds,
                           size: size,
                         ),
@@ -65,11 +82,12 @@ class ProductSubView extends StatelessWidget {
               : Wrap(
                   spacing: horizontalGridSpacing,
                   runSpacing: verticalGridSpacing,
-                  children: designs.map((design) {
-                    final pieceIds = pieceIdsByDesignIds[design.id] ?? [];
+                  children: widget.designs.map((design) {
+                    final pieceIds =
+                        widget.pieceIdsByDesignIds[design.id] ?? [];
                     return DesignCard(
                       design: design,
-                      language: language,
+                      language: widget.language,
                       pieceIds: pieceIds,
                       size: size,
                     );
@@ -81,9 +99,9 @@ class ProductSubView extends StatelessWidget {
   }
 
   Size _photoSize(bool isSingleRow) {
-    final width = isSingleRow && designs.length > 1
-        ? photoWidth - singleRowSubtraction
-        : photoWidth;
+    final width = isSingleRow && widget.designs.length > 1
+        ? widget.photoWidth - singleRowSubtraction
+        : widget.photoWidth;
 
     return Size(width, width * 0.75);
   }

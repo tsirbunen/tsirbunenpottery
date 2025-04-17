@@ -7,54 +7,72 @@ import 'package:madmudmobile/features/products/domain/bloc/products_bloc.dart';
 import 'package:madmudmobile/features/products/domain/bloc/products_state.dart';
 import 'package:madmudmobile/features/products/domain/models/design/design.dart';
 import 'package:madmudmobile/features/products/presentation/product_view/product_sub_view.dart';
+import 'package:madmudmobile/features/products/presentation/product_view/scroll_position_mixin.dart';
 import 'package:madmudmobile/localization/app_locale.dart';
 import 'package:madmudmobile/localization/languages.dart';
 import 'package:madmudmobile/utils/current_page_name_from_settings.dart';
+import 'package:madmudmobile/widgets/page_base/page_base.dart';
 
 enum ViewMode {
   categories,
   collections,
 }
 
-class ProductView extends StatelessWidget {
-  const ProductView({super.key});
+class ProductView extends StatefulWidget {
+  final String scrollTargetName;
+  const ProductView({super.key, required this.scrollTargetName});
+
+  @override
+  State<ProductView> createState() => _ProductViewState();
+}
+
+class _ProductViewState extends State<ProductView>
+    with ScrollPositionMixin<ProductView> {
+  @override
+  String get scrollTargetName => widget.scrollTargetName;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GeneralStateBloc, GeneralState>(
-        builder: (BuildContext context, GeneralState state) {
-      final language = state.language;
+    return PageBase(
+      scrollController: scrollController,
+      pageBody: BlocBuilder<GeneralStateBloc, GeneralState>(
+          builder: (BuildContext context, GeneralState state) {
+        final language = state.language;
 
-      return BlocBuilder<ProductsBloc, ProductsState>(builder: (
-        BuildContext context,
-        ProductsState state,
-      ) {
-        final mode = _viewMode(context);
-        final groupedDesigns = mode == ViewMode.categories
-            ? state.categoryDesigns
-            : state.collectionDesigns;
+        return BlocBuilder<ProductsBloc, ProductsState>(builder: (
+          BuildContext context,
+          ProductsState state,
+        ) {
+          final mode = _viewMode(context);
+          final groupedDesigns = mode == ViewMode.categories
+              ? state.categoryDesigns
+              : state.collectionDesigns;
 
-        final subViewDetails =
-            _commonSubViewLayoutParams(context, groupedDesigns);
+          final subViewDetails =
+              _commonSubViewLayoutParams(context, groupedDesigns);
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: groupedDesigns.entries.map((entry) {
-            final id = entry.key;
-            final pieceIdsByDesignIds = entry.value;
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: groupedDesigns.entries.map((entry) {
+              final id = entry.key;
+              final pieceIdsByDesignIds = entry.value;
 
-            return ProductSubView(
-              title: _subViewTitle(mode, state, id, language),
-              designs: _subViewDesigns(pieceIdsByDesignIds, state.designsById),
-              pieceIdsByDesignIds: pieceIdsByDesignIds,
-              language: language,
-              photoWidth: subViewDetails.width,
-              isSingleRow: subViewDetails.isSingleRow,
-            );
-          }).toList(),
-        );
-      });
-    });
+              return ProductSubView(
+                id: id,
+                scrollTargetBaseName: widget.scrollTargetName,
+                title: _subViewTitle(mode, state, id, language),
+                designs:
+                    _subViewDesigns(pieceIdsByDesignIds, state.designsById),
+                pieceIdsByDesignIds: pieceIdsByDesignIds,
+                language: language,
+                photoWidth: subViewDetails.width,
+                isSingleRow: subViewDetails.isSingleRow,
+              );
+            }).toList(),
+          );
+        });
+      }),
+    );
   }
 
   ViewMode _viewMode(BuildContext context) {
@@ -77,7 +95,6 @@ class ProductView extends StatelessWidget {
   }
 
   // Note: We need to calculate the width of the photos in the parent of the sub views
-  // so that we can set the same width for all the photos in every sub view.
   _commonSubViewLayoutParams(BuildContext context,
       Map<String, Map<String, List<String>>> groupedDesigns) {
     final screenWidth = MediaQuery.of(context).size.width;
