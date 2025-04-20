@@ -64,6 +64,14 @@ class _ProductsSubViewState extends State<ProductsSubView>
   bool expandAll = false;
 
   @override
+  void initState() {
+    super.initState();
+    if (widget.isTheOnlySubView) {
+      expandAll = true;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = _photoSize(widget.scrollDirection);
     final fromRoute = _fromRoute();
