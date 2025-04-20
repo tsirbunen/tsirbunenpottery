@@ -63,7 +63,6 @@ class DesignCard extends StatelessWidget {
       'espresso.png',
       'plants.png',
       'espresso.png',
-      'espresso.png',
       'soap.png',
       'soap.png'
     ];

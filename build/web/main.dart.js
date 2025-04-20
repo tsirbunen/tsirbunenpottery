@@ -81939,7 +81939,7 @@ gek(){return this.c}}
 A.lm.prototype={
 J(a){var s=this,r=null,q=s.c.gi9().j(0,s.d)
 if(q==null)q=""
-return A.f7(r,A.h9(A.a([new A.yD(new A.abx(0,"https://raw.githubusercontent.com/tsirbunen/madmudmobile/main/assets/"+["espresso.png","plants.png","espresso.png","espresso.png","soap.png","soap.png"][B.nb.Ss(5)]),s.f,!0,r),A.eQ(q,r,r,r,r,r)],t.p),B.dl,B.ao,B.a7),B.a5,!1,r,r,r,r,r,r,r,r,r,r,r,r,r,r,new A.a26(s,a),r,r,r)}}
+return A.f7(r,A.h9(A.a([new A.yD(new A.abx(0,"https://raw.githubusercontent.com/tsirbunen/madmudmobile/main/assets/"+["espresso.png","plants.png","espresso.png","soap.png","soap.png"][B.nb.Ss(5)]),s.f,!0,r),A.eQ(q,r,r,r,r,r)],t.p),B.dl,B.ao,B.a7),B.a5,!1,r,r,r,r,r,r,r,r,r,r,r,r,r,r,new A.a26(s,a),r,r,r)}}
 A.a26.prototype={
 $0(){var s=this.a
 s=A.uP(null,"/designs/"+s.c.a,A.ai(["fromRoute",s.r],t.N,t.z)).gmm()
@@ -82044,7 +82044,7 @@ s=t.Rs
 return A.a4(new A.cT(new A.a5(r,new A.amZ(b),A.a0(r).h("a5<1,@>")),s),!0,s.h("x.E"))},
 a0d(a,b){var s,r,q,p,o,n=A.bi(a,null,t.l).w.a.a-50,m=B.c.d8(n+15,215)
 for(s=b.gef(),s=s.ga8(s),r=0,q=0;s.q();){p=B.i.fS(m,1,J.cb(s.gK().b))
-if(p>1)q=p
+if(p>q)q=p
 o=B.c.fS((n-15*(p-1))/p,200,400)
 if(r===0||o<r)r=o}return new A.a5y(q,r)}}
 A.an2.prototype={

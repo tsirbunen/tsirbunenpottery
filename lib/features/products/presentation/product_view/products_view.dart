@@ -130,7 +130,7 @@ class _ProductsViewState extends State<ProductsView>
     for (var entry in groupedDesigns.entries) {
       final designsCount = entry.value.length;
       final itemsPerThisRow = itemsPerRowEstimate.clamp(1, designsCount);
-      if (itemsPerThisRow > 1) itemsPerRow = itemsPerThisRow;
+      if (itemsPerThisRow > itemsPerRow) itemsPerRow = itemsPerThisRow;
 
       double totalSpacing = horizontalGridSpacing * (itemsPerThisRow - 1);
       double photoWidth = ((availableWidth - totalSpacing) / itemsPerThisRow)
