@@ -3,7 +3,7 @@ import 'package:madmudmobile/localization/en.dart';
 import 'package:madmudmobile/localization/fi.dart';
 import 'package:madmudmobile/localization/languages.dart';
 import 'package:madmudmobile/localization/translation.dart';
-import 'package:madmudmobile/widgets/app_bar/app_bar_action_button.dart';
+import 'package:madmudmobile/widgets/action_button/action_button.dart';
 import 'package:madmudmobile/widgets/app_bar/app_bar_right_actions.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
@@ -22,8 +22,7 @@ changeLanguage(WidgetTester tester) async {
   final toggleLanguageButton = find.descendant(
     of: find.byType(AppBarRightActions),
     matching: find.byWidgetPredicate(
-      (widget) =>
-          widget is AppBarActionButton && widget.iconData == Symbols.language,
+      (widget) => widget is ActionButton && widget.iconData == Symbols.language,
     ),
   );
 

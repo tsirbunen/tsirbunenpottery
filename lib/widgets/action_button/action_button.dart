@@ -4,11 +4,11 @@ const double containerSize = 50.0;
 const double iconSize = 30.0;
 const double iconWeight = 300.0;
 
-class AppBarActionButton extends StatelessWidget {
+class ActionButton extends StatelessWidget {
   final IconData iconData;
   final void Function() onPressed;
 
-  const AppBarActionButton({
+  const ActionButton({
     super.key,
     required this.iconData,
     required this.onPressed,

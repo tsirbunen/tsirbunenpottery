@@ -4,7 +4,7 @@ import 'package:madmudmobile/app/general_state_bloc/general_state_bloc.dart';
 import 'package:madmudmobile/app/general_state_bloc/general_state_event.dart';
 import 'package:madmudmobile/app/general_state_bloc/general_state_state.dart';
 import 'package:madmudmobile/localization/languages.dart';
-import 'package:madmudmobile/widgets/app_bar/app_bar_action_button.dart';
+import 'package:madmudmobile/widgets/action_button/action_button.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 class AppBarRightActions extends StatelessWidget {
@@ -24,7 +24,7 @@ class AppBarRightActions extends StatelessWidget {
             // this implementation to use, for example, some kind of popup menu.
             // As the only action currently available is a change between Finnish
             // and English, we are fine with this very simple implementation.
-            AppBarActionButton(
+            ActionButton(
               onPressed: () {
                 final newLanguage =
                     currentLanguage == Language.en ? Language.fi : Language.en;

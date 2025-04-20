@@ -46,6 +46,20 @@ class CollectionsRoute extends GoRouteData {
 }
 
 @immutable
+class CollectionRoute extends GoRouteData {
+  static const path = '$collectionsRoot/:id';
+  final String id;
+
+  const CollectionRoute({
+    required this.id,
+  });
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      CollectionsPage(selectedCollectionId: id);
+}
+
+@immutable
 class CategoriesRoute extends GoRouteData {
   static const path = categoriesRoot;
 
@@ -55,16 +69,35 @@ class CategoriesRoute extends GoRouteData {
 }
 
 @immutable
-class DesignRoute extends GoRouteData {
-  static const path = '$designsRoot/:id';
+class CategoryRoute extends GoRouteData {
+  static const path = '$categoriesRoot/:id';
   final String id;
 
-  const DesignRoute({
+  const CategoryRoute({
     required this.id,
   });
 
   @override
-  Widget build(BuildContext context, GoRouterState state) => DesignPage(id: id);
+  Widget build(BuildContext context, GoRouterState state) =>
+      CategoriesPage(selectedCategoryId: id);
+}
+
+@immutable
+class DesignRoute extends GoRouteData {
+  static const path = '$designsRoot/:id';
+  final String id;
+  final bool fromRoute;
+
+  const DesignRoute({
+    required this.id,
+    required this.fromRoute,
+  });
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    final fromRoute = state.uri.queryParameters['fromRoute'] ?? 'unknown';
+    return DesignPage(id: id, fromRoute: fromRoute);
+  }
 }
 
 @immutable

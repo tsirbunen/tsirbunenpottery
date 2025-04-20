@@ -19,7 +19,16 @@ class Photo {
 class PhotoWithFallback extends StatefulWidget {
   final Photo? photo;
   final Size size;
-  const PhotoWithFallback({super.key, this.photo, required this.size});
+  // This is to optionally "zoom in" the photo when the user hovers over it
+  // without changing the size of the photo.
+  final bool zoomOnHover;
+
+  const PhotoWithFallback({
+    super.key,
+    this.photo,
+    required this.size,
+    this.zoomOnHover = false,
+  });
 
   @override
   State<PhotoWithFallback> createState() => _PhotoWithFallbackState();
@@ -32,6 +41,7 @@ class _PhotoWithFallbackState extends State<PhotoWithFallback>
   AnimationController? _controller;
   Animation<double>? _fadeInOpacityAnimation;
   bool _noNetworkImages = false;
+  bool _isHovering = false;
 
   @override
   Widget build(BuildContext context) {
@@ -47,21 +57,43 @@ class _PhotoWithFallbackState extends State<PhotoWithFallback>
       );
     }
 
-    return Stack(children: <Widget>[
-      AnimatedBuilder(
-        animation: _fadeInOpacityAnimation!,
-        builder: (BuildContext context, Widget? child) {
-          final opacity = _fadeInOpacityAnimation!.value;
-          return Opacity(opacity: opacity, child: child!);
-        },
-        child: Image(
-          image: _image!,
-          fit: BoxFit.cover,
+    return MouseRegion(
+      onEnter: (_) {
+        if (widget.zoomOnHover) setState(() => _isHovering = true);
+      },
+      onExit: (_) {
+        if (widget.zoomOnHover) setState(() => _isHovering = false);
+      },
+      child: ClipRect(
+        child: SizedBox(
           width: widget.size.width,
           height: widget.size.height,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              AnimatedBuilder(
+                animation: _fadeInOpacityAnimation!,
+                builder: (context, child) {
+                  return Opacity(
+                    opacity: _fadeInOpacityAnimation!.value,
+                    child: child,
+                  );
+                },
+                child: AnimatedScale(
+                  scale: _isHovering ? 1.05 : 1.0,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeOut,
+                  child: Image(
+                    image: _image!,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-      )
-    ]);
+      ),
+    );
   }
 
   @override

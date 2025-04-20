@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:madmudmobile/widgets/page_base/page_base.dart';
+import 'package:madmudmobile/features/products/presentation/product_view/models.dart';
+import 'package:madmudmobile/features/products/presentation/product_view/products_view.dart';
 
 class CollectionsPage extends StatelessWidget {
-  const CollectionsPage({super.key});
+  final String? selectedCollectionId;
+  const CollectionsPage({super.key, this.selectedCollectionId});
 
   @override
   Widget build(BuildContext context) {
-    return const PageBase(
-      pageBody: Center(
-        child: Text('COLLECTIONS'),
-      ),
+    return ProductsView(
+      selectedCollectionId: selectedCollectionId,
+      mode: ViewMode.collections,
     );
   }
 }

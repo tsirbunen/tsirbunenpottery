@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:madmudmobile/widgets/app_bar/app_bar_action_button.dart';
+import 'package:madmudmobile/widgets/app_bar/app_bar_left_actions.dart';
 import 'package:madmudmobile/widgets/app_bar/app_bar_right_actions.dart';
 import 'package:madmudmobile/widgets/horizontal_navigation/horizontal_navigation.dart';
-import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 // FIXME: As long as the app is only available as the web version, the app bar height
 // should be lowered like here.
@@ -22,28 +21,22 @@ class AppBarCustomized extends StatelessWidget implements PreferredSizeWidget {
       decoration: _decoration(context),
       child: Padding(
         padding: _padding(context),
-        child: Column(
+        child: const Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                AppBarActionButton(
-                    onPressed: () => _openDrawer(context),
-                    iconData: Symbols.menu),
-                const Expanded(child: HorizontalNavigation()),
-                const AppBarRightActions(),
+                AppBarLeftActions(),
+                Expanded(child: HorizontalNavigation()),
+                AppBarRightActions(),
               ],
             ),
           ],
         ),
       ),
     );
-  }
-
-  void _openDrawer(BuildContext context) {
-    Scaffold.of(context).openDrawer();
   }
 
   BoxDecoration _decoration(BuildContext context) {

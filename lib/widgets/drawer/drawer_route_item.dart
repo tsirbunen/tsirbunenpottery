@@ -6,7 +6,8 @@ const iconSize = 30.0;
 const fontSize = 16.0;
 const itemPadding = EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0);
 const labelPadding = EdgeInsets.only(left: 20.0);
-const double selectedIconFontWeight = 800;
+const double selectedIconFontWeight = 500;
+const double defaultIconFontWeight = 300;
 
 class DrawerRouteItem extends StatelessWidget {
   final String routeLabel;
@@ -55,7 +56,9 @@ class DrawerRouteItem extends StatelessWidget {
                         iconData,
                         size: iconSize,
                         color: colors.primary,
-                        weight: isCurrentRoute ? selectedIconFontWeight : null,
+                        weight: isCurrentRoute
+                            ? selectedIconFontWeight
+                            : defaultIconFontWeight,
                       ),
                     ),
                     Expanded(

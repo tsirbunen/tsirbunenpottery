@@ -2,32 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:madmudmobile/app/general_state_bloc/general_state_bloc.dart';
 import 'package:madmudmobile/app/general_state_bloc/general_state_state.dart';
-import 'package:madmudmobile/app/router/route_enum.dart';
 import 'package:madmudmobile/features/products/domain/bloc/products_bloc.dart';
 import 'package:madmudmobile/features/products/domain/bloc/products_state.dart';
 import 'package:madmudmobile/features/products/domain/models/design/design.dart';
-import 'package:madmudmobile/features/products/presentation/product_view/product_sub_view.dart';
+import 'package:madmudmobile/features/products/presentation/product_view/models.dart';
+import 'package:madmudmobile/features/products/presentation/product_view/products_sub_view.dart';
 import 'package:madmudmobile/features/products/presentation/product_view/scroll_position_mixin.dart';
-import 'package:madmudmobile/localization/app_locale.dart';
 import 'package:madmudmobile/localization/languages.dart';
-import 'package:madmudmobile/utils/current_page_name_from_settings.dart';
 import 'package:madmudmobile/widgets/page_base/page_base.dart';
 
-enum ViewMode {
-  categories,
-  collections,
-}
+class ProductsView extends StatefulWidget {
+  final ViewMode mode;
+  final String? selectedCategoryId;
+  final String? selectedCollectionId;
 
-class ProductView extends StatefulWidget {
-  final String scrollTargetName;
-  const ProductView({super.key, required this.scrollTargetName});
+  const ProductsView({
+    super.key,
+    required this.mode,
+    this.selectedCategoryId,
+    this.selectedCollectionId,
+  });
+
+  String get scrollTargetName {
+    return mode.scrollTargetName(selectedCategoryId, selectedCollectionId);
+  }
 
   @override
-  State<ProductView> createState() => _ProductViewState();
+  State<ProductsView> createState() => _ProductsViewState();
 }
 
-class _ProductViewState extends State<ProductView>
-    with ScrollPositionMixin<ProductView> {
+class _ProductsViewState extends State<ProductsView>
+    with ScrollPositionMixin<ProductsView> {
   @override
   String get scrollTargetName => widget.scrollTargetName;
 
@@ -43,13 +48,9 @@ class _ProductViewState extends State<ProductView>
           BuildContext context,
           ProductsState state,
         ) {
-          final mode = _viewMode(context);
-          final groupedDesigns = mode == ViewMode.categories
-              ? state.categoryDesigns
-              : state.collectionDesigns;
+          final groupedDesigns = _designsToShow(state);
 
-          final subViewDetails =
-              _commonSubViewLayoutParams(context, groupedDesigns);
+          final gridParams = _commonGridParams(context, groupedDesigns);
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,16 +58,17 @@ class _ProductViewState extends State<ProductView>
               final id = entry.key;
               final pieceIdsByDesignIds = entry.value;
 
-              return ProductSubView(
+              return ProductsSubView(
                 id: id,
-                scrollTargetBaseName: widget.scrollTargetName,
-                title: _subViewTitle(mode, state, id, language),
+                title: _subViewTitle(widget.mode, state, id, language),
                 designs:
                     _subViewDesigns(pieceIdsByDesignIds, state.designsById),
                 pieceIdsByDesignIds: pieceIdsByDesignIds,
                 language: language,
-                photoWidth: subViewDetails.width,
-                isSingleRow: subViewDetails.isSingleRow,
+                gridParams: gridParams,
+                isTheOnlySubView: widget.selectedCategoryId != null ||
+                    widget.selectedCollectionId != null,
+                mode: widget.mode,
               );
             }).toList(),
           );
@@ -75,12 +77,32 @@ class _ProductViewState extends State<ProductView>
     );
   }
 
-  ViewMode _viewMode(BuildContext context) {
-    final currentPage = currentPageNameFromSettings(context);
-    final categoriesPage = context.local(RouteEnum.categories.pageName());
-    if (currentPage == categoriesPage) return ViewMode.categories;
+  Map<String, Map<String, List<String>>> _designsToShow(ProductsState state) {
+    if (widget.mode == ViewMode.categories) {
+      if (widget.selectedCategoryId != null &&
+          state.categoryDesigns.containsKey(widget.selectedCategoryId)) {
+        final designs = state.categoryDesigns[widget.selectedCategoryId]!;
+        return {
+          widget.selectedCategoryId!: designs,
+        };
+      } else {
+        return state.categoryDesigns;
+      }
+    }
 
-    return ViewMode.collections;
+    if (widget.mode == ViewMode.collections) {
+      if (widget.selectedCollectionId != null &&
+          state.collectionDesigns.containsKey(widget.selectedCollectionId)) {
+        final designs = state.collectionDesigns[widget.selectedCollectionId]!;
+        return {
+          widget.selectedCollectionId!: designs,
+        };
+      } else {
+        return state.collectionDesigns;
+      }
+    }
+
+    return {};
   }
 
   String _subViewTitle(mode, state, categoryOrCollectionId, Language language) {
@@ -95,29 +117,32 @@ class _ProductViewState extends State<ProductView>
   }
 
   // Note: We need to calculate the width of the photos in the parent of the sub views
-  _commonSubViewLayoutParams(BuildContext context,
+  GridParams _commonGridParams(BuildContext context,
       Map<String, Map<String, List<String>>> groupedDesigns) {
     final screenWidth = MediaQuery.of(context).size.width;
     final availableWidth = screenWidth - 2 * sideMargin;
     final itemsPerRowEstimate = (availableWidth + horizontalGridSpacing) ~/
         (minPhotoWidth + horizontalGridSpacing);
 
-    double? width;
-    bool isSingleRow = false;
+    double width = 0.0;
+    int itemsPerRow = 0;
 
     for (var entry in groupedDesigns.entries) {
       final designsCount = entry.value.length;
-      final itemsPerRow = itemsPerRowEstimate.clamp(1, designsCount);
-      if (itemsPerRow == 1) isSingleRow = true;
+      final itemsPerThisRow = itemsPerRowEstimate.clamp(1, designsCount);
+      if (itemsPerThisRow > 1) itemsPerRow = itemsPerThisRow;
 
-      double totalSpacing = horizontalGridSpacing * (itemsPerRow - 1);
-      double photoWidth = ((availableWidth - totalSpacing) / itemsPerRow)
+      double totalSpacing = horizontalGridSpacing * (itemsPerThisRow - 1);
+      double photoWidth = ((availableWidth - totalSpacing) / itemsPerThisRow)
           .clamp(minPhotoWidth, maxPhotoWidth);
-      if (width == null || photoWidth < width) {
+      if (width == 0.0 || photoWidth < width) {
         width = photoWidth;
       }
     }
 
-    return (width: width, isSingleRow: isSingleRow);
+    return GridParams(
+      itemsPerRow: itemsPerRow,
+      photoWidth: width,
+    );
   }
 }
