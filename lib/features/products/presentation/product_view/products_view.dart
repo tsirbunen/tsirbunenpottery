@@ -49,7 +49,6 @@ class _ProductsViewState extends State<ProductsView>
           ProductsState state,
         ) {
           final groupedDesigns = _designsToShow(state);
-
           final gridParams = _commonGridParams(context, groupedDesigns);
 
           return Column(

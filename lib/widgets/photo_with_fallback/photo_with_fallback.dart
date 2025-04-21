@@ -80,7 +80,7 @@ class _PhotoWithFallbackState extends State<PhotoWithFallback>
                   );
                 },
                 child: AnimatedScale(
-                  scale: _isHovering ? 1.05 : 1.0,
+                  scale: _isHovering ? 1.1 : 1.0,
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.easeOut,
                   child: Image(

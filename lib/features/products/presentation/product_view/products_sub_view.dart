@@ -9,20 +9,15 @@ import 'package:madmudmobile/features/products/presentation/product_view/scroll_
 import 'package:madmudmobile/features/products/presentation/product_view/title_with_hover_effect.dart';
 import 'package:madmudmobile/localization/languages.dart';
 
-const double horizontalGridSpacing = 15.0;
-const double verticalGridSpacing = 20.0;
-const double minPhotoWidth = 200.0;
-const double maxPhotoWidth = 400.0;
-const double sideMargin = 25.0;
-const double showExpandBreakpoint = 375.0;
 // Note: Let's subtract some space from the photo width (if single row) as a guide to
 // the user to scroll horizontally to see more designs
 const double singleRowSubtraction = 15.0;
-
-enum ScrollDirection {
-  horizontal,
-  vertical,
-}
+const double horizontalGridSpacing = 15.0;
+const double verticalGridSpacing = 20.0;
+const double minPhotoWidth = 150.0;
+const double maxPhotoWidth = 300.0;
+const double sideMargin = 25.0;
+const double showExpandBreakpoint = 700.0;
 
 class ProductsSubView extends StatefulWidget {
   final String title;
@@ -32,7 +27,6 @@ class ProductsSubView extends StatefulWidget {
   final Map<String, List<String>> pieceIdsByDesignIds;
   final GridParams gridParams;
   final ViewMode mode;
-  final ScrollDirection scrollDirection;
   final bool isTheOnlySubView;
 
   const ProductsSubView({
@@ -45,7 +39,6 @@ class ProductsSubView extends StatefulWidget {
     required this.gridParams,
     required this.mode,
     required this.isTheOnlySubView,
-    this.scrollDirection = ScrollDirection.vertical,
   });
 
   String get scrollTargetName {
@@ -73,11 +66,8 @@ class _ProductsSubViewState extends State<ProductsSubView>
 
   @override
   Widget build(BuildContext context) {
-    final size = _photoSize(widget.scrollDirection);
+    final size = _photoSize();
     final fromRoute = _fromRoute();
-    final expandNeeded = widget.designs.length > widget.gridParams.itemsPerRow;
-    final canShowExpand =
-        showExpandBreakpoint < MediaQuery.of(context).size.width;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,7 +86,7 @@ class _ProductsSubViewState extends State<ProductsSubView>
                   showEffect: !widget.isTheOnlySubView,
                 ),
               ),
-              if (expandNeeded && canShowExpand)
+              if (_showExpandCollapseButton())
                 Padding(
                   padding: const EdgeInsets.only(right: 10.0),
                   child: ActionButton(
@@ -159,12 +149,16 @@ class _ProductsSubViewState extends State<ProductsSubView>
     context.go('$routeRoot/${widget.id}');
   }
 
-  Size _photoSize(ScrollDirection scrollDirection) {
-    final width = scrollDirection == ScrollDirection.horizontal
-        ? widget.gridParams.photoWidth - singleRowSubtraction
-        : widget.gridParams.photoWidth;
-
+  Size _photoSize() {
+    final width = widget.gridParams.photoWidth - singleRowSubtraction;
     return Size(width, width * 0.75);
+  }
+
+  bool _showExpandCollapseButton() {
+    final expandNeeded = widget.designs.length > widget.gridParams.itemsPerRow;
+    final canShowExpand =
+        showExpandBreakpoint < MediaQuery.of(context).size.width;
+    return expandNeeded && canShowExpand && !widget.isTheOnlySubView;
   }
 
   void _toggleShowAll() {
