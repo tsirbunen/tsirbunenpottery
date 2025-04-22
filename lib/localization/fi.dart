@@ -17,9 +17,11 @@ class Fi implements Translations {
         'home': 'Koti',
         'categories': 'Kategoriat',
         'collections': 'Kokoelmat',
+        'designs': 'Mallit',
         'story': 'Tarina',
         'contact': 'Yhteystiedot',
         'english': 'Englanti',
         'finnish': 'Suomi',
+        'allDesigns': 'Kaikki mallit',
       };
 }

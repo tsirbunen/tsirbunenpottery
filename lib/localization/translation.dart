@@ -3,6 +3,7 @@ enum Translation {
   home,
   categories,
   collections,
+  designs,
   story,
   contact,
   // App and app bar labels:
@@ -12,6 +13,8 @@ enum Translation {
   // Languages:
   english,
   finnish,
+  // All designs title:
+  allDesigns,
 }
 
 extension TranslationToKey on Translation {

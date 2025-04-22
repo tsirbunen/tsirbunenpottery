@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:madmudmobile/app/blocs/blocs.dart';
 import 'package:madmudmobile/app/general_state_bloc/general_state_bloc.dart';
 import 'package:madmudmobile/app/general_state_bloc/general_state_state.dart';
-import 'package:madmudmobile/app/layout_bloc/layout_bloc.dart';
+import 'package:madmudmobile/app/scroll_and_route_bloc/scroll_and_route_bloc.dart';
 import 'package:madmudmobile/features/products/domain/bloc/products_bloc.dart';
 import 'package:madmudmobile/localization/languages.dart';
 import 'package:madmudmobile/localization/app_locale.dart';
@@ -22,7 +22,7 @@ class TsirbunenPotteryApp extends StatelessWidget {
       providers: [
         BlocProvider.value(value: getIt.get<GeneralStateBloc>()),
         BlocProvider.value(value: getIt.get<ProductsBloc>()),
-        BlocProvider.value(value: getIt.get<LayoutBloc>()),
+        BlocProvider.value(value: getIt.get<ScrollAndRouteBloc>()),
       ],
       child: BlocBuilder<GeneralStateBloc, GeneralState>(
         builder: (BuildContext context, GeneralState state) {

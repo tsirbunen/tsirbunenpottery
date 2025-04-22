@@ -43,6 +43,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
         categories: data["categories"],
         collectionDesigns: data["collectionDesigns"],
         categoryDesigns: data["categoryDesigns"],
+        allDesigns: data["allDesigns"],
         blocStatus: const BlocStatus(Status.ok),
       );
 

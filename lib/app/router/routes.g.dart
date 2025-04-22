@@ -23,8 +23,20 @@ RouteBase get $homeRoute => GoRouteData.$route(
           factory: $CollectionsRouteExtension._fromState,
         ),
         GoRouteData.$route(
+          path: '/collections/:id',
+          factory: $CollectionRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
           path: '/categories',
           factory: $CategoriesRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: '/categories/:id',
+          factory: $CategoryRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: '/designs',
+          factory: $DesignsRouteExtension._fromState,
         ),
         GoRouteData.$route(
           path: '/designs/:id',
@@ -75,11 +87,66 @@ extension $CollectionsRouteExtension on CollectionsRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $CollectionRouteExtension on CollectionRoute {
+  static CollectionRoute _fromState(GoRouterState state) => CollectionRoute(
+        id: state.pathParameters['id']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/collections/${Uri.encodeComponent(id)}',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 extension $CategoriesRouteExtension on CategoriesRoute {
   static CategoriesRoute _fromState(GoRouterState state) => CategoriesRoute();
 
   String get location => GoRouteData.$location(
         '/categories',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $CategoryRouteExtension on CategoryRoute {
+  static CategoryRoute _fromState(GoRouterState state) => CategoryRoute(
+        id: state.pathParameters['id']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/categories/${Uri.encodeComponent(id)}',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $DesignsRouteExtension on DesignsRoute {
+  static DesignsRoute _fromState(GoRouterState state) => DesignsRoute();
+
+  String get location => GoRouteData.$location(
+        '/designs',
       );
 
   void go(BuildContext context) => context.go(location);

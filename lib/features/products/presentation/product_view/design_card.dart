@@ -1,6 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:madmudmobile/app/blocs/blocs.dart';
+import 'package:madmudmobile/app/scroll_and_route_bloc/scroll_and_route_bloc.dart';
+import 'package:madmudmobile/app/scroll_and_route_bloc/scroll_and_route_event.dart';
 import 'package:madmudmobile/app/router/routes.dart';
 import 'package:madmudmobile/features/products/domain/models/design/design.dart';
 import 'package:madmudmobile/localization/languages.dart';
@@ -49,12 +52,9 @@ class DesignCard extends StatelessWidget {
   }
 
   void _navigateTo(BuildContext context) {
-    final uri = Uri(
-      path: '$designsRoot/${design.id}',
-      queryParameters: {'fromRoute': fromRoute},
-    );
-
-    context.go(uri.toString());
+    final layoutBloc = getIt.get<ScrollAndRouteBloc>();
+    layoutBloc.add(AddToHistory(route: fromRoute));
+    context.go('$designsRoot/${design.id}');
   }
 
   Photo _photo() {

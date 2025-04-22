@@ -16,9 +16,11 @@ class En implements Translations {
         'home': 'Home',
         'categories': 'Categories',
         'collections': 'Collections',
+        'designs': 'Designs',
         'story': 'Story',
         'contact': 'Contact',
         'english': 'English',
         'finnish': 'Finnish',
+        'allDesigns': 'All Designs',
       };
 }

@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:madmudmobile/app/general_state_bloc/general_state_bloc.dart';
-import 'package:madmudmobile/app/layout_bloc/layout_bloc.dart';
+import 'package:madmudmobile/app/scroll_and_route_bloc/scroll_and_route_bloc.dart';
 import 'package:madmudmobile/features/products/domain/bloc/products_bloc.dart';
 import 'package:madmudmobile/features/products/domain/bloc/products_event.dart';
 import 'package:madmudmobile/features/products/repository/products_repository.dart';
@@ -17,5 +17,6 @@ void prepareBlocs() {
 
   getIt.registerSingleton<GeneralStateBloc>(GeneralStateBloc());
   getIt.registerSingleton<ProductsBloc>(collectionsAndPiecesBloc);
-  getIt.registerSingleton<LayoutBloc>(LayoutBloc(scrollPositions: {}));
+  getIt.registerSingleton<ScrollAndRouteBloc>(
+      ScrollAndRouteBloc(scrollPositions: {}));
 }

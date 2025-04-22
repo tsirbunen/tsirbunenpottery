@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:madmudmobile/app/blocs/blocs.dart';
-import 'package:madmudmobile/app/layout_bloc/layout_bloc.dart';
-import 'package:madmudmobile/app/layout_bloc/layout_event.dart';
+import 'package:madmudmobile/app/scroll_and_route_bloc/scroll_and_route_bloc.dart';
+import 'package:madmudmobile/app/scroll_and_route_bloc/scroll_and_route_event.dart';
 
 mixin ScrollPositionMixin<T extends StatefulWidget> on State<T> {
   double _lastInitialScrollPosition = 0.0;
@@ -28,7 +28,7 @@ mixin ScrollPositionMixin<T extends StatefulWidget> on State<T> {
   }
 
   double _getPreviousScrollPosition() {
-    return getIt.get<LayoutBloc>().getScrollPosition(scrollTargetName);
+    return getIt.get<ScrollAndRouteBloc>().getScrollPosition(scrollTargetName);
   }
 
   void _updateScrollPositionLocally() {
@@ -38,7 +38,7 @@ mixin ScrollPositionMixin<T extends StatefulWidget> on State<T> {
   void _storeNewScrollPositionForNextVisit() {
     if (_newScrollPosition == _lastInitialScrollPosition) return;
 
-    getIt.get<LayoutBloc>().add(ChangeScrollPosition(
+    getIt.get<ScrollAndRouteBloc>().add(ChangeScrollPosition(
           target: scrollTargetName,
           position: _newScrollPosition,
         ));

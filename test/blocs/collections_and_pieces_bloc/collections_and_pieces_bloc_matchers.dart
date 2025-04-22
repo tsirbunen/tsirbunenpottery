@@ -40,6 +40,7 @@ class BlocProductDataAndStatusMatch extends Matcher {
       'designsById': state.designsById,
       'collectionDesigns': state.collectionDesigns,
       'categoryDesigns': state.categoryDesigns,
+      'allDesigns': state.allDesigns,
       'collections': state.collections,
       'categories': state.categories,
     };

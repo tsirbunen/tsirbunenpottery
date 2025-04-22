@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:madmudmobile/app/blocs/blocs.dart';
+import 'package:madmudmobile/app/scroll_and_route_bloc/scroll_and_route_bloc.dart';
+import 'package:madmudmobile/app/scroll_and_route_bloc/scroll_and_route_event.dart';
 import 'package:madmudmobile/widgets/action_button/action_button.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:madmudmobile/features/products/domain/models/design/design.dart';
@@ -53,16 +56,7 @@ class _ProductsSubViewState extends State<ProductsSubView>
     with ScrollPositionMixin<ProductsSubView> {
   @override
   String get scrollTargetName => widget.scrollTargetName;
-
   bool expandAll = false;
-
-  @override
-  void initState() {
-    super.initState();
-    if (widget.isTheOnlySubView) {
-      expandAll = true;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +95,7 @@ class _ProductsSubViewState extends State<ProductsSubView>
         const SizedBox(height: 10.0),
         Container(
           margin: const EdgeInsets.only(left: 25.0, right: 0.0, bottom: 20.0),
-          child: expandAll
+          child: expandAll || widget.isTheOnlySubView
               ? Wrap(
                   spacing: horizontalGridSpacing,
                   runSpacing: verticalGridSpacing,
@@ -146,11 +140,15 @@ class _ProductsSubViewState extends State<ProductsSubView>
 
   void _navigateTo(BuildContext context) {
     final routeRoot = widget.mode.routeRoot();
+    final layoutBloc = getIt.get<ScrollAndRouteBloc>();
+    // FIXME: Should we also reset possible current history?
+    layoutBloc.add(AddToHistory(route: _fromRoute()));
     context.go('$routeRoot/${widget.id}');
   }
 
   Size _photoSize() {
-    final width = widget.gridParams.photoWidth - singleRowSubtraction;
+    final subtraction = widget.isTheOnlySubView ? 0.0 : singleRowSubtraction;
+    final width = widget.gridParams.photoWidth - subtraction;
     return Size(width, width * 0.75);
   }
 
@@ -169,6 +167,8 @@ class _ProductsSubViewState extends State<ProductsSubView>
 
   String _fromRoute() {
     final routeRoot = widget.mode.routeRoot();
+    if (widget.mode == ViewMode.designs) routeRoot;
+
     return widget.isTheOnlySubView ? '$routeRoot/${widget.id}' : routeRoot;
   }
 }

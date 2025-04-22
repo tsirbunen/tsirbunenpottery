@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:madmudmobile/app/blocs/blocs.dart';
+import 'package:madmudmobile/app/scroll_and_route_bloc/scroll_and_route_bloc.dart';
+import 'package:madmudmobile/app/scroll_and_route_bloc/scroll_and_route_event.dart';
+import 'package:madmudmobile/app/scroll_and_route_bloc/scroll_and_route_state.dart';
 import 'package:madmudmobile/widgets/action_button/action_button.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
@@ -11,30 +16,28 @@ class AppBarLeftActions extends StatefulWidget {
 }
 
 class AppBarLeftActionsState extends State<AppBarLeftActions> {
-  late String currentLocation;
-  late GoRouterDelegate routerDelegate;
+  bool isGoingBack = false;
 
   @override
   Widget build(BuildContext context) {
-    final fromRoute = _fromPage(context);
-    final showBackArrowInsteadOfMenu = _routeHasId(context);
+    return BlocBuilder<ScrollAndRouteBloc, ScrollAndRouteState>(builder: (
+      BuildContext context,
+      ScrollAndRouteState state,
+    ) {
+      final showBackArrowInsteadOfMenu = _routeHasId(context);
 
-    if (showBackArrowInsteadOfMenu) {
+      if (showBackArrowInsteadOfMenu || isGoingBack) {
+        return ActionButton(
+          onPressed: () => _goBack(context),
+          iconData: Symbols.arrow_back,
+        );
+      }
+
       return ActionButton(
-          onPressed: () => _goBack(context, fromRoute),
-          iconData: Symbols.arrow_back);
-    }
-
-    return ActionButton(
-        onPressed: () => _openDrawer(context), iconData: Symbols.menu);
-  }
-
-  String _fromPage(BuildContext context) {
-    final uri = (Router.of(context).routerDelegate.currentConfiguration
-            as RouteMatchList?)
-        ?.uri;
-    final routeFrom = uri?.queryParameters['fromRoute'];
-    return routeFrom ?? 'home';
+        onPressed: () => _openDrawer(context),
+        iconData: Symbols.menu,
+      );
+    });
   }
 
   _routeHasId(BuildContext context) {
@@ -43,13 +46,22 @@ class AppBarLeftActionsState extends State<AppBarLeftActions> {
     return Uri.parse(fullPath).toString().contains(':id');
   }
 
-  void _goBack(BuildContext context, fromRoute) {
+  // FIXME: This fails if the user users the browser's back button!!!
+  void _goBack(BuildContext context) {
     final router = GoRouter.of(context);
-    if (router.canPop()) {
+    final layoutBloc = getIt.get<ScrollAndRouteBloc>();
+
+    if (layoutBloc.state.history.isNotEmpty) {
+      final lastFromRoute = layoutBloc.state.history.last;
+      router.go(lastFromRoute);
+    } else if (router.canPop()) {
       router.pop();
-    } else {
-      router.go(fromRoute);
+      setState(() {
+        isGoingBack = false;
+      });
     }
+
+    layoutBloc.add(DropFromHistory());
   }
 
   void _openDrawer(BuildContext context) {

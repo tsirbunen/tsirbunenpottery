@@ -31,6 +31,7 @@ void main() {
       test('Product data is properly organized (detailed content check)', () {
         final organizedData = organizeProductsData(testProducts);
         verifyCollectionMappingDesignPiecesAreCorrect(organizedData);
+        verifyTestDesigns(organizedData);
       });
     });
     group('BLOC STATE -', () {

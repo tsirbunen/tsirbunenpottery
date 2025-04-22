@@ -1,5 +1,7 @@
+// import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:madmudmobile/features/products/presentation/pages/design_page.dart';
+import 'package:madmudmobile/features/products/presentation/pages/designs_page.dart';
 import 'package:madmudmobile/features/story/presentation/story_page.dart';
 import 'package:madmudmobile/features/products/presentation/pages/collections_page.dart';
 import 'package:madmudmobile/features/contact/presentation/contact_page.dart';
@@ -70,18 +72,21 @@ class RouteController {
           ],
         ),
         GoRoute(
+          path: designsRoot,
+          pageBuilder: (context, state) {
+            return NoTransitionPage(
+              name: context.local(RouteEnum.designs.pageName()),
+              child: const DesignsPage(),
+            );
+          },
+        ),
+        GoRoute(
           path: DesignRoute.path,
           pageBuilder: (context, state) {
             final id = state.pathParameters['id'];
-            final fromRoute =
-                state.uri.queryParameters['fromRoute'] ?? 'unknown';
-
             return NoTransitionPage(
               name: designPageName,
-              // FIXME: Perhaps some better way to get around no id?
-              child: id == null
-                  ? const HomePage()
-                  : DesignPage(id: id, fromRoute: fromRoute),
+              child: id == null ? const DesignsPage() : DesignPage(id: id),
             );
           },
         ),

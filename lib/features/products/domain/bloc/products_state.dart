@@ -13,6 +13,7 @@ class ProductsState extends Equatable {
   final Map<String, Design> designsById;
   final Map<String, Map<String, List<String>>> collectionDesigns;
   final Map<String, Map<String, List<String>>> categoryDesigns;
+  final Map<String, Map<String, List<String>>> allDesigns;
 
   const ProductsState({
     this.blocStatus = const BlocStatus(Status.ok),
@@ -22,6 +23,7 @@ class ProductsState extends Equatable {
     this.categories = const [],
     this.collectionDesigns = const {},
     this.categoryDesigns = const {},
+    this.allDesigns = const {},
   });
 
   ProductsState copyWithStateChange({BlocStatus? newStatus}) {
@@ -33,6 +35,7 @@ class ProductsState extends Equatable {
       categories: categories,
       collectionDesigns: collectionDesigns,
       categoryDesigns: categoryDesigns,
+      allDesigns: allDesigns,
     );
   }
 

@@ -7,6 +7,7 @@ Map<String, dynamic> organizeProductsData(Products products) {
   final Map<String, Design> designsById = {};
   final Map<String, Map<String, List<String>>> collectionDesigns = {};
   final Map<String, Map<String, List<String>>> categoryDesigns = {};
+  final Map<String, Map<String, List<String>>> allDesigns = {'allDesigns': {}};
 
   for (var design in products.designs) {
     designsById[design.id] = design;
@@ -17,7 +18,7 @@ Map<String, dynamic> organizeProductsData(Products products) {
     final designId = piece.designId;
     final design = designsById[designId];
     if (design != null) {
-      final categoryIds = design.categoryIds ?? [];
+      final categoryIds = design.categoryIds;
       for (var categoryId in categoryIds) {
         if (!categoryDesigns.containsKey(categoryId)) {
           categoryDesigns[categoryId] = {};
@@ -45,6 +46,14 @@ Map<String, dynamic> organizeProductsData(Products products) {
         collectionDesigns[collectionId]![designId]!.add(piece.id);
       }
     }
+
+    if (!allDesigns['allDesigns']!.containsKey(designId)) {
+      allDesigns['allDesigns']![designId] = [];
+    }
+
+    if (!allDesigns['allDesigns']![designId]!.contains(piece.id)) {
+      allDesigns['allDesigns']![designId]!.add(piece.id);
+    }
   }
 
   return {
@@ -52,6 +61,7 @@ Map<String, dynamic> organizeProductsData(Products products) {
     'designsById': designsById,
     'collectionDesigns': collectionDesigns,
     'categoryDesigns': categoryDesigns,
+    'allDesigns': allDesigns,
     'collections': products.collections,
     'categories': products.categories,
   };

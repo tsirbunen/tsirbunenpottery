@@ -5,6 +5,7 @@ enum RouteEnum {
   home,
   categories,
   collections,
+  designs,
   story,
   contact,
 }
@@ -20,6 +21,8 @@ extension PathExtension on RouteEnum {
         return CategoriesRoute.path;
       case RouteEnum.collections:
         return CollectionsRoute.path;
+      case RouteEnum.designs:
+        return DesignsRoute.path;
       case RouteEnum.contact:
         return ContactRoute.path;
       case RouteEnum.story:
@@ -39,6 +42,8 @@ extension PageNameExtension on RouteEnum {
         return Translation.categories.toKey();
       case RouteEnum.collections:
         return Translation.collections.toKey();
+      case RouteEnum.designs:
+        return Translation.designs.toKey();
       case RouteEnum.contact:
         return Translation.contact.toKey();
       case RouteEnum.story:

@@ -13,6 +13,8 @@ verifyProductsDataIsSuperficiallyProperlyOrganized(
       isA<Map<String, Map<String, List<String>>>>());
   expect(organizedData['categoryDesigns'],
       isA<Map<String, Map<String, List<String>>>>());
+  expect(organizedData['allDesigns'],
+      isA<Map<String, Map<String, List<String>>>>());
   expect(organizedData['collections'], isA<List<Collection>>());
   expect(organizedData['categories'], isA<List<Category>>());
 
@@ -34,6 +36,11 @@ verifyNoEmptyCollectionsOrCategoriesInMappings(
       testProducts.collections.length - 1);
   expect(organizedData['categoryDesigns'].length,
       testProducts.categories.length - 1);
+}
+
+verifyTestDesigns(Map<String, dynamic> organizedData) {
+  expect(organizedData['allDesigns']['allDesigns'].length,
+      testProducts.designs.length);
 }
 
 verifyCollectionMappingDesignPiecesAreCorrect(

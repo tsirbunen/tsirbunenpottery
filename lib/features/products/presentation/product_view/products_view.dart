@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:madmudmobile/localization/app_locale.dart';
 import 'package:madmudmobile/app/general_state_bloc/general_state_bloc.dart';
 import 'package:madmudmobile/app/general_state_bloc/general_state_state.dart';
 import 'package:madmudmobile/features/products/domain/bloc/products_bloc.dart';
@@ -65,7 +66,8 @@ class _ProductsViewState extends State<ProductsView>
                 pieceIdsByDesignIds: pieceIdsByDesignIds,
                 language: language,
                 gridParams: gridParams,
-                isTheOnlySubView: widget.selectedCategoryId != null ||
+                isTheOnlySubView: widget.mode == ViewMode.designs ||
+                    widget.selectedCategoryId != null ||
                     widget.selectedCollectionId != null,
                 mode: widget.mode,
               );
@@ -101,10 +103,18 @@ class _ProductsViewState extends State<ProductsView>
       }
     }
 
+    if (widget.mode == ViewMode.designs) {
+      return state.allDesigns;
+    }
+
     return {};
   }
 
   String _subViewTitle(mode, state, categoryOrCollectionId, Language language) {
+    if (mode == ViewMode.designs) {
+      return context.local('allDesigns');
+    }
+
     return (mode == ViewMode.categories ? state.categories : state.collections)
         .firstWhere((c) => c.id == categoryOrCollectionId)
         .names[language]!;
