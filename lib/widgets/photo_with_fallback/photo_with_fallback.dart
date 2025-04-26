@@ -48,6 +48,7 @@ class _PhotoWithFallbackState extends State<PhotoWithFallback>
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     // Note: While loading the recipe image from the internet,
     // we show an icon as a placeholder and once the image data
     // is available, we fade it slowly in.
@@ -74,31 +75,72 @@ class _PhotoWithFallbackState extends State<PhotoWithFallback>
           child: Stack(
             fit: StackFit.expand,
             children: [
-              AnimatedBuilder(
-                animation: _fadeInOpacityAnimation!,
-                builder: (context, child) {
-                  final imageWidget = AnimatedScale(
-                    scale: _isHovering ? 1.1 : 1.0,
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeOut,
-                    child: Image(
-                      image: _image!,
-                      fit: BoxFit.cover,
-                    ),
-                  );
+              // FIXME: This is the original one that does not work in web production!!!
+              // AnimatedBuilder(
+              //   animation: _fadeInOpacityAnimation!,
+              //   builder: (context, child) {
+              //     final imageWidget = AnimatedScale(
+              //       scale: _isHovering ? 1.1 : 1.0,
+              //       duration: const Duration(milliseconds: 500),
+              //       curve: Curves.easeOut,
+              //       child: Image(
+              //         image: _image!,
+              //         fit: BoxFit.cover,
+              //       ),
+              //     );
 
-                  return Opacity(
-                    opacity: _fadeInOpacityAnimation!.value,
-                    child: widget.isShadeMasked
-                        ? ShaderMask(
-                            shaderCallback: _shaderCallback(),
-                            blendMode: BlendMode.dstIn,
-                            child: imageWidget,
-                          )
-                        : imageWidget,
-                  );
-                },
+              //     return Opacity(
+              //       opacity: _fadeInOpacityAnimation!.value,
+              //       child: widget.isShadeMasked
+              //           ? ShaderMask(
+              //               shaderCallback: _shaderCallback(),
+              //               blendMode: BlendMode.dstIn,
+              //               child: imageWidget,
+              //             )
+              //           : imageWidget,
+              //     );
+              //   },
+              // ),
+              // Positioned.fill(
+              //   child: AnimatedScale(
+              //     scale: _isHovering ? 1.1 : 1.0,
+              //     duration: const Duration(milliseconds: 500),
+              //     curve: Curves.easeOut,
+              //     child: Image(
+              //       image: _image!,
+              //       fit: BoxFit.cover,
+              //     ),
+              //   ),
+              // ),
+
+              Positioned.fill(
+                child: AnimatedScale(
+                  scale: _isHovering ? 1.1 : 1.0,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeOut,
+                  child: Image(
+                    image: _image!,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
+
+              if (widget.isShadeMasked)
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: RadialGradient(
+                        center: Alignment.center,
+                        radius: 0.5,
+                        colors: [
+                          colors.surface.withOpacity(0),
+                          colors.surface,
+                        ],
+                        stops: [0.2, 1.0],
+                      ),
+                    ),
+                  ),
+                ),
             ],
           ),
         ),
