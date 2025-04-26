@@ -6,11 +6,12 @@ import 'package:madmudmobile/app/general_state_bloc/general_state_state.dart';
 import 'package:madmudmobile/features/products/domain/bloc/products_bloc.dart';
 import 'package:madmudmobile/features/products/domain/bloc/products_state.dart';
 import 'package:madmudmobile/features/products/domain/models/design/design.dart';
-import 'package:madmudmobile/features/products/presentation/product_view/models.dart';
-import 'package:madmudmobile/features/products/presentation/product_view/products_sub_view.dart';
-import 'package:madmudmobile/features/products/presentation/product_view/scroll_position_mixin.dart';
+import 'package:madmudmobile/features/products/presentation/products_view/models.dart';
+import 'package:madmudmobile/features/products/presentation/products_view/products_sub_view.dart';
+import 'package:madmudmobile/features/products/presentation/products_view/scroll_position_mixin.dart';
 import 'package:madmudmobile/localization/languages.dart';
 import 'package:madmudmobile/localization/translation.dart';
+import 'package:madmudmobile/widgets/footer/footer.dart';
 import 'package:madmudmobile/widgets/page_base/page_base.dart';
 
 class ProductsView extends StatefulWidget {
@@ -54,26 +55,29 @@ class _ProductsViewState extends State<ProductsView>
           final gridParams = _commonGridParams(context, groupedDesigns);
 
           return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: groupedDesigns.entries.map((entry) {
-              final id = entry.key;
-              final pieceIdsByDesignIds = entry.value;
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ...groupedDesigns.entries.map((entry) {
+                  final id = entry.key;
+                  final pieceIdsByDesignIds = entry.value;
 
-              return ProductsSubView(
-                id: id,
-                title: _subViewTitle(widget.mode, state, id, language),
-                designs:
-                    _subViewDesigns(pieceIdsByDesignIds, state.designsById),
-                pieceIdsByDesignIds: pieceIdsByDesignIds,
-                language: language,
-                gridParams: gridParams,
-                isTheOnlySubView: widget.mode == ViewMode.designs ||
-                    widget.selectedCategoryId != null ||
-                    widget.selectedCollectionId != null,
-                mode: widget.mode,
-              );
-            }).toList(),
-          );
+                  return ProductsSubView(
+                    id: id,
+                    title: _subViewTitle(widget.mode, state, id, language),
+                    designs:
+                        _subViewDesigns(pieceIdsByDesignIds, state.designsById),
+                    pieceIdsByDesignIds: pieceIdsByDesignIds,
+                    language: language,
+                    gridParams: gridParams,
+                    isTheOnlySubView: widget.mode == ViewMode.designs ||
+                        widget.selectedCategoryId != null ||
+                        widget.selectedCollectionId != null,
+                    mode: widget.mode,
+                  );
+                }),
+                const Footer(),
+              ]);
         });
       }),
     );

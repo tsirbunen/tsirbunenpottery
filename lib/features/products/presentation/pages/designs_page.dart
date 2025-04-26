@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:madmudmobile/features/products/presentation/product_view/models.dart';
-import 'package:madmudmobile/features/products/presentation/product_view/products_view.dart';
+import 'package:madmudmobile/features/products/presentation/products_view/models.dart';
+import 'package:madmudmobile/features/products/presentation/products_view/products_view.dart';
 
 class DesignsPage extends StatelessWidget {
   const DesignsPage({super.key});

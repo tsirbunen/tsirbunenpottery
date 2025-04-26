@@ -6,10 +6,10 @@ import 'package:madmudmobile/app/scroll_and_route_bloc/scroll_and_route_event.da
 import 'package:madmudmobile/widgets/action_button/action_button.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:madmudmobile/features/products/domain/models/design/design.dart';
-import 'package:madmudmobile/features/products/presentation/product_view/design_card.dart';
-import 'package:madmudmobile/features/products/presentation/product_view/models.dart';
-import 'package:madmudmobile/features/products/presentation/product_view/scroll_position_mixin.dart';
-import 'package:madmudmobile/features/products/presentation/product_view/title_with_hover_effect.dart';
+import 'package:madmudmobile/features/products/presentation/products_view/design_card.dart';
+import 'package:madmudmobile/features/products/presentation/products_view/models.dart';
+import 'package:madmudmobile/features/products/presentation/products_view/scroll_position_mixin.dart';
+import 'package:madmudmobile/features/products/presentation/products_view/title_with_hover_effect.dart';
 import 'package:madmudmobile/localization/languages.dart';
 
 // Note: Let's subtract some space from the photo width (if single row) as a guide to

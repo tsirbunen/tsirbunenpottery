@@ -8,6 +8,7 @@ import 'package:madmudmobile/features/products/domain/bloc/products_state.dart';
 import 'package:madmudmobile/features/products/presentation/design_view/design_description.dart';
 import 'package:madmudmobile/features/products/presentation/design_view/design_photos.dart';
 import 'package:madmudmobile/localization/translation.dart';
+import 'package:madmudmobile/widgets/footer/footer.dart';
 import 'package:madmudmobile/widgets/page_base/page_base.dart';
 
 const double spacing = 20.0;
@@ -41,37 +42,43 @@ class DesignView extends StatelessWidget {
             builder: (context, constraints) {
               bool hasRoomForRow = constraints.maxWidth > limit;
 
-              return Container(
-                margin: const EdgeInsets.all(20.0),
-                child: hasRoomForRow
-                    ? Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          DesignPhotos(pieces: pieces),
-                          const SizedBox(width: spacing),
-                          Flexible(
-                            child: ConstrainedBox(
-                              constraints:
-                                  const BoxConstraints(maxWidth: limit),
-                              child: DesignDescription(
-                                  language: language, design: design),
-                            ),
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.all(20.0),
+                    child: hasRoomForRow
+                        ? Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              DesignPhotos(pieces: pieces),
+                              const SizedBox(width: spacing),
+                              Flexible(
+                                child: ConstrainedBox(
+                                  constraints:
+                                      const BoxConstraints(maxWidth: limit),
+                                  child: DesignDescription(
+                                      language: language, design: design),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              DesignPhotos(pieces: pieces),
+                              const SizedBox(height: spacing),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15.0),
+                                child: DesignDescription(
+                                    language: language, design: design),
+                              ),
+                            ],
                           ),
-                        ],
-                      )
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          DesignPhotos(pieces: pieces),
-                          const SizedBox(height: spacing),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 15.0),
-                            child: DesignDescription(
-                                language: language, design: design),
-                          ),
-                        ],
-                      ),
+                  ),
+                  const Footer(),
+                ],
               );
             },
           );
