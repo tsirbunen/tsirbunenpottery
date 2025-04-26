@@ -40,7 +40,7 @@ class DrawerRouteItem extends StatelessWidget {
 
     return HoverDetector(builder: (BuildContext context, bool isHovering) {
       return Container(
-        color: isHovering ? colors.tertiary : Colors.transparent,
+        color: isHovering ? colors.onTertiary : Colors.transparent,
         child: Column(
           children: [
             GestureDetector(

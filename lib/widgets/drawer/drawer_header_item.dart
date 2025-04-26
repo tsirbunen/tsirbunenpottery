@@ -16,10 +16,8 @@ class DrawerHeaderItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
-
     return Container(
-      color: colors.onTertiary,
+      decoration: _decoration(context),
       child: Column(
         children: [
           Padding(
@@ -34,6 +32,17 @@ class DrawerHeaderItem extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  BoxDecoration _decoration(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    return BoxDecoration(
+      border: Border(
+          bottom: BorderSide(
+        width: 1.0,
+        color: colors.onTertiary,
+      )),
     );
   }
 }

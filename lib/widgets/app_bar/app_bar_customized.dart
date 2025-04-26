@@ -5,7 +5,7 @@ import 'package:madmudmobile/widgets/horizontal_navigation/horizontal_navigation
 
 // FIXME: As long as the app is only available as the web version, the app bar height
 // should be lowered like here.
-const double appBarHeight = 85.0;
+const double appBarHeight = 81.0;
 const double heightBreakpoint = 800.0;
 const double widthBreakpoint = 500.0;
 const double mobilePadding = 10.0;
