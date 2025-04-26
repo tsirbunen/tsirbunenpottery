@@ -5,7 +5,7 @@ import 'package:madmudmobile/widgets/photo_with_fallback/no_image_icon_placehold
 const Duration fadeInDuration = Duration(milliseconds: 1500);
 
 class Photo {
-  final int id;
+  final String id;
   final String url;
   final bool? isMainPhoto;
 

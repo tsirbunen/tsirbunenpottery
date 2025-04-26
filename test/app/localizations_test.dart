@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:madmudmobile/localization/en.dart';
+import 'package:madmudmobile/localization/translation.dart';
 import 'package:madmudmobile/localization/translations.dart';
 import 'package:madmudmobile/localization/validate_translations.dart';
 import '../utils/prepare_blocs_for_tests.dart';
@@ -12,7 +13,7 @@ class MockTranslations implements Translations {
   String get language => 'Mock';
 
   @override
-  String translate(String key) => _all[key] ?? '';
+  String translate(Translation key) => _all[key.name] ?? '';
 
   @override
   Map<String, String> get all => _all;

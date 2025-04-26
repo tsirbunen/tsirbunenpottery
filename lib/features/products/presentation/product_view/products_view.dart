@@ -10,6 +10,7 @@ import 'package:madmudmobile/features/products/presentation/product_view/models.
 import 'package:madmudmobile/features/products/presentation/product_view/products_sub_view.dart';
 import 'package:madmudmobile/features/products/presentation/product_view/scroll_position_mixin.dart';
 import 'package:madmudmobile/localization/languages.dart';
+import 'package:madmudmobile/localization/translation.dart';
 import 'package:madmudmobile/widgets/page_base/page_base.dart';
 
 class ProductsView extends StatefulWidget {
@@ -112,7 +113,7 @@ class _ProductsViewState extends State<ProductsView>
 
   String _subViewTitle(mode, state, categoryOrCollectionId, Language language) {
     if (mode == ViewMode.designs) {
-      return context.local('allDesigns');
+      return context.local(Translation.allDesigns);
     }
 
     return (mode == ViewMode.categories ? state.categories : state.collections)

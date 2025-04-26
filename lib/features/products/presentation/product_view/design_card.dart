@@ -45,7 +45,14 @@ class DesignCard extends StatelessWidget {
             size: size,
             zoomOnHover: true,
           ),
-          Text(designName),
+          const SizedBox(height: 2.0),
+          SizedBox(
+            width: size.width,
+            child: Text(designName,
+                style: _titleStyle(context),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis),
+          ),
         ],
       ),
     );
@@ -68,6 +75,13 @@ class DesignCard extends StatelessWidget {
     ];
     final randomIndexBetween0and2 = Random().nextInt(5);
     final url = '$baseUrl${photoUrls[randomIndexBetween0and2]}';
-    return Photo(id: 0, url: url);
+    return Photo(id: '$randomIndexBetween0and2', url: url);
+  }
+
+  TextStyle _titleStyle(BuildContext context) {
+    return Theme.of(context)
+        .textTheme
+        .labelMedium!
+        .copyWith(overflow: TextOverflow.ellipsis);
   }
 }

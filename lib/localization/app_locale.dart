@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:madmudmobile/localization/fi.dart';
+import 'package:madmudmobile/localization/translation.dart';
 import 'package:madmudmobile/localization/translations.dart';
 import 'en.dart';
 
@@ -24,7 +25,7 @@ class AppLocale {
   static const LocalizationsDelegate<AppLocale> delegate =
       CustomLocalizationsDelegate();
 
-  String translate(final String key) {
+  String translate(final Translation key) {
     return translations.translate(key);
   }
 
@@ -56,6 +57,6 @@ class CustomLocalizationsDelegate extends LocalizationsDelegate<AppLocale> {
 // Note: This is to enable the use of translation with a very short syntax,
 // for example context.local('tradeName'), instead the the general
 // Local.of(context).translate('tradeName')
-extension LocalizedBuildContext on BuildContext {
-  String local(final String key) => AppLocale.of(this).translate(key);
+extension LocalizedTranslationBuildContext on BuildContext {
+  String local(final Translation key) => AppLocale.of(this).translate(key);
 }

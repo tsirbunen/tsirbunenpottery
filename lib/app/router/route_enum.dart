@@ -34,20 +34,20 @@ extension PathExtension on RouteEnum {
 }
 
 extension PageNameExtension on RouteEnum {
-  String pageName() {
+  Translation pageName() {
     switch (this) {
       case RouteEnum.home:
-        return Translation.home.toKey();
+        return Translation.home;
       case RouteEnum.categories:
-        return Translation.categories.toKey();
+        return Translation.categories;
       case RouteEnum.collections:
-        return Translation.collections.toKey();
+        return Translation.collections;
       case RouteEnum.designs:
-        return Translation.designs.toKey();
+        return Translation.designs;
       case RouteEnum.contact:
-        return Translation.contact.toKey();
+        return Translation.contact;
       case RouteEnum.story:
-        return Translation.story.toKey();
+        return Translation.story;
       default:
         throw Exception('Page name not implemented!');
     }

@@ -17,7 +17,7 @@ import 'package:madmudmobile/localization/languages.dart';
 const double singleRowSubtraction = 15.0;
 const double horizontalGridSpacing = 15.0;
 const double verticalGridSpacing = 20.0;
-const double minPhotoWidth = 150.0;
+const double minPhotoWidth = 175.0;
 const double maxPhotoWidth = 300.0;
 const double sideMargin = 25.0;
 const double showExpandBreakpoint = 700.0;
@@ -69,7 +69,7 @@ class _ProductsSubViewState extends State<ProductsSubView>
         Container(
           margin: const EdgeInsets.only(right: 0.0, top: 30.0),
           // FIXME: This component works in development and production, but fails in tests
-          // dues to horizontal overflow. Figure out the problem.
+          // due to horizontal overflow. Figure out the problem.
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

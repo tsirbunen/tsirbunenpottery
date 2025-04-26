@@ -47,4 +47,10 @@ class ProductsState extends Equatable {
         // to the products data, that is reflected in the piecesById.
         piecesById,
       ];
+
+  List<Piece> piecesByDesignId(String designId) {
+    return piecesById.values
+        .where((piece) => piece.designId == designId)
+        .toList();
+  }
 }

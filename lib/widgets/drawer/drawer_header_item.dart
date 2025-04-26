@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:madmudmobile/localization/app_locale.dart';
+import 'package:madmudmobile/localization/translation.dart';
 import 'package:madmudmobile/widgets/trademark/trademark.dart';
 
 const EdgeInsets padding =
@@ -17,8 +18,8 @@ class DrawerHeaderItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-    final tradeName = context.local('tradeName');
-    final shortDescription = context.local('appShortDescription');
+    final tradeName = context.local(Translation.tradeName);
+    final shortDescription = context.local(Translation.appShortDescription);
 
     return Container(
       color: colors.onTertiary,

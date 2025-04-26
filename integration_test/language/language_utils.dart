@@ -7,7 +7,7 @@ import 'package:madmudmobile/widgets/action_button/action_button.dart';
 import 'package:madmudmobile/widgets/app_bar/app_bar_right_actions.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
-final testKey = Translation.collections.toKey();
+const testKey = Translation.collections;
 final testStringInEnglish = En().translate(testKey);
 final testStringInFinnish = Fi().translate(testKey);
 

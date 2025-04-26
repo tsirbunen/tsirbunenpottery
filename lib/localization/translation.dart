@@ -15,6 +15,10 @@ enum Translation {
   finnish,
   // All designs title:
   allDesigns,
+  // Design view:
+  designNotFound,
+  productDetails,
+  foodSafetyInfo,
 }
 
 extension TranslationToKey on Translation {

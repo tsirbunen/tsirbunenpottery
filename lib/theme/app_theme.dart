@@ -23,6 +23,26 @@ class AppTheme {
           fontWeight: FontWeight.w500,
           color: veryDark,
         ),
+        labelSmall: TextStyle(
+          fontSize: 10,
+          fontWeight: FontWeight.w800,
+          color: pale,
+        ),
+        labelMedium: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+          color: veryDark,
+        ),
+        bodyMedium: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: veryDark,
+        ),
+        bodySmall: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          color: veryDark,
+        ),
       ),
       colorScheme: ColorScheme.fromSeed(
         surface: background,

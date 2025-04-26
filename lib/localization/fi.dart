@@ -1,4 +1,5 @@
 import 'package:madmudmobile/localization/languages.dart';
+import 'package:madmudmobile/localization/translation.dart';
 import 'package:madmudmobile/localization/translations.dart';
 
 class Fi implements Translations {
@@ -6,7 +7,7 @@ class Fi implements Translations {
   String get language => Language.fi.name;
 
   @override
-  String translate(String key) => all[key] ?? '';
+  String translate(Translation key) => all[key.name] ?? '';
 
   @override
   Map<String, String> get all => {
@@ -23,5 +24,8 @@ class Fi implements Translations {
         'english': 'Englanti',
         'finnish': 'Suomi',
         'allDesigns': 'Kaikki mallit',
+        'designNotFound': 'Mallia ei löydy',
+        'productDetails': 'Tuotteen tiedot',
+        'foodSafetyInfo': 'Elintarviketurvallisuus',
       };
 }

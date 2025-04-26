@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:madmudmobile/localization/translation.dart';
 import 'package:madmudmobile/widgets/drawer/drawer_route_item.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:madmudmobile/localization/en.dart';
@@ -11,11 +12,11 @@ import 'package:madmudmobile/features/products/presentation/pages/categories_pag
 final english = En();
 
 List<String> routeNames = [
-  english.translate('home'),
-  english.translate('categories'),
-  english.translate('collections'),
-  english.translate('contact'),
-  english.translate('story'),
+  english.translate(Translation.home),
+  english.translate(Translation.categories),
+  english.translate(Translation.collections),
+  english.translate(Translation.contact),
+  english.translate(Translation.story),
 ];
 
 final routeToPage = {

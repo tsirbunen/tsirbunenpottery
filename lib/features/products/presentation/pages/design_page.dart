@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:madmudmobile/widgets/page_base/page_base.dart';
+import 'package:madmudmobile/features/products/presentation/design_view/design_view.dart';
 
 class DesignPage extends StatelessWidget {
   final String id;
@@ -8,10 +8,6 @@ class DesignPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PageBase(
-      pageBody: Container(
-        child: Text('DESIGN ${id}'),
-      ),
-    );
+    return DesignView(id: id);
   }
 }

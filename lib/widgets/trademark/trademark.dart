@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:madmudmobile/localization/app_locale.dart';
+import 'package:madmudmobile/localization/translation.dart';
 
 const double logoDefaultSize = 36.0;
 const double tradeNameDefaultSize = 7.0;
@@ -34,7 +35,7 @@ class Trademark extends StatelessWidget {
     final baseStyle = Theme.of(context).textTheme.titleMedium!;
     final colors = Theme.of(context).colorScheme;
     final textColor = isInverted ? colors.surface : colors.primary;
-    final tradeNameParts = context.local('tradeName').split(' ');
+    final tradeNameParts = context.local(Translation.tradeName).split(' ');
 
     return GestureDetector(
       onTap: onPressed,
