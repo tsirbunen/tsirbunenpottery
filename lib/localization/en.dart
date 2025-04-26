@@ -25,6 +25,20 @@ class En implements Translations {
         'allDesigns': 'All Designs',
         'designNotFound': 'Design not found',
         'productDetails': 'Product Details',
-        'foodSafetyInfo': 'Food Safety Information',
+        'foodSafetyTitle': 'Food Safety Information',
+        'foodSafetyDetails': foodSafetyDetails
       };
 }
+
+const List<String> foodSafetyInfo = [
+  'We use commercially manufactured glazes that are intended to be food safe.',
+  'However, we do not conduct independent laboratory testing on each individual piece.',
+  'Please inspect any item you plan to use with food to ensure that',
+  'the glazed surface is fully intact,',
+  'there are no cracks, crazing, or chips, and that',
+  'all food-contact areas are completely covered in glaze.',
+  'If you are ever unsure, we recommend using the item for decorative purposes only.',
+  'Your safety matters to us! Thank you for understanding!'
+];
+
+String foodSafetyDetails = foodSafetyInfo.join(' ');

@@ -23,6 +23,9 @@ mixin _$Design {
   String get id => throw _privateConstructorUsedError;
   Map<Language, String> get names => throw _privateConstructorUsedError;
   List<String> get categoryIds => throw _privateConstructorUsedError;
+  Map<Language, String> get description => throw _privateConstructorUsedError;
+  Map<Language, Map<String, String>> get details =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +37,12 @@ abstract class $DesignCopyWith<$Res> {
   factory $DesignCopyWith(Design value, $Res Function(Design) then) =
       _$DesignCopyWithImpl<$Res, Design>;
   @useResult
-  $Res call({String id, Map<Language, String> names, List<String> categoryIds});
+  $Res call(
+      {String id,
+      Map<Language, String> names,
+      List<String> categoryIds,
+      Map<Language, String> description,
+      Map<Language, Map<String, String>> details});
 }
 
 /// @nodoc
@@ -53,6 +61,8 @@ class _$DesignCopyWithImpl<$Res, $Val extends Design>
     Object? id = null,
     Object? names = null,
     Object? categoryIds = null,
+    Object? description = null,
+    Object? details = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -67,6 +77,14 @@ class _$DesignCopyWithImpl<$Res, $Val extends Design>
           ? _value.categoryIds
           : categoryIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as Map<Language, String>,
+      details: null == details
+          ? _value.details
+          : details // ignore: cast_nullable_to_non_nullable
+              as Map<Language, Map<String, String>>,
     ) as $Val);
   }
 }
@@ -78,7 +96,12 @@ abstract class _$$DesignImplCopyWith<$Res> implements $DesignCopyWith<$Res> {
       __$$DesignImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, Map<Language, String> names, List<String> categoryIds});
+  $Res call(
+      {String id,
+      Map<Language, String> names,
+      List<String> categoryIds,
+      Map<Language, String> description,
+      Map<Language, Map<String, String>> details});
 }
 
 /// @nodoc
@@ -95,6 +118,8 @@ class __$$DesignImplCopyWithImpl<$Res>
     Object? id = null,
     Object? names = null,
     Object? categoryIds = null,
+    Object? description = null,
+    Object? details = null,
   }) {
     return _then(_$DesignImpl(
       id: null == id
@@ -109,6 +134,14 @@ class __$$DesignImplCopyWithImpl<$Res>
           ? _value._categoryIds
           : categoryIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      description: null == description
+          ? _value._description
+          : description // ignore: cast_nullable_to_non_nullable
+              as Map<Language, String>,
+      details: null == details
+          ? _value._details
+          : details // ignore: cast_nullable_to_non_nullable
+              as Map<Language, Map<String, String>>,
     ));
   }
 }
@@ -119,9 +152,13 @@ class _$DesignImpl implements _Design {
   const _$DesignImpl(
       {required this.id,
       required final Map<Language, String> names,
-      required final List<String> categoryIds})
+      required final List<String> categoryIds,
+      required final Map<Language, String> description,
+      required final Map<Language, Map<String, String>> details})
       : _names = names,
-        _categoryIds = categoryIds;
+        _categoryIds = categoryIds,
+        _description = description,
+        _details = details;
 
   factory _$DesignImpl.fromJson(Map<String, dynamic> json) =>
       _$$DesignImplFromJson(json);
@@ -144,9 +181,25 @@ class _$DesignImpl implements _Design {
     return EqualUnmodifiableListView(_categoryIds);
   }
 
+  final Map<Language, String> _description;
+  @override
+  Map<Language, String> get description {
+    if (_description is EqualUnmodifiableMapView) return _description;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_description);
+  }
+
+  final Map<Language, Map<String, String>> _details;
+  @override
+  Map<Language, Map<String, String>> get details {
+    if (_details is EqualUnmodifiableMapView) return _details;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_details);
+  }
+
   @override
   String toString() {
-    return 'Design(id: $id, names: $names, categoryIds: $categoryIds)';
+    return 'Design(id: $id, names: $names, categoryIds: $categoryIds, description: $description, details: $details)';
   }
 
   @override
@@ -157,7 +210,10 @@ class _$DesignImpl implements _Design {
             (identical(other.id, id) || other.id == id) &&
             const DeepCollectionEquality().equals(other._names, _names) &&
             const DeepCollectionEquality()
-                .equals(other._categoryIds, _categoryIds));
+                .equals(other._categoryIds, _categoryIds) &&
+            const DeepCollectionEquality()
+                .equals(other._description, _description) &&
+            const DeepCollectionEquality().equals(other._details, _details));
   }
 
   @JsonKey(ignore: true)
@@ -166,7 +222,9 @@ class _$DesignImpl implements _Design {
       runtimeType,
       id,
       const DeepCollectionEquality().hash(_names),
-      const DeepCollectionEquality().hash(_categoryIds));
+      const DeepCollectionEquality().hash(_categoryIds),
+      const DeepCollectionEquality().hash(_description),
+      const DeepCollectionEquality().hash(_details));
 
   @JsonKey(ignore: true)
   @override
@@ -184,9 +242,12 @@ class _$DesignImpl implements _Design {
 
 abstract class _Design implements Design {
   const factory _Design(
-      {required final String id,
-      required final Map<Language, String> names,
-      required final List<String> categoryIds}) = _$DesignImpl;
+          {required final String id,
+          required final Map<Language, String> names,
+          required final List<String> categoryIds,
+          required final Map<Language, String> description,
+          required final Map<Language, Map<String, String>> details}) =
+      _$DesignImpl;
 
   factory _Design.fromJson(Map<String, dynamic> json) = _$DesignImpl.fromJson;
 
@@ -196,6 +257,10 @@ abstract class _Design implements Design {
   Map<Language, String> get names;
   @override
   List<String> get categoryIds;
+  @override
+  Map<Language, String> get description;
+  @override
+  Map<Language, Map<String, String>> get details;
   @override
   @JsonKey(ignore: true)
   _$$DesignImplCopyWith<_$DesignImpl> get copyWith =>

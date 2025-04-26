@@ -37,66 +37,415 @@ const kitchenAccessories = Category(
     });
 
 // Define Designs
-final goodMorning = Design(
-    id: 'd7c17494-2c2b-4a3b-84f2-11f1391e9d6e',
-    categoryIds: [mugsAndCups.id],
-    names: {Language.en: 'Espresso cup Rwanda', Language.fi: 'Laiska aamu'});
-final wakingLight = Design(
-    id: 'a5d3e4e6-45f5-48f3-98a7-944a634c5680',
-    categoryIds: [mugsAndCups.id, kitchenAccessories.id],
-    names: {Language.en: 'Coffee cup Ethiopia', Language.fi: 'Heräävä valo'});
-final softLinen = Design(
-    id: '11f3b13c-716e-4ef7-952e-2b6d8a77df51',
-    categoryIds: [mugsAndCups.id, kitchenAccessories.id],
-    names: {Language.en: 'Soft Linen', Language.fi: 'Pehmeä pellava'});
-final sunlitGarden = Design(
-    id: '5b91aaec-7a39-45db-a43d-c0f4c7c28d62',
-    categoryIds: [mugsAndCups.id],
-    names: {Language.en: 'Sunlit Garden', Language.fi: 'Aurinkopuutarha'});
-final buttercup = Design(
-    id: '58f49d0b-b2f3-4725-99c6-1a6fa8e14397',
-    categoryIds: [platesAndBowls.id],
-    names: {Language.en: 'Buttercup', Language.fi: 'Voikukka'});
-final lemonLight = Design(
-    id: '5f177701-9b52-4c4d-91df-3b437a3510a3',
-    categoryIds: [platesAndBowls.id],
-    names: {Language.en: 'Lemon Light', Language.fi: 'Sitruunavalo'});
-final goldenHour = Design(
-    id: '07f7b118-eac6-42cf-9828-77810dce05f1',
-    categoryIds: [platesAndBowls.id],
-    names: {Language.en: 'Golden Hour', Language.fi: 'Kultainen hetki'});
-final rusticCharm = Design(
-    id: '207da2ac-5b9e-456a-91a4-7f0e55b92d2b',
-    categoryIds: [platesAndBowls.id],
-    names: {Language.en: 'Rustic Charm', Language.fi: 'Maalaistunnelma'});
-final cornfield = Design(
-    id: '48f935ec-92d7-4027-91b3-379bf29bc2eb',
-    categoryIds: [platesAndBowls.id],
-    names: {Language.en: 'Cornfield', Language.fi: 'Maissipelto'});
-final sunbeam = Design(
-    id: '92a270a3-e2d4-4c6a-9a5d-bfa560c6e679',
-    categoryIds: [platesAndBowls.id],
-    names: {Language.en: 'Sunbeam', Language.fi: 'Auringonsäde'});
-final mossTwilight = Design(
-    id: '7f68b927-6810-4f30-9d45-0104e65c2be3',
-    categoryIds: [kitchenAccessories.id],
-    names: {Language.en: 'Moss Twilight', Language.fi: 'Sammalen hämärä'});
-final blueDrift = Design(
-    id: '8c4f82c5-6402-4a7a-90cc-884ec112cb4d',
-    categoryIds: [platesAndBowls.id, kitchenAccessories.id],
-    names: {Language.en: 'Blue Drift', Language.fi: 'Sininen virta'});
-final saltAndFoam = Design(
-    id: '984a27dc-e017-4f86-a019-08354ec01b9c',
-    categoryIds: [kitchenAccessories.id],
-    names: {Language.en: 'Salt & Foam', Language.fi: 'Suola ja vaahto'});
-final pebbleShore = Design(
-    id: '663924d4-1c40-4e1f-8e59-9493aa2b4e49',
-    categoryIds: [mugsAndCups.id, kitchenAccessories.id],
-    names: {Language.en: 'Pebble Shore', Language.fi: 'Sora ranta'});
-final seaGlass = Design(
-    id: 'ed2a1a8c-bde2-4a92-b9d2-fb8889a6537b',
-    categoryIds: [kitchenAccessories.id],
-    names: {Language.en: 'Sea Glass', Language.fi: 'Meren lasi'});
+final goodMorning =
+    Design(id: 'd7c17494-2c2b-4a3b-84f2-11f1391e9d6e', categoryIds: [
+  mugsAndCups.id
+], names: {
+  Language.en: 'Espresso cup Rwanda',
+  Language.fi: 'Laiska aamu'
+}, description: {
+  Language.en:
+      'I love the ritual of a slow morning coffee, and these latte mugs are made with that in mind. Generously sized and comfortable to hold, they are perfect for your favorite latte, a cozy tea, or even a hot chocolate piled high with cream.',
+  Language.fi:
+      'Rakastan hitaiden aamukahvien rituaalia, ja nämä latte-mukit on tehty juuri sitä varten. Mukit ovat tilavia ja mukautuvat käteen hyvin, joten ne sopivat täydellisesti suosikkilatteesi, mukavaan teehetkeen tai jopa kuumaan suklaaseen kermavaahdon kera.'
+}, details: {
+  Language.en: {
+    'Approximate capacity': '75 ml',
+    'Dimensions': 'Height ~6.5 cm, Diameter ~6.8 cm',
+    'Material': 'High-fired stoneware',
+    'Glaze': 'Commercial glaze',
+    'Finish': 'Glazed inside, unglazed outside'
+  },
+  Language.fi: {
+    'Arvioitu tilavuus': '75 ml',
+    'Mitat': 'Korkeus ~6.5 cm, Halkaisija ~6.8 cm',
+    'Materiaali': 'Korkeassa lämpötilassa poltettu kivitavara',
+    'Päällyste': 'Teollinen lasitus',
+    'Viimeistely': 'Lasitettu sisältä, lasittamaton ulkoa'
+  }
+});
+final wakingLight =
+    Design(id: 'a5d3e4e6-45f5-48f3-98a7-944a634c5680', categoryIds: [
+  mugsAndCups.id,
+  kitchenAccessories.id
+], names: {
+  Language.en: 'Coffee cup Ethiopia',
+  Language.fi: 'Heräävä valo'
+}, description: {
+  Language.en:
+      'I love the ritual of a slow morning coffee, and these latte mugs are made with that in mind. Generously sized and comfortable to hold, they are perfect for your favorite latte, a cozy tea, or even a hot chocolate piled high with cream.',
+  Language.fi:
+      'Rakastan hitaiden aamukahvien rituaalia, ja nämä latte-mukit on tehty juuri sitä varten. Mukit ovat tilavia ja mukautuvat käteen hyvin, joten ne sopivat täydellisesti suosikkilatteesi, mukavaan teehetkeen tai jopa kuumaan suklaaseen kermavaahdon kera.'
+}, details: {
+  Language.en: {
+    'Approximate capacity': '75 ml',
+    'Dimensions': 'Height ~6.5 cm, Diameter ~6.8 cm',
+    'Material': 'High-fired stoneware',
+    'Glaze': 'Commercial glaze',
+    'Finish': 'Glazed inside, unglazed outside'
+  },
+  Language.fi: {
+    'Arvioitu tilavuus': '75 ml',
+    'Mitat': 'Korkeus ~6.5 cm, Halkaisija ~6.8 cm',
+    'Materiaali': 'Korkeassa lämpötilassa poltettu kivitavara',
+    'Päällyste': 'Teollinen lasitus',
+    'Viimeistely': 'Lasitettu sisältä, lasittamaton ulkoa'
+  }
+});
+final softLinen =
+    Design(id: '11f3b13c-716e-4ef7-952e-2b6d8a77df51', categoryIds: [
+  mugsAndCups.id,
+  kitchenAccessories.id
+], names: {
+  Language.en: 'Soft Linen',
+  Language.fi: 'Pehmeä pellava'
+}, description: {
+  Language.en:
+      'I love the ritual of a slow morning coffee, and these latte mugs are made with that in mind. Generously sized and comfortable to hold, they are perfect for your favorite latte, a cozy tea, or even a hot chocolate piled high with cream.',
+  Language.fi:
+      'Rakastan hitaiden aamukahvien rituaalia, ja nämä latte-mukit on tehty juuri sitä varten. Mukit ovat tilavia ja mukautuvat käteen hyvin, joten ne sopivat täydellisesti suosikkilatteesi, mukavaan teehetkeen tai jopa kuumaan suklaaseen kermavaahdon kera.'
+}, details: {
+  Language.en: {
+    'Approximate capacity': '75 ml',
+    'Dimensions': 'Height ~6.5 cm, Diameter ~6.8 cm',
+    'Material': 'High-fired stoneware',
+    'Glaze': 'Commercial glaze',
+    'Finish': 'Glazed inside, unglazed outside'
+  },
+  Language.fi: {
+    'Arvioitu tilavuus': '75 ml',
+    'Mitat': 'Korkeus ~6.5 cm, Halkaisija ~6.8 cm',
+    'Materiaali': 'Korkeassa lämpötilassa poltettu kivitavara',
+    'Päällyste': 'Teollinen lasitus',
+    'Viimeistely': 'Lasitettu sisältä, lasittamaton ulkoa'
+  }
+});
+final sunlitGarden =
+    Design(id: '5b91aaec-7a39-45db-a43d-c0f4c7c28d62', categoryIds: [
+  mugsAndCups.id
+], names: {
+  Language.en: 'Sunlit Garden',
+  Language.fi: 'Aurinkopuutarha'
+}, description: {
+  Language.en:
+      'I love the ritual of a slow morning coffee, and these latte mugs are made with that in mind. Generously sized and comfortable to hold, they are perfect for your favorite latte, a cozy tea, or even a hot chocolate piled high with cream.',
+  Language.fi:
+      'Rakastan hitaiden aamukahvien rituaalia, ja nämä latte-mukit on tehty juuri sitä varten. Mukit ovat tilavia ja mukautuvat käteen hyvin, joten ne sopivat täydellisesti suosikkilatteesi, mukavaan teehetkeen tai jopa kuumaan suklaaseen kermavaahdon kera.'
+}, details: {
+  Language.en: {
+    'Approximate capacity': '75 ml',
+    'Dimensions': 'Height ~6.5 cm, Diameter ~6.8 cm',
+    'Material': 'High-fired stoneware',
+    'Glaze': 'Commercial glaze',
+    'Finish': 'Glazed inside, unglazed outside'
+  },
+  Language.fi: {
+    'Arvioitu tilavuus': '75 ml',
+    'Mitat': 'Korkeus ~6.5 cm, Halkaisija ~6.8 cm',
+    'Materiaali': 'Korkeassa lämpötilassa poltettu kivitavara',
+    'Päällyste': 'Teollinen lasitus',
+    'Viimeistely': 'Lasitettu sisältä, lasittamaton ulkoa'
+  }
+});
+final buttercup =
+    Design(id: '58f49d0b-b2f3-4725-99c6-1a6fa8e14397', categoryIds: [
+  platesAndBowls.id
+], names: {
+  Language.en: 'Buttercup',
+  Language.fi: 'Voikukka'
+}, description: {
+  Language.en:
+      'I love the ritual of a slow morning coffee, and these latte mugs are made with that in mind. Generously sized and comfortable to hold, they are perfect for your favorite latte, a cozy tea, or even a hot chocolate piled high with cream.',
+  Language.fi:
+      'Rakastan hitaiden aamukahvien rituaalia, ja nämä latte-mukit on tehty juuri sitä varten. Mukit ovat tilavia ja mukautuvat käteen hyvin, joten ne sopivat täydellisesti suosikkilatteesi, mukavaan teehetkeen tai jopa kuumaan suklaaseen kermavaahdon kera.'
+}, details: {
+  Language.en: {
+    'Approximate capacity': '75 ml',
+    'Dimensions': 'Height ~6.5 cm, Diameter ~6.8 cm',
+    'Material': 'High-fired stoneware',
+    'Glaze': 'Commercial glaze',
+    'Finish': 'Glazed inside, unglazed outside'
+  },
+  Language.fi: {
+    'Arvioitu tilavuus': '75 ml',
+    'Mitat': 'Korkeus ~6.5 cm, Halkaisija ~6.8 cm',
+    'Materiaali': 'Korkeassa lämpötilassa poltettu kivitavara',
+    'Päällyste': 'Teollinen lasitus',
+    'Viimeistely': 'Lasitettu sisältä, lasittamaton ulkoa'
+  }
+});
+final lemonLight =
+    Design(id: '5f177701-9b52-4c4d-91df-3b437a3510a3', categoryIds: [
+  platesAndBowls.id
+], names: {
+  Language.en: 'Lemon Light',
+  Language.fi: 'Sitruunavalo'
+}, description: {
+  Language.en:
+      'I love the ritual of a slow morning coffee, and these latte mugs are made with that in mind. Generously sized and comfortable to hold, they are perfect for your favorite latte, a cozy tea, or even a hot chocolate piled high with cream.',
+  Language.fi:
+      'Rakastan hitaiden aamukahvien rituaalia, ja nämä latte-mukit on tehty juuri sitä varten. Mukit ovat tilavia ja mukautuvat käteen hyvin, joten ne sopivat täydellisesti suosikkilatteesi, mukavaan teehetkeen tai jopa kuumaan suklaaseen kermavaahdon kera.'
+}, details: {
+  Language.en: {
+    'Approximate capacity': '75 ml',
+    'Dimensions': 'Height ~6.5 cm, Diameter ~6.8 cm',
+    'Material': 'High-fired stoneware',
+    'Glaze': 'Commercial glaze',
+    'Finish': 'Glazed inside, unglazed outside'
+  },
+  Language.fi: {
+    'Arvioitu tilavuus': '75 ml',
+    'Mitat': 'Korkeus ~6.5 cm, Halkaisija ~6.8 cm',
+    'Materiaali': 'Korkeassa lämpötilassa poltettu kivitavara',
+    'Päällyste': 'Teollinen lasitus',
+    'Viimeistely': 'Lasitettu sisältä, lasittamaton ulkoa'
+  }
+});
+final goldenHour =
+    Design(id: '07f7b118-eac6-42cf-9828-77810dce05f1', categoryIds: [
+  platesAndBowls.id
+], names: {
+  Language.en: 'Golden Hour',
+  Language.fi: 'Kultainen hetki'
+}, description: {
+  Language.en:
+      'I love the ritual of a slow morning coffee, and these latte mugs are made with that in mind. Generously sized and comfortable to hold, they are perfect for your favorite latte, a cozy tea, or even a hot chocolate piled high with cream.',
+  Language.fi:
+      'Rakastan hitaiden aamukahvien rituaalia, ja nämä latte-mukit on tehty juuri sitä varten. Mukit ovat tilavia ja mukautuvat käteen hyvin, joten ne sopivat täydellisesti suosikkilatteesi, mukavaan teehetkeen tai jopa kuumaan suklaaseen kermavaahdon kera.'
+}, details: {
+  Language.en: {
+    'Approximate capacity': '75 ml',
+    'Dimensions': 'Height ~6.5 cm, Diameter ~6.8 cm',
+    'Material': 'High-fired stoneware',
+    'Glaze': 'Commercial glaze',
+    'Finish': 'Glazed inside, unglazed outside'
+  },
+  Language.fi: {
+    'Arvioitu tilavuus': '75 ml',
+    'Mitat': 'Korkeus ~6.5 cm, Halkaisija ~6.8 cm',
+    'Materiaali': 'Korkeassa lämpötilassa poltettu kivitavara',
+    'Päällyste': 'Teollinen lasitus',
+    'Viimeistely': 'Lasitettu sisältä, lasittamaton ulkoa'
+  }
+});
+final rusticCharm =
+    Design(id: '207da2ac-5b9e-456a-91a4-7f0e55b92d2b', categoryIds: [
+  platesAndBowls.id
+], names: {
+  Language.en: 'Rustic Charm',
+  Language.fi: 'Maalaistunnelma'
+}, description: {
+  Language.en:
+      'I love the ritual of a slow morning coffee, and these latte mugs are made with that in mind. Generously sized and comfortable to hold, they are perfect for your favorite latte, a cozy tea, or even a hot chocolate piled high with cream.',
+  Language.fi:
+      'Rakastan hitaiden aamukahvien rituaalia, ja nämä latte-mukit on tehty juuri sitä varten. Mukit ovat tilavia ja mukautuvat käteen hyvin, joten ne sopivat täydellisesti suosikkilatteesi, mukavaan teehetkeen tai jopa kuumaan suklaaseen kermavaahdon kera.'
+}, details: {
+  Language.en: {
+    'Approximate capacity': '75 ml',
+    'Dimensions': 'Height ~6.5 cm, Diameter ~6.8 cm',
+    'Material': 'High-fired stoneware',
+    'Glaze': 'Commercial glaze',
+    'Finish': 'Glazed inside, unglazed outside'
+  },
+  Language.fi: {
+    'Arvioitu tilavuus': '75 ml',
+    'Mitat': 'Korkeus ~6.5 cm, Halkaisija ~6.8 cm',
+    'Materiaali': 'Korkeassa lämpötilassa poltettu kivitavara',
+    'Päällyste': 'Teollinen lasitus',
+    'Viimeistely': 'Lasitettu sisältä, lasittamaton ulkoa'
+  }
+});
+final cornfield =
+    Design(id: '48f935ec-92d7-4027-91b3-379bf29bc2eb', categoryIds: [
+  platesAndBowls.id
+], names: {
+  Language.en: 'Cornfield',
+  Language.fi: 'Maissipelto'
+}, description: {
+  Language.en:
+      'I love the ritual of a slow morning coffee, and these latte mugs are made with that in mind. Generously sized and comfortable to hold, they are perfect for your favorite latte, a cozy tea, or even a hot chocolate piled high with cream.',
+  Language.fi:
+      'Rakastan hitaiden aamukahvien rituaalia, ja nämä latte-mukit on tehty juuri sitä varten. Mukit ovat tilavia ja mukautuvat käteen hyvin, joten ne sopivat täydellisesti suosikkilatteesi, mukavaan teehetkeen tai jopa kuumaan suklaaseen kermavaahdon kera.'
+}, details: {
+  Language.en: {
+    'Approximate capacity': '75 ml',
+    'Dimensions': 'Height ~6.5 cm, Diameter ~6.8 cm',
+    'Material': 'High-fired stoneware',
+    'Glaze': 'Commercial glaze',
+    'Finish': 'Glazed inside, unglazed outside'
+  },
+  Language.fi: {
+    'Arvioitu tilavuus': '75 ml',
+    'Mitat': 'Korkeus ~6.5 cm, Halkaisija ~6.8 cm',
+    'Materiaali': 'Korkeassa lämpötilassa poltettu kivitavara',
+    'Päällyste': 'Teollinen lasitus',
+    'Viimeistely': 'Lasitettu sisältä, lasittamaton ulkoa'
+  }
+});
+final sunbeam =
+    Design(id: '92a270a3-e2d4-4c6a-9a5d-bfa560c6e679', categoryIds: [
+  platesAndBowls.id
+], names: {
+  Language.en: 'Sunbeam',
+  Language.fi: 'Auringonsäde'
+}, description: {
+  Language.en:
+      'I love the ritual of a slow morning coffee, and these latte mugs are made with that in mind. Generously sized and comfortable to hold, they are perfect for your favorite latte, a cozy tea, or even a hot chocolate piled high with cream.',
+  Language.fi:
+      'Rakastan hitaiden aamukahvien rituaalia, ja nämä latte-mukit on tehty juuri sitä varten. Mukit ovat tilavia ja mukautuvat käteen hyvin, joten ne sopivat täydellisesti suosikkilatteesi, mukavaan teehetkeen tai jopa kuumaan suklaaseen kermavaahdon kera.'
+}, details: {
+  Language.en: {
+    'Approximate capacity': '75 ml',
+    'Dimensions': 'Height ~6.5 cm, Diameter ~6.8 cm',
+    'Material': 'High-fired stoneware',
+    'Glaze': 'Commercial glaze',
+    'Finish': 'Glazed inside, unglazed outside'
+  },
+  Language.fi: {
+    'Arvioitu tilavuus': '75 ml',
+    'Mitat': 'Korkeus ~6.5 cm, Halkaisija ~6.8 cm',
+    'Materiaali': 'Korkeassa lämpötilassa poltettu kivitavara',
+    'Päällyste': 'Teollinen lasitus',
+    'Viimeistely': 'Lasitettu sisältä, lasittamaton ulkoa'
+  }
+});
+final mossTwilight =
+    Design(id: '7f68b927-6810-4f30-9d45-0104e65c2be3', categoryIds: [
+  kitchenAccessories.id
+], names: {
+  Language.en: 'Moss Twilight',
+  Language.fi: 'Sammalen hämärä'
+}, description: {
+  Language.en:
+      'I love the ritual of a slow morning coffee, and these latte mugs are made with that in mind. Generously sized and comfortable to hold, they are perfect for your favorite latte, a cozy tea, or even a hot chocolate piled high with cream.',
+  Language.fi:
+      'Rakastan hitaiden aamukahvien rituaalia, ja nämä latte-mukit on tehty juuri sitä varten. Mukit ovat tilavia ja mukautuvat käteen hyvin, joten ne sopivat täydellisesti suosikkilatteesi, mukavaan teehetkeen tai jopa kuumaan suklaaseen kermavaahdon kera.'
+}, details: {
+  Language.en: {
+    'Approximate capacity': '75 ml',
+    'Dimensions': 'Height ~6.5 cm, Diameter ~6.8 cm',
+    'Material': 'High-fired stoneware',
+    'Glaze': 'Commercial glaze',
+    'Finish': 'Glazed inside, unglazed outside'
+  },
+  Language.fi: {
+    'Arvioitu tilavuus': '75 ml',
+    'Mitat': 'Korkeus ~6.5 cm, Halkaisija ~6.8 cm',
+    'Materiaali': 'Korkeassa lämpötilassa poltettu kivitavara',
+    'Päällyste': 'Teollinen lasitus',
+    'Viimeistely': 'Lasitettu sisältä, lasittamaton ulkoa'
+  }
+});
+final blueDrift =
+    Design(id: '8c4f82c5-6402-4a7a-90cc-884ec112cb4d', categoryIds: [
+  platesAndBowls.id,
+  kitchenAccessories.id
+], names: {
+  Language.en: 'Blue Drift',
+  Language.fi: 'Sininen virta'
+}, description: {
+  Language.en:
+      'I love the ritual of a slow morning coffee, and these latte mugs are made with that in mind. Generously sized and comfortable to hold, they are perfect for your favorite latte, a cozy tea, or even a hot chocolate piled high with cream.',
+  Language.fi:
+      'Rakastan hitaiden aamukahvien rituaalia, ja nämä latte-mukit on tehty juuri sitä varten. Mukit ovat tilavia ja mukautuvat käteen hyvin, joten ne sopivat täydellisesti suosikkilatteesi, mukavaan teehetkeen tai jopa kuumaan suklaaseen kermavaahdon kera.'
+}, details: {
+  Language.en: {
+    'Approximate capacity': '75 ml',
+    'Dimensions': 'Height ~6.5 cm, Diameter ~6.8 cm',
+    'Material': 'High-fired stoneware',
+    'Glaze': 'Commercial glaze',
+    'Finish': 'Glazed inside, unglazed outside'
+  },
+  Language.fi: {
+    'Arvioitu tilavuus': '75 ml',
+    'Mitat': 'Korkeus ~6.5 cm, Halkaisija ~6.8 cm',
+    'Materiaali': 'Korkeassa lämpötilassa poltettu kivitavara',
+    'Päällyste': 'Teollinen lasitus',
+    'Viimeistely': 'Lasitettu sisältä, lasittamaton ulkoa'
+  }
+});
+final saltAndFoam =
+    Design(id: '984a27dc-e017-4f86-a019-08354ec01b9c', categoryIds: [
+  kitchenAccessories.id
+], names: {
+  Language.en: 'Salt & Foam',
+  Language.fi: 'Suola ja vaahto'
+}, description: {
+  Language.en:
+      'I love the ritual of a slow morning coffee, and these latte mugs are made with that in mind. Generously sized and comfortable to hold, they are perfect for your favorite latte, a cozy tea, or even a hot chocolate piled high with cream.',
+  Language.fi:
+      'Rakastan hitaiden aamukahvien rituaalia, ja nämä latte-mukit on tehty juuri sitä varten. Mukit ovat tilavia ja mukautuvat käteen hyvin, joten ne sopivat täydellisesti suosikkilatteesi, mukavaan teehetkeen tai jopa kuumaan suklaaseen kermavaahdon kera.'
+}, details: {
+  Language.en: {
+    'Approximate capacity': '75 ml',
+    'Dimensions': 'Height ~6.5 cm, Diameter ~6.8 cm',
+    'Material': 'High-fired stoneware',
+    'Glaze': 'Commercial glaze',
+    'Finish': 'Glazed inside, unglazed outside'
+  },
+  Language.fi: {
+    'Arvioitu tilavuus': '75 ml',
+    'Mitat': 'Korkeus ~6.5 cm, Halkaisija ~6.8 cm',
+    'Materiaali': 'Korkeassa lämpötilassa poltettu kivitavara',
+    'Päällyste': 'Teollinen lasitus',
+    'Viimeistely': 'Lasitettu sisältä, lasittamaton ulkoa'
+  }
+});
+final pebbleShore =
+    Design(id: '663924d4-1c40-4e1f-8e59-9493aa2b4e49', categoryIds: [
+  mugsAndCups.id,
+  kitchenAccessories.id
+], names: {
+  Language.en: 'Pebble Shore',
+  Language.fi: 'Sora ranta'
+}, description: {
+  Language.en:
+      'I love the ritual of a slow morning coffee, and these latte mugs are made with that in mind. Generously sized and comfortable to hold, they are perfect for your favorite latte, a cozy tea, or even a hot chocolate piled high with cream.',
+  Language.fi:
+      'Rakastan hitaiden aamukahvien rituaalia, ja nämä latte-mukit on tehty juuri sitä varten. Mukit ovat tilavia ja mukautuvat käteen hyvin, joten ne sopivat täydellisesti suosikkilatteesi, mukavaan teehetkeen tai jopa kuumaan suklaaseen kermavaahdon kera.'
+}, details: {
+  Language.en: {
+    'Approximate capacity': '75 ml',
+    'Dimensions': 'Height ~6.5 cm, Diameter ~6.8 cm',
+    'Material': 'High-fired stoneware',
+    'Glaze': 'Commercial glaze',
+    'Finish': 'Glazed inside, unglazed outside'
+  },
+  Language.fi: {
+    'Arvioitu tilavuus': '75 ml',
+    'Mitat': 'Korkeus ~6.5 cm, Halkaisija ~6.8 cm',
+    'Materiaali': 'Korkeassa lämpötilassa poltettu kivitavara',
+    'Päällyste': 'Teollinen lasitus',
+    'Viimeistely': 'Lasitettu sisältä, lasittamaton ulkoa'
+  }
+});
+final seaGlass =
+    Design(id: 'ed2a1a8c-bde2-4a92-b9d2-fb8889a6537b', categoryIds: [
+  kitchenAccessories.id
+], names: {
+  Language.en: 'Sea Glass',
+  Language.fi: 'Meren lasi'
+}, description: {
+  Language.en:
+      'I love the ritual of a slow morning coffee, and these latte mugs are made with that in mind. Generously sized and comfortable to hold, they are perfect for your favorite latte, a cozy tea, or even a hot chocolate piled high with cream.',
+  Language.fi:
+      'Rakastan hitaiden aamukahvien rituaalia, ja nämä latte-mukit on tehty juuri sitä varten. Mukit ovat tilavia ja mukautuvat käteen hyvin, joten ne sopivat täydellisesti suosikkilatteesi, mukavaan teehetkeen tai jopa kuumaan suklaaseen kermavaahdon kera.'
+}, details: {
+  Language.en: {
+    'Approximate capacity': '75 ml',
+    'Dimensions': 'Height ~6.5 cm, Diameter ~6.8 cm',
+    'Material': 'High-fired stoneware',
+    'Glaze': 'Commercial glaze',
+    'Finish': 'Glazed inside, unglazed outside'
+  },
+  Language.fi: {
+    'Arvioitu tilavuus': '75 ml',
+    'Mitat': 'Korkeus ~6.5 cm, Halkaisija ~6.8 cm',
+    'Materiaali': 'Korkeassa lämpötilassa poltettu kivitavara',
+    'Päällyste': 'Teollinen lasitus',
+    'Viimeistely': 'Lasitettu sisältä, lasittamaton ulkoa'
+  }
+});
 
 // Define Pieces
 final pieces = [

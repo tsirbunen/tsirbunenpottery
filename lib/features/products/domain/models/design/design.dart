@@ -10,6 +10,8 @@ class Design with _$Design {
     required String id,
     required Map<Language, String> names,
     required List<String> categoryIds,
+    required Map<Language, String> description,
+    required Map<Language, Map<String, String>> details,
   }) = _Design;
 
   factory Design.fromJson(Map<String, Object?> json) => _$DesignFromJson(json);

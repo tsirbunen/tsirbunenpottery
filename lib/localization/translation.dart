@@ -18,7 +18,8 @@ enum Translation {
   // Design view:
   designNotFound,
   productDetails,
-  foodSafetyInfo,
+  foodSafetyTitle,
+  foodSafetyDetails,
 }
 
 extension TranslationToKey on Translation {

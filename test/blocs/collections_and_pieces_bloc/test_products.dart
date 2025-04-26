@@ -38,16 +38,82 @@ final wakingLight = Design(
   id: 'design-1',
   names: {Language.en: 'Waking Light', Language.fi: 'Heräävä valo'},
   categoryIds: [mugsAndCups.id],
+  description: {
+    Language.en:
+        'I love the ritual of a slow morning coffee, and these latte mugs are made with that in mind. Generously sized and comfortable to hold, they are perfect for your favorite latte, a cozy tea, or even a hot chocolate piled high with cream.',
+    Language.fi:
+        'Rakastan hitaiden aamukahvien rituaalia, ja nämä latte-mukit on tehty juuri sitä varten. Mukit ovat tilavia ja mukautuvat käteen hyvin, joten ne sopivat täydellisesti suosikkilatteesi, mukavaan teehetkeen tai jopa kuumaan suklaaseen kermavaahdon kera.'
+  },
+  details: {
+    Language.en: {
+      'Approximate capacity': '75 ml',
+      'Dimensions': 'Height ~6.5 cm, Diameter ~6.8 cm',
+      'Material': 'High-fired stoneware',
+      'Glaze': 'Commercial glaze',
+      'Finish': 'Glazed inside, unglazed outside'
+    },
+    Language.fi: {
+      'Arvioitu tilavuus': '75 ml',
+      'Mitat': 'Korkeus ~6.5 cm, Halkaisija ~6.8 cm',
+      'Materiaali': 'Korkeassa lämpötilassa poltettu kivitavara',
+      'Päällyste': 'Teollinen lasitus',
+      'Viimeistely': 'Lasitettu sisältä, lasittamaton ulkoa'
+    }
+  },
 );
 final softLinen = Design(
   id: 'design-2',
   names: {Language.en: 'Soft Linen', Language.fi: 'Pehmeä pellava'},
   categoryIds: [mugsAndCups.id, kitchenAccessories.id],
+  description: {
+    Language.en:
+        'The soft linen design is inspired by the natural beauty of linen fabric. The gentle texture and muted colors create a calming and serene atmosphere, perfect for any kitchen or dining space.',
+    Language.fi:
+        'Pehmeä pellavadesign on inspiroitunut pellavakankaan luonnollisesta kauneudesta. Pehmeä rakenne ja hillityt värit luovat rauhoittavan ja rauhallisen tunnelman, joka sopii täydellisesti mihin tahansa keittiöön tai ruokailutilaan.'
+  },
+  details: {
+    Language.en: {
+      'Approximate capacity': '300 ml',
+      'Dimensions': 'Height ~8 cm, Diameter ~7.5 cm',
+      'Material': 'High-fired stoneware',
+      'Glaze': 'Commercial glaze',
+      'Finish': 'Glazed inside, unglazed outside'
+    },
+    Language.fi: {
+      'Arvioitu tilavuus': '300 ml',
+      'Mitat': 'Korkeus ~8 cm, Halkaisija ~7.5 cm',
+      'Materiaali': 'Korkeassa lämpötilassa poltettu kivitavara',
+      'Päällyste': 'Teollinen lasitus',
+      'Viimeistely': 'Lasitettu sisältä, lasittamaton ulkoa'
+    }
+  },
 );
 final saltAndFoam = Design(
   id: 'design-3',
   names: {Language.en: 'Salt & Foam', Language.fi: 'Suola ja vaahto'},
   categoryIds: [platesAndBowls.id],
+  description: {
+    Language.en:
+        'The Salt & Foam design captures the essence of coastal living. The textured surface and ocean-inspired colors evoke a sense of tranquility and connection to nature, making it a perfect addition to any table setting.',
+    Language.fi:
+        'Suola ja vaahto -design vangitsee rannikkotunnelman. Teksturoitu pinta ja merihenkiset värit herättävät rauhoittavan tunnelman ja yhteyden luontoon, mikä tekee siitä täydellisen lisän mihin tahansa kattaukseen.'
+  },
+  details: {
+    Language.en: {
+      'Approximate capacity': '500 ml',
+      'Dimensions': 'Height ~10 cm, Diameter ~9 cm',
+      'Material': 'High-fired stoneware',
+      'Glaze': 'Commercial glaze',
+      'Finish': 'Glazed inside, unglazed outside'
+    },
+    Language.fi: {
+      'Arvioitu tilavuus': '500 ml',
+      'Mitat': 'Korkeus ~10 cm, Halkaisija ~9 cm',
+      'Materiaali': 'Korkeassa lämpötilassa poltettu kivitavara',
+      'Päällyste': 'Teollinen lasitus',
+      'Viimeistely': 'Lasitettu sisältä, lasittamaton ulkoa'
+    }
+  },
 );
 
 // Test Pieces

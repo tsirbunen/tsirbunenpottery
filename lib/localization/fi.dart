@@ -26,6 +26,20 @@ class Fi implements Translations {
         'allDesigns': 'Kaikki mallit',
         'designNotFound': 'Mallia ei löydy',
         'productDetails': 'Tuotteen tiedot',
-        'foodSafetyInfo': 'Elintarviketurvallisuus',
+        'foodSafetyTitle': 'Elintarviketurvallisuus',
+        'foodSafetyDetails': foodSafetyDetails
       };
 }
+
+const List<String> foodSafetyInfo = [
+  'Käytämme kaupallisesti valmistettuja lasitteita, jotka on tarkoitettu elintarviketurvallisiksi.',
+  'Emme kuitenkaan suorita itsenäistä laboratoriotestausta jokaiselle yksittäiselle kappaleelle.',
+  'Tarkista kaikki esineet, joita aiot käyttää ruoan kanssa, varmistaaksesi että',
+  'lasitettu pinta on täysin ehjä,',
+  'siinä ei ole halkeamia, halkeilua tai siruja, ja että',
+  'kaikki elintarvikkeiden kanssa kosketuksissa olevat alueet ovat täysin lasitettuja.',
+  'Jos olet epävarma, suosittelemme käyttämään esinettä vain koristeellisiin tarkoituksiin.',
+  'Turvallisuutesi on meille tärkeää! Kiitos ymmärryksestäsi!'
+];
+
+String foodSafetyDetails = foodSafetyInfo.join(' ');
