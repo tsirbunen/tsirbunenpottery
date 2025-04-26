@@ -22,12 +22,15 @@ class PhotoWithFallback extends StatefulWidget {
   // This is to optionally "zoom in" the photo when the user hovers over it
   // without changing the size of the photo.
   final bool zoomOnHover;
+  // This is to optionally blur the photo edges (for example in the "Contact us" page)
+  final bool isShadeMasked;
 
   const PhotoWithFallback({
     super.key,
     this.photo,
     required this.size,
     this.zoomOnHover = false,
+    this.isShadeMasked = false,
   });
 
   @override
@@ -74,20 +77,27 @@ class _PhotoWithFallbackState extends State<PhotoWithFallback>
               AnimatedBuilder(
                 animation: _fadeInOpacityAnimation!,
                 builder: (context, child) {
+                  final imageWidget = AnimatedScale(
+                    scale: _isHovering ? 1.1 : 1.0,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeOut,
+                    child: Image(
+                      image: _image!,
+                      fit: BoxFit.cover,
+                    ),
+                  );
+
                   return Opacity(
                     opacity: _fadeInOpacityAnimation!.value,
-                    child: child,
+                    child: widget.isShadeMasked
+                        ? ShaderMask(
+                            shaderCallback: _shaderCallback(),
+                            blendMode: BlendMode.dstIn,
+                            child: imageWidget,
+                          )
+                        : imageWidget,
                   );
                 },
-                child: AnimatedScale(
-                  scale: _isHovering ? 1.1 : 1.0,
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.easeOut,
-                  child: Image(
-                    image: _image!,
-                    fit: BoxFit.cover,
-                  ),
-                ),
               ),
             ],
           ),
@@ -157,5 +167,20 @@ class _PhotoWithFallbackState extends State<PhotoWithFallback>
 
     _image = NetworkImage(widget.photo!.url);
     _image?.resolve(const ImageConfiguration()).addListener(listener);
+  }
+
+  _shaderCallback() {
+    return (Rect bounds) {
+      return const RadialGradient(
+        center: Alignment.center,
+        radius: 0.5,
+        colors: [
+          Colors.black,
+          Colors.black,
+          Colors.transparent,
+        ],
+        stops: [0.0, 0.2, 1.0],
+      ).createShader(bounds);
+    };
   }
 }

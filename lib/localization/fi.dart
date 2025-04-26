@@ -27,7 +27,16 @@ class Fi implements Translations {
         'designNotFound': 'Mallia ei löydy',
         'productDetails': 'Tuotteen tiedot',
         'foodSafetyTitle': 'Elintarviketurvallisuus',
-        'foodSafetyDetails': foodSafetyDetails
+        'foodSafetyDetails': foodSafetyDetails,
+        'contactUs': 'Ota yhteyttä',
+        'contactTitlePlaceholder': 'Otsikko...',
+        'contactMessagePlaceholder': 'Viesti...',
+        'submitLabel': 'Lähetä',
+        'emailCopiedToClipboard': 'Sähköposti kopioitu leikepöydälle',
+        'tapToCopyEmail': 'Kopioi sähköposti napauttamalla sitä!',
+        'contactEmail': 'tsirbunenpottery@gmail.com',
+        'storyOnContactPage':
+            'Käsityönä valmistettu, intohimolla poltettu - jokaisella kappaleella on tarina. Löydä keramiikkaa, joka tuntuu kodilta.',
       };
 }
 

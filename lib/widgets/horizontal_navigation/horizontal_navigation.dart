@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:madmudmobile/localization/app_locale.dart';
 import 'package:madmudmobile/app/router/route_enum.dart';
 import 'package:madmudmobile/utils/current_page_name_from_settings.dart';
-import 'package:madmudmobile/widgets/trademark/trademark.dart';
+import 'package:madmudmobile/widgets/company/trademark.dart';
 
 const EdgeInsets padding = EdgeInsets.symmetric(horizontal: 2.0);
 const double borderRadius = 5.0;

@@ -26,7 +26,16 @@ class En implements Translations {
         'designNotFound': 'Design not found',
         'productDetails': 'Product Details',
         'foodSafetyTitle': 'Food Safety Information',
-        'foodSafetyDetails': foodSafetyDetails
+        'foodSafetyDetails': foodSafetyDetails,
+        'contactUs': 'Contact Us',
+        'contactTitlePlaceholder': 'Title...',
+        'contactMessagePlaceholder': 'Message...',
+        'submitLabel': 'Submit',
+        'emailCopiedToClipboard': 'Email copied to clipboard',
+        'tapToCopyEmail': 'Tap the email to copy it!',
+        'contactEmail': 'tsirbunenpottery@gmail.com',
+        'storyOnContactPage':
+            'Crafted with patience, fired with passion — every piece tells a story. From rustic charm to modern elegance, discover ceramics that feel like home.',
       };
 }
 

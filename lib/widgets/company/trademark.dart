@@ -8,7 +8,7 @@ const double textHeight = 1.0;
 const double spacerHeight = 1.0;
 const EdgeInsets padding =
     EdgeInsets.only(left: 6.0, right: 6.0, bottom: 5.0, top: 1.0);
-const double borderRadius = 50.0; //4.0;
+const double borderRadius = 50.0;
 const double borderWidth = 1.0;
 const double containerWidthDefault = 60.0;
 

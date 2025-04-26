@@ -20,6 +20,15 @@ enum Translation {
   productDetails,
   foodSafetyTitle,
   foodSafetyDetails,
+  // Contact us view:
+  contactUs,
+  contactTitlePlaceholder,
+  contactMessagePlaceholder,
+  submitLabel,
+  emailCopiedToClipboard,
+  tapToCopyEmail,
+  contactEmail,
+  storyOnContactPage
 }
 
 extension TranslationToKey on Translation {
