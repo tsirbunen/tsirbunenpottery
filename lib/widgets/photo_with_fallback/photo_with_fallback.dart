@@ -75,56 +75,22 @@ class _PhotoWithFallbackState extends State<PhotoWithFallback>
           child: Stack(
             fit: StackFit.expand,
             children: [
-              // FIXME: This is the original one that does not work in web production!!!
-              // AnimatedBuilder(
-              //   animation: _fadeInOpacityAnimation!,
-              //   builder: (context, child) {
-              //     final imageWidget = AnimatedScale(
-              //       scale: _isHovering ? 1.1 : 1.0,
-              //       duration: const Duration(milliseconds: 500),
-              //       curve: Curves.easeOut,
-              //       child: Image(
-              //         image: _image!,
-              //         fit: BoxFit.cover,
-              //       ),
-              //     );
-
-              //     return Opacity(
-              //       opacity: _fadeInOpacityAnimation!.value,
-              //       child: widget.isShadeMasked
-              //           ? ShaderMask(
-              //               shaderCallback: _shaderCallback(),
-              //               blendMode: BlendMode.dstIn,
-              //               child: imageWidget,
-              //             )
-              //           : imageWidget,
-              //     );
-              //   },
-              // ),
-              // Positioned.fill(
-              //   child: AnimatedScale(
-              //     scale: _isHovering ? 1.1 : 1.0,
-              //     duration: const Duration(milliseconds: 500),
-              //     curve: Curves.easeOut,
-              //     child: Image(
-              //       image: _image!,
-              //       fit: BoxFit.cover,
-              //     ),
-              //   ),
-              // ),
-
               Positioned.fill(
                 child: AnimatedScale(
                   scale: _isHovering ? 1.1 : 1.0,
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.easeOut,
-                  child: Image(
-                    image: _image!,
-                    fit: BoxFit.cover,
+                  // Note: This hack is to remove the vertical thin line
+                  // that appears in mobile.
+                  child: Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: Image(
+                      image: _image!,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
-
               if (widget.isShadeMasked)
                 Positioned.fill(
                   child: Container(
