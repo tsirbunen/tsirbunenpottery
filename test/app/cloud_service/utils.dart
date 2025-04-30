@@ -143,6 +143,8 @@ List<MockQueryDocumentSnapshot> createMockPieceDocs() {
           'serialNumber': docData['serialNumber'],
           'designId': mockDesignRef,
           'collectionId': mockCollectionRef,
+          'imageFileNames':
+              List<String>.from(docData['imageFileNames'] as List),
         });
 
     return mockDoc;

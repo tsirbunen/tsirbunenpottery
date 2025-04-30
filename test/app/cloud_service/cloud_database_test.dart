@@ -161,6 +161,7 @@ void main() {
         expect(actual.serialNumber, expected['serialNumber']);
         expect(actual.designId, expected['designId']);
         expect(actual.collectionId, expected['collectionId']);
+        expect(actual.imageFileNames, expected['imageFileNames']);
       }
     });
 

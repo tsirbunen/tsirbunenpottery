@@ -95,6 +95,9 @@ class CloudService {
       id: doc.id,
       serialNumber: data['serialNumber'] as int,
       designId: designId,
+      imageFileNames: ((data['imageFileNames'] ?? []) as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
       collectionId: _idOfRef(data, collections, 'collectionId'),
     );
   }

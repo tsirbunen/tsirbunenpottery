@@ -160,18 +160,30 @@ final mockPieceDocsData = [
     'id': 'pcs-1',
     'serialNumber': 3,
     'designId': 'design-1', // wakingLight.id
+    'imageFileNames': [
+      'waking_light_1.jpg',
+      'waking_light_2.jpg',
+    ],
     'collectionId': 'coll-1', // whiteOnWhite.id
   },
   {
     'id': 'pcs-2',
     'serialNumber': 4,
     'designId': 'design-2', // softLinen.id
+    'imageFileNames': [
+      'soft_linen_1.jpg',
+      'soft_linen_2.jpg',
+    ],
     'collectionId': 'coll-1',
   },
   {
     'id': 'pcs-3',
     'serialNumber': 5,
     'designId': 'design-2',
+    'imageFileNames': [
+      'soft_linen_3.jpg',
+      'soft_linen_4.jpg',
+    ],
     'collectionId': 'coll-1',
   },
   {
@@ -179,17 +191,29 @@ final mockPieceDocsData = [
     'serialNumber': 6,
     'designId': 'design-3', // saltAndFoam.id
     'collectionId': 'coll-2', // yellowCottage.id
+    'imageFileNames': [
+      'salt_and_foam_1.jpg',
+      'salt_and_foam_2.jpg',
+    ],
   },
   {
     'id': 'pcs-5',
     'serialNumber': 7,
     'designId': 'design-3',
     'collectionId': 'coll-2',
+    'imageFileNames': [
+      'salt_and_foam_3.jpg',
+      'salt_and_foam_4.jpg',
+    ],
   },
   {
     'id': 'pcs-6',
     'serialNumber': 8,
     'designId': 'design-3',
     'collectionId': 'coll-2',
+    'imageFileNames': [
+      'salt_and_foam_5.jpg',
+      'salt_and_foam_6.jpg',
+    ],
   },
 ];

@@ -9,6 +9,7 @@ class Piece with _$Piece {
     required String id,
     required int serialNumber,
     required String designId,
+    required List<String> imageFileNames,
     String? collectionId,
   }) = _Piece;
 

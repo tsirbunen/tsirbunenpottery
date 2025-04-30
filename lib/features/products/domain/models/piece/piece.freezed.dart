@@ -23,6 +23,7 @@ mixin _$Piece {
   String get id => throw _privateConstructorUsedError;
   int get serialNumber => throw _privateConstructorUsedError;
   String get designId => throw _privateConstructorUsedError;
+  List<String> get imageFileNames => throw _privateConstructorUsedError;
   String? get collectionId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -36,7 +37,11 @@ abstract class $PieceCopyWith<$Res> {
       _$PieceCopyWithImpl<$Res, Piece>;
   @useResult
   $Res call(
-      {String id, int serialNumber, String designId, String? collectionId});
+      {String id,
+      int serialNumber,
+      String designId,
+      List<String> imageFileNames,
+      String? collectionId});
 }
 
 /// @nodoc
@@ -55,6 +60,7 @@ class _$PieceCopyWithImpl<$Res, $Val extends Piece>
     Object? id = null,
     Object? serialNumber = null,
     Object? designId = null,
+    Object? imageFileNames = null,
     Object? collectionId = freezed,
   }) {
     return _then(_value.copyWith(
@@ -70,6 +76,10 @@ class _$PieceCopyWithImpl<$Res, $Val extends Piece>
           ? _value.designId
           : designId // ignore: cast_nullable_to_non_nullable
               as String,
+      imageFileNames: null == imageFileNames
+          ? _value.imageFileNames
+          : imageFileNames // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       collectionId: freezed == collectionId
           ? _value.collectionId
           : collectionId // ignore: cast_nullable_to_non_nullable
@@ -86,7 +96,11 @@ abstract class _$$PieceImplCopyWith<$Res> implements $PieceCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String id, int serialNumber, String designId, String? collectionId});
+      {String id,
+      int serialNumber,
+      String designId,
+      List<String> imageFileNames,
+      String? collectionId});
 }
 
 /// @nodoc
@@ -103,6 +117,7 @@ class __$$PieceImplCopyWithImpl<$Res>
     Object? id = null,
     Object? serialNumber = null,
     Object? designId = null,
+    Object? imageFileNames = null,
     Object? collectionId = freezed,
   }) {
     return _then(_$PieceImpl(
@@ -118,6 +133,10 @@ class __$$PieceImplCopyWithImpl<$Res>
           ? _value.designId
           : designId // ignore: cast_nullable_to_non_nullable
               as String,
+      imageFileNames: null == imageFileNames
+          ? _value._imageFileNames
+          : imageFileNames // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       collectionId: freezed == collectionId
           ? _value.collectionId
           : collectionId // ignore: cast_nullable_to_non_nullable
@@ -133,7 +152,9 @@ class _$PieceImpl implements _Piece {
       {required this.id,
       required this.serialNumber,
       required this.designId,
-      this.collectionId});
+      required final List<String> imageFileNames,
+      this.collectionId})
+      : _imageFileNames = imageFileNames;
 
   factory _$PieceImpl.fromJson(Map<String, dynamic> json) =>
       _$$PieceImplFromJson(json);
@@ -144,12 +165,20 @@ class _$PieceImpl implements _Piece {
   final int serialNumber;
   @override
   final String designId;
+  final List<String> _imageFileNames;
+  @override
+  List<String> get imageFileNames {
+    if (_imageFileNames is EqualUnmodifiableListView) return _imageFileNames;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_imageFileNames);
+  }
+
   @override
   final String? collectionId;
 
   @override
   String toString() {
-    return 'Piece(id: $id, serialNumber: $serialNumber, designId: $designId, collectionId: $collectionId)';
+    return 'Piece(id: $id, serialNumber: $serialNumber, designId: $designId, imageFileNames: $imageFileNames, collectionId: $collectionId)';
   }
 
   @override
@@ -162,14 +191,16 @@ class _$PieceImpl implements _Piece {
                 other.serialNumber == serialNumber) &&
             (identical(other.designId, designId) ||
                 other.designId == designId) &&
+            const DeepCollectionEquality()
+                .equals(other._imageFileNames, _imageFileNames) &&
             (identical(other.collectionId, collectionId) ||
                 other.collectionId == collectionId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, serialNumber, designId, collectionId);
+  int get hashCode => Object.hash(runtimeType, id, serialNumber, designId,
+      const DeepCollectionEquality().hash(_imageFileNames), collectionId);
 
   @JsonKey(ignore: true)
   @override
@@ -190,6 +221,7 @@ abstract class _Piece implements Piece {
       {required final String id,
       required final int serialNumber,
       required final String designId,
+      required final List<String> imageFileNames,
       final String? collectionId}) = _$PieceImpl;
 
   factory _Piece.fromJson(Map<String, dynamic> json) = _$PieceImpl.fromJson;
@@ -200,6 +232,8 @@ abstract class _Piece implements Piece {
   int get serialNumber;
   @override
   String get designId;
+  @override
+  List<String> get imageFileNames;
   @override
   String? get collectionId;
   @override
