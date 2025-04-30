@@ -5,7 +5,7 @@ import 'package:madmudmobile/features/products/domain/bloc/products_bloc.dart';
 import 'package:madmudmobile/features/products/domain/bloc/products_event.dart';
 import 'package:madmudmobile/features/products/domain/bloc/utils.dart';
 import 'package:madmudmobile/features/products/repository/products_repository.dart';
-import 'collections_and_pieces_bloc_matchers.dart';
+import 'products_bloc_matchers.dart';
 import 'products_repository_mock.dart';
 import 'test_products.dart';
 import 'utils.dart';
@@ -14,7 +14,7 @@ const okStatus = BlocStatus(Status.ok);
 const errorStatus = BlocStatus(Status.error, message: 'Some error');
 
 void main() {
-  group('COLLECTIONS AND PIECES BLOC >', () {
+  group('PRODUCTS BLOC >', () {
     group('UTILS -', () {
       test('Product data is properly organized (superficial check)', () {
         final organizedData = organizeProductsData(testProducts);
@@ -57,8 +57,8 @@ void main() {
       blocTest(
         'Fetched product data is stored in bloc state',
         build: () {
-          final piecesRepository = createTestProductRepository();
-          final bloc = ProductsBloc(piecesRepository);
+          final productRepository = createTestProductRepository();
+          final bloc = ProductsBloc(productRepository);
           return bloc;
         },
         act: (bloc) => bloc..add(FetchProducts()),

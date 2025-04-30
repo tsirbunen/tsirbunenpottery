@@ -50,3 +50,6 @@ app.*.map.json
 
 /waste
 todo.md
+
+/lib/firebase_options.dart
+firebase.json
