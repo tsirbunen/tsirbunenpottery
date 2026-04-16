@@ -6,6 +6,7 @@ import 'package:tsirbunenpottery/features/pieces/domain/models/piece/piece.dart'
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tsirbunenpottery/localization/languages.dart';
 import 'dart:convert';
+import 'dart:developer' as dev;
 
 typedef AllProductsData = ({
   List<Piece> pieces,
@@ -27,19 +28,27 @@ class ProductsRepository {
   Future<AllProductsData> _fetchAllFromCloud() async {
     final collectionsData =
         await _cloudService.fetchMany(collection: 'collections');
-    final collections = collectionsData.map(toCollection).toList();
+    final collections = collectionsData
+        .map(_tryToCollection)
+        .whereType<Collection>()
+        .toList();
 
     final categoriesData =
         await _cloudService.fetchMany(collection: 'categories');
-    final categories = categoriesData.map(toCategory).toList();
+    final categories = categoriesData
+        .map(_tryToCategory)
+        .whereType<Category>()
+        .toList();
 
     final designsData = await _cloudService.fetchMany(collection: 'designs');
-    final designs =
-        designsData.map((data) => toDesign(data, categories)).toList();
+    final designs = designsData
+        .map((data) => _tryToDesign(data, categories))
+        .whereType<Design>()
+        .toList();
 
     final piecesData = await _cloudService.fetchMany(collection: 'pieces');
     final pieces = piecesData
-        .map((data) => toPiece(data, designs, collections))
+        .map((data) => _tryToPiece(data, designs, collections))
         .whereType<Piece>()
         .toList();
 
@@ -51,48 +60,86 @@ class ProductsRepository {
     );
   }
 
-  Collection toCollection(Map<String, dynamic> data) {
-    return Collection(
-      id: data['id'] as String,
-      description: _toStringTranslations(data, 'description'),
-      names: _toStringTranslations(data, 'names'),
-    );
+  Collection? _tryToCollection(Map<String, dynamic> data) {
+    try {
+      return Collection(
+        id: data['id'] as String,
+        description: _toStringTranslations(data, 'description'),
+        names: _toStringTranslations(data, 'names'),
+      );
+    } catch (e) {
+      dev.log(
+        'ProductsRepository: failed to parse collection "${data['id']}": $e',
+        name: 'ProductsRepository',
+      );
+      return null;
+    }
   }
 
-  Category toCategory(Map<String, dynamic> data) {
-    return Category(
-      id: data['id'] as String,
-      names: _toStringTranslations(data, 'names'),
-    );
+  Category? _tryToCategory(Map<String, dynamic> data) {
+    try {
+      return Category(
+        id: data['id'] as String,
+        names: _toStringTranslations(data, 'names'),
+      );
+    } catch (e) {
+      dev.log(
+        'ProductsRepository: failed to parse category "${data['id']}": $e',
+        name: 'ProductsRepository',
+      );
+      return null;
+    }
   }
 
-  Design toDesign(Map<String, dynamic> data, List<Category> categories) {
-    return Design(
-      id: data['id'] as String,
-      names: _toStringTranslations(data, 'names'),
-      categoryIds: _idsOfRefs<Category>(data, categories, 'categoryIds'),
-      description: _toStringTranslations(data, 'description'),
-      details: _toStringMapTranslations(data, 'details'),
-    );
+  Design? _tryToDesign(Map<String, dynamic> data, List<Category> categories) {
+    try {
+      return Design(
+        id: data['id'] as String,
+        names: _toStringTranslations(data, 'names'),
+        categoryIds: _idsOfRefs<Category>(data, categories, 'categoryIds'),
+        description: _toStringTranslations(data, 'description'),
+        details: _toStringMapTranslations(data, 'details'),
+      );
+    } catch (e) {
+      dev.log(
+        'ProductsRepository: failed to parse design "${data['id']}": $e',
+        name: 'ProductsRepository',
+      );
+      return null;
+    }
   }
 
-  Piece? toPiece(
+  Piece? _tryToPiece(
     Map<String, dynamic> data,
     List<Design> designs,
     List<Collection> collections,
   ) {
-    final designId = _idOfRef<Design>(data, designs, 'designId');
-    if (designId == null) return null;
+    try {
+      final designId = _idOfRef<Design>(data, designs, 'designId');
+      if (designId == null) {
+        dev.log(
+          'ProductsRepository: skipping piece "${data['id']}" — designId missing or unresolved',
+          name: 'ProductsRepository',
+        );
+        return null;
+      }
 
-    return Piece(
-      id: data['id'] as String,
-      designId: designId,
-      imageFileNames: (data['imageFileNames'] as List<dynamic>? ?? [])
-          .whereType<String>()
-          .toList(),
-      collectionId: _idOfRef(data, collections, 'collectionId'),
-      sold: data['sold'] as bool? ?? false,
-    );
+      return Piece(
+        id: data['id'] as String,
+        designId: designId,
+        imageFileNames: (data['imageFileNames'] as List<dynamic>? ?? [])
+            .whereType<String>()
+            .toList(),
+        collectionId: _idOfRef(data, collections, 'collectionId'),
+        sold: data['sold'] as bool? ?? false,
+      );
+    } catch (e) {
+      dev.log(
+        'ProductsRepository: failed to parse piece "${data['id']}": $e',
+        name: 'ProductsRepository',
+      );
+      return null;
+    }
   }
 
   Language? _toLanguage(String key) {
@@ -131,7 +178,11 @@ class ProductsRepository {
         result[language] = parsedMap.map(
           (k, v) => MapEntry(k, v is String ? v : v.toString()),
         );
-      } catch (_) {
+      } catch (e) {
+        dev.log(
+          'ProductsRepository: failed to parse "$fieldName" details for language "${entry.key}": $e',
+          name: 'ProductsRepository',
+        );
         continue;
       }
     }

@@ -9,14 +9,6 @@ Here's the senior-engineer read. Organized from most to least fundamental:
   unimplemented, so that safety net is fake. This is the single biggest quality gap.
 
 
-  ---
-  4. Silent data loss in repository transformations
-
-  products_repository.dart — the transformation methods (toDesign, toPiece, toCategory) silently drop items when references don't
-  resolve, with catch (_) { continue; } swallowing exceptions. A Firestore schema change, a bad document, or a missing field
-  produces an app that renders fewer items with no indication that data was lost. This needs validation + logging + propagation.
-
-
 
   ---
   7. Error states are dead ends for users
@@ -31,12 +23,7 @@ Here's the senior-engineer read. Organized from most to least fundamental:
   against the route template (e.g. /pieces/:id), not the resolved path. A resolved URL like /pieces/abc123 does not contain :id.
   The logic is checking the wrong thing. (Noted in existing memory from April 6 review — still unfixed.)
 
-  ---
-  9. Photo fade-in animation is dead code
 
-  photo_with_fallback.dart — _fadeInOpacityAnimation (a CurvedAnimation) is created and _controller.forward() is called, but no
-  widget (no AnimatedOpacity, no FadeTransition) actually consumes the animation. The fade-in feature doesn't work. (Also in
-  existing memory — still unfixed.)
 
   ---
   10. Contact form is non-functional dead code
