@@ -10,6 +10,8 @@ enum Translation {
   // App and app bar labels:
   tradeName,
   appShortDescription,
+  homeTitle,
+  homeDescription,
   chineseCharacter,
   // Languages:
   english,

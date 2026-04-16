@@ -4,7 +4,8 @@ import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
 import 'package:tsirbunenpottery/features/home/domain/bloc/home_bloc.dart';
 import 'package:tsirbunenpottery/features/home/domain/bloc/home_state.dart';
-import 'package:tsirbunenpottery/features/home/presentation/pages/home_page_text_content.dart';
+import 'package:tsirbunenpottery/localization/app_locale.dart';
+import 'package:tsirbunenpottery/localization/translation.dart';
 import 'package:tsirbunenpottery/utils/constants.dart';
 import 'package:tsirbunenpottery/widgets/bloc_status_view/bloc_status_view.dart';
 import 'package:tsirbunenpottery/widgets/page_base/page_base.dart';
@@ -19,9 +20,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageBase(
       pageBody: BlocBuilder<LanguageBloc, LanguageState>(
-          builder: (BuildContext context, LanguageState languageState) {
-        final language = languageState.language;
-
+          builder: (BuildContext context, LanguageState _) {
         return BlocBuilder<HomeBloc, HomeState>(
             builder: (BuildContext context, HomeState homeState) {
           final imageFileName = homeState.homePageImageFileName;
@@ -36,16 +35,16 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(title, style: Theme.of(context).textTheme.headlineMedium),
+                  Text(context.local(Translation.homeTitle), style: Theme.of(context).textTheme.headlineMedium),
                   const SizedBox(height: 10.0),
                   Text(
-                    tagline(language),
+                    context.local(Translation.appShortDescription),
                     softWrap: true,
                     style: _subTitleStyle(context),
                   ),
                   const SizedBox(height: 30.0),
                   Text(
-                    description(language),
+                    context.local(Translation.homeDescription),
                     softWrap: true,
                     textAlign: TextAlign.center,
                     style: _mainDescriptionStyle(context),

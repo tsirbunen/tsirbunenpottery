@@ -12,7 +12,20 @@ class Fi implements Translations {
   @override
   Map<String, String> get all => {
         'tradeName': 'TSIRBUNEN POTTERY',
-        'appShortDescription': 'clay to unique treasures',
+        'appShortDescription': 'ylellisempää arkea',
+        'homeTitle': 'tsirbunen pottery',
+        'homeDescription':
+            'Etsitkö kahvimukia, nuudelikulhoa tai salaattilautasta?\n'
+            'Piristäisikö posliinisormus tai seinäreliefi arkeasi?\n'
+            'Nämä ja paljon muuta löydät\n'
+            'Tsirbunen Potteryn valikoimasta.\n\n'
+            'Kaikki tuotteet on yksitellen käsin rakennettu,\n'
+            'eikä kahta täysin samanlaista tuotetta löydy.\n'
+            'Valikoima elää: kun yksi työ lähtee uuteen kotiin,\n'
+            'tilalle tulee jotain muuta.\n\n'
+            'Jos valikoimasta ei löydy oikeanlaista tuotetta,\n'
+            'ota rohkeasti yhteyttä - kuvan kanssa tai ilman!\n'
+            'Toteutan mielelläni tilaustöitä.',
         'chineseCharacter': '泥',
         'tradeNameBeginning': 'TSIRBUNEN',
         'home': 'Koti',
@@ -24,7 +37,6 @@ class Fi implements Translations {
         'contact': 'Yhteystiedot',
         'english': 'Englanti',
         'finnish': 'Suomi',
-        // 'allDesigns': 'Kaikki mallit',
         'allPieces': 'Kaikki tuotteet',
         'designNotFound': 'Mallia ei löydy',
         'productDetails': 'Tuotteen tiedot',
@@ -38,7 +50,7 @@ class Fi implements Translations {
         'tapToCopyEmail': 'Kopioi sähköposti napauttamalla sitä!',
         'contactEmail': 'tsirbunenpottery@gmail.com',
         'storyOnContactPage':
-            'Käsityönä valmistettu, intohimolla poltettu - jokaisella kappaleella on tarina. Löydä keramiikkaa, joka tuntuu kodilta.',
+            'Käsityönä valmistettu alusta loppuun, ei kahta samanlaista.',
         'dataLoadError': 'Tietojen lataus epäonnistui. Yritä myöhemmin uudelleen.',
       };
 }

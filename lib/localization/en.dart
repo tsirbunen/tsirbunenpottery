@@ -12,7 +12,22 @@ class En implements Translations {
   @override
   Map<String, String> get all => {
         'tradeName': 'TSIRBUNEN POTTERY',
-        'appShortDescription': 'clay to unique treasures',
+        'appShortDescription': 'a little everyday luxury',
+        'homeTitle': 'tsirbunen pottery',
+        'homeDescription':
+            'Looking for a coffee mug, noodle bowl, or salad plate?\n'
+            'Would a porcelain ring or a wall relief bring\n'
+            'something extra to your everyday life?\n'
+            'These and much more can be found in\n'
+            'the Tsirbunen Pottery collection.\n\n'
+            'Each piece is hand-built one by one,\n'
+            'and no two items are ever exactly the same.\n'
+            'The collection is always evolving:\n'
+            'when something goes out, something else comes in.\n\n'
+            'I also make custom pieces to order, so if\n'
+            'you don\'t find quite what you\'re looking for,\n'
+            'feel free to get in touch\n'
+            '(with or without a reference image).',
         'chineseCharacter': '泥',
         'home': 'Home',
         'pieces': 'Pieces',
@@ -23,7 +38,6 @@ class En implements Translations {
         'contact': 'Contact',
         'english': 'English',
         'finnish': 'Finnish',
-        // 'allDesigns': 'All Designs',
         'allPieces': 'All Pieces',
         'designNotFound': 'Design not found',
         'productDetails': 'Product Details',
@@ -37,7 +51,7 @@ class En implements Translations {
         'tapToCopyEmail': 'Tap the email to copy it!',
         'contactEmail': 'tsirbunenpottery@gmail.com',
         'storyOnContactPage':
-            'Crafted with patience, fired with passion — every piece tells a story. From rustic charm to modern elegance, discover ceramics that feel like home.',
+            'Handmade from start to finish, no two alike.',
         'dataLoadError': 'Could not load data. Please try again later.',
       };
 }

@@ -19,7 +19,7 @@ class Company extends StatelessWidget {
     final textColor = isDark ? colors.primary : colors.secondary;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           tradeName,
