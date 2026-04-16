@@ -33,6 +33,7 @@ lib/
     scroll_position_cache/
       scroll_position_cache.dart   # Plain class: key→offset cache for scroll restoration (no BLoC)
     state/
+      app_bloc_event.dart          # Shared AppBlocEvent base + BlocStatusChanged (all feature blocs extend this)
       language/                    # App-wide UI state: runtime language toggle
       navigation/                  # Back-navigation history stack (drives AppBar back arrow)
 
@@ -107,6 +108,8 @@ Commented-out (not active): `designs`, `story`
 | `CategoriesBloc` | BLoC | Hold shaped categories + designs data for the Categories route |
 | `CollectionsBloc` | BLoC | Hold shaped collections + designs data for the Collections route |
 | `ScrollPositionCache` | plain class | Key→offset map for scroll restoration; never drives rebuilds |
+
+Feature BLoCs use `Bloc<AppBlocEvent, XxxState>` so the shared `BlocStatusChanged` event (defined in `core/state/app_bloc_event.dart`) can be dispatched to any of them. Each feature's own event class (e.g. `PiecesEvent`) still extends `AppBlocEvent` and is re-exported from the feature's event file.
 
 BLoCs are seeded with initial events in `service_locator.dart` and exposed to the widget tree via `MultiBlocProvider` in `App`.
 

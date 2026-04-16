@@ -1,10 +1,7 @@
-import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
+import 'package:tsirbunenpottery/core/state/app_bloc_event.dart';
 
-class PiecesEvent {}
+export 'package:tsirbunenpottery/core/state/app_bloc_event.dart' show BlocStatusChanged;
 
-class BlocStatusChanged extends PiecesEvent {
-  final BlocStatus status;
-  BlocStatusChanged(this.status);
-}
+class PiecesEvent extends AppBlocEvent {}
 
 class FetchPieces extends PiecesEvent {}

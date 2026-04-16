@@ -1,21 +1,22 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tsirbunenpottery/core/state/app_bloc_event.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/designs/domain/bloc/designs_event.dart';
 import 'package:tsirbunenpottery/features/designs/domain/bloc/designs_state.dart';
 import 'package:tsirbunenpottery/features/designs/repository/designs_repository.dart';
 
-class DesignsBloc extends Bloc<DesignsEvent, DesignsState> {
+class DesignsBloc extends Bloc<AppBlocEvent, DesignsState> {
   final DesignsRepository _repository;
 
   DesignsBloc(this._repository) : super(const DesignsState()) {
-    on<DesignsEvent>(_onEvent);
+    on<AppBlocEvent>(_onEvent);
   }
 
-  Future<void> _onEvent(DesignsEvent event, Emitter<DesignsState> emit) async {
+  Future<void> _onEvent(AppBlocEvent event, Emitter<DesignsState> emit) async {
     return switch (event) {
       final BlocStatusChanged e => emit(state.copyWithStatus(e.status)),
       final FetchDesigns _ => _onFetch(emit),
-      final DesignsEvent _ => emit(state),
+      final AppBlocEvent _ => emit(state),
     };
   }
 

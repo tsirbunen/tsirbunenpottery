@@ -16,11 +16,6 @@ Here's the senior-engineer read. Organized from most to least fundamental:
   resolve, with catch (_) { continue; } swallowing exceptions. A Firestore schema change, a bad document, or a missing field
   produces an app that renders fewer items with no indication that data was lost. This needs validation + logging + propagation.
 
-  ---
-  5. Duplicate event classes across every feature
-
-  Every feature BLoC defines its own BlocStatusChanged event that is structurally identical. Same class, four times. If the
-  pattern changes, every feature must be updated in lockstep. A shared base event in core/ fixes this.
 
   ---
   6. Inconsistent BLoC patterns
