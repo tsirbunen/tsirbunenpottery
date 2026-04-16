@@ -21,6 +21,7 @@ class DesignsBloc extends Bloc<AppBlocEvent, DesignsState> {
   }
 
   Future<void> _onFetch(Emitter<DesignsState> emit) async {
+    if (state.blocStatus.isLoading || state.designsById.isNotEmpty) return;
     emit(state.copyWithStatus(const BlocStatus(Status.loading)));
     try {
       final data = await _repository.getData();

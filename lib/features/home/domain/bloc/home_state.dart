@@ -2,24 +2,19 @@ import 'package:equatable/equatable.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 
 class HomeState extends Equatable {
-  final BlocStatus status;
+  final BlocStatus blocStatus;
   final String? homePageImageFileName;
 
   const HomeState({
-    this.status = const BlocStatus(Status.ok),
+    this.blocStatus = const BlocStatus(Status.ok),
     this.homePageImageFileName,
   });
 
-  HomeState copyWith({
-    BlocStatus? newStatus,
-    String? newHomePageImageFileName,
-  }) {
-    return HomeState(
-      status: newStatus ?? status,
-      homePageImageFileName: newHomePageImageFileName ?? homePageImageFileName,
-    );
-  }
+  HomeState copyWithStatus(BlocStatus status) => HomeState(
+        blocStatus: status,
+        homePageImageFileName: homePageImageFileName,
+      );
 
   @override
-  List<Object?> get props => [status, homePageImageFileName];
+  List<Object?> get props => [blocStatus, homePageImageFileName];
 }

@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
           final imageFileName = homeState.homePageImageFileName;
 
           return BlocStatusView(
-            status: homeState.status,
+            status: homeState.blocStatus,
             child: Align(
             alignment: Alignment.topCenter,
             child: Padding(
