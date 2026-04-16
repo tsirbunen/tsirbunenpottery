@@ -17,11 +17,6 @@ Here's the senior-engineer read. Organized from most to least fundamental:
   produces an app that renders fewer items with no indication that data was lost. This needs validation + logging + propagation.
 
 
-  ---
-  6. Inconsistent BLoC patterns
-
-  Some BLoCs use copyWith(), others reconstruct the full state object. Some emit a loading state before async work, others
-  (HomeBloc) don't. There's no base class or mixin enforcing consistency. At scale this means every feature becomes its own idiom.
 
   ---
   7. Error states are dead ends for users

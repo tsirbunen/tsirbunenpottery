@@ -38,6 +38,7 @@ class En implements Translations {
         'contact': 'Contact',
         'english': 'English',
         'finnish': 'Finnish',
+        'allDesigns': 'All Designs',
         'allPieces': 'All Pieces',
         'designNotFound': 'Design not found',
         'productDetails': 'Product Details',

@@ -37,6 +37,7 @@ class Fi implements Translations {
         'contact': 'Yhteystiedot',
         'english': 'Englanti',
         'finnish': 'Suomi',
+        'allDesigns': 'Kaikki mallit',
         'allPieces': 'Kaikki tuotteet',
         'designNotFound': 'Mallia ei löydy',
         'productDetails': 'Tuotteen tiedot',

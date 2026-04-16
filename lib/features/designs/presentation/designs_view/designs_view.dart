@@ -3,7 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
 import 'package:tsirbunenpottery/features/designs/domain/bloc/designs_bloc.dart';
+import 'package:tsirbunenpottery/features/designs/domain/bloc/designs_event.dart';
 import 'package:tsirbunenpottery/features/designs/domain/bloc/designs_state.dart';
+import 'package:tsirbunenpottery/features/pieces/domain/models/piece/piece.dart';
+import 'package:tsirbunenpottery/localization/app_locale.dart';
+import 'package:tsirbunenpottery/localization/translation.dart';
 import 'package:tsirbunenpottery/widgets/items_grid/models.dart';
 import 'package:tsirbunenpottery/widgets/items_grid/items_grid.dart';
 import 'package:tsirbunenpottery/widgets/items_grid/scroll_position_mixin.dart';
@@ -20,8 +24,18 @@ class DesignsView extends StatefulWidget {
 
 class _DesignsViewState extends State<DesignsView>
     with ScrollPositionMixin<DesignsView> {
+  bool _fetchTriggered = false;
+
   @override
   String get scrollTargetName => ViewMode.designs.scrollTargetName(null, null);
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_fetchTriggered) return;
+    _fetchTriggered = true;
+    context.read<DesignsBloc>().add(FetchDesigns());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,36 +48,36 @@ class _DesignsViewState extends State<DesignsView>
           return BlocBuilder<DesignsBloc, DesignsState>(
             builder: (context, state) {
               final designs = state.designsById.values.toList();
-              final gridParams = _gridParams(
-                context,
-                designs
-                    .map((d) => state.piecesByDesignId[d.id]?.length ?? 0)
-                    .toList(),
-              );
+
+              // One representative piece per design for the overview grid.
+              final representativePieces = designs
+                  .map((d) => state.piecesByDesignId[d.id]?.firstOrNull)
+                  .whereType<Piece>()
+                  .toList();
+
+              final gridParams = _gridParams(context, designs.length);
 
               return BlocStatusView(
                 status: state.blocStatus,
                 child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ...designs.map((design) {
-                    final pieces = state.piecesByDesignId[design.id] ?? [];
-                    return ItemsGrid(
-                      id: design.id,
-                      title: design.names[language] ?? '',
-                      designs: [design],
-                      pieces: pieces,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ItemsGrid(
+                      id: 'designs',
+                      title: context.local(Translation.allDesigns),
+                      designs: designs,
+                      pieces: representativePieces,
                       imageFileNamesByDesignId: state.imageFileNamesByDesignId,
                       language: language,
                       gridParams: gridParams,
                       mode: ViewMode.designs,
                       isTheOnlySubView: true,
-                    );
-                  }),
-                  const Footer(),
-                ],
-              ));
+                    ),
+                    const Footer(),
+                  ],
+                ),
+              );
             },
           );
         },
@@ -71,29 +85,29 @@ class _DesignsViewState extends State<DesignsView>
     );
   }
 
-  GridParams _gridParams(BuildContext context, List<int> pieceCounts) {
+  GridParams _gridParams(BuildContext context, int designCount) {
     final screenWidth = MediaQuery.of(context).size.width;
     final availableWidth = screenWidth - 2 * sideMargin;
     final itemsPerRowEstimate = (availableWidth + horizontalGridSpacing) ~/
         (defaultMinPhotoWidth + horizontalGridSpacing);
 
-    double width = 0.0;
-    int itemsPerRow = 0;
-
-    for (final count in pieceCounts) {
-      if (count == 0) continue;
-      final itemsPerThisRow = itemsPerRowEstimate.clamp(1, count);
-      if (itemsPerThisRow > itemsPerRow) itemsPerRow = itemsPerThisRow;
-      final totalSpacing = horizontalGridSpacing * (itemsPerThisRow - 1);
-      final photoWidth =
-          ((availableWidth - totalSpacing) / itemsPerThisRow)
-              .clamp(defaultMinPhotoWidth, defaultMaxPhotoWidth);
-      if (width == 0.0 || photoWidth < width) width = photoWidth;
+    if (designCount == 0) {
+      return GridParams(
+        itemsPerRow: 0,
+        photoWidth: 0,
+        availableWidth: availableWidth,
+      );
     }
+
+    final itemsPerRow = itemsPerRowEstimate.clamp(1, designCount);
+    final totalSpacing = horizontalGridSpacing * (itemsPerRow - 1);
+    final photoWidth =
+        ((availableWidth - totalSpacing) / itemsPerRow)
+            .clamp(defaultMinPhotoWidth, defaultMaxPhotoWidth);
 
     return GridParams(
       itemsPerRow: itemsPerRow,
-      photoWidth: width,
+      photoWidth: photoWidth,
       availableWidth: availableWidth,
     );
   }

@@ -16,8 +16,8 @@ enum Translation {
   // Languages:
   english,
   finnish,
-  // // All designs title:
-  // allDesigns,
+  // All designs title:
+  allDesigns,
   allPieces,
   // Design view:
   designNotFound,
