@@ -21,6 +21,7 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
   }
 
   Future<void> _onFetch(Emitter<CollectionsState> emit) async {
+    if (state.blocStatus.isLoading || state.collections.isNotEmpty) return;
     emit(state.copyWithStatus(const BlocStatus(Status.loading)));
     try {
       final data = await _repository.getData();

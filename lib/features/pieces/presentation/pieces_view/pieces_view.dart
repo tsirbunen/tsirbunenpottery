@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_bloc.dart';
+import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_event.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_state.dart';
 import 'package:tsirbunenpottery/widgets/items_grid/models.dart';
 import 'package:tsirbunenpottery/widgets/items_grid/items_grid.dart';
@@ -22,9 +23,18 @@ class PiecesView extends StatefulWidget {
 
 class _PiecesViewState extends State<PiecesView>
     with ScrollPositionMixin<PiecesView> {
+  bool _fetchTriggered = false;
+
   @override
-  String get scrollTargetName =>
-      ViewMode.pieces.scrollTargetName(null, null);
+  String get scrollTargetName => ViewMode.pieces.scrollTargetName(null, null);
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_fetchTriggered) return;
+    _fetchTriggered = true;
+    context.read<PiecesBloc>().add(FetchPieces());
+  }
 
   @override
   Widget build(BuildContext context) {

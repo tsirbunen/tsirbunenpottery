@@ -9,7 +9,8 @@ const FontWeight descriptionFontWeight = FontWeight.w500;
 
 class Company extends StatelessWidget {
   final bool isDark;
-  const Company({super.key, this.isDark = true});
+  final bool isCentered;
+  const Company({super.key, this.isDark = true, this.isCentered = false});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,8 @@ class Company extends StatelessWidget {
     final textColor = isDark ? colors.primary : colors.secondary;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      // crossAxisAlignment: isCentered ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+      crossAxisAlignment:  CrossAxisAlignment.center,
       children: [
         Text(
           tradeName,
@@ -31,7 +33,7 @@ class Company extends StatelessWidget {
         ),
         Text(
           shortDescription,
-          textAlign: TextAlign.center,
+          textAlign: isCentered ? TextAlign.center : TextAlign.start,
           style: TextStyle(
             fontSize: descriptionFontSize,
             color: textColor,

@@ -8,6 +8,7 @@ import 'package:tsirbunenpottery/data/cloud_service.dart';
   MockSpec<QuerySnapshot<Map<String, dynamic>>>(),
   MockSpec<QueryDocumentSnapshot<Map<String, dynamic>>>(),
   MockSpec<DocumentReference>(),
+  MockSpec<DocumentSnapshot<Map<String, dynamic>>>(),
   MockSpec<CloudService>(),
 ])
 void main() {}

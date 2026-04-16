@@ -8,12 +8,16 @@ void main() {
     late MockFirebaseFirestore mockFirestore;
     late MockCollectionReference mockCollectionReference;
     late MockQuerySnapshot mockQuerySnapshot;
+    late MockDocumentReference<Map<String, dynamic>> mockDocumentReference;
+    late MockDocumentSnapshot mockDocumentSnapshot;
     late FirestoreCloudService cloudService;
 
     setUp(() {
       mockFirestore = MockFirebaseFirestore();
       mockCollectionReference = MockCollectionReference();
       mockQuerySnapshot = MockQuerySnapshot();
+      mockDocumentReference = MockDocumentReference<Map<String, dynamic>>();
+      mockDocumentSnapshot = MockDocumentSnapshot();
       cloudService = FirestoreCloudService(firestore: mockFirestore);
     });
 
@@ -55,19 +59,15 @@ void main() {
 
     group('fetchOne -', () {
       test('returns matching document as a map with id prepended', () async {
-        final doc1 = MockQueryDocumentSnapshot();
-        when(doc1.id).thenReturn('doc-1');
-        when(doc1.data()).thenReturn({'name': 'Alpha'});
-
-        final doc2 = MockQueryDocumentSnapshot();
-        when(doc2.id).thenReturn('doc-2');
-        when(doc2.data()).thenReturn({'name': 'Beta'});
-
         when(mockFirestore.collection('items'))
             .thenReturn(mockCollectionReference);
-        when(mockCollectionReference.get())
-            .thenAnswer((_) async => mockQuerySnapshot);
-        when(mockQuerySnapshot.docs).thenReturn([doc1, doc2]);
+        when(mockCollectionReference.doc('doc-2'))
+            .thenReturn(mockDocumentReference);
+        when(mockDocumentReference.get())
+            .thenAnswer((_) async => mockDocumentSnapshot);
+        when(mockDocumentSnapshot.exists).thenReturn(true);
+        when(mockDocumentSnapshot.id).thenReturn('doc-2');
+        when(mockDocumentSnapshot.data()).thenReturn({'name': 'Beta'});
 
         final result = await cloudService.fetchOne(
           collection: 'items',
@@ -77,16 +77,14 @@ void main() {
         expect(result, {'id': 'doc-2', 'name': 'Beta'});
       });
 
-      test('returns null when document id is not found', () async {
-        final doc1 = MockQueryDocumentSnapshot();
-        when(doc1.id).thenReturn('doc-1');
-        when(doc1.data()).thenReturn({'name': 'Alpha'});
-
+      test('returns null when document does not exist', () async {
         when(mockFirestore.collection('items'))
             .thenReturn(mockCollectionReference);
-        when(mockCollectionReference.get())
-            .thenAnswer((_) async => mockQuerySnapshot);
-        when(mockQuerySnapshot.docs).thenReturn([doc1]);
+        when(mockCollectionReference.doc('non-existent'))
+            .thenReturn(mockDocumentReference);
+        when(mockDocumentReference.get())
+            .thenAnswer((_) async => mockDocumentSnapshot);
+        when(mockDocumentSnapshot.exists).thenReturn(false);
 
         final result = await cloudService.fetchOne(
           collection: 'items',

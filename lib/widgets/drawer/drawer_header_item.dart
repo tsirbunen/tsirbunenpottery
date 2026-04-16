@@ -26,7 +26,7 @@ class DrawerHeaderItem extends StatelessWidget {
               children: [
                 Trademark(isInverted: false, hasBorder: true, width: width),
                 spacer,
-                const Expanded(child: Company()),
+                const Expanded(child: Company(isCentered: false,)),
               ],
             ),
           ),

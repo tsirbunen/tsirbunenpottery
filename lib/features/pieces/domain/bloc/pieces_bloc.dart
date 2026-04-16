@@ -20,6 +20,7 @@ class PiecesBloc extends Bloc<PiecesEvent, PiecesState> {
   }
 
   Future<void> _onFetch(Emitter<PiecesState> emit) async {
+    if (state.blocStatus.isLoading || state.piecesById.isNotEmpty) return;
     emit(state.copyWithStatus(const BlocStatus(Status.loading)));
     try {
       final data = await _repository.getData();

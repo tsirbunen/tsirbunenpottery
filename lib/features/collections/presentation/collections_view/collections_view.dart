@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
 import 'package:tsirbunenpottery/features/collections/domain/bloc/collections_bloc.dart';
+import 'package:tsirbunenpottery/features/collections/domain/bloc/collections_event.dart';
 import 'package:tsirbunenpottery/features/collections/domain/bloc/collections_state.dart';
 import 'package:tsirbunenpottery/features/designs/domain/models/design/design.dart';
 import 'package:tsirbunenpottery/bootstrap/router/routes.dart';
@@ -27,8 +28,18 @@ class CollectionsView extends StatefulWidget {
 
 class _CollectionsViewState extends State<CollectionsView>
     with ScrollPositionMixin<CollectionsView> {
+  bool _fetchTriggered = false;
+
   @override
   String get scrollTargetName => widget.scrollTargetName;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_fetchTriggered) return;
+    _fetchTriggered = true;
+    context.read<CollectionsBloc>().add(FetchCollections());
+  }
 
   @override
   Widget build(BuildContext context) {
