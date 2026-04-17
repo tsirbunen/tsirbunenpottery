@@ -1,6 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tsirbunenpottery/bootstrap/environment/app_environment.dart';
 import 'package:tsirbunenpottery/bootstrap/service_locator/service_locator.dart';
+import 'package:tsirbunenpottery/core/logging/app_logger.dart';
+import 'package:tsirbunenpottery/core/logging/noop_app_logger.dart';
 import 'package:tsirbunenpottery/core/scroll_position_cache/scroll_position_cache.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_event.dart';
@@ -26,13 +28,16 @@ import 'mock_cloud_service_helpers.dart';
 
 void prepareBlocsForTests() {
   if (!getIt.isRegistered<LanguageBloc>()) {
+    const logger = NoOpAppLogger();
+    getIt.registerSingleton<AppLogger>(logger);
+
     final cloudService = mockCloudServiceWithData();
 
     final homeRepository = HomeRepository(cloudService);
     final homeBloc = HomeBloc(homeRepository);
     homeBloc.add(FetchHomePageImageFileName());
 
-    final productsRepository = ProductsRepository(cloudService);
+    final productsRepository = ProductsRepository(cloudService, logger: logger);
 
     final piecesBloc = PiecesBloc(PiecesRepository(productsRepository));
     piecesBloc.add(FetchPieces());

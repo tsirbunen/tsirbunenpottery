@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tsirbunenpottery/bootstrap/environment/app_environment.dart';
+import 'package:tsirbunenpottery/bootstrap/service_locator/service_locator.dart';
+import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/widgets/photo_with_fallback/no_image_icon_placeholder.dart';
 
 const Duration fadeInDuration = Duration(milliseconds: 1500);
@@ -211,7 +213,11 @@ class _PhotoWithFallbackState extends State<PhotoWithFallback>
       },
       onError: (dynamic exception, StackTrace? stackTrace) {
         if (!mounted) return;
-        debugPrint('Image load failed: $exception');
+        getIt<AppLogger>().logWarning(
+          'Image load failed: $exception',
+          tag: 'PhotoWithFallback',
+          error: exception,
+        );
         setState(() {
           _isLoading = false;
           _image = null; // don't try to show a broken image

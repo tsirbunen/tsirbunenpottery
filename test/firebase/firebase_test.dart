@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tsirbunenpottery/data/firestore_cloud_service.dart';
 import 'package:mockito/mockito.dart';
+import 'package:tsirbunenpottery/core/logging/noop_app_logger.dart';
+import 'package:tsirbunenpottery/data/firestore_cloud_service.dart';
 import 'firebase_related_mocks.mocks.dart';
 
 void main() {
@@ -18,7 +19,10 @@ void main() {
       mockQuerySnapshot = MockQuerySnapshot();
       mockDocumentReference = MockDocumentReference<Map<String, dynamic>>();
       mockDocumentSnapshot = MockDocumentSnapshot();
-      cloudService = FirestoreCloudService(firestore: mockFirestore);
+      cloudService = FirestoreCloudService(
+        firestore: mockFirestore,
+        logger: const NoOpAppLogger(),
+      );
     });
 
     group('fetchMany -', () {

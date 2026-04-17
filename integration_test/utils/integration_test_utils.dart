@@ -1,4 +1,6 @@
 import 'package:tsirbunenpottery/bootstrap/service_locator/service_locator.dart';
+import 'package:tsirbunenpottery/core/logging/app_logger.dart';
+import 'package:tsirbunenpottery/core/logging/noop_app_logger.dart';
 import 'package:tsirbunenpottery/core/scroll_position_cache/scroll_position_cache.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_event.dart';
@@ -40,12 +42,15 @@ class _StubCloudService implements CloudService {
 void prepareBlocsForIntegrationTests() {
   if (getIt.isRegistered<LanguageBloc>()) return;
 
+  const logger = NoOpAppLogger();
+  getIt.registerSingleton<AppLogger>(logger);
+
   final cloudService = _StubCloudService();
 
   final homeBloc = HomeBloc(HomeRepository(cloudService))
     ..add(FetchHomePageImageFileName());
 
-  final productsRepository = ProductsRepository(cloudService);
+  final productsRepository = ProductsRepository(cloudService, logger: logger);
 
   final piecesBloc = PiecesBloc(PiecesRepository(productsRepository))
     ..add(FetchPieces());

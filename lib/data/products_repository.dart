@@ -1,12 +1,15 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/data/cloud_service.dart';
 import 'package:tsirbunenpottery/features/categories/domain/models/category/category.dart';
 import 'package:tsirbunenpottery/features/collections/domain/models/collection/collection.dart';
 import 'package:tsirbunenpottery/features/designs/domain/models/design/design.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/models/piece/piece.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tsirbunenpottery/localization/languages.dart';
-import 'dart:convert';
-import 'dart:developer' as dev;
+
+const _tag = 'ProductsRepository';
 
 typedef AllProductsData = ({
   List<Piece> pieces,
@@ -17,9 +20,11 @@ typedef AllProductsData = ({
 
 class ProductsRepository {
   final CloudService _cloudService;
+  final AppLogger _logger;
   AllProductsData? _cache;
 
-  ProductsRepository(this._cloudService);
+  ProductsRepository(this._cloudService, {required AppLogger logger})
+      : _logger = logger;
 
   Future<AllProductsData> getProducts() async {
     return _cache ??= await _fetchAllFromCloud();
@@ -52,6 +57,12 @@ class ProductsRepository {
         .whereType<Piece>()
         .toList();
 
+    _logger.logInfo(
+      'Parsed: ${collections.length} collections, ${categories.length} categories, '
+      '${designs.length} designs, ${pieces.length} pieces',
+      tag: _tag,
+    );
+
     return (
       pieces: pieces,
       designs: designs,
@@ -68,9 +79,10 @@ class ProductsRepository {
         names: _toStringTranslations(data, 'names'),
       );
     } catch (e) {
-      dev.log(
-        'ProductsRepository: failed to parse collection "${data['id']}": $e',
-        name: 'ProductsRepository',
+      _logger.logWarning(
+        'Failed to parse collection "${data['id']}": $e',
+        tag: _tag,
+        error: e,
       );
       return null;
     }
@@ -83,9 +95,10 @@ class ProductsRepository {
         names: _toStringTranslations(data, 'names'),
       );
     } catch (e) {
-      dev.log(
-        'ProductsRepository: failed to parse category "${data['id']}": $e',
-        name: 'ProductsRepository',
+      _logger.logWarning(
+        'Failed to parse category "${data['id']}": $e',
+        tag: _tag,
+        error: e,
       );
       return null;
     }
@@ -101,9 +114,10 @@ class ProductsRepository {
         details: _toStringMapTranslations(data, 'details'),
       );
     } catch (e) {
-      dev.log(
-        'ProductsRepository: failed to parse design "${data['id']}": $e',
-        name: 'ProductsRepository',
+      _logger.logWarning(
+        'Failed to parse design "${data['id']}": $e',
+        tag: _tag,
+        error: e,
       );
       return null;
     }
@@ -117,9 +131,9 @@ class ProductsRepository {
     try {
       final designId = _idOfRef<Design>(data, designs, 'designId');
       if (designId == null) {
-        dev.log(
-          'ProductsRepository: skipping piece "${data['id']}" — designId missing or unresolved',
-          name: 'ProductsRepository',
+        _logger.logWarning(
+          'Skipping piece "${data['id']}" — designId missing or unresolved',
+          tag: _tag,
         );
         return null;
       }
@@ -134,9 +148,10 @@ class ProductsRepository {
         sold: data['sold'] as bool? ?? false,
       );
     } catch (e) {
-      dev.log(
-        'ProductsRepository: failed to parse piece "${data['id']}": $e',
-        name: 'ProductsRepository',
+      _logger.logWarning(
+        'Failed to parse piece "${data['id']}": $e',
+        tag: _tag,
+        error: e,
       );
       return null;
     }
@@ -179,9 +194,10 @@ class ProductsRepository {
           (k, v) => MapEntry(k, v is String ? v : v.toString()),
         );
       } catch (e) {
-        dev.log(
-          'ProductsRepository: failed to parse "$fieldName" details for language "${entry.key}": $e',
-          name: 'ProductsRepository',
+        _logger.logWarning(
+          'Failed to parse "$fieldName" details for language "${entry.key}": $e',
+          tag: _tag,
+          error: e,
         );
         continue;
       }

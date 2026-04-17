@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tsirbunenpottery/core/logging/noop_app_logger.dart';
 import 'package:tsirbunenpottery/data/products_repository.dart';
 import 'package:tsirbunenpottery/features/categories/repository/categories_repository.dart';
 
@@ -11,7 +12,7 @@ void main() {
 
       setUp(() {
         repository =
-            CategoriesRepository(ProductsRepository(mockCloudServiceWithData()));
+            CategoriesRepository(ProductsRepository(mockCloudServiceWithData(), logger: const NoOpAppLogger()));
       });
 
       test('loads all 4 categories from the cloud', () async {

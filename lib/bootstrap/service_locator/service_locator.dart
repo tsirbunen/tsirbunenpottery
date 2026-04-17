@@ -1,4 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
+import 'package:tsirbunenpottery/core/logging/app_logger.dart';
+import 'package:tsirbunenpottery/core/logging/dev_app_logger.dart';
+import 'package:tsirbunenpottery/core/logging/noop_app_logger.dart';
 import 'package:tsirbunenpottery/core/scroll_position_cache/scroll_position_cache.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/data/firestore_cloud_service.dart';
@@ -21,7 +25,11 @@ import 'package:tsirbunenpottery/features/pieces/repository/pieces_repository.da
 final getIt = GetIt.instance;
 
 void prepareBlocs() {
-  final cloudService = FirestoreCloudService();
+  final logger =
+      kReleaseMode ? const NoOpAppLogger() : const DevAppLogger();
+  getIt.registerSingleton<AppLogger>(logger);
+
+  final cloudService = FirestoreCloudService(logger: logger);
 
   final languageBloc = LanguageBloc();
 
@@ -29,7 +37,7 @@ void prepareBlocs() {
   final homeBloc = HomeBloc(homeRepository);
   homeBloc.add(FetchHomePageImageFileName());
 
-  final productsRepository = ProductsRepository(cloudService);
+  final productsRepository = ProductsRepository(cloudService, logger: logger);
 
   final piecesBloc = PiecesBloc(PiecesRepository(productsRepository));
   final designsBloc = DesignsBloc(DesignsRepository(productsRepository));

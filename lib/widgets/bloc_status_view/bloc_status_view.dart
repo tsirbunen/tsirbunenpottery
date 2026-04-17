@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tsirbunenpottery/bootstrap/service_locator/service_locator.dart';
+import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
@@ -21,7 +23,11 @@ class BlocStatusView extends StatelessWidget {
     }
 
     if (status.isError) {
-      debugPrint('BlocStatusView error: ${status.message}');
+      getIt<AppLogger>().logError(
+        'BlocStatusView error: ${status.message}',
+        error: status.message ?? 'unknown error',
+        tag: 'BlocStatusView',
+      );
       return Center(
         child: Text(
           context.local(Translation.dataLoadError),
