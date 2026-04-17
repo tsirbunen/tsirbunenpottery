@@ -55,6 +55,7 @@ class En implements Translations {
         'storyOnContactPage':
             'Handmade from start to finish, no two alike.',
         'dataLoadError': 'Could not load data. Please try again later.',
+        'retry': 'Try again',
       };
 }
 

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
 import 'package:tsirbunenpottery/features/home/domain/bloc/home_bloc.dart';
+import 'package:tsirbunenpottery/features/home/domain/bloc/home_event.dart';
 import 'package:tsirbunenpottery/features/home/domain/bloc/home_state.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
@@ -27,6 +28,7 @@ class HomePage extends StatelessWidget {
 
           return BlocStatusView(
             status: homeState.blocStatus,
+            onRetry: () => context.read<HomeBloc>().add(FetchHomePageImageFileName()),
             child: Align(
             alignment: Alignment.topCenter,
             child: Padding(
@@ -78,7 +80,6 @@ class HomePage extends StatelessWidget {
   }
 
   TextStyle _mainDescriptionStyle(BuildContext context) {
-    // Center the text
     return Theme.of(context)
         .textTheme
         .bodyMedium!

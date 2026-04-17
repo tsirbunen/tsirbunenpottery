@@ -37,6 +37,8 @@ class _DesignsViewState extends State<DesignsView>
     context.read<DesignsBloc>().add(FetchDesigns());
   }
 
+  void _onRetry() => context.read<DesignsBloc>().add(FetchDesigns());
+
   @override
   Widget build(BuildContext context) {
     return PageBase(
@@ -59,6 +61,7 @@ class _DesignsViewState extends State<DesignsView>
 
               return BlocStatusView(
                 status: state.blocStatus,
+                onRetry: _onRetry,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

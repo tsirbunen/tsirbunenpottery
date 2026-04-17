@@ -35,6 +35,7 @@ enum Translation {
   contactEmail,
   storyOnContactPage,
   dataLoadError,
+  retry,
 }
 
 extension TranslationToKey on Translation {

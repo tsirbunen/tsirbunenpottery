@@ -53,6 +53,7 @@ class Fi implements Translations {
         'storyOnContactPage':
             'Käsityönä valmistettu alusta loppuun, ei kahta samanlaista.',
         'dataLoadError': 'Tietojen lataus epäonnistui. Yritä myöhemmin uudelleen.',
+        'retry': 'Yritä uudelleen',
       };
 }
 

@@ -41,6 +41,8 @@ class _CollectionsViewState extends State<CollectionsView>
     context.read<CollectionsBloc>().add(FetchCollections());
   }
 
+  void _onRetry() => context.read<CollectionsBloc>().add(FetchCollections());
+
   @override
   Widget build(BuildContext context) {
     return PageBase(
@@ -60,6 +62,7 @@ class _CollectionsViewState extends State<CollectionsView>
 
               return BlocStatusView(
                 status: state.blocStatus,
+                onRetry: _onRetry,
                 child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
