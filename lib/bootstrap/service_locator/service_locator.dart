@@ -9,14 +9,13 @@ import 'package:tsirbunenpottery/data/firestore_cloud_service.dart';
 import 'package:tsirbunenpottery/data/products_repository.dart';
 import 'package:tsirbunenpottery/features/categories/domain/bloc/categories_bloc.dart';
 import 'package:tsirbunenpottery/features/categories/repository/categories_repository.dart';
-import 'package:tsirbunenpottery/features/collections/domain/bloc/collections_bloc.dart';
+import 'package:tsirbunenpottery/features/collections/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/features/collections/repository/collections_repository.dart';
-import 'package:tsirbunenpottery/features/designs/domain/bloc/designs_bloc.dart';
+import 'package:tsirbunenpottery/features/designs/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/features/designs/repository/designs_repository.dart';
-import 'package:tsirbunenpottery/features/home/domain/bloc/home_bloc.dart';
-import 'package:tsirbunenpottery/features/home/domain/bloc/home_event.dart';
+import 'package:tsirbunenpottery/features/home/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/features/home/repository/home_repository.dart';
-import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_bloc.dart';
+import 'package:tsirbunenpottery/features/pieces/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/features/pieces/repository/pieces_repository.dart';
 
 // We use the service locator pattern to provide instances of the blocs so that

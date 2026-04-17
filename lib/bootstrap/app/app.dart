@@ -4,11 +4,11 @@ import 'package:tsirbunenpottery/bootstrap/service_locator/service_locator.dart'
 import 'package:tsirbunenpottery/core/scroll_position_cache/scroll_position_cache.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
-import 'package:tsirbunenpottery/features/home/domain/bloc/home_bloc.dart';
-import 'package:tsirbunenpottery/features/categories/domain/bloc/categories_bloc.dart';
-import 'package:tsirbunenpottery/features/collections/domain/bloc/collections_bloc.dart';
-import 'package:tsirbunenpottery/features/designs/domain/bloc/designs_bloc.dart';
-import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_bloc.dart';
+import 'package:tsirbunenpottery/features/home/domain/bloc/barrel.dart';
+import 'package:tsirbunenpottery/features/categories/domain/bloc/barrel.dart';
+import 'package:tsirbunenpottery/features/collections/domain/bloc/barrel.dart';
+import 'package:tsirbunenpottery/features/designs/domain/bloc/barrel.dart';
+import 'package:tsirbunenpottery/features/pieces/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/localization/languages.dart';
 import 'package:tsirbunenpottery/bootstrap/router/route_controller.dart';
