@@ -9,16 +9,6 @@ import 'package:tsirbunenpottery/widgets/items_grid/scroll_position_mixin.dart';
 import 'package:tsirbunenpottery/widgets/items_grid/title_with_hover_effect.dart';
 import 'package:tsirbunenpottery/localization/languages.dart';
 
-// Note: Let's subtract some space from the photo width (if single row) as a guide to
-// the user to scroll horizontally to see more designs
-const double singleRowSubtraction = 15.0;
-const double horizontalGridSpacing = 15.0;
-const double verticalGridSpacing = 20.0;
-const double defaultMinPhotoWidth = 175.0;
-const double defaultMaxPhotoWidth = 300.0;
-const double sideMargin = 25.0;
-const double showExpandBreakpoint = 700.0;
-const int kNarrowColumnsCount = 3;
 
 class ItemsGrid extends StatefulWidget {
   final String title;

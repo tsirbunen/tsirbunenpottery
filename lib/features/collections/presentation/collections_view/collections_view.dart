@@ -55,7 +55,7 @@ class _CollectionsViewState extends State<CollectionsView>
             builder: (context, state) {
               final groupedDesigns = _designsToShow(state);
               final allPieces = state.piecesById.values.toList();
-              final gridParams = _gridParams(context, groupedDesigns);
+              final gridParams = computeGridParams(context, groupedDesigns);
               final collectionsById = {
                 for (final c in state.collections) c.id: c
               };
@@ -122,32 +122,4 @@ class _CollectionsViewState extends State<CollectionsView>
     return state.collectionDesigns;
   }
 
-  GridParams _gridParams(BuildContext context,
-      Map<String, Map<String, List<String>>> groups) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final availableWidth = screenWidth - 2 * sideMargin;
-    final itemsPerRowEstimate = (availableWidth + horizontalGridSpacing) ~/
-        (defaultMinPhotoWidth + horizontalGridSpacing);
-
-    double width = 0.0;
-    int itemsPerRow = 0;
-
-    for (final entry in groups.entries) {
-      final count = entry.value.length;
-      if (count == 0) continue;
-      final itemsPerThisRow = itemsPerRowEstimate.clamp(1, count);
-      if (itemsPerThisRow > itemsPerRow) itemsPerRow = itemsPerThisRow;
-      final totalSpacing = horizontalGridSpacing * (itemsPerThisRow - 1);
-      final photoWidth =
-          ((availableWidth - totalSpacing) / itemsPerThisRow)
-              .clamp(defaultMinPhotoWidth, defaultMaxPhotoWidth);
-      if (width == 0.0 || photoWidth < width) width = photoWidth;
-    }
-
-    return GridParams(
-      itemsPerRow: itemsPerRow,
-      photoWidth: width,
-      availableWidth: availableWidth,
-    );
-  }
 }

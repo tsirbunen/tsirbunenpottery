@@ -32,7 +32,7 @@ class PhotoCarouselIndicator extends StatelessWidget {
     );
   }
 
-  _dotColors(BuildContext context) {
+  ({Color active, Color inactive}) _dotColors(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     return (active: colors.secondary, inactive: colors.tertiary);
   }

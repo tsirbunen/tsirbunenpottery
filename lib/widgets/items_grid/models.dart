@@ -1,3 +1,14 @@
+import 'package:flutter/widgets.dart';
+
+const double singleRowSubtraction = 15.0;
+const double horizontalGridSpacing = 15.0;
+const double verticalGridSpacing = 20.0;
+const double defaultMinPhotoWidth = 175.0;
+const double defaultMaxPhotoWidth = 300.0;
+const double sideMargin = 25.0;
+const double showExpandBreakpoint = 700.0;
+const int kNarrowColumnsCount = 3;
+
 enum ViewMode {
   pieces,
   categories,
@@ -24,6 +35,37 @@ extension ScrollTargetExtension on ViewMode {
         return 'pieces-$direction';
     }
   }
+}
+
+GridParams computeGridParams(
+  BuildContext context,
+  Map<String, Map<String, List<String>>> groups,
+) {
+  final screenWidth = MediaQuery.of(context).size.width;
+  final availableWidth = screenWidth - 2 * sideMargin;
+  final itemsPerRowEstimate = (availableWidth + horizontalGridSpacing) ~/
+      (defaultMinPhotoWidth + horizontalGridSpacing);
+
+  double width = 0.0;
+  int itemsPerRow = 0;
+
+  for (final entry in groups.entries) {
+    final count = entry.value.length;
+    if (count == 0) continue;
+    final itemsPerThisRow = itemsPerRowEstimate.clamp(1, count);
+    if (itemsPerThisRow > itemsPerRow) itemsPerRow = itemsPerThisRow;
+    final totalSpacing = horizontalGridSpacing * (itemsPerThisRow - 1);
+    final photoWidth =
+        ((availableWidth - totalSpacing) / itemsPerThisRow)
+            .clamp(defaultMinPhotoWidth, defaultMaxPhotoWidth);
+    if (width == 0.0 || photoWidth < width) width = photoWidth;
+  }
+
+  return GridParams(
+    itemsPerRow: itemsPerRow,
+    photoWidth: width,
+    availableWidth: availableWidth,
+  );
 }
 
 class GridParams {

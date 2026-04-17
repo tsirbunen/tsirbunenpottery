@@ -32,7 +32,7 @@ Locale resolveLocale(
   }
 }
 
-createLocaleListResolutionCallback(Locale locale) {
+LocaleListResolutionCallback createLocaleListResolutionCallback(Locale locale) {
   return (List<Locale>? locales, Iterable<Locale> supportedLocales) {
     return resolveLocale(locales, supportedLocales, locale);
   };
