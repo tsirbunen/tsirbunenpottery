@@ -29,6 +29,7 @@ enum Translation {
   contactTitlePlaceholder,
   contactMessagePlaceholder,
   submitLabel,
+  comingSoon,
   emailCopiedToClipboard,
   tapToCopyEmail,
   contactEmail,

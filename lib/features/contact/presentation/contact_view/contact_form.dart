@@ -19,12 +19,20 @@ class _ContactFormState extends State<ContactForm> {
   final messageController = TextEditingController();
 
   @override
+  void dispose() {
+    titleController.dispose();
+    messageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final contactUsLabel = context.local(Translation.contactUs);
     final titlePlaceholder = context.local(Translation.contactTitlePlaceholder);
     final messagePlaceholder =
         context.local(Translation.contactMessagePlaceholder);
     final submitLabel = context.local(Translation.submitLabel);
+    final comingSoonLabel = context.local(Translation.comingSoon);
 
     final colors = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
@@ -57,7 +65,7 @@ class _ContactFormState extends State<ContactForm> {
               width: 150.0,
               height: 50,
               child: ElevatedButton(
-                onPressed: _onSubmit,
+                onPressed: null,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: colors.primary.withValues(alpha: 0.8),
                   shape: RoundedRectangleBorder(
@@ -65,6 +73,14 @@ class _ContactFormState extends State<ContactForm> {
                   ),
                 ),
                 child: Text(submitLabel, style: _textStyle(textTheme, colors)),
+              ),
+            ),
+            const SizedBox(height: 12.0),
+            Text(
+              comingSoonLabel,
+              style: textTheme.bodySmall?.copyWith(
+                color: colors.secondary,
+                fontStyle: FontStyle.italic,
               ),
             ),
           ],
@@ -98,12 +114,6 @@ class _ContactFormState extends State<ContactForm> {
         ),
       ),
     );
-  }
-
-  void _onSubmit() {
-    // FIXME: Implement handle form submission
-    debugPrint("Title: ${titleController.text}");
-    debugPrint("Message: ${messageController.text}");
   }
 
   InputDecoration _inputDecoration(String hintText) {

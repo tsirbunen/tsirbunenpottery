@@ -2,17 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/bootstrap/router/route_enum.dart';
-import 'package:tsirbunenpottery/utils/current_page_name_from_settings.dart';
 import 'package:tsirbunenpottery/widgets/company/trademark.dart';
 
-const EdgeInsets padding = EdgeInsets.symmetric(horizontal: 2.0);
-const double borderRadius = 5.0;
 const double spacerWidth = 20.0;
 const SizedBox spacer = SizedBox(width: spacerWidth);
 const FontWeight selectedPageFontWeight = FontWeight.w800;
 const double minWidthForShowNavBarRoutes = 800;
-const double underlineHeight = 1.0;
-const SizedBox underlineSpacer = SizedBox(height: 2.0);
 const double trademarkWidthEstimate = 80.0;
 const double paddingPerItemEstimate = 40.0;
 
@@ -22,9 +17,9 @@ class HorizontalNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final generalStyle = Theme.of(context).textTheme.headlineSmall!;
-    final emphasizedStyle =
-        generalStyle.copyWith(fontWeight: selectedPageFontWeight);
-    final currentPage = currentPageNameFromSettings(context);
+    final boldStyle = generalStyle.copyWith(fontWeight: selectedPageFontWeight);
+    final currentPath =
+        GoRouter.of(context).routerDelegate.currentConfiguration.uri.path;
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -48,30 +43,14 @@ class HorizontalNavigation extends StatelessWidget {
               ...RouteEnum.values.map(
                 (route) {
                   final pageName = context.local(route.pageName());
-                  final isCurrentRoute = pageName == currentPage;
-                  final textStyle =
-                      isCurrentRoute ? emphasizedStyle : generalStyle;
-                  // final color = isCurrentRoute
-                  //     ? Theme.of(context).colorScheme.primary
-                  //     : Colors.transparent;
+                  final isCurrentRoute = route.path() == currentPath;
 
-                  return
-                      // IntrinsicWidth(
-                      //   child:
-                      TextButton(
-                    onPressed: () => _navigateTo(context, route.path()),
-                    child: Column(
-                      children: [
-                        Text(pageName, style: textStyle),
-                        // underlineSpacer,
-                        // Container(
-                        //   color: color,
-                        //   height: underlineHeight,
-                        //   width: double.infinity,
-                        // ),
-                      ],
+                  return TextButton(
+                    onPressed: () => context.go(route.path()),
+                    child: Text(
+                      pageName,
+                      style: isCurrentRoute ? boldStyle : generalStyle,
                     ),
-                    // ),
                   );
                 },
               ),
@@ -88,10 +67,6 @@ class HorizontalNavigation extends StatelessWidget {
 
     return approxTextWidths.fold((trademarkWidthEstimate + spacerWidth),
         (sum, w) => sum + w + paddingPerItemEstimate);
-  }
-
-  void _navigateTo(BuildContext context, path) {
-    context.go(path);
   }
 
   double _estimateTextWidth(String text, TextStyle style) {

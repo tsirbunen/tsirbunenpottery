@@ -47,6 +47,7 @@ class Fi implements Translations {
         'contactTitlePlaceholder': 'Otsikko...',
         'contactMessagePlaceholder': 'Viesti...',
         'submitLabel': 'Lähetä',
+        'comingSoon': 'Tulossa pian',
         'emailCopiedToClipboard': 'Sähköposti kopioitu leikepöydälle',
         'tapToCopyEmail': 'Kopioi sähköposti napauttamalla sitä!',
         'contactEmail': 'tsirbunenpottery@gmail.com',

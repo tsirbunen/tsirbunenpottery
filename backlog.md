@@ -16,26 +16,7 @@ Here's the senior-engineer read. Organized from most to least fundamental:
   BlocStatusView shows a generic error string and nothing else — no retry button, no differentiation between "no network" and
   "data corrupt." All errors collapse into the same UI. At minimum, recoverable errors need a retry action.
 
-  ---
-  8. Back-navigation logic is fragile
 
-  app_bar_left_actions.dart — _routeHasId() parses the full path string and checks .contains(':id'). That means it's matching
-  against the route template (e.g. /pieces/:id), not the resolved path. A resolved URL like /pieces/abc123 does not contain :id.
-  The logic is checking the wrong thing. (Noted in existing memory from April 6 review — still unfixed.)
-
-
-
-  ---
-  10. Contact form is non-functional dead code
-
-  contact_form.dart — _onSubmit() just calls debugPrint. No validation, no BLoC, no backend. This is a publicly visible page that
-  appears interactive but silently discards user input. Either implement it properly or remove the form.
-
-  ---
-  11. TextEditingController leak in contact form
-
-  contact_form.dart — two TextEditingController instances created in state with no dispose() override. Memory leak on every visit
-  to the contact page.
 
   ---
   12. No production observability

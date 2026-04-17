@@ -48,6 +48,7 @@ class En implements Translations {
         'contactTitlePlaceholder': 'Title...',
         'contactMessagePlaceholder': 'Message...',
         'submitLabel': 'Submit',
+        'comingSoon': 'Coming soon',
         'emailCopiedToClipboard': 'Email copied to clipboard',
         'tapToCopyEmail': 'Tap the email to copy it!',
         'contactEmail': 'tsirbunenpottery@gmail.com',
