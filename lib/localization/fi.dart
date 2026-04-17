@@ -27,7 +27,6 @@ class Fi implements Translations {
             'ota rohkeasti yhteyttä - kuvan kanssa tai ilman!\n'
             'Toteutan mielelläni tilaustöitä.',
         'chineseCharacter': '泥',
-        'tradeNameBeginning': 'TSIRBUNEN',
         'home': 'Koti',
         'pieces': 'Tuotteet',
         'categories': 'Kategoriat',

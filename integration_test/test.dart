@@ -1,7 +1,9 @@
 import 'language/language_change_test.dart' as language_test;
+import 'routing/routing_test.dart' as routing_test;
 
 // Note: integration_test requires a --target param, we cannot provide just
 // a directory name. Therefore we call all the tests from here.
 void main() {
   language_test.main();
+  routing_test.main();
 }

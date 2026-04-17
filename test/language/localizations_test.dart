@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tsirbunenpottery/localization/en.dart';
+import 'package:tsirbunenpottery/localization/fi.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
 import 'package:tsirbunenpottery/localization/translations.dart';
 import 'package:tsirbunenpottery/localization/validate_translations.dart';
@@ -63,6 +64,7 @@ void main() {
     test('all app language translations are valid', () {
       final appLanguages = [
         En(),
+        Fi(),
       ];
 
       for (final language in appLanguages) {
