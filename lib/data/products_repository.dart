@@ -31,27 +31,22 @@ class ProductsRepository {
   }
 
   Future<AllProductsData> _fetchAllFromCloud() async {
-    final collectionsData =
-        await _cloudService.fetchMany(collection: 'collections');
-    final collections = collectionsData
-        .map(_tryToCollection)
-        .whereType<Collection>()
-        .toList();
+    final [collectionsData, categoriesData, designsData, piecesData] =
+        await Future.wait([
+      _cloudService.fetchMany(collection: 'collections'),
+      _cloudService.fetchMany(collection: 'categories'),
+      _cloudService.fetchMany(collection: 'designs'),
+      _cloudService.fetchMany(collection: 'pieces'),
+    ]);
 
-    final categoriesData =
-        await _cloudService.fetchMany(collection: 'categories');
-    final categories = categoriesData
-        .map(_tryToCategory)
-        .whereType<Category>()
-        .toList();
-
-    final designsData = await _cloudService.fetchMany(collection: 'designs');
+    final collections =
+        collectionsData.map(_tryToCollection).whereType<Collection>().toList();
+    final categories =
+        categoriesData.map(_tryToCategory).whereType<Category>().toList();
     final designs = designsData
         .map((data) => _tryToDesign(data, categories))
         .whereType<Design>()
         .toList();
-
-    final piecesData = await _cloudService.fetchMany(collection: 'pieces');
     final pieces = piecesData
         .map((data) => _tryToPiece(data, designs, collections))
         .whereType<Piece>()

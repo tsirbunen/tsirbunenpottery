@@ -1,8 +1,7 @@
 
 
 
-FINDING #4 — SEVERITY: HIGH (performance)
-products_repository.dart:33-71 — 4 Firestore fetches are done sequentially with await. They're independent and should be parallelized with Future.wait(). On slow connections this unnecessarily multiplies load time.
+
 
 FINDING #5 — SEVERITY: HIGH (race condition)
 products_repository.dart:30 — Cache uses _cache ??= await _fetchAllFromCloud(). If 4 blocs call getProducts() concurrently before the first fetch resolves, _cache is still null on each check and 4 parallel Firestore fetches fire. Needs a Future<AllProductsData>? completer pattern.
@@ -143,7 +142,6 @@ Full codebase audit — 2026-04-18.
 
 | # | Location | Issue |
 |---|---|---|
-| 4 | `products_repository.dart:33` | Four independent Firestore fetches run sequentially. Should be parallelized with `Future.wait()`. |
 | 5 | `products_repository.dart:30` | Cache race condition: `_cache ??=` is not atomic. If multiple blocs call `getProducts()` before the first fetch resolves, four parallel Firestore fetches fire. Needs a `Future<AllProductsData>?` completer. |
 | 13 | `categories_view.dart:81` `collections_view.dart:81` | O(n²) piece lookup: `allPieces.where((p) => pieceIds.contains(p.id))` where `pieceIds` is a `List`. Convert to `Set`. |
 | 15 | `categories_view.dart` `collections_view.dart` | Near-identical files — same double-`BlocBuilder` structure, same `_fetchTriggered` pattern, same `_designsToShow` logic, same O(n²) lookup. Should share a base class or mixin. |
