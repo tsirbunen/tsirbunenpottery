@@ -2,13 +2,6 @@
 
 
 
-
-FINDING #5 — SEVERITY: HIGH (race condition)
-products_repository.dart:30 — Cache uses _cache ??= await _fetchAllFromCloud(). If 4 blocs call getProducts() concurrently before the first fetch resolves, _cache is still null on each check and 4 parallel Firestore fetches fire. Needs a Future<AllProductsData>? completer pattern.
-
-FINDING #6 — SEVERITY: MEDIUM
-products_repository.dart:216,231 — (item as dynamic).id bypasses the type system to access .id. Should use a typed Identifiable interface/mixin.
-
 FINDING #7 — SEVERITY: MEDIUM
 pieces_bloc.dart:19 — Catch-all final AppBlocEvent _ => emit(state) emits the current state on unrecognized events. Unknown events should be ignored silently, not cause emits.
 
@@ -142,7 +135,6 @@ Full codebase audit — 2026-04-18.
 
 | # | Location | Issue |
 |---|---|---|
-| 5 | `products_repository.dart:30` | Cache race condition: `_cache ??=` is not atomic. If multiple blocs call `getProducts()` before the first fetch resolves, four parallel Firestore fetches fire. Needs a `Future<AllProductsData>?` completer. |
 | 13 | `categories_view.dart:81` `collections_view.dart:81` | O(n²) piece lookup: `allPieces.where((p) => pieceIds.contains(p.id))` where `pieceIds` is a `List`. Convert to `Set`. |
 | 15 | `categories_view.dart` `collections_view.dart` | Near-identical files — same double-`BlocBuilder` structure, same `_fetchTriggered` pattern, same `_designsToShow` logic, same O(n²) lookup. Should share a base class or mixin. |
 | 34 | `pieces_view.dart:81` `designs_view.dart:87` `models.dart:40` | Three separate and subtly different implementations of the same grid-params layout algorithm. One canonical function needed. |
@@ -155,7 +147,7 @@ Full codebase audit — 2026-04-18.
 
 | # | Location | Issue |
 |---|---|---|
-| 6 | `products_repository.dart:216,231` | `(item as dynamic).id` bypasses the type system. Should use a typed `Identifiable` interface or mixin. |
+
 | 7 | All feature blocs | The catch-all `final AppBlocEvent _ => emit(state)` emits the current state for any unrecognized event. Unknown events should be silently ignored. |
 | 8 | All feature states | States use manual `Equatable` + hand-written `copyWithStatus`. Domain models use `freezed`. Inconsistent — states should also use `freezed`. |
 | 9 | All feature views | `_fetchTriggered` boolean flag in `didChangeDependencies` is a fragile one-time fetch pattern. Blocs should be seeded consistently in `service_locator.dart`, as `HomeBloc` already is. |

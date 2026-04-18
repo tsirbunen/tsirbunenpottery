@@ -6,7 +6,7 @@ part of 'piece.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PieceImpl _$$PieceImplFromJson(Map<String, dynamic> json) => _$PieceImpl(
+_Piece _$PieceFromJson(Map<String, dynamic> json) => _Piece(
       id: json['id'] as String,
       designId: json['designId'] as String,
       imageFileNames: (json['imageFileNames'] as List<dynamic>)
@@ -16,8 +16,7 @@ _$PieceImpl _$$PieceImplFromJson(Map<String, dynamic> json) => _$PieceImpl(
       collectionId: json['collectionId'] as String?,
     );
 
-Map<String, dynamic> _$$PieceImplToJson(_$PieceImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$PieceToJson(_Piece instance) => <String, dynamic>{
       'id': instance.id,
       'designId': instance.designId,
       'imageFileNames': instance.imageFileNames,

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/data/cloud_service.dart';
+import 'package:tsirbunenpottery/data/identifiable.dart';
 import 'package:tsirbunenpottery/features/categories/domain/models/category/category.dart';
 import 'package:tsirbunenpottery/features/collections/domain/models/collection/collection.dart';
 import 'package:tsirbunenpottery/features/designs/domain/models/design/design.dart';
@@ -21,13 +22,13 @@ typedef AllProductsData = ({
 class ProductsRepository {
   final CloudService _cloudService;
   final AppLogger _logger;
-  AllProductsData? _cache;
+  Future<AllProductsData>? _cache;
 
   ProductsRepository(this._cloudService, {required AppLogger logger})
       : _logger = logger;
 
-  Future<AllProductsData> getProducts() async {
-    return _cache ??= await _fetchAllFromCloud();
+  Future<AllProductsData> getProducts() {
+    return _cache ??= _fetchAllFromCloud();
   }
 
   Future<AllProductsData> _fetchAllFromCloud() async {
@@ -200,31 +201,27 @@ class ProductsRepository {
     return result;
   }
 
-  List<String> _idsOfRefs<T>(
+  List<String> _idsOfRefs<T extends Identifiable>(
     Map<String, dynamic> data,
     List<T> items,
     String fieldName,
   ) {
     final raw = data[fieldName];
     if (raw is! List) return [];
-    final refs = raw;
-    final refIds = refs.map((e) {
+    final refIds = raw.map((e) {
       if (e is DocumentReference) return e.id;
       return e as String;
     }).toList();
 
-    return refIds.where((refId) {
-      return items.any((item) => (item as dynamic).id == refId);
-    }).toList();
+    return refIds.where((refId) => items.any((item) => item.id == refId)).toList();
   }
 
-  String? _idOfRef<T>(
+  String? _idOfRef<T extends Identifiable>(
       Map<String, dynamic> data, List<T> items, String fieldName) {
     final value = data[fieldName];
     if (value == null) return null;
 
     final refId = value is DocumentReference ? value.id : value as String;
-    final exists = items.any((item) => (item as dynamic).id == refId);
-    return exists ? refId : null;
+    return items.any((item) => item.id == refId) ? refId : null;
   }
 }

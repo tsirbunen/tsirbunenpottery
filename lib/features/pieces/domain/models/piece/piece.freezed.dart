@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,91 +9,57 @@ part of 'piece.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-Piece _$PieceFromJson(Map<String, dynamic> json) {
-  return _Piece.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Piece {
-  String get id => throw _privateConstructorUsedError;
-  String get designId => throw _privateConstructorUsedError;
-  List<String> get imageFileNames => throw _privateConstructorUsedError;
-  bool get sold => throw _privateConstructorUsedError;
-  String? get collectionId => throw _privateConstructorUsedError;
+  String get id;
+  String get designId;
+  List<String> get imageFileNames;
+  bool get sold;
+  String? get collectionId;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $PieceCopyWith<Piece> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $PieceCopyWith<$Res> {
-  factory $PieceCopyWith(Piece value, $Res Function(Piece) then) =
-      _$PieceCopyWithImpl<$Res, Piece>;
-  @useResult
-  $Res call(
-      {String id,
-      String designId,
-      List<String> imageFileNames,
-      bool sold,
-      String? collectionId});
-}
-
-/// @nodoc
-class _$PieceCopyWithImpl<$Res, $Val extends Piece>
-    implements $PieceCopyWith<$Res> {
-  _$PieceCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of Piece
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $PieceCopyWith<Piece> get copyWith =>
+      _$PieceCopyWithImpl<Piece>(this as Piece, _$identity);
+
+  /// Serializes this Piece to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? id = null,
-    Object? designId = null,
-    Object? imageFileNames = null,
-    Object? sold = null,
-    Object? collectionId = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      designId: null == designId
-          ? _value.designId
-          : designId // ignore: cast_nullable_to_non_nullable
-              as String,
-      imageFileNames: null == imageFileNames
-          ? _value.imageFileNames
-          : imageFileNames // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      sold: null == sold
-          ? _value.sold
-          : sold // ignore: cast_nullable_to_non_nullable
-              as bool,
-      collectionId: freezed == collectionId
-          ? _value.collectionId
-          : collectionId // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is Piece &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.designId, designId) ||
+                other.designId == designId) &&
+            const DeepCollectionEquality()
+                .equals(other.imageFileNames, imageFileNames) &&
+            (identical(other.sold, sold) || other.sold == sold) &&
+            (identical(other.collectionId, collectionId) ||
+                other.collectionId == collectionId));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, designId,
+      const DeepCollectionEquality().hash(imageFileNames), sold, collectionId);
+
+  @override
+  String toString() {
+    return 'Piece(id: $id, designId: $designId, imageFileNames: $imageFileNames, sold: $sold, collectionId: $collectionId)';
   }
 }
 
 /// @nodoc
-abstract class _$$PieceImplCopyWith<$Res> implements $PieceCopyWith<$Res> {
-  factory _$$PieceImplCopyWith(
-          _$PieceImpl value, $Res Function(_$PieceImpl) then) =
-      __$$PieceImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $PieceCopyWith<$Res> {
+  factory $PieceCopyWith(Piece value, $Res Function(Piece) _then) =
+      _$PieceCopyWithImpl;
   @useResult
   $Res call(
       {String id,
@@ -104,13 +70,14 @@ abstract class _$$PieceImplCopyWith<$Res> implements $PieceCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$PieceImplCopyWithImpl<$Res>
-    extends _$PieceCopyWithImpl<$Res, _$PieceImpl>
-    implements _$$PieceImplCopyWith<$Res> {
-  __$$PieceImplCopyWithImpl(
-      _$PieceImpl _value, $Res Function(_$PieceImpl) _then)
-      : super(_value, _then);
+class _$PieceCopyWithImpl<$Res> implements $PieceCopyWith<$Res> {
+  _$PieceCopyWithImpl(this._self, this._then);
 
+  final Piece _self;
+  final $Res Function(Piece) _then;
+
+  /// Create a copy of Piece
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -120,44 +87,208 @@ class __$$PieceImplCopyWithImpl<$Res>
     Object? sold = null,
     Object? collectionId = freezed,
   }) {
-    return _then(_$PieceImpl(
+    return _then(_self.copyWith(
       id: null == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
       designId: null == designId
-          ? _value.designId
+          ? _self.designId
           : designId // ignore: cast_nullable_to_non_nullable
               as String,
       imageFileNames: null == imageFileNames
-          ? _value._imageFileNames
+          ? _self.imageFileNames
           : imageFileNames // ignore: cast_nullable_to_non_nullable
               as List<String>,
       sold: null == sold
-          ? _value.sold
+          ? _self.sold
           : sold // ignore: cast_nullable_to_non_nullable
               as bool,
       collectionId: freezed == collectionId
-          ? _value.collectionId
+          ? _self.collectionId
           : collectionId // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
 }
 
+/// Adds pattern-matching-related methods to [Piece].
+extension PiecePatterns on Piece {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_Piece value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _Piece() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_Piece value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _Piece():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_Piece value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _Piece() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String id, String designId, List<String> imageFileNames,
+            bool sold, String? collectionId)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _Piece() when $default != null:
+        return $default(_that.id, _that.designId, _that.imageFileNames,
+            _that.sold, _that.collectionId);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(String id, String designId, List<String> imageFileNames,
+            bool sold, String? collectionId)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _Piece():
+        return $default(_that.id, _that.designId, _that.imageFileNames,
+            _that.sold, _that.collectionId);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(String id, String designId, List<String> imageFileNames,
+            bool sold, String? collectionId)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _Piece() when $default != null:
+        return $default(_that.id, _that.designId, _that.imageFileNames,
+            _that.sold, _that.collectionId);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 @JsonSerializable()
-class _$PieceImpl implements _Piece {
-  const _$PieceImpl(
+class _Piece implements Piece {
+  const _Piece(
       {required this.id,
       required this.designId,
       required final List<String> imageFileNames,
       required this.sold,
       this.collectionId})
       : _imageFileNames = imageFileNames;
-
-  factory _$PieceImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PieceImplFromJson(json);
+  factory _Piece.fromJson(Map<String, dynamic> json) => _$PieceFromJson(json);
 
   @override
   final String id;
@@ -176,16 +307,26 @@ class _$PieceImpl implements _Piece {
   @override
   final String? collectionId;
 
+  /// Create a copy of Piece
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'Piece(id: $id, designId: $designId, imageFileNames: $imageFileNames, sold: $sold, collectionId: $collectionId)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$PieceCopyWith<_Piece> get copyWith =>
+      __$PieceCopyWithImpl<_Piece>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$PieceToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PieceImpl &&
+            other is _Piece &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.designId, designId) ||
                 other.designId == designId) &&
@@ -196,47 +337,72 @@ class _$PieceImpl implements _Piece {
                 other.collectionId == collectionId));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, designId,
       const DeepCollectionEquality().hash(_imageFileNames), sold, collectionId);
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$PieceImplCopyWith<_$PieceImpl> get copyWith =>
-      __$$PieceImplCopyWithImpl<_$PieceImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PieceImplToJson(
-      this,
-    );
+  String toString() {
+    return 'Piece(id: $id, designId: $designId, imageFileNames: $imageFileNames, sold: $sold, collectionId: $collectionId)';
   }
 }
 
-abstract class _Piece implements Piece {
-  const factory _Piece(
-      {required final String id,
-      required final String designId,
-      required final List<String> imageFileNames,
-      required final bool sold,
-      final String? collectionId}) = _$PieceImpl;
-
-  factory _Piece.fromJson(Map<String, dynamic> json) = _$PieceImpl.fromJson;
-
+/// @nodoc
+abstract mixin class _$PieceCopyWith<$Res> implements $PieceCopyWith<$Res> {
+  factory _$PieceCopyWith(_Piece value, $Res Function(_Piece) _then) =
+      __$PieceCopyWithImpl;
   @override
-  String get id;
-  @override
-  String get designId;
-  @override
-  List<String> get imageFileNames;
-  @override
-  bool get sold;
-  @override
-  String? get collectionId;
-  @override
-  @JsonKey(ignore: true)
-  _$$PieceImplCopyWith<_$PieceImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @useResult
+  $Res call(
+      {String id,
+      String designId,
+      List<String> imageFileNames,
+      bool sold,
+      String? collectionId});
 }
+
+/// @nodoc
+class __$PieceCopyWithImpl<$Res> implements _$PieceCopyWith<$Res> {
+  __$PieceCopyWithImpl(this._self, this._then);
+
+  final _Piece _self;
+  final $Res Function(_Piece) _then;
+
+  /// Create a copy of Piece
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = null,
+    Object? designId = null,
+    Object? imageFileNames = null,
+    Object? sold = null,
+    Object? collectionId = freezed,
+  }) {
+    return _then(_Piece(
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      designId: null == designId
+          ? _self.designId
+          : designId // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageFileNames: null == imageFileNames
+          ? _self._imageFileNames
+          : imageFileNames // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      sold: null == sold
+          ? _self.sold
+          : sold // ignore: cast_nullable_to_non_nullable
+              as bool,
+      collectionId: freezed == collectionId
+          ? _self.collectionId
+          : collectionId // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+// dart format on

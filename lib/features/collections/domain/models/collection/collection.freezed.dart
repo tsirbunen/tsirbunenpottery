@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,80 +9,55 @@ part of 'collection.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-Collection _$CollectionFromJson(Map<String, dynamic> json) {
-  return _Collection.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Collection {
-  String get id => throw _privateConstructorUsedError;
-  Map<Language, String> get names => throw _privateConstructorUsedError;
-  Map<Language, String> get description => throw _privateConstructorUsedError;
+  String get id;
+  Map<Language, String> get names;
+  Map<Language, String> get description;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $CollectionCopyWith<Collection> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $CollectionCopyWith<$Res> {
-  factory $CollectionCopyWith(
-          Collection value, $Res Function(Collection) then) =
-      _$CollectionCopyWithImpl<$Res, Collection>;
-  @useResult
-  $Res call(
-      {String id,
-      Map<Language, String> names,
-      Map<Language, String> description});
-}
-
-/// @nodoc
-class _$CollectionCopyWithImpl<$Res, $Val extends Collection>
-    implements $CollectionCopyWith<$Res> {
-  _$CollectionCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of Collection
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $CollectionCopyWith<Collection> get copyWith =>
+      _$CollectionCopyWithImpl<Collection>(this as Collection, _$identity);
+
+  /// Serializes this Collection to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? id = null,
-    Object? names = null,
-    Object? description = null,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      names: null == names
-          ? _value.names
-          : names // ignore: cast_nullable_to_non_nullable
-              as Map<Language, String>,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as Map<Language, String>,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is Collection &&
+            (identical(other.id, id) || other.id == id) &&
+            const DeepCollectionEquality().equals(other.names, names) &&
+            const DeepCollectionEquality()
+                .equals(other.description, description));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      const DeepCollectionEquality().hash(names),
+      const DeepCollectionEquality().hash(description));
+
+  @override
+  String toString() {
+    return 'Collection(id: $id, names: $names, description: $description)';
   }
 }
 
 /// @nodoc
-abstract class _$$CollectionImplCopyWith<$Res>
-    implements $CollectionCopyWith<$Res> {
-  factory _$$CollectionImplCopyWith(
-          _$CollectionImpl value, $Res Function(_$CollectionImpl) then) =
-      __$$CollectionImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $CollectionCopyWith<$Res> {
+  factory $CollectionCopyWith(
+          Collection value, $Res Function(Collection) _then) =
+      _$CollectionCopyWithImpl;
   @useResult
   $Res call(
       {String id,
@@ -91,13 +66,14 @@ abstract class _$$CollectionImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$CollectionImplCopyWithImpl<$Res>
-    extends _$CollectionCopyWithImpl<$Res, _$CollectionImpl>
-    implements _$$CollectionImplCopyWith<$Res> {
-  __$$CollectionImplCopyWithImpl(
-      _$CollectionImpl _value, $Res Function(_$CollectionImpl) _then)
-      : super(_value, _then);
+class _$CollectionCopyWithImpl<$Res> implements $CollectionCopyWith<$Res> {
+  _$CollectionCopyWithImpl(this._self, this._then);
 
+  final Collection _self;
+  final $Res Function(Collection) _then;
+
+  /// Create a copy of Collection
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -105,35 +81,197 @@ class __$$CollectionImplCopyWithImpl<$Res>
     Object? names = null,
     Object? description = null,
   }) {
-    return _then(_$CollectionImpl(
+    return _then(_self.copyWith(
       id: null == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
       names: null == names
-          ? _value._names
+          ? _self.names
           : names // ignore: cast_nullable_to_non_nullable
               as Map<Language, String>,
       description: null == description
-          ? _value._description
+          ? _self.description
           : description // ignore: cast_nullable_to_non_nullable
               as Map<Language, String>,
     ));
   }
 }
 
+/// Adds pattern-matching-related methods to [Collection].
+extension CollectionPatterns on Collection {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_Collection value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _Collection() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_Collection value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _Collection():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_Collection value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _Collection() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String id, Map<Language, String> names,
+            Map<Language, String> description)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _Collection() when $default != null:
+        return $default(_that.id, _that.names, _that.description);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(String id, Map<Language, String> names,
+            Map<Language, String> description)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _Collection():
+        return $default(_that.id, _that.names, _that.description);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(String id, Map<Language, String> names,
+            Map<Language, String> description)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _Collection() when $default != null:
+        return $default(_that.id, _that.names, _that.description);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 @JsonSerializable()
-class _$CollectionImpl implements _Collection {
-  const _$CollectionImpl(
+class _Collection implements Collection {
+  const _Collection(
       {required this.id,
       required final Map<Language, String> names,
       required final Map<Language, String> description})
       : _names = names,
         _description = description;
-
-  factory _$CollectionImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CollectionImplFromJson(json);
+  factory _Collection.fromJson(Map<String, dynamic> json) =>
+      _$CollectionFromJson(json);
 
   @override
   final String id;
@@ -153,23 +291,33 @@ class _$CollectionImpl implements _Collection {
     return EqualUnmodifiableMapView(_description);
   }
 
+  /// Create a copy of Collection
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'Collection(id: $id, names: $names, description: $description)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$CollectionCopyWith<_Collection> get copyWith =>
+      __$CollectionCopyWithImpl<_Collection>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$CollectionToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CollectionImpl &&
+            other is _Collection &&
             (identical(other.id, id) || other.id == id) &&
             const DeepCollectionEquality().equals(other._names, _names) &&
             const DeepCollectionEquality()
                 .equals(other._description, _description));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -177,37 +325,57 @@ class _$CollectionImpl implements _Collection {
       const DeepCollectionEquality().hash(_names),
       const DeepCollectionEquality().hash(_description));
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$CollectionImplCopyWith<_$CollectionImpl> get copyWith =>
-      __$$CollectionImplCopyWithImpl<_$CollectionImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$CollectionImplToJson(
-      this,
-    );
+  String toString() {
+    return 'Collection(id: $id, names: $names, description: $description)';
   }
 }
 
-abstract class _Collection implements Collection {
-  const factory _Collection(
-      {required final String id,
-      required final Map<Language, String> names,
-      required final Map<Language, String> description}) = _$CollectionImpl;
-
-  factory _Collection.fromJson(Map<String, dynamic> json) =
-      _$CollectionImpl.fromJson;
-
+/// @nodoc
+abstract mixin class _$CollectionCopyWith<$Res>
+    implements $CollectionCopyWith<$Res> {
+  factory _$CollectionCopyWith(
+          _Collection value, $Res Function(_Collection) _then) =
+      __$CollectionCopyWithImpl;
   @override
-  String get id;
-  @override
-  Map<Language, String> get names;
-  @override
-  Map<Language, String> get description;
-  @override
-  @JsonKey(ignore: true)
-  _$$CollectionImplCopyWith<_$CollectionImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @useResult
+  $Res call(
+      {String id,
+      Map<Language, String> names,
+      Map<Language, String> description});
 }
+
+/// @nodoc
+class __$CollectionCopyWithImpl<$Res> implements _$CollectionCopyWith<$Res> {
+  __$CollectionCopyWithImpl(this._self, this._then);
+
+  final _Collection _self;
+  final $Res Function(_Collection) _then;
+
+  /// Create a copy of Collection
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = null,
+    Object? names = null,
+    Object? description = null,
+  }) {
+    return _then(_Collection(
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      names: null == names
+          ? _self._names
+          : names // ignore: cast_nullable_to_non_nullable
+              as Map<Language, String>,
+      description: null == description
+          ? _self._description
+          : description // ignore: cast_nullable_to_non_nullable
+              as Map<Language, String>,
+    ));
+  }
+}
+
+// dart format on

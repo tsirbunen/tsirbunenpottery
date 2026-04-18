@@ -10,9 +10,9 @@ import 'package:cloud_firestore/cloud_firestore.dart' as _i4;
 import 'package:cloud_firestore_platform_interface/cloud_firestore_platform_interface.dart'
     as _i3;
 import 'package:firebase_core/firebase_core.dart' as _i2;
-import 'package:tsirbunenpottery/data/cloud_service.dart' as _i8;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i6;
+import 'package:tsirbunenpottery/data/cloud_service.dart' as _i8;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -1674,15 +1674,6 @@ class MockDocumentSnapshot extends _i1.Mock
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
-
-  @override
-  Map<String, dynamic>? data() => (super.noSuchMethod(
-        Invocation.method(
-          #data,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      ) as Map<String, dynamic>?);
 
   @override
   dynamic get(Object? field) => super.noSuchMethod(

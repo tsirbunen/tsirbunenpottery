@@ -1,11 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:tsirbunenpottery/data/identifiable.dart';
 import 'package:tsirbunenpottery/localization/languages.dart';
 
 part 'design.freezed.dart';
 part 'design.g.dart';
 
 @freezed
-class Design with _$Design {
+class Design with _$Design implements Identifiable {
   const factory Design({
     required String id,
     required Map<Language, String> names,

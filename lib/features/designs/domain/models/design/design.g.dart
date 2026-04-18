@@ -6,7 +6,7 @@ part of 'design.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DesignImpl _$$DesignImplFromJson(Map<String, dynamic> json) => _$DesignImpl(
+_Design _$DesignFromJson(Map<String, dynamic> json) => _Design(
       id: json['id'] as String,
       names: (json['names'] as Map<String, dynamic>).map(
         (k, e) => MapEntry($enumDecode(_$LanguageEnumMap, k), e as String),
@@ -23,8 +23,7 @@ _$DesignImpl _$$DesignImplFromJson(Map<String, dynamic> json) => _$DesignImpl(
       ),
     );
 
-Map<String, dynamic> _$$DesignImplToJson(_$DesignImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$DesignToJson(_Design instance) => <String, dynamic>{
       'id': instance.id,
       'names': instance.names.map((k, e) => MapEntry(_$LanguageEnumMap[k]!, e)),
       'categoryIds': instance.categoryIds,

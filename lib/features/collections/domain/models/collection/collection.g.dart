@@ -6,8 +6,7 @@ part of 'collection.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$CollectionImpl _$$CollectionImplFromJson(Map<String, dynamic> json) =>
-    _$CollectionImpl(
+_Collection _$CollectionFromJson(Map<String, dynamic> json) => _Collection(
       id: json['id'] as String,
       names: (json['names'] as Map<String, dynamic>).map(
         (k, e) => MapEntry($enumDecode(_$LanguageEnumMap, k), e as String),
@@ -17,7 +16,7 @@ _$CollectionImpl _$$CollectionImplFromJson(Map<String, dynamic> json) =>
       ),
     );
 
-Map<String, dynamic> _$$CollectionImplToJson(_$CollectionImpl instance) =>
+Map<String, dynamic> _$CollectionToJson(_Collection instance) =>
     <String, dynamic>{
       'id': instance.id,
       'names': instance.names.map((k, e) => MapEntry(_$LanguageEnumMap[k]!, e)),
