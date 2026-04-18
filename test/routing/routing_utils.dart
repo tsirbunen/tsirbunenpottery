@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
+import 'package:tsirbunenpottery/theme/app_icons.dart';
 import 'package:tsirbunenpottery/widgets/drawer/drawer_route_item.dart';
-import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:tsirbunenpottery/localization/en.dart';
 import 'package:tsirbunenpottery/features/home/presentation/pages/home_page.dart';
 import 'package:tsirbunenpottery/features/pieces/presentation/pages/pieces_page.dart';
@@ -50,7 +50,7 @@ final routeOrder = () {
 }();
 
 Future<void> openDrawer(WidgetTester tester) async {
-  final openDrawerButtonFinder = find.byIcon(Symbols.menu);
+  final openDrawerButtonFinder = find.byIcon(AppIcons.menu);
   await tester.tap(openDrawerButtonFinder);
   await tester.pumpAndSettle();
 }

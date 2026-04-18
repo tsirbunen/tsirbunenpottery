@@ -4,8 +4,8 @@ import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_event.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
 import 'package:tsirbunenpottery/localization/languages.dart';
+import 'package:tsirbunenpottery/theme/app_icons.dart';
 import 'package:tsirbunenpottery/widgets/action_button/action_button.dart';
-import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 class AppBarRightActions extends StatelessWidget {
   const AppBarRightActions({super.key});
@@ -30,7 +30,7 @@ class AppBarRightActions extends StatelessWidget {
                     currentLanguage == Language.en ? Language.fi : Language.en;
                 _onChangeLanguage(context, newLanguage);
               },
-              iconData: Symbols.language,
+              iconData: AppIcons.language,
             ),
           ],
         );

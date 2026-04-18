@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/models/piece/piece.dart';
 import 'package:tsirbunenpottery/widgets/items_grid/piece_card.dart';
+import 'package:tsirbunenpottery/theme/app_icons.dart';
 import 'package:tsirbunenpottery/widgets/action_button/action_button.dart';
-import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:tsirbunenpottery/features/designs/domain/models/design/design.dart';
 import 'package:tsirbunenpottery/widgets/items_grid/models.dart';
 import 'package:tsirbunenpottery/widgets/items_grid/scroll_position_mixin.dart';
@@ -95,8 +95,8 @@ class _ItemsGridState extends State<ItemsGrid>
                   padding: const EdgeInsets.only(right: 10.0),
                   child: ActionButton(
                       iconData: expandAll
-                          ? Symbols.keyboard_arrow_up
-                          : Symbols.keyboard_arrow_down,
+                          ? AppIcons.expandUp
+                          : AppIcons.expandDown,
                       onPressed: _toggleShowAll),
                 )
             ],

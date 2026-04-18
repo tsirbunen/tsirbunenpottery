@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tsirbunenpottery/theme/app_icons.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
 import 'package:tsirbunenpottery/utils/constants.dart';
-import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 const double descriptionFontSize = 12.0;
 const Duration snackBarDuration = Duration(seconds: 2);
@@ -41,7 +41,7 @@ class ContactEmailWithCopyOption extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(
-                Symbols.email_rounded,
+                AppIcons.email,
                 color: colors.secondary,
                 weight: iconWeight,
               ),

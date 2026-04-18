@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tsirbunenpottery/theme/app_icons.dart';
 import 'package:tsirbunenpottery/widgets/action_button/action_button.dart';
-import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 class AppBarLeftActions extends StatelessWidget {
   const AppBarLeftActions({super.key});
@@ -14,13 +14,13 @@ class AppBarLeftActions extends StatelessWidget {
     if (isDetailRoute) {
       return ActionButton(
         onPressed: () => GoRouter.of(context).pop(),
-        iconData: Symbols.arrow_back,
+        iconData: AppIcons.back,
       );
     }
 
     return ActionButton(
       onPressed: () => Scaffold.of(context).openDrawer(),
-      iconData: Symbols.menu,
+      iconData: AppIcons.menu,
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:material_symbols_icons/material_symbols_icons.dart';
+import 'package:tsirbunenpottery/theme/app_icons.dart';
 
 const double defaultIconFontWeight = 300;
 const double hoveredIconFontWeight = 600;
@@ -67,7 +67,7 @@ class TitleWithHoverEffectState extends State<TitleWithHoverEffect> {
                         softWrap: false)),
                 const SizedBox(width: arrowSpacer),
                 Icon(
-                  Symbols.arrow_forward,
+                  AppIcons.forward,
                   color: color,
                   weight: _isHovered
                       ? hoveredIconFontWeight

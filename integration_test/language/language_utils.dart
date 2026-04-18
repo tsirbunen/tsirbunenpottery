@@ -3,9 +3,9 @@ import 'package:tsirbunenpottery/localization/en.dart';
 import 'package:tsirbunenpottery/localization/fi.dart';
 import 'package:tsirbunenpottery/localization/languages.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
+import 'package:tsirbunenpottery/theme/app_icons.dart';
 import 'package:tsirbunenpottery/widgets/action_button/action_button.dart';
 import 'package:tsirbunenpottery/widgets/app_bar/app_bar_right_actions.dart';
-import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 const testKey = Translation.collections;
 final testStringInEnglish = En().translate(testKey);
@@ -22,7 +22,7 @@ Future<void> changeLanguage(WidgetTester tester) async {
   final toggleLanguageButton = find.descendant(
     of: find.byType(AppBarRightActions),
     matching: find.byWidgetPredicate(
-      (widget) => widget is ActionButton && widget.iconData == Symbols.language,
+      (widget) => widget is ActionButton && widget.iconData == AppIcons.language,
     ),
   );
 

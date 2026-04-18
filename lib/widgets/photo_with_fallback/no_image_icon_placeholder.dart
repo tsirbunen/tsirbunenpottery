@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tsirbunenpottery/theme/app_icons.dart';
 
 /// This widget displays an icon that fills a container of given size.
 /// The container can be opted to display a color animation (to, for example,
@@ -11,7 +12,7 @@ class NoImageIconPlaceholder extends StatefulWidget {
     super.key,
     required this.size,
     this.isAnimated = false,
-    this.iconData = Icons.local_cafe_rounded,
+    this.iconData = AppIcons.noImage,
   });
 
   @override

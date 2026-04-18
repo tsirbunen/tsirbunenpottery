@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:tsirbunenpottery/bootstrap/router/route_enum.dart';
-import 'package:material_symbols_icons/material_symbols_icons.dart';
+import 'package:tsirbunenpottery/theme/app_icons.dart';
+import 'package:flutter/material.dart';
 
 extension DrawerRouteExtension on RouteEnum {
   IconData get iconData => switch (this) {
-        RouteEnum.home => Symbols.home,
-        RouteEnum.pieces => Symbols.local_cafe_rounded,
-        RouteEnum.designs => Symbols.palette_rounded,
-        RouteEnum.categories => Symbols.category_rounded,
-        RouteEnum.collections => Symbols.hub_rounded,
-        RouteEnum.contact => Symbols.contact_page_rounded,
+        RouteEnum.home => AppIcons.home,
+        RouteEnum.pieces => AppIcons.pieces,
+        RouteEnum.designs => AppIcons.designs,
+        RouteEnum.categories => AppIcons.categories,
+        RouteEnum.collections => AppIcons.collections,
+        RouteEnum.contact => AppIcons.contact,
       };
 }
