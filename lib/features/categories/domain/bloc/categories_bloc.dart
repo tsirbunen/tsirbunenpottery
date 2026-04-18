@@ -15,7 +15,7 @@ class CategoriesBloc extends Bloc<AppBlocEvent, CategoriesState> {
   Future<void> _onEvent(
       AppBlocEvent event, Emitter<CategoriesState> emit) async {
     return switch (event) {
-      final BlocStatusChanged e => emit(state.copyWithStatus(e.status)),
+      final BlocStatusChanged e => emit(state.copyWith(blocStatus:e.status)),
       final FetchCategories _ => _onFetch(emit),
       final AppBlocEvent _ => emit(state),
     };
@@ -23,7 +23,7 @@ class CategoriesBloc extends Bloc<AppBlocEvent, CategoriesState> {
 
   Future<void> _onFetch(Emitter<CategoriesState> emit) async {
     if (state.blocStatus.isLoading || state.categories.isNotEmpty) return;
-    emit(state.copyWithStatus(const BlocStatus(Status.loading)));
+    emit(state.copyWith(blocStatus:const BlocStatus(Status.loading)));
     try {
       final data = await _repository.getData();
       emit(CategoriesState(
@@ -35,7 +35,7 @@ class CategoriesBloc extends Bloc<AppBlocEvent, CategoriesState> {
         blocStatus: const BlocStatus(Status.ok),
       ));
     } catch (e) {
-      emit(state.copyWithStatus(BlocStatus(Status.error, message: e.toString())));
+      emit(state.copyWith(blocStatus:BlocStatus(Status.error, message: e.toString())));
     }
   }
 }

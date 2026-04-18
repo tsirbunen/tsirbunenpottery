@@ -25,8 +25,8 @@ class CollectionsState extends Equatable {
     this.imageFileNamesByDesignId = const {},
   });
 
-  CollectionsState copyWithStatus(BlocStatus status) => CollectionsState(
-        blocStatus: status,
+  CollectionsState copyWith({BlocStatus? blocStatus}) => CollectionsState(
+        blocStatus: blocStatus ?? this.blocStatus,
         collections: collections,
         designsById: designsById,
         piecesById: piecesById,

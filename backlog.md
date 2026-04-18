@@ -5,8 +5,7 @@
 FINDING #7 — SEVERITY: MEDIUM
 pieces_bloc.dart:19 — Catch-all final AppBlocEvent _ => emit(state) emits the current state on unrecognized events. Unknown events should be ignored silently, not cause emits.
 
-FINDING #8 — SEVERITY: MEDIUM
-pieces_state.dart — All states use manual Equatable + copyWithStatus, while all domain models use freezed. Inconsistent pattern with extra boilerplate. States should use freezed too for consistency.
+
 
 FINDING #9 — SEVERITY: MEDIUM
 pieces_view.dart:43-75 — BlocBuilder<LanguageBloc> wraps BlocBuilder<PiecesBloc>. A language change rebuilds the entire piece grid. Better to use a single builder that reads both states, or BlocSelector to minimize rebuild scope.
@@ -149,7 +148,6 @@ Full codebase audit — 2026-04-18.
 |---|---|---|
 
 | 7 | All feature blocs | The catch-all `final AppBlocEvent _ => emit(state)` emits the current state for any unrecognized event. Unknown events should be silently ignored. |
-| 8 | All feature states | States use manual `Equatable` + hand-written `copyWithStatus`. Domain models use `freezed`. Inconsistent — states should also use `freezed`. |
 | 9 | All feature views | `_fetchTriggered` boolean flag in `didChangeDependencies` is a fragile one-time fetch pattern. Blocs should be seeded consistently in `service_locator.dart`, as `HomeBloc` already is. |
 | 10 | All feature views | `BlocBuilder<LanguageBloc>` wraps the feature `BlocBuilder`. Any language change rebuilds the entire feature widget tree. |
 | 14 | `categories_view.dart:52` `collections_view.dart:52` | `categoriesById` map, `allPieces.toList()`, and grouped designs are all recomputed on every `build()`. Should be derived once when state changes. |

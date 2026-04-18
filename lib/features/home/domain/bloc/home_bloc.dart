@@ -14,7 +14,7 @@ class HomeBloc extends Bloc<AppBlocEvent, HomeState> {
 
   Future<void> _onEvent(AppBlocEvent event, Emitter<HomeState> emit) async {
     return switch (event) {
-      final BlocStatusChanged e => emit(state.copyWithStatus(e.status)),
+      final BlocStatusChanged e => emit(state.copyWith(blocStatus:e.status)),
       final FetchHomePageImageFileName _ => _onFetch(emit),
       final AppBlocEvent _ => emit(state),
     };
@@ -22,7 +22,7 @@ class HomeBloc extends Bloc<AppBlocEvent, HomeState> {
 
   Future<void> _onFetch(Emitter<HomeState> emit) async {
     if (state.blocStatus.isLoading || state.homePageImageFileName != null) return;
-    emit(state.copyWithStatus(const BlocStatus(Status.loading)));
+    emit(state.copyWith(blocStatus:const BlocStatus(Status.loading)));
     try {
       final fileName = await _repository.fetchHomePageImageFileName();
       emit(HomeState(
@@ -30,7 +30,7 @@ class HomeBloc extends Bloc<AppBlocEvent, HomeState> {
         blocStatus: const BlocStatus(Status.ok),
       ));
     } catch (e) {
-      emit(state.copyWithStatus(BlocStatus(Status.error, message: e.toString())));
+      emit(state.copyWith(blocStatus:BlocStatus(Status.error, message: e.toString())));
     }
   }
 }

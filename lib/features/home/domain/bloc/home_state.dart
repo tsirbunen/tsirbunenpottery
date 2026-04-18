@@ -10,8 +10,8 @@ class HomeState extends Equatable {
     this.homePageImageFileName,
   });
 
-  HomeState copyWithStatus(BlocStatus status) => HomeState(
-        blocStatus: status,
+  HomeState copyWith({BlocStatus? blocStatus}) => HomeState(
+        blocStatus: blocStatus ?? this.blocStatus,
         homePageImageFileName: homePageImageFileName,
       );
 

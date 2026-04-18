@@ -22,8 +22,8 @@ class PiecesState extends Equatable {
     this.pieceIdsByDesignId = const {},
   });
 
-  PiecesState copyWithStatus(BlocStatus status) => PiecesState(
-        blocStatus: status,
+  PiecesState copyWith({BlocStatus? blocStatus}) => PiecesState(
+        blocStatus: blocStatus ?? this.blocStatus,
         piecesById: piecesById,
         designsById: designsById,
         imageFileNamesByDesignId: imageFileNamesByDesignId,

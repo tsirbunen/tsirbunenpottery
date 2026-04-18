@@ -6,7 +6,7 @@ part 'category.freezed.dart';
 part 'category.g.dart';
 
 @freezed
-class Category with _$Category implements Identifiable {
+abstract class Category with _$Category implements Identifiable {
   const factory Category({
     required String id,
     required Map<Language, String> names,

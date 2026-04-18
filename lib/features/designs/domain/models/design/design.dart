@@ -6,7 +6,7 @@ part 'design.freezed.dart';
 part 'design.g.dart';
 
 @freezed
-class Design with _$Design implements Identifiable {
+abstract class Design with _$Design implements Identifiable {
   const factory Design({
     required String id,
     required Map<Language, String> names,

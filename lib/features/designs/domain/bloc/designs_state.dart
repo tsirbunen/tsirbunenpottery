@@ -18,8 +18,8 @@ class DesignsState extends Equatable {
     this.piecesByDesignId = const {},
   });
 
-  DesignsState copyWithStatus(BlocStatus status) => DesignsState(
-        blocStatus: status,
+  DesignsState copyWith({BlocStatus? blocStatus}) => DesignsState(
+        blocStatus: blocStatus ?? this.blocStatus,
         designsById: designsById,
         imageFileNamesByDesignId: imageFileNamesByDesignId,
         piecesByDesignId: piecesByDesignId,

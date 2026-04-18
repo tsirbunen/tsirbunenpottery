@@ -5,7 +5,7 @@ part 'piece.freezed.dart';
 part 'piece.g.dart';
 
 @freezed
-class Piece with _$Piece implements Identifiable {
+abstract class Piece with _$Piece implements Identifiable {
   const factory Piece({
     required String id,
     required String designId,

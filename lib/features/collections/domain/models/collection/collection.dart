@@ -6,7 +6,7 @@ part 'collection.freezed.dart';
 part 'collection.g.dart';
 
 @freezed
-class Collection with _$Collection implements Identifiable {
+abstract class Collection with _$Collection implements Identifiable {
   const factory Collection({
     required String id,
     required Map<Language, String> names,
