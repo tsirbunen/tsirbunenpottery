@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tsirbunenpottery/bootstrap/service_locator/service_locator.dart';
 import 'package:tsirbunenpottery/core/scroll_position_cache/scroll_position_cache.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
@@ -11,7 +12,6 @@ import 'package:tsirbunenpottery/features/designs/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/localization/languages.dart';
-import 'package:tsirbunenpottery/bootstrap/router/route_controller.dart';
 import 'package:tsirbunenpottery/localization/utils.dart';
 import 'package:tsirbunenpottery/theme/app_theme.dart';
 
@@ -20,8 +20,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final routerConfig = RouteController().buildRouter();
-
     return RepositoryProvider.value(
       value: getIt.get<ScrollPositionCache>(),
       child: MultiBlocProvider(
@@ -38,7 +36,7 @@ class App extends StatelessWidget {
             final locale = state.language.toLocale();
 
             return MaterialApp.router(
-              routerConfig: routerConfig,
+              routerConfig: getIt.get<GoRouter>(),
               theme: const AppTheme().themeData,
               debugShowCheckedModeBanner: false,
               localizationsDelegates: localizationsDelegates,

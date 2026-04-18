@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tsirbunenpottery/bootstrap/router/route_controller.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/core/logging/dev_app_logger.dart';
 import 'package:tsirbunenpottery/core/logging/noop_app_logger.dart';
@@ -44,6 +46,7 @@ void prepareBlocs() {
       CategoriesBloc(CategoriesRepository(productsRepository));
   final collectionsBloc =
       CollectionsBloc(CollectionsRepository(productsRepository));
+  final router = RouteController().buildRouter();
 
   getIt.registerSingleton<LanguageBloc>(languageBloc);
   getIt.registerSingleton<HomeBloc>(homeBloc);
@@ -52,4 +55,5 @@ void prepareBlocs() {
   getIt.registerSingleton<CategoriesBloc>(categoriesBloc);
   getIt.registerSingleton<CollectionsBloc>(collectionsBloc);
   getIt.registerSingleton<ScrollPositionCache>(ScrollPositionCache());
+  getIt.registerSingleton<GoRouter>(router);
 }

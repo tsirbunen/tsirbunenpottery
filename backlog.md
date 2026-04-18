@@ -1,8 +1,5 @@
-FINDING #1 — SEVERITY: HIGH
-main.dart:9 — setAppStatusBarColor() is called before WidgetsFlutterBinding.ensureInitialized(). Platform channel calls require the binding first; this is a crash-risk on some platforms.
 
-FINDING #2 — SEVERITY: HIGH
-app.dart:23 — RouteController().buildRouter() is called inside build(). Every language change triggers a full rebuild via BlocBuilder, recreating the GoRouter each time. Router must be created once (e.g. in a StatefulWidget's initState).
+
 
 FINDING #4 — SEVERITY: HIGH (performance)
 products_repository.dart:33-71 — 4 Firestore fetches are done sequentially with await. They're independent and should be parallelized with Future.wait(). On slow connections this unnecessarily multiplies load time.
@@ -146,8 +143,6 @@ Full codebase audit — 2026-04-18.
 
 | # | Location | Issue |
 |---|---|---|
-| 1 | `main.dart:9` | `setAppStatusBarColor()` called before `WidgetsFlutterBinding.ensureInitialized()`. Platform channel calls require the binding first — crash-risk. |
-| 2 | `app.dart:23` | `GoRouter` recreated on every build inside `build()`. Language changes trigger a rebuild, which destroys and recreates the router. Must be created once. |
 | 4 | `products_repository.dart:33` | Four independent Firestore fetches run sequentially. Should be parallelized with `Future.wait()`. |
 | 5 | `products_repository.dart:30` | Cache race condition: `_cache ??=` is not atomic. If multiple blocs call `getProducts()` before the first fetch resolves, four parallel Firestore fetches fire. Needs a `Future<AllProductsData>?` completer. |
 | 13 | `categories_view.dart:81` `collections_view.dart:81` | O(n²) piece lookup: `allPieces.where((p) => pieceIds.contains(p.id))` where `pieceIds` is a `List`. Convert to `Set`. |

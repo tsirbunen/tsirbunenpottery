@@ -22,5 +22,5 @@ abstract final class AppIcons {
 
   // Misc
   static const IconData email = Symbols.email_rounded;
-  static const IconData noImage = Symbols.grid_view_rounded;
+  static const IconData noImage = Symbols.local_cafe_rounded;
 }
