@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
+import 'package:tsirbunenpottery/localization/languages.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_bloc.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_event.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_state.dart';
@@ -38,71 +39,68 @@ class _SinglePieceViewState extends State<SinglePieceView> {
   @override
   Widget build(BuildContext context) {
     return PageBase(
-      pageBody: BlocBuilder<LanguageBloc, LanguageState>(builder: (
-        BuildContext context,
-        LanguageState state,
-      ) {
-        final language = state.language;
+      pageBody: BlocBuilder<PiecesBloc, PiecesState>(
+        builder: (context, state) {
+          return BlocSelector<LanguageBloc, LanguageState, Language>(
+            selector: (langState) => langState.language,
+            builder: (context, language) {
+              final piece = state.piecesById[widget.id];
+              final designId = piece?.designId;
+              final design = state.designsById[designId];
+              final designName = design?.names[language];
+              final designNotFound = context.local(Translation.designNotFound);
+              if (design == null || designName == null || piece == null) {
+                return Center(child: Text(designNotFound));
+              }
 
-        return BlocBuilder<PiecesBloc, PiecesState>(builder: (
-          BuildContext context,
-          PiecesState state,
-        ) {
-          final piece = state.piecesById[widget.id];
-          final designId = piece?.designId;
-          final design = state.designsById[designId];
-          final designName = design?.names[language];
-          final designNotFound = context.local(Translation.designNotFound);
-          if (design == null || designName == null || piece == null) {
-            return Center(child: Text(designNotFound));
-          }
+              return LayoutBuilder(
+                builder: (context, constraints) {
+                  final hasRoomForRow = constraints.maxWidth > limit;
 
-          return LayoutBuilder(
-            builder: (context, constraints) {
-              bool hasRoomForRow = constraints.maxWidth > limit;
-
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.all(20.0),
-                    child: hasRoomForRow
-                        ? Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              PiecePhotos(photoNames: piece.imageFileNames),
-                              const SizedBox(width: spacing),
-                              Flexible(
-                                child: ConstrainedBox(
-                                  constraints:
-                                      const BoxConstraints(maxWidth: limit),
-                                  child: DesignDescription(
-                                      language: language, design: design),
-                                ),
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.all(20.0),
+                        child: hasRoomForRow
+                            ? Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  PiecePhotos(photoNames: piece.imageFileNames),
+                                  const SizedBox(width: spacing),
+                                  Flexible(
+                                    child: ConstrainedBox(
+                                      constraints:
+                                          const BoxConstraints(maxWidth: limit),
+                                      child: DesignDescription(
+                                          language: language, design: design),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  PiecePhotos(photoNames: piece.imageFileNames),
+                                  const SizedBox(height: spacing),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15.0),
+                                    child: DesignDescription(
+                                        language: language, design: design),
+                                  ),
+                                ],
                               ),
-                            ],
-                          )
-                        : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              PiecePhotos(photoNames: piece.imageFileNames),
-                              const SizedBox(height: spacing),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15.0),
-                                child: DesignDescription(
-                                    language: language, design: design),
-                              ),
-                            ],
-                          ),
-                  ),
-                  const Footer(),
-                ],
+                      ),
+                      const Footer(),
+                    ],
+                  );
+                },
               );
             },
           );
-        });
-      }),
+        },
+      ),
     );
   }
 }

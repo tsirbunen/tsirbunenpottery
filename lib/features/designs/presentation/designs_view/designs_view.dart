@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
+import 'package:tsirbunenpottery/localization/languages.dart';
 import 'package:tsirbunenpottery/features/designs/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/models/piece/piece.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
@@ -39,22 +40,21 @@ class _DesignsViewState extends State<DesignsView>
   Widget build(BuildContext context) {
     return PageBase(
       scrollController: scrollController,
-      pageBody: BlocBuilder<LanguageBloc, LanguageState>(
-        builder: (context, langState) {
-          final language = langState.language;
+      pageBody: BlocBuilder<DesignsBloc, DesignsState>(
+        builder: (context, state) {
+          final designs = state.designsById.values.toList();
 
-          return BlocBuilder<DesignsBloc, DesignsState>(
-            builder: (context, state) {
-              final designs = state.designsById.values.toList();
+          // One representative piece per design for the overview grid.
+          final representativePieces = designs
+              .map((d) => state.piecesByDesignId[d.id]?.firstOrNull)
+              .whereType<Piece>()
+              .toList();
 
-              // One representative piece per design for the overview grid.
-              final representativePieces = designs
-                  .map((d) => state.piecesByDesignId[d.id]?.firstOrNull)
-                  .whereType<Piece>()
-                  .toList();
+          final gridParams = _gridParams(context, designs.length);
 
-              final gridParams = _gridParams(context, designs.length);
-
+          return BlocSelector<LanguageBloc, LanguageState, Language>(
+            selector: (langState) => langState.language,
+            builder: (context, language) {
               return BlocStatusView(
                 status: state.blocStatus,
                 onRetry: _onRetry,

@@ -1,7 +1,5 @@
 
 
-FINDING #9 — SEVERITY: MEDIUM
-pieces_view.dart:43-75 — BlocBuilder<LanguageBloc> wraps BlocBuilder<PiecesBloc>. A language change rebuilds the entire piece grid. Better to use a single builder that reads both states, or BlocSelector to minimize rebuild scope.
 
 FINDING #10 — SEVERITY: MEDIUM
 pieces_view.dart:24,31-35 — _fetchTriggered boolean guard in didChangeDependencies is a common but fragile pattern. The clean approach for singleton blocs is to seed them in service_locator.dart (as HomeBloc already does). Inconsistent initialization strategy across blocs.
@@ -9,8 +7,6 @@ pieces_view.dart:24,31-35 — _fetchTriggered boolean guard in didChangeDependen
 FINDING #11 — SEVERITY: MEDIUM
 home_page.dart:21-64 — Same double-nested BlocBuilder anti-pattern repeated: LanguageBloc wraps HomeBloc, with the language state explicitly named _ (unused directly here). This pattern is repeated across all feature pages — it's a systemic issue.
 
-FINDING #12 — SEVERITY: LOW
-home_page.dart:76,81 — textTheme.bodyMedium! null-asserted. Should use ?? const TextStyle() fallback.
 
 FINDING #13 — SEVERITY: HIGH (performance)
 categories_view.dart:81-83 — O(n²) piece lookup: allPieces.where((p) => pieceIds.contains(p.id)) where pieceIds is a List. For N pieces × M categories this scales badly. pieceIds should be converted to a Set first.

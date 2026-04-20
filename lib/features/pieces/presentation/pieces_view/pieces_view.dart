@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
+import 'package:tsirbunenpottery/localization/languages.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_bloc.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_event.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_state.dart';
@@ -40,37 +41,37 @@ class _PiecesViewState extends State<PiecesView>
   Widget build(BuildContext context) {
     return PageBase(
       scrollController: scrollController,
-      pageBody: BlocBuilder<LanguageBloc, LanguageState>(
-        builder: (context, langState) {
-          final language = langState.language;
+      pageBody: BlocBuilder<PiecesBloc, PiecesState>(
+        builder: (context, state) {
+          final allDesigns = state.designsById.values.toList();
+          final allPieces = state.piecesById.values.toList();
+          final gridParams = _gridParams(context, [allDesigns.length]);
 
-          return BlocBuilder<PiecesBloc, PiecesState>(
-            builder: (context, state) {
-              final allDesigns = state.designsById.values.toList();
-              final allPieces = state.piecesById.values.toList();
-              final gridParams = _gridParams(context, [allDesigns.length]);
-
+          return BlocSelector<LanguageBloc, LanguageState, Language>(
+            selector: (langState) => langState.language,
+            builder: (context, language) {
               return BlocStatusView(
                 status: state.blocStatus,
                 onRetry: _onRetry,
                 child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ItemsGrid(
-                    id: 'pieces',
-                    title: context.local(Translation.allPieces),
-                    designs: allDesigns,
-                    pieces: allPieces,
-                    imageFileNamesByDesignId: state.imageFileNamesByDesignId,
-                    language: language,
-                    gridParams: gridParams,
-                    mode: ViewMode.pieces,
-                    isTheOnlySubView: true,
-                  ),
-                  const Footer(),
-                ],
-              ));
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ItemsGrid(
+                      id: 'pieces',
+                      title: context.local(Translation.allPieces),
+                      designs: allDesigns,
+                      pieces: allPieces,
+                      imageFileNamesByDesignId: state.imageFileNamesByDesignId,
+                      language: language,
+                      gridParams: gridParams,
+                      mode: ViewMode.pieces,
+                      isTheOnlySubView: true,
+                    ),
+                    const Footer(),
+                  ],
+                ),
+              );
             },
           );
         },

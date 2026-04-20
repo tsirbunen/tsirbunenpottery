@@ -71,16 +71,12 @@ class HomePage extends StatelessWidget {
   }
 
   TextStyle _subTitleStyle(BuildContext context) {
-    return Theme.of(context)
-        .textTheme
-        .bodyMedium!
+    return (Theme.of(context).textTheme.bodyMedium ?? const TextStyle())
         .copyWith(fontWeight: FontWeight.w600);
   }
 
   TextStyle _mainDescriptionStyle(BuildContext context) {
-    return Theme.of(context)
-        .textTheme
-        .bodyMedium!
+    return (Theme.of(context).textTheme.bodyMedium ?? const TextStyle())
         .copyWith(fontWeight: FontWeight.w400);
   }
 }
