@@ -33,8 +33,8 @@ class _PiecesViewState extends State<PiecesView>
       scrollController: scrollController,
       pageBody: BlocBuilder<PiecesBloc, PiecesState>(
         builder: (context, state) {
-          final allDesigns = state.designsById.values.toList();
-          final allPieces = state.piecesById.values.toList();
+          final allDesigns = state.allDesigns;
+          final allPieces = state.allPieces;
           final gridParams = _gridParams(context, [allDesigns.length]);
 
           return BlocSelector<LanguageBloc, LanguageState, Language>(

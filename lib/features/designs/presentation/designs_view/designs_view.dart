@@ -4,7 +4,6 @@ import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
 import 'package:tsirbunenpottery/localization/languages.dart';
 import 'package:tsirbunenpottery/features/designs/domain/bloc/barrel.dart';
-import 'package:tsirbunenpottery/features/pieces/domain/models/piece/piece.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
 import 'package:tsirbunenpottery/widgets/items_grid/barrel.dart';
@@ -32,13 +31,8 @@ class _DesignsViewState extends State<DesignsView>
       scrollController: scrollController,
       pageBody: BlocBuilder<DesignsBloc, DesignsState>(
         builder: (context, state) {
-          final designs = state.designsById.values.toList();
-
-          // One representative piece per design for the overview grid.
-          final representativePieces = designs
-              .map((d) => state.piecesByDesignId[d.id]?.firstOrNull)
-              .whereType<Piece>()
-              .toList();
+          final designs = state.designs;
+          final representativePieces = state.representativePieces;
 
           final gridParams = _gridParams(context, designs.length);
 

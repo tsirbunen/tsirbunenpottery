@@ -37,11 +37,9 @@ class _CollectionsViewState extends State<CollectionsView>
       pageBody: BlocBuilder<CollectionsBloc, CollectionsState>(
         builder: (context, state) {
           final groupedDesigns = _designsToShow(state);
-          final allPieces = state.piecesById.values.toList();
+          final allPieces = state.allPieces;
           final gridParams = computeGridParams(context, groupedDesigns);
-          final collectionsById = {
-            for (final c in state.collections) c.id: c
-          };
+          final collectionsById = state.collectionsById;
 
           return BlocSelector<LanguageBloc, LanguageState, Language>(
             selector: (langState) => langState.language,
@@ -67,7 +65,7 @@ class _CollectionsViewState extends State<CollectionsView>
 
                       final pieceIds = pieceIdsByDesignId.values
                           .expand((ids) => ids)
-                          .toList();
+                          .toSet();
                       final pieces = allPieces
                           .where((p) => pieceIds.contains(p.id))
                           .toList();

@@ -30,6 +30,17 @@ class _CategoriesViewState extends State<CategoriesView>
 
   void _onRetry() => context.read<CategoriesBloc>().add(FetchCategories());
 
+  Map<String, Map<String, List<String>>> _designsToShow(CategoriesState state) {
+    if (widget.selectedCategoryId != null &&
+        state.categoryDesigns.containsKey(widget.selectedCategoryId)) {
+      return {
+        widget.selectedCategoryId!:
+            state.categoryDesigns[widget.selectedCategoryId]!,
+      };
+    }
+    return state.categoryDesigns;
+  }
+
   @override
   Widget build(BuildContext context) {
     return PageBase(
@@ -37,11 +48,9 @@ class _CategoriesViewState extends State<CategoriesView>
       pageBody: BlocBuilder<CategoriesBloc, CategoriesState>(
         builder: (context, state) {
           final groupedDesigns = _designsToShow(state);
-          final allPieces = state.piecesById.values.toList();
           final gridParams = computeGridParams(context, groupedDesigns);
-          final categoriesById = {
-            for (final c in state.categories) c.id: c
-          };
+          final categoriesById = state.categoriesById;
+          final allPieces = state.allPieces;
 
           return BlocSelector<LanguageBloc, LanguageState, Language>(
             selector: (langState) => langState.language,
@@ -67,7 +76,7 @@ class _CategoriesViewState extends State<CategoriesView>
 
                       final pieceIds = pieceIdsByDesignId.values
                           .expand((ids) => ids)
-                          .toList();
+                          .toSet();
                       final pieces = allPieces
                           .where((p) => pieceIds.contains(p.id))
                           .toList();
@@ -99,16 +108,4 @@ class _CategoriesViewState extends State<CategoriesView>
       ),
     );
   }
-
-  Map<String, Map<String, List<String>>> _designsToShow(CategoriesState state) {
-    if (widget.selectedCategoryId != null &&
-        state.categoryDesigns.containsKey(widget.selectedCategoryId)) {
-      return {
-        widget.selectedCategoryId!:
-            state.categoryDesigns[widget.selectedCategoryId]!,
-      };
-    }
-    return state.categoryDesigns;
-  }
-
 }

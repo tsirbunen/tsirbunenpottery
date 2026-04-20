@@ -22,6 +22,10 @@ class PiecesState extends Equatable {
     this.pieceIdsByDesignId = const {},
   });
 
+  List<Design> get allDesigns => designsById.values.toList();
+
+  List<Piece> get allPieces => piecesById.values.toList();
+
   PiecesState copyWith({BlocStatus? blocStatus}) => PiecesState(
         blocStatus: blocStatus ?? this.blocStatus,
         piecesById: piecesById,

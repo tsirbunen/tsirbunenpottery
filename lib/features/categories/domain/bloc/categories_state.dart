@@ -25,6 +25,11 @@ class CategoriesState extends Equatable {
     this.imageFileNamesByDesignId = const {},
   });
 
+  Map<String, Category> get categoriesById =>
+      {for (final c in categories) c.id: c};
+
+  List<Piece> get allPieces => piecesById.values.toList();
+
   CategoriesState copyWith({BlocStatus? blocStatus}) => CategoriesState(
         blocStatus: blocStatus ?? this.blocStatus,
         categories: categories,

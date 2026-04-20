@@ -2,14 +2,7 @@
 
 
 
-FINDING #13 — SEVERITY: HIGH (performance)
-categories_view.dart:81-83 — O(n²) piece lookup: allPieces.where((p) => pieceIds.contains(p.id)) where pieceIds is a List. For N pieces × M categories this scales badly. pieceIds should be converted to a Set first.
 
-FINDING #14 — SEVERITY: MEDIUM
-categories_view.dart:52-57 — categoriesById map, allPieces.toList(), and _designsToShow() all recomputed on every build(). Should be derived in didUpdateWidget or via BlocSelector.
-
-FINDING #15 — SEVERITY: HIGH (DRY)
-collections_view.dart and categories_view.dart are near-identical. Same double-BlocBuilder structure, same _fetchTriggered pattern, same _designsToShow() logic, same O(n²) piece lookup. Should share a common base class or mixin.
 
 FINDING #16 — SEVERITY: MEDIUM
 items_grid.dart:81 — Unresolved FIXME in production code ("fails in tests due to horizontal overflow"). This is a test debt that should be tracked.
