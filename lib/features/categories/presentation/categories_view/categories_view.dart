@@ -48,7 +48,10 @@ class _CategoriesViewState extends State<CategoriesView>
       pageBody: BlocBuilder<CategoriesBloc, CategoriesState>(
         builder: (context, state) {
           final groupedDesigns = _designsToShow(state);
-          final gridParams = computeGridParams(context, groupedDesigns);
+          final gridParams = computeGridParams(
+            context,
+            groupedDesigns.values.map((v) => v.length).toList(),
+          );
           final categoriesById = state.categoriesById;
           final allPieces = state.allPieces;
 

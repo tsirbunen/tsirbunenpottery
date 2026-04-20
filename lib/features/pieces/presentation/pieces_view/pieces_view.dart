@@ -35,7 +35,7 @@ class _PiecesViewState extends State<PiecesView>
         builder: (context, state) {
           final allDesigns = state.allDesigns;
           final allPieces = state.allPieces;
-          final gridParams = _gridParams(context, [allDesigns.length]);
+          final gridParams = computeGridParams(context, [allDesigns.length]);
 
           return BlocSelector<LanguageBloc, LanguageState, Language>(
             selector: (langState) => langState.language,
@@ -69,30 +69,4 @@ class _PiecesViewState extends State<PiecesView>
     );
   }
 
-  GridParams _gridParams(BuildContext context, List<int> designCounts) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final availableWidth = screenWidth - 2 * sideMargin;
-    final itemsPerRowEstimate = (availableWidth + horizontalGridSpacing) ~/
-        (defaultMinPhotoWidth + horizontalGridSpacing);
-
-    double width = 0.0;
-    int itemsPerRow = 0;
-
-    for (final count in designCounts) {
-      if (count == 0) continue;
-      final itemsPerThisRow = itemsPerRowEstimate.clamp(1, count);
-      if (itemsPerThisRow > itemsPerRow) itemsPerRow = itemsPerThisRow;
-      final totalSpacing = horizontalGridSpacing * (itemsPerThisRow - 1);
-      final photoWidth =
-          ((availableWidth - totalSpacing) / itemsPerThisRow)
-              .clamp(defaultMinPhotoWidth, defaultMaxPhotoWidth);
-      if (width == 0.0 || photoWidth < width) width = photoWidth;
-    }
-
-    return GridParams(
-      itemsPerRow: itemsPerRow,
-      photoWidth: width,
-      availableWidth: availableWidth,
-    );
-  }
 }

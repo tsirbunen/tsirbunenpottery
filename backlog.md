@@ -7,8 +7,6 @@
 FINDING #16 — SEVERITY: MEDIUM
 items_grid.dart:81 — Unresolved FIXME in production code ("fails in tests due to horizontal overflow"). This is a test debt that should be tracked.
 
-FINDING #17 — SEVERITY: MEDIUM
-pieces_view.dart:81-106 — _gridParams() in PiecesView is a near-duplicate of computeGridParams() in models.dart but takes List<int> instead of a Map. Two diverged implementations of the same algorithm.
 
 FINDING #18 — SEVERITY: MEDIUM
 bloc_status_view.dart:3,28 — Shared widget directly calls getIt<AppLogger>(). A widget reaching into the service locator is a hidden dependency that breaks widget testability. Error logging should happen in the bloc, not the view layer.

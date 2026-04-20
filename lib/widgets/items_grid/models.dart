@@ -39,7 +39,7 @@ extension ScrollTargetExtension on ViewMode {
 
 GridParams computeGridParams(
   BuildContext context,
-  Map<String, Map<String, List<String>>> groups,
+  List<int> counts,
 ) {
   final screenWidth = MediaQuery.of(context).size.width;
   final availableWidth = screenWidth - 2 * sideMargin;
@@ -49,8 +49,7 @@ GridParams computeGridParams(
   double width = 0.0;
   int itemsPerRow = 0;
 
-  for (final entry in groups.entries) {
-    final count = entry.value.length;
+  for (final count in counts) {
     if (count == 0) continue;
     final itemsPerThisRow = itemsPerRowEstimate.clamp(1, count);
     if (itemsPerThisRow > itemsPerRow) itemsPerRow = itemsPerThisRow;

@@ -38,7 +38,10 @@ class _CollectionsViewState extends State<CollectionsView>
         builder: (context, state) {
           final groupedDesigns = _designsToShow(state);
           final allPieces = state.allPieces;
-          final gridParams = computeGridParams(context, groupedDesigns);
+          final gridParams = computeGridParams(
+            context,
+            groupedDesigns.values.map((v) => v.length).toList(),
+          );
           final collectionsById = state.collectionsById;
 
           return BlocSelector<LanguageBloc, LanguageState, Language>(
