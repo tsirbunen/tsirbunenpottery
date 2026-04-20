@@ -1,5 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tsirbunenpottery/bootstrap/environment/app_environment.dart';
+import 'package:tsirbunenpottery/bootstrap/router/route_controller.dart';
 import 'package:tsirbunenpottery/bootstrap/service_locator/service_locator.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/core/logging/noop_app_logger.dart';
@@ -34,23 +36,21 @@ void prepareBlocsForTests() {
     final cloudService = mockCloudServiceWithData();
 
     final homeRepository = HomeRepository(cloudService);
-    final homeBloc = HomeBloc(homeRepository);
+    final homeBloc = HomeBloc(homeRepository, logger: logger);
     homeBloc.add(FetchHomePageImageFileName());
 
     final productsRepository = ProductsRepository(cloudService, logger: logger);
 
-    final piecesBloc = PiecesBloc(PiecesRepository(productsRepository));
+    final piecesBloc = PiecesBloc(PiecesRepository(productsRepository), logger: logger);
     piecesBloc.add(FetchPieces());
 
-    final designsBloc = DesignsBloc(DesignsRepository(productsRepository));
+    final designsBloc = DesignsBloc(DesignsRepository(productsRepository), logger: logger);
     designsBloc.add(FetchDesigns());
 
-    final categoriesBloc =
-        CategoriesBloc(CategoriesRepository(productsRepository));
+    final categoriesBloc = CategoriesBloc(CategoriesRepository(productsRepository), logger: logger);
     categoriesBloc.add(FetchCategories());
 
-    final collectionsBloc =
-        CollectionsBloc(CollectionsRepository(productsRepository));
+    final collectionsBloc = CollectionsBloc(CollectionsRepository(productsRepository), logger: logger);
     collectionsBloc.add(FetchCollections());
 
     final languageBloc = LanguageBloc()..add(ChangeLanguage(Language.en));
@@ -61,6 +61,7 @@ void prepareBlocsForTests() {
     getIt.registerSingleton<CategoriesBloc>(categoriesBloc);
     getIt.registerSingleton<CollectionsBloc>(collectionsBloc);
     getIt.registerSingleton<ScrollPositionCache>(ScrollPositionCache());
+    getIt.registerSingleton<GoRouter>(RouteController().buildRouter());
   }
 }
 

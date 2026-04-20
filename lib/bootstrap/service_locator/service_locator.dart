@@ -35,23 +35,21 @@ void prepareBlocs() {
   final languageBloc = LanguageBloc();
 
   final homeRepository = HomeRepository(cloudService);
-  final homeBloc = HomeBloc(homeRepository);
+  final homeBloc = HomeBloc(homeRepository, logger: logger);
   homeBloc.add(FetchHomePageImageFileName());
 
   final productsRepository = ProductsRepository(cloudService, logger: logger);
 
-  final piecesBloc = PiecesBloc(PiecesRepository(productsRepository));
+  final piecesBloc = PiecesBloc(PiecesRepository(productsRepository), logger: logger);
   piecesBloc.add(FetchPieces());
 
-  final designsBloc = DesignsBloc(DesignsRepository(productsRepository));
+  final designsBloc = DesignsBloc(DesignsRepository(productsRepository), logger: logger);
   designsBloc.add(FetchDesigns());
 
-  final categoriesBloc =
-      CategoriesBloc(CategoriesRepository(productsRepository));
+  final categoriesBloc = CategoriesBloc(CategoriesRepository(productsRepository), logger: logger);
   categoriesBloc.add(FetchCategories());
 
-  final collectionsBloc =
-      CollectionsBloc(CollectionsRepository(productsRepository));
+  final collectionsBloc = CollectionsBloc(CollectionsRepository(productsRepository), logger: logger);
   collectionsBloc.add(FetchCollections());
   final router = RouteController().buildRouter();
 

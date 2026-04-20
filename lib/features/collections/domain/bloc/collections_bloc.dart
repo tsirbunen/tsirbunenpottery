@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/core/state/app_bloc_event.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/collections/domain/bloc/collections_event.dart';
@@ -7,8 +8,11 @@ import 'package:tsirbunenpottery/features/collections/repository/collections_rep
 
 class CollectionsBloc extends Bloc<AppBlocEvent, CollectionsState> {
   final CollectionsRepository _repository;
+  final AppLogger _logger;
 
-  CollectionsBloc(this._repository) : super(const CollectionsState()) {
+  CollectionsBloc(this._repository, {required AppLogger logger})
+      : _logger = logger,
+        super(const CollectionsState()) {
     on<AppBlocEvent>(_onEvent);
   }
 
@@ -35,8 +39,9 @@ class CollectionsBloc extends Bloc<AppBlocEvent, CollectionsState> {
         imageFileNamesByDesignId: data.imageFileNamesByDesignId,
         blocStatus: const BlocStatus(Status.ok),
       ));
-    } catch (e) {
-      emit(state.copyWith(blocStatus:BlocStatus(Status.error, message: e.toString())));
+    } catch (e, s) {
+      _logger.logError('Failed to fetch collections', error: e, stackTrace: s, tag: 'CollectionsBloc');
+      emit(state.copyWith(blocStatus: BlocStatus(Status.error, message: e.toString())));
     }
   }
 }

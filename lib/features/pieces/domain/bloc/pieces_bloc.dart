@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/core/state/app_bloc_event.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_event.dart';
@@ -7,8 +8,11 @@ import 'package:tsirbunenpottery/features/pieces/repository/pieces_repository.da
 
 class PiecesBloc extends Bloc<AppBlocEvent, PiecesState> {
   final PiecesRepository _repository;
+  final AppLogger _logger;
 
-  PiecesBloc(this._repository) : super(const PiecesState()) {
+  PiecesBloc(this._repository, {required AppLogger logger})
+      : _logger = logger,
+        super(const PiecesState()) {
     on<AppBlocEvent>(_onEvent);
   }
 
@@ -33,8 +37,9 @@ class PiecesBloc extends Bloc<AppBlocEvent, PiecesState> {
         pieceIdsByDesignId: data.pieceIdsByDesignId,
         blocStatus: const BlocStatus(Status.ok),
       ));
-    } catch (e) {
-      emit(state.copyWith(blocStatus:BlocStatus(Status.error, message: e.toString())));
+    } catch (e, s) {
+      _logger.logError('Failed to fetch pieces', error: e, stackTrace: s, tag: 'PiecesBloc');
+      emit(state.copyWith(blocStatus: BlocStatus(Status.error, message: e.toString())));
     }
   }
 }

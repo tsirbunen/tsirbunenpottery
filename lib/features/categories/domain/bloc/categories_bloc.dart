@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/core/state/app_bloc_event.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/categories/domain/bloc/categories_event.dart';
@@ -7,8 +8,11 @@ import 'package:tsirbunenpottery/features/categories/repository/categories_repos
 
 class CategoriesBloc extends Bloc<AppBlocEvent, CategoriesState> {
   final CategoriesRepository _repository;
+  final AppLogger _logger;
 
-  CategoriesBloc(this._repository) : super(const CategoriesState()) {
+  CategoriesBloc(this._repository, {required AppLogger logger})
+      : _logger = logger,
+        super(const CategoriesState()) {
     on<AppBlocEvent>(_onEvent);
   }
 
@@ -35,8 +39,9 @@ class CategoriesBloc extends Bloc<AppBlocEvent, CategoriesState> {
         imageFileNamesByDesignId: data.imageFileNamesByDesignId,
         blocStatus: const BlocStatus(Status.ok),
       ));
-    } catch (e) {
-      emit(state.copyWith(blocStatus:BlocStatus(Status.error, message: e.toString())));
+    } catch (e, s) {
+      _logger.logError('Failed to fetch categories', error: e, stackTrace: s, tag: 'CategoriesBloc');
+      emit(state.copyWith(blocStatus: BlocStatus(Status.error, message: e.toString())));
     }
   }
 }

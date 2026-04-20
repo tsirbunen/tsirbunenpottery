@@ -11,10 +11,12 @@ import 'package:tsirbunenpottery/features/designs/repository/designs_repository.
 import '../../utils/mock_cloud_service_helpers.dart';
 
 DesignsBloc _makeBlocWithData() => DesignsBloc(
-    DesignsRepository(ProductsRepository(mockCloudServiceWithData(), logger: const NoOpAppLogger())));
+    DesignsRepository(ProductsRepository(mockCloudServiceWithData(), logger: const NoOpAppLogger())),
+    logger: const NoOpAppLogger());
 
 DesignsBloc _makeBlocFailing() => DesignsBloc(
-    DesignsRepository(ProductsRepository(mockCloudServiceFailing(), logger: const NoOpAppLogger())));
+    DesignsRepository(ProductsRepository(mockCloudServiceFailing(), logger: const NoOpAppLogger())),
+    logger: const NoOpAppLogger());
 
 void main() {
   group('Feature Designs >', () {

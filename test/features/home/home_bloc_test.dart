@@ -1,5 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tsirbunenpottery/core/logging/noop_app_logger.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/home/domain/bloc/home_bloc.dart';
 import 'package:tsirbunenpottery/features/home/domain/bloc/home_event.dart';
@@ -9,10 +10,10 @@ import 'package:tsirbunenpottery/features/home/repository/home_repository.dart';
 import '../../utils/mock_cloud_service_helpers.dart';
 
 HomeBloc _makeBlocWithData() =>
-    HomeBloc(HomeRepository(mockCloudServiceWithHomeImageData()));
+    HomeBloc(HomeRepository(mockCloudServiceWithHomeImageData()), logger: const NoOpAppLogger());
 
 HomeBloc _makeBlocFailing() =>
-    HomeBloc(HomeRepository(mockCloudServiceFailing()));
+    HomeBloc(HomeRepository(mockCloudServiceFailing()), logger: const NoOpAppLogger());
 
 void main() {
   group('Feature Home >', () {

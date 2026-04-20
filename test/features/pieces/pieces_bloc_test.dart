@@ -11,10 +11,12 @@ import 'package:tsirbunenpottery/features/pieces/repository/pieces_repository.da
 import '../../utils/mock_cloud_service_helpers.dart';
 
 PiecesBloc _makeBlocWithData() => PiecesBloc(
-    PiecesRepository(ProductsRepository(mockCloudServiceWithData(), logger: const NoOpAppLogger())));
+    PiecesRepository(ProductsRepository(mockCloudServiceWithData(), logger: const NoOpAppLogger())),
+    logger: const NoOpAppLogger());
 
 PiecesBloc _makeBlocFailing() => PiecesBloc(
-    PiecesRepository(ProductsRepository(mockCloudServiceFailing(), logger: const NoOpAppLogger())));
+    PiecesRepository(ProductsRepository(mockCloudServiceFailing(), logger: const NoOpAppLogger())),
+    logger: const NoOpAppLogger());
 
 void main() {
   group('Feature Pieces >', () {

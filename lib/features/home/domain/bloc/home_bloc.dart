@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/core/state/app_bloc_event.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/home/domain/bloc/home_event.dart';
@@ -7,8 +8,11 @@ import 'package:tsirbunenpottery/features/home/repository/home_repository.dart';
 
 class HomeBloc extends Bloc<AppBlocEvent, HomeState> {
   final HomeRepository _repository;
+  final AppLogger _logger;
 
-  HomeBloc(this._repository) : super(const HomeState()) {
+  HomeBloc(this._repository, {required AppLogger logger})
+      : _logger = logger,
+        super(const HomeState()) {
     on<AppBlocEvent>(_onEvent);
   }
 
@@ -30,8 +34,9 @@ class HomeBloc extends Bloc<AppBlocEvent, HomeState> {
         homePageImageFileName: fileName,
         blocStatus: const BlocStatus(Status.ok),
       ));
-    } catch (e) {
-      emit(state.copyWith(blocStatus:BlocStatus(Status.error, message: e.toString())));
+    } catch (e, s) {
+      _logger.logError('Failed to fetch home page image', error: e, stackTrace: s, tag: 'HomeBloc');
+      emit(state.copyWith(blocStatus: BlocStatus(Status.error, message: e.toString())));
     }
   }
 }

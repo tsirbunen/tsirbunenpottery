@@ -11,10 +11,12 @@ import 'package:tsirbunenpottery/features/categories/repository/categories_repos
 import '../../utils/mock_cloud_service_helpers.dart';
 
 CategoriesBloc _makeBlocWithData() => CategoriesBloc(
-    CategoriesRepository(ProductsRepository(mockCloudServiceWithData(), logger: const NoOpAppLogger())));
+    CategoriesRepository(ProductsRepository(mockCloudServiceWithData(), logger: const NoOpAppLogger())),
+    logger: const NoOpAppLogger());
 
 CategoriesBloc _makeBlocFailing() => CategoriesBloc(
-    CategoriesRepository(ProductsRepository(mockCloudServiceFailing(), logger: const NoOpAppLogger())));
+    CategoriesRepository(ProductsRepository(mockCloudServiceFailing(), logger: const NoOpAppLogger())),
+    logger: const NoOpAppLogger());
 
 void main() {
   group('Feature Categories >', () {
