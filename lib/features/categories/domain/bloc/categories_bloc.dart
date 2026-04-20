@@ -14,11 +14,12 @@ class CategoriesBloc extends Bloc<AppBlocEvent, CategoriesState> {
 
   Future<void> _onEvent(
       AppBlocEvent event, Emitter<CategoriesState> emit) async {
-    return switch (event) {
-      final BlocStatusChanged e => emit(state.copyWith(blocStatus:e.status)),
-      final FetchCategories _ => _onFetch(emit),
-      final AppBlocEvent _ => emit(state),
-    };
+    switch (event) {
+      case final BlocStatusChanged e:
+        emit(state.copyWith(blocStatus: e.status));
+      case final FetchCategories _:
+        await _onFetch(emit);
+    }
   }
 
   Future<void> _onFetch(Emitter<CategoriesState> emit) async {

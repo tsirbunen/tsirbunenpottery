@@ -20,6 +20,7 @@ Visitors can navigate to:
 - **Pieces** — list/grid of individual pottery pieces.
 - **Categories** — pottery grouped by category.
 - **Collections** — pottery grouped by collection.
+- **Designs** — pottery designs.
 - **Contact** — how to reach the owner.
 
 ### Localization
@@ -28,7 +29,7 @@ Visitors can navigate to:
 
 ## Planned Features (future)
 - **Purchase flow**: Visitors can buy pottery items. Exact payment provider TBD.
-- Additional routes (Designs, Story) are stubbed out but commented off.
+- The Story route is stubbed out but commented off.
 
 ## Data Source
 All dynamic content (products, home page image) is stored in **Firebase Firestore** and fetched at app startup. No user-generated data at this time.

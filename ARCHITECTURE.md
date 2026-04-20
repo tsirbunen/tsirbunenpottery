@@ -95,8 +95,9 @@ All features must follow this structure:
 | categories | /categories | Products by category |
 | collections | /collections | Products by collection |
 | contact | /contact | Contact info |
+| designs | /designs | Pottery designs |
 
-Commented-out (not active): `designs`, `story`
+Commented-out (not active): `story`
 
 ## Singletons (registered in service_locator.dart)
 | Type | Kind | Responsibility |
@@ -104,7 +105,7 @@ Commented-out (not active): `designs`, `story`
 | `LanguageBloc` | BLoC | Runtime language toggle (pure UI state) |
 | `HomeBloc` | BLoC | Fetch home page image filename from Firestore |
 | `PiecesBloc` | BLoC | Hold shaped pieces + designs data for the Pieces route |
-| `DesignsBloc` | BLoC | Hold shaped designs data (future Designs route) |
+| `DesignsBloc` | BLoC | Hold shaped designs data for the Designs route |
 | `CategoriesBloc` | BLoC | Hold shaped categories + designs data for the Categories route |
 | `CollectionsBloc` | BLoC | Hold shaped collections + designs data for the Collections route |
 | `ScrollPositionCache` | plain class | Key→offset map for scroll restoration; never drives rebuilds |

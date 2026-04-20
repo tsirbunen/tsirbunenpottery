@@ -13,11 +13,12 @@ class HomeBloc extends Bloc<AppBlocEvent, HomeState> {
   }
 
   Future<void> _onEvent(AppBlocEvent event, Emitter<HomeState> emit) async {
-    return switch (event) {
-      final BlocStatusChanged e => emit(state.copyWith(blocStatus:e.status)),
-      final FetchHomePageImageFileName _ => _onFetch(emit),
-      final AppBlocEvent _ => emit(state),
-    };
+    switch (event) {
+      case final BlocStatusChanged e:
+        emit(state.copyWith(blocStatus: e.status));
+      case final FetchHomePageImageFileName _:
+        await _onFetch(emit);
+    }
   }
 
   Future<void> _onFetch(Emitter<HomeState> emit) async {

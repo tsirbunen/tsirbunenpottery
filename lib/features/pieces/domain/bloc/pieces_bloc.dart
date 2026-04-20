@@ -13,11 +13,12 @@ class PiecesBloc extends Bloc<AppBlocEvent, PiecesState> {
   }
 
   Future<void> _onEvent(AppBlocEvent event, Emitter<PiecesState> emit) async {
-    return switch (event) {
-      final BlocStatusChanged e => emit(state.copyWith(blocStatus:e.status)),
-      final FetchPieces _ => _onFetch(emit),
-      final AppBlocEvent _ => emit(state),
-    };
+    switch (event) {
+      case final BlocStatusChanged e:
+        emit(state.copyWith(blocStatus: e.status));
+      case final FetchPieces _:
+        await _onFetch(emit);
+    }
   }
 
   Future<void> _onFetch(Emitter<PiecesState> emit) async {
