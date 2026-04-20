@@ -9,7 +9,7 @@ import 'package:tsirbunenpottery/core/scroll_position_cache/scroll_position_cach
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/data/firestore_cloud_service.dart';
 import 'package:tsirbunenpottery/data/products_repository.dart';
-import 'package:tsirbunenpottery/features/categories/domain/bloc/categories_bloc.dart';
+import 'package:tsirbunenpottery/features/categories/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/features/categories/repository/categories_repository.dart';
 import 'package:tsirbunenpottery/features/collections/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/features/collections/repository/collections_repository.dart';
@@ -41,11 +41,18 @@ void prepareBlocs() {
   final productsRepository = ProductsRepository(cloudService, logger: logger);
 
   final piecesBloc = PiecesBloc(PiecesRepository(productsRepository));
+  piecesBloc.add(FetchPieces());
+
   final designsBloc = DesignsBloc(DesignsRepository(productsRepository));
+  designsBloc.add(FetchDesigns());
+
   final categoriesBloc =
       CategoriesBloc(CategoriesRepository(productsRepository));
+  categoriesBloc.add(FetchCategories());
+
   final collectionsBloc =
       CollectionsBloc(CollectionsRepository(productsRepository));
+  collectionsBloc.add(FetchCollections());
   final router = RouteController().buildRouter();
 
   getIt.registerSingleton<LanguageBloc>(languageBloc);

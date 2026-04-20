@@ -25,18 +25,8 @@ class CollectionsView extends StatefulWidget {
 
 class _CollectionsViewState extends State<CollectionsView>
     with ScrollPositionMixin<CollectionsView> {
-  bool _fetchTriggered = false;
-
   @override
   String get scrollTargetName => widget.scrollTargetName;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (_fetchTriggered) return;
-    _fetchTriggered = true;
-    context.read<CollectionsBloc>().add(FetchCollections());
-  }
 
   void _onRetry() => context.read<CollectionsBloc>().add(FetchCollections());
 

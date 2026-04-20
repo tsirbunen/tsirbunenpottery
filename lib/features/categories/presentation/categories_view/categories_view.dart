@@ -25,18 +25,8 @@ class CategoriesView extends StatefulWidget {
 
 class _CategoriesViewState extends State<CategoriesView>
     with ScrollPositionMixin<CategoriesView> {
-  bool _fetchTriggered = false;
-
   @override
   String get scrollTargetName => widget.scrollTargetName;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (_fetchTriggered) return;
-    _fetchTriggered = true;
-    context.read<CategoriesBloc>().add(FetchCategories());
-  }
 
   void _onRetry() => context.read<CategoriesBloc>().add(FetchCategories());
 

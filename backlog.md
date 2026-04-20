@@ -1,12 +1,6 @@
 
 
 
-FINDING #10 — SEVERITY: MEDIUM
-pieces_view.dart:24,31-35 — _fetchTriggered boolean guard in didChangeDependencies is a common but fragile pattern. The clean approach for singleton blocs is to seed them in service_locator.dart (as HomeBloc already does). Inconsistent initialization strategy across blocs.
-
-FINDING #11 — SEVERITY: MEDIUM
-home_page.dart:21-64 — Same double-nested BlocBuilder anti-pattern repeated: LanguageBloc wraps HomeBloc, with the language state explicitly named _ (unused directly here). This pattern is repeated across all feature pages — it's a systemic issue.
-
 
 FINDING #13 — SEVERITY: HIGH (performance)
 categories_view.dart:81-83 — O(n²) piece lookup: allPieces.where((p) => pieceIds.contains(p.id)) where pieceIds is a List. For N pieces × M categories this scales badly. pieceIds should be converted to a Set first.

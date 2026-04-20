@@ -5,7 +5,6 @@ import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
 import 'package:tsirbunenpottery/localization/languages.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_bloc.dart';
-import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_event.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_state.dart';
 import 'package:tsirbunenpottery/features/pieces/presentation/single_piece_view/design_description.dart';
 import 'package:tsirbunenpottery/features/pieces/presentation/single_piece_view/piece_photos.dart';
@@ -16,25 +15,10 @@ import 'package:tsirbunenpottery/widgets/page_base/page_base.dart';
 const double spacing = 20.0;
 const double limit = 600.0;
 
-class SinglePieceView extends StatefulWidget {
+class SinglePieceView extends StatelessWidget {
   final String id;
 
   const SinglePieceView({super.key, required this.id});
-
-  @override
-  State<SinglePieceView> createState() => _SinglePieceViewState();
-}
-
-class _SinglePieceViewState extends State<SinglePieceView> {
-  bool _fetchTriggered = false;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (_fetchTriggered) return;
-    _fetchTriggered = true;
-    context.read<PiecesBloc>().add(FetchPieces());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +28,7 @@ class _SinglePieceViewState extends State<SinglePieceView> {
           return BlocSelector<LanguageBloc, LanguageState, Language>(
             selector: (langState) => langState.language,
             builder: (context, language) {
-              final piece = state.piecesById[widget.id];
+              final piece = state.piecesById[id];
               final designId = piece?.designId;
               final design = state.designsById[designId];
               final designName = design?.names[language];

@@ -21,18 +21,8 @@ class DesignsView extends StatefulWidget {
 
 class _DesignsViewState extends State<DesignsView>
     with ScrollPositionMixin<DesignsView> {
-  bool _fetchTriggered = false;
-
   @override
   String get scrollTargetName => ViewMode.designs.scrollTargetName(null, null);
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (_fetchTriggered) return;
-    _fetchTriggered = true;
-    context.read<DesignsBloc>().add(FetchDesigns());
-  }
 
   void _onRetry() => context.read<DesignsBloc>().add(FetchDesigns());
 

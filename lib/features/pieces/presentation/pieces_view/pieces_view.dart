@@ -22,18 +22,8 @@ class PiecesView extends StatefulWidget {
 
 class _PiecesViewState extends State<PiecesView>
     with ScrollPositionMixin<PiecesView> {
-  bool _fetchTriggered = false;
-
   @override
   String get scrollTargetName => ViewMode.pieces.scrollTargetName(null, null);
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (_fetchTriggered) return;
-    _fetchTriggered = true;
-    context.read<PiecesBloc>().add(FetchPieces());
-  }
 
   void _onRetry() => context.read<PiecesBloc>().add(FetchPieces());
 
