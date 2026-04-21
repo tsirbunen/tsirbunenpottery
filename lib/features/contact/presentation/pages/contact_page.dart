@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tsirbunenpottery/features/home/domain/bloc/home_bloc.dart';
-import 'package:tsirbunenpottery/features/home/domain/bloc/home_state.dart';
+import 'package:tsirbunenpottery/features/contact/domain/bloc/contact_bloc.dart';
+import 'package:tsirbunenpottery/features/contact/domain/bloc/contact_state.dart';
 import 'package:tsirbunenpottery/features/contact/presentation/contact_view/contact_form.dart';
 import 'package:tsirbunenpottery/features/contact/presentation/contact_view/photo_and_info.dart';
 import 'package:tsirbunenpottery/widgets/footer/footer.dart';
@@ -10,17 +10,16 @@ import 'package:tsirbunenpottery/widgets/page_base/page_base.dart';
 const double showPhotoBreakpoint = 800.0;
 
 class ContactPage extends StatelessWidget {
-  final String? imageFileName;
-  const ContactPage({super.key, this.imageFileName});
+  const ContactPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return PageBase(
-      pageBody: BlocBuilder<HomeBloc, HomeState>(
-          builder: (BuildContext context, HomeState state) {
+      pageBody: BlocBuilder<ContactBloc, ContactState>(
+          builder: (BuildContext context, ContactState state) {
         final width = MediaQuery.of(context).size.width;
         final isHorizontal = width > showPhotoBreakpoint;
-        final imageFileName = state.homePageImageFileName;
+        final imageFileName = state.ownerPhotoFileName;
 
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 25.0),

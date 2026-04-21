@@ -17,6 +17,8 @@ import 'package:tsirbunenpottery/features/collections/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/features/collections/repository/collections_repository.dart';
 import 'package:tsirbunenpottery/features/designs/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/features/designs/repository/designs_repository.dart';
+import 'package:tsirbunenpottery/features/contact/domain/bloc/barrel.dart';
+import 'package:tsirbunenpottery/features/contact/repository/contact_repository.dart';
 import 'package:tsirbunenpottery/features/home/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/features/home/repository/home_repository.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/bloc/barrel.dart';
@@ -40,6 +42,9 @@ void prepareBlocs({CloudService? cloudService}) {
   final homeBloc = HomeBloc(homeRepository, logger: logger);
   homeBloc.add(FetchHomePageImageFileName());
 
+  final contactBloc = ContactBloc(ContactRepository(cloudService), logger: logger);
+  contactBloc.add(FetchOwnerPhoto());
+
   final productsRepository = ProductsRepository(cloudService, logger: logger);
 
   final piecesBloc = PiecesBloc(PiecesRepository(productsRepository), logger: logger);
@@ -57,6 +62,7 @@ void prepareBlocs({CloudService? cloudService}) {
 
   getIt.registerSingleton<LanguageBloc>(languageBloc);
   getIt.registerSingleton<HomeBloc>(homeBloc);
+  getIt.registerSingleton<ContactBloc>(contactBloc);
   getIt.registerSingleton<PiecesBloc>(piecesBloc);
   getIt.registerSingleton<DesignsBloc>(designsBloc);
   getIt.registerSingleton<CategoriesBloc>(categoriesBloc);

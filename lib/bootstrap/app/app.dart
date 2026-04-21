@@ -5,6 +5,7 @@ import 'package:tsirbunenpottery/bootstrap/service_locator/service_locator.dart'
 import 'package:tsirbunenpottery/core/scroll_position_cache/scroll_position_cache.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
+import 'package:tsirbunenpottery/features/contact/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/features/home/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/features/categories/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/features/collections/domain/bloc/barrel.dart';
@@ -26,6 +27,7 @@ class App extends StatelessWidget {
         providers: [
           BlocProvider.value(value: getIt.get<LanguageBloc>()),
           BlocProvider.value(value: getIt.get<HomeBloc>()),
+          BlocProvider.value(value: getIt.get<ContactBloc>()),
           BlocProvider.value(value: getIt.get<PiecesBloc>()),
           BlocProvider.value(value: getIt.get<DesignsBloc>()),
           BlocProvider.value(value: getIt.get<CategoriesBloc>()),

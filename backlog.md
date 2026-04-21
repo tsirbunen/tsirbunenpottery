@@ -1,8 +1,6 @@
 
 
 
-FINDING #26 — SEVERITY: MEDIUM
-contact_page.dart:19 — ContactPage reads from HomeBloc directly — cross-feature coupling. Contact shouldn't know about Home state. The image should be passed in or come from a shared photo repository.
 
 FINDING #27 — SEVERITY: LOW
 contact_email_with_copy_option.dart:24 — Clipboard.setData(...) result is not awaited. Clipboard write failures are silently ignored.

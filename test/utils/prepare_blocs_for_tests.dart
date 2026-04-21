@@ -19,6 +19,9 @@ import 'package:tsirbunenpottery/features/collections/repository/collections_rep
 import 'package:tsirbunenpottery/features/designs/domain/bloc/designs_bloc.dart';
 import 'package:tsirbunenpottery/features/designs/domain/bloc/designs_event.dart';
 import 'package:tsirbunenpottery/features/designs/repository/designs_repository.dart';
+import 'package:tsirbunenpottery/features/contact/domain/bloc/contact_bloc.dart';
+import 'package:tsirbunenpottery/features/contact/domain/bloc/contact_event.dart';
+import 'package:tsirbunenpottery/features/contact/repository/contact_repository.dart';
 import 'package:tsirbunenpottery/features/home/domain/bloc/home_bloc.dart';
 import 'package:tsirbunenpottery/features/home/domain/bloc/home_event.dart';
 import 'package:tsirbunenpottery/features/home/repository/home_repository.dart';
@@ -33,11 +36,14 @@ void prepareBlocsForTests() {
     const logger = NoOpAppLogger();
     getIt.registerSingleton<AppLogger>(logger);
 
-    final cloudService = mockCloudServiceWithData();
+    final cloudService = mockCloudServiceWithHomeImageData();
 
     final homeRepository = HomeRepository(cloudService);
     final homeBloc = HomeBloc(homeRepository, logger: logger);
     homeBloc.add(FetchHomePageImageFileName());
+
+    final contactBloc = ContactBloc(ContactRepository(cloudService), logger: logger);
+    contactBloc.add(FetchOwnerPhoto());
 
     final productsRepository = ProductsRepository(cloudService, logger: logger);
 
@@ -56,6 +62,7 @@ void prepareBlocsForTests() {
     final languageBloc = LanguageBloc()..add(ChangeLanguage(Language.en));
     getIt.registerSingleton<LanguageBloc>(languageBloc);
     getIt.registerSingleton<HomeBloc>(homeBloc);
+    getIt.registerSingleton<ContactBloc>(contactBloc);
     getIt.registerSingleton<PiecesBloc>(piecesBloc);
     getIt.registerSingleton<DesignsBloc>(designsBloc);
     getIt.registerSingleton<CategoriesBloc>(categoriesBloc);
