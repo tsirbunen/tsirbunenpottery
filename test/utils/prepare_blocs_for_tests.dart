@@ -61,13 +61,13 @@ void prepareBlocsForTests() {
     getIt.registerSingleton<CategoriesBloc>(categoriesBloc);
     getIt.registerSingleton<CollectionsBloc>(collectionsBloc);
     getIt.registerSingleton<ScrollPositionCache>(ScrollPositionCache());
-    getIt.registerSingleton<GoRouter>(RouteController().buildRouter());
+    getIt.registerSingleton<GoRouter>(buildRouter());
+    getIt.registerSingleton<Environment>(const Environment(noNetworkImages: true));
   }
 }
 
 void setUpAndTearDownAllBlocsAndPreventNetworkImages() {
   setUpAll(() {
-    Environment.noNetworkImages = true;
     prepareBlocsForTests();
   });
 

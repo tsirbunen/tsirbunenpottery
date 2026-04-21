@@ -1,3 +1,4 @@
 class Environment {
-  static bool noNetworkImages = false;
+  final bool noNetworkImages;
+  const Environment({this.noNetworkImages = false});
 }

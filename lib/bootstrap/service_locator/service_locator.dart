@@ -1,12 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tsirbunenpottery/bootstrap/environment/app_environment.dart';
 import 'package:tsirbunenpottery/bootstrap/router/route_controller.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/core/logging/dev_app_logger.dart';
 import 'package:tsirbunenpottery/core/logging/noop_app_logger.dart';
 import 'package:tsirbunenpottery/core/scroll_position_cache/scroll_position_cache.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
+import 'package:tsirbunenpottery/data/cloud_service.dart';
 import 'package:tsirbunenpottery/data/firestore_cloud_service.dart';
 import 'package:tsirbunenpottery/data/products_repository.dart';
 import 'package:tsirbunenpottery/features/categories/domain/bloc/barrel.dart';
@@ -25,12 +27,12 @@ import 'package:tsirbunenpottery/features/pieces/repository/pieces_repository.da
 // here (like pass the necessary repositories and add initializing events where needed).
 final getIt = GetIt.instance;
 
-void prepareBlocs() {
+void prepareBlocs({CloudService? cloudService}) {
   final logger =
       kReleaseMode ? const NoOpAppLogger() : const DevAppLogger();
   getIt.registerSingleton<AppLogger>(logger);
 
-  final cloudService = FirestoreCloudService(logger: logger);
+  cloudService ??= FirestoreCloudService(logger: logger);
 
   final languageBloc = LanguageBloc();
 
@@ -51,7 +53,7 @@ void prepareBlocs() {
 
   final collectionsBloc = CollectionsBloc(CollectionsRepository(productsRepository), logger: logger);
   collectionsBloc.add(FetchCollections());
-  final router = RouteController().buildRouter();
+  final router = buildRouter();
 
   getIt.registerSingleton<LanguageBloc>(languageBloc);
   getIt.registerSingleton<HomeBloc>(homeBloc);
@@ -61,4 +63,5 @@ void prepareBlocs() {
   getIt.registerSingleton<CollectionsBloc>(collectionsBloc);
   getIt.registerSingleton<ScrollPositionCache>(ScrollPositionCache());
   getIt.registerSingleton<GoRouter>(router);
+  getIt.registerSingleton<Environment>(const Environment());
 }

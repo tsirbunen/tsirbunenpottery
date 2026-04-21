@@ -1,16 +1,6 @@
 
 
 
-
-FINDING #23 — SEVERITY: LOW
-route_controller.dart — RouteController is a stateless class wrapping a single buildRouter() call. Unneeded abstraction; should be a top-level function.
-
-FINDING #24 — SEVERITY: MEDIUM
-app_environment.dart:2 — Mutable static global noNetworkImages = false. Mutable global state is untestable and not resettable between tests. Should use dependency injection.
-
-FINDING #25 — SEVERITY: MEDIUM
-contact_page.dart:13,23 — ContactPage has a constructor parameter imageFileName that is never used (actual value comes from HomeBloc on line 23). Dead parameter.
-
 FINDING #26 — SEVERITY: MEDIUM
 contact_page.dart:19 — ContactPage reads from HomeBloc directly — cross-feature coupling. Contact shouldn't know about Home state. The image should be passed in or come from a shared photo repository.
 

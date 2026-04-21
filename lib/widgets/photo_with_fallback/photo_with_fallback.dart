@@ -124,7 +124,7 @@ class _PhotoWithFallbackState extends State<PhotoWithFallback>
   @override
   void initState() {
     super.initState();
-    if (Environment.noNetworkImages) {
+    if (getIt<Environment>().noNetworkImages) {
       _noNetworkImages = true;
       _isLoading = false;
     }
