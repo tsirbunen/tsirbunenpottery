@@ -2,25 +2,6 @@
 
 
 
-
-
-FINDING #16 — SEVERITY: MEDIUM
-items_grid.dart:81 — Unresolved FIXME in production code ("fails in tests due to horizontal overflow"). This is a test debt that should be tracked.
-
-
-FINDING #18 — SEVERITY: MEDIUM
-bloc_status_view.dart:3,28 — Shared widget directly calls getIt<AppLogger>(). A widget reaching into the service locator is a hidden dependency that breaks widget testability. Error logging should happen in the bloc, not the view layer.
-
-FINDING #19 — SEVERITY: MEDIUM
-piece_card.dart:55-58 — When imageFileNames is empty, creates a Photo with id: '' and url: '$photoBaseUrl' (empty filename appended). Returns non-nullable Photo where it should return null so PhotoWithFallback can show the placeholder properly.
-
-FINDING #20 — SEVERITY: MEDIUM
-photo_with_fallback.dart:127-132 — setState() called inside initState(). This causes a double-build. Fields should be set directly without setState in initState.
-
-FINDING #21 — SEVERITY: MEDIUM
-single_piece_view.dart:56-58 — No BlocStatusView wrapper. When data is loading, piece == null shows "design not found" text instead of a loading indicator. UX bug.
-
-
 FINDING #23 — SEVERITY: LOW
 route_controller.dart — RouteController is a stateless class wrapping a single buildRouter() call. Unneeded abstraction; should be a top-level function.
 

@@ -9,6 +9,7 @@ import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_state.dart';
 import 'package:tsirbunenpottery/features/pieces/presentation/single_piece_view/design_description.dart';
 import 'package:tsirbunenpottery/features/pieces/presentation/single_piece_view/piece_photos.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
+import 'package:tsirbunenpottery/widgets/bloc_status_view/bloc_status_view.dart';
 import 'package:tsirbunenpottery/widgets/footer/footer.dart';
 import 'package:tsirbunenpottery/widgets/page_base/page_base.dart';
 
@@ -25,63 +26,66 @@ class SinglePieceView extends StatelessWidget {
     return PageBase(
       pageBody: BlocBuilder<PiecesBloc, PiecesState>(
         builder: (context, state) {
-          return BlocSelector<LanguageBloc, LanguageState, Language>(
-            selector: (langState) => langState.language,
-            builder: (context, language) {
-              final piece = state.piecesById[id];
-              final designId = piece?.designId;
-              final design = state.designsById[designId];
-              final designName = design?.names[language];
-              final designNotFound = context.local(Translation.designNotFound);
-              if (design == null || designName == null || piece == null) {
-                return Center(child: Text(designNotFound));
-              }
+          return BlocStatusView(
+            status: state.blocStatus,
+            child: BlocSelector<LanguageBloc, LanguageState, Language>(
+              selector: (langState) => langState.language,
+              builder: (context, language) {
+                final piece = state.piecesById[id];
+                final designId = piece?.designId;
+                final design = state.designsById[designId];
+                final designName = design?.names[language];
+                final designNotFound = context.local(Translation.designNotFound);
+                if (design == null || designName == null || piece == null) {
+                  return Center(child: Text(designNotFound));
+                }
 
-              return LayoutBuilder(
-                builder: (context, constraints) {
-                  final hasRoomForRow = constraints.maxWidth > limit;
+                return LayoutBuilder(
+                  builder: (context, constraints) {
+                    final hasRoomForRow = constraints.maxWidth > limit;
 
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.all(20.0),
-                        child: hasRoomForRow
-                            ? Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  PiecePhotos(photoNames: piece.imageFileNames),
-                                  const SizedBox(width: spacing),
-                                  Flexible(
-                                    child: ConstrainedBox(
-                                      constraints:
-                                          const BoxConstraints(maxWidth: limit),
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.all(20.0),
+                          child: hasRoomForRow
+                              ? Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    PiecePhotos(photoNames: piece.imageFileNames),
+                                    const SizedBox(width: spacing),
+                                    Flexible(
+                                      child: ConstrainedBox(
+                                        constraints:
+                                            const BoxConstraints(maxWidth: limit),
+                                        child: DesignDescription(
+                                            language: language, design: design),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    PiecePhotos(photoNames: piece.imageFileNames),
+                                    const SizedBox(height: spacing),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 15.0),
                                       child: DesignDescription(
                                           language: language, design: design),
                                     ),
-                                  ),
-                                ],
-                              )
-                            : Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  PiecePhotos(photoNames: piece.imageFileNames),
-                                  const SizedBox(height: spacing),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 15.0),
-                                    child: DesignDescription(
-                                        language: language, design: design),
-                                  ),
-                                ],
-                              ),
-                      ),
-                      const Footer(),
-                    ],
-                  );
-                },
-              );
-            },
+                                  ],
+                                ),
+                        ),
+                        const Footer(),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
           );
         },
       ),

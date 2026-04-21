@@ -52,9 +52,10 @@ class PieceCard extends StatelessWidget {
     PieceRoute(id: piece.id).push(context);
   }
 
-  Photo _photo(List<String> imageFileNames) {
-    final exampleFileName = imageFileNames.isNotEmpty ? imageFileNames[0] : '';
-    return Photo(id: exampleFileName, url: "$photoBaseUrl$exampleFileName");
+  Photo? _photo(List<String> imageFileNames) {
+    if (imageFileNames.isEmpty) return null;
+    final fileName = imageFileNames[0];
+    return Photo(id: fileName, url: "$photoBaseUrl$fileName");
   }
 
   TextStyle _titleStyle(BuildContext context) {

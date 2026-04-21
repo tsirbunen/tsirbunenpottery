@@ -125,10 +125,8 @@ class _PhotoWithFallbackState extends State<PhotoWithFallback>
   void initState() {
     super.initState();
     if (Environment.noNetworkImages) {
-      setState(() {
-        _noNetworkImages = true;
-        _isLoading = false;
-      });
+      _noNetworkImages = true;
+      _isLoading = false;
     }
 
     if (widget.photo == null || _noNetworkImages) return;
