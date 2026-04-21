@@ -2,14 +2,6 @@
 
 
 
-
-
-FINDING #35 — SEVERITY: LOW
-app_locale.dart:52 — shouldReload() returns true unconditionally, triggering unnecessary reloads on every check. For a const delegate, false is correct.
-
-FINDING #36 — SEVERITY: MEDIUM
-app_locale.dart:11 — late Translations translations is a mutable late field set once in the constructor. Should be final.
-
 ARCHITECTURAL FINDING A — SEVERITY: HIGH
 PiecesState, CategoriesState, CollectionsState, DesignsState all independently store designsById and piecesById. Every feature bloc holds its own copy of the full product dataset. As data grows, memory multiplies linearly with features. A central "products store" would serve all feature blocs from one source.
 

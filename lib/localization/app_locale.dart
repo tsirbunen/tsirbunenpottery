@@ -8,15 +8,9 @@ import 'en.dart';
 
 class AppLocale {
   final Locale locale;
-  late Translations translations;
+  final Translations translations;
 
-  AppLocale(this.locale) {
-    if (locale.languageCode == 'fi') {
-      translations = Fi();
-    } else {
-      translations = En();
-    }
-  }
+  AppLocale(this.locale) : translations = locale.languageCode == 'fi' ? Fi() : En();
 
   static AppLocale of(final BuildContext context) {
     return Localizations.of<AppLocale>(context, AppLocale)!;
@@ -49,9 +43,7 @@ class CustomLocalizationsDelegate extends LocalizationsDelegate<AppLocale> {
   }
 
   @override
-  bool shouldReload(CustomLocalizationsDelegate old) {
-    return true;
-  }
+  bool shouldReload(CustomLocalizationsDelegate old) => false;
 }
 
 // Note: This is to enable the use of translation with a very short syntax,
