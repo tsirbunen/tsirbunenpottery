@@ -2,8 +2,7 @@
 
 
 
-FINDING #34 — SEVERITY: HIGH (DRY)
-designs_view.dart:87-112 — Third divergent implementation of the _gridParams algorithm, alongside pieces_view.dart:81-106 and models.dart:40-69. Three separate versions of the same layout computation with subtly different implementations.
+
 
 FINDING #35 — SEVERITY: LOW
 app_locale.dart:52 — shouldReload() returns true unconditionally, triggering unnecessary reloads on every check. For a const delegate, false is correct.

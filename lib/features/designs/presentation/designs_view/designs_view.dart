@@ -34,7 +34,7 @@ class _DesignsViewState extends State<DesignsView>
           final designs = state.designs;
           final representativePieces = state.representativePieces;
 
-          final gridParams = _gridParams(context, designs.length);
+          final gridParams = computeGridParams(context, [designs.length]);
 
           return BlocSelector<LanguageBloc, LanguageState, Language>(
             selector: (langState) => langState.language,
@@ -65,33 +65,6 @@ class _DesignsViewState extends State<DesignsView>
           );
         },
       ),
-    );
-  }
-
-  GridParams _gridParams(BuildContext context, int designCount) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final availableWidth = screenWidth - 2 * sideMargin;
-    final itemsPerRowEstimate = (availableWidth + horizontalGridSpacing) ~/
-        (defaultMinPhotoWidth + horizontalGridSpacing);
-
-    if (designCount == 0) {
-      return GridParams(
-        itemsPerRow: 0,
-        photoWidth: 0,
-        availableWidth: availableWidth,
-      );
-    }
-
-    final itemsPerRow = itemsPerRowEstimate.clamp(1, designCount);
-    final totalSpacing = horizontalGridSpacing * (itemsPerRow - 1);
-    final photoWidth =
-        ((availableWidth - totalSpacing) / itemsPerRow)
-            .clamp(defaultMinPhotoWidth, defaultMaxPhotoWidth);
-
-    return GridParams(
-      itemsPerRow: itemsPerRow,
-      photoWidth: photoWidth,
-      availableWidth: availableWidth,
     );
   }
 }
