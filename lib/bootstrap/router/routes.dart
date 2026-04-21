@@ -20,7 +20,6 @@ const collectionsRoot = '/collections';
 const categoriesRoot = '/categories';
 const designsRoot = '/designs';
 const contactRoot = '/contact';
-const storyRoot = '/story';
 
 @TypedGoRoute<HomeRoute>(path: HomeRoute.path)
 @immutable

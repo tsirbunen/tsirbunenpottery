@@ -97,8 +97,6 @@ All features must follow this structure:
 | contact | /contact | Contact info |
 | designs | /designs | Pottery designs |
 
-Commented-out (not active): `story`
-
 ## Singletons (registered in service_locator.dart)
 | Type | Kind | Responsibility |
 |---|---|---|

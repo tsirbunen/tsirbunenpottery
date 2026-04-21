@@ -26,8 +26,9 @@ class DrawerForAppBar extends StatelessWidget {
             ...RouteEnum.values.map(
               (route) {
                 final pageName = context.local(route.pageName());
+                
                 return DrawerRouteItem(
-                  routeLabel: context.local(route.pageName()),
+                  routeLabel: pageName,
                   iconData: route.iconData,
                   path: route.path(),
                   isCurrentRoute: pageName == currentPage,

@@ -32,9 +32,9 @@ import 'package:tsirbunenpottery/features/pieces/repository/pieces_repository.da
 import 'mock_cloud_service_helpers.dart';
 
 void prepareBlocsForTests() {
-  if (!getIt.isRegistered<LanguageBloc>()) {
-    const logger = NoOpAppLogger();
-    getIt.registerSingleton<AppLogger>(logger);
+  getIt.reset();
+  const logger = NoOpAppLogger();
+  getIt.registerSingleton<AppLogger>(logger);
 
     final cloudService = mockCloudServiceWithHomeImageData();
 
@@ -70,7 +70,6 @@ void prepareBlocsForTests() {
     getIt.registerSingleton<ScrollPositionCache>(ScrollPositionCache());
     getIt.registerSingleton<GoRouter>(buildRouter());
     getIt.registerSingleton<Environment>(const Environment(noNetworkImages: true));
-  }
 }
 
 void setUpAndTearDownAllBlocsAndPreventNetworkImages() {

@@ -2,27 +2,6 @@
 
 
 
-FINDING #27 — SEVERITY: LOW
-contact_email_with_copy_option.dart:24 — Clipboard.setData(...) result is not awaited. Clipboard write failures are silently ignored.
-
-FINDING #28 — SEVERITY: LOW
-title_with_hover_effect.dart:29,32 — State class TitleWithHoverEffectState is public. State classes should be private (_TitleWithHoverEffectState).
-
-FINDING #29 — SEVERITY: MEDIUM
-prepare_blocs_for_tests.dart:30 — getIt.isRegistered<LanguageBloc>() guard masks global test state pollution. If multiple test groups use this, earlier test state leaks into later groups. Tests should each own their setup/teardown lifecycle cleanly.
-
-FINDING #30 — SEVERITY: MEDIUM
-drawer_for_app_bar.dart:26 — Shows RouteEnum.values in the drawer including designs, which has no active route. Tapping it would 404.
-
-FINDING #31 — SEVERITY: LOW
-drawer_for_app_bar.dart:28,30 — context.local(route.pageName()) called twice — line 28 computes pageName, but line 30 recomputes it instead of using the variable.
-
-FINDING #32 — SEVERITY: MEDIUM
-routes.dart:110-118 — DesignsRoute is a fully active route definition. But ARCHITECTURE.md says designs is "commented-out (not active)". The codebase and documentation are out of sync — the route IS live.
-
-FINDING #33 — SEVERITY: LOW
-routes.dart:23 — storyRoot = '/story' constant is dead code — never used anywhere.
-
 FINDING #34 — SEVERITY: HIGH (DRY)
 designs_view.dart:87-112 — Third divergent implementation of the _gridParams algorithm, alongside pieces_view.dart:81-106 and models.dart:40-69. Three separate versions of the same layout computation with subtly different implementations.
 

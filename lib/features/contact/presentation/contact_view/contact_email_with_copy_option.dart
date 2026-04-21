@@ -14,26 +14,29 @@ class ContactEmailWithCopyOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-    final contactEmail = context.local(Translation.contactEmail);
-    final emailCopiedToClipboard =
+    final contactEmaiLabel = context.local(Translation.contactEmail);
+    final emailCopiedToClipboardLabel =
         context.local(Translation.emailCopiedToClipboard);
-    final tapToCopyEmail = context.local(Translation.tapToCopyEmail);
+    final tapToCopyEmailLabel = context.local(Translation.tapToCopyEmail);
 
     return GestureDetector(
-      onTap: () {
-        Clipboard.setData(ClipboardData(text: contactEmail));
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(emailCopiedToClipboard),
-            duration: snackBarDuration,
-            backgroundColor: colors.primary,
-          ),
-        );
+      onTap: () async {
+        final messenger = ScaffoldMessenger.of(context);
+        try {
+          await Clipboard.setData(ClipboardData(text: contactEmaiLabel));
+          messenger.showSnackBar(
+            SnackBar(
+              content: Text(emailCopiedToClipboardLabel),
+              duration: snackBarDuration,
+              backgroundColor: colors.primary,
+            ),
+          );
+        } catch (_) {}
       },
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
         child: Tooltip(
-          message: tapToCopyEmail,
+          message: tapToCopyEmailLabel,
           decoration: _tooltipDecoration(colors),
           textStyle: _tooltipTextStyle(colors),
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -48,7 +51,7 @@ class ContactEmailWithCopyOption extends StatelessWidget {
               const SizedBox(width: 5.0),
               Flexible(
                 child: Text(
-                  contactEmail,
+                  contactEmaiLabel,
                   style: _emailTextStyle(colors),
                   overflow: TextOverflow.ellipsis,
                 ),
