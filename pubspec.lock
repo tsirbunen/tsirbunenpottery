@@ -50,7 +50,7 @@ packages:
     source: hosted
     version: "9.2.0"
   bloc_test:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: bloc_test
       sha256: "1dd549e58be35148bc22a9135962106aa29334bc1e3f285994946a1057b29d7b"
@@ -98,7 +98,7 @@ packages:
     source: hosted
     version: "2.13.1"
   build_verify:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: build_verify
       sha256: "3b17b59b6d66f9d3e6014996f089902d56cec5760e051c353cc387b9da577652"
@@ -331,7 +331,7 @@ packages:
     source: sdk
     version: "0.0.0"
   freezed:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: freezed
       sha256: f23ea33b3863f119b58ed1b586e881a46bd28715ddcc4dbc33104524e3434131
@@ -384,7 +384,7 @@ packages:
     source: hosted
     version: "17.2.0"
   go_router_builder:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: go_router_builder
       sha256: c9bfc336012b98096023e606e39ec8848858ba8ad3a8540e20b4a0e7cbe89140
@@ -445,7 +445,7 @@ packages:
     source: hosted
     version: "4.11.0"
   json_serializable:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: json_serializable
       sha256: fbcf404b03520e6e795f6b9b39badb2b788407dfc0a50cf39158a6ae1ca78925
@@ -533,7 +533,7 @@ packages:
     source: hosted
     version: "2.0.0"
   mockito:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: mockito
       sha256: eff30d002f0c8bf073b6f929df4483b543133fcafce056870163587b03f1d422

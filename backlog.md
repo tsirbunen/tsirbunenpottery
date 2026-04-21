@@ -26,11 +26,6 @@ Piece.fromJson, Design.fromJson, Category.fromJson, Collection.fromJson — all 
 FINDING #42 — SEVERITY: MEDIUM (architectural)
 Models use json_serializable + freezed but Firestore documents contain DocumentReference objects that json_serializable can't handle. So fromJson is fundamentally unusable for Firestore data. Either drop json_serializable or implement custom converters. Currently it's generating dead code.
 
-FINDING #43 — SEVERITY: MEDIUM
-pubspec.yaml:11 — bloc_test and mockito are in dependencies (production), not dev_dependencies. These are test-only libraries and bloat the web bundle.
-
-FINDING #44 — SEVERITY: MEDIUM
-pubspec.yaml:12 — build_verify is also in dependencies instead of dev_dependencies.
 
 FINDING #45 — SEVERITY: HIGH (observability gap)
 pieces_bloc.dart:35-37, categories_bloc.dart:37-39, etc. — Feature blocs catch errors but no logger is injected. Errors are stored in state as e.toString() without being logged with stack traces. Production errors are invisible in monitoring.
