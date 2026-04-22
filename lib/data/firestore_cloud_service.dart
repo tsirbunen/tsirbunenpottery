@@ -25,7 +25,7 @@ class FirestoreCloudService implements CloudService {
         return null;
       }
       _logger.logInfo('fetchOne [$collection/$documentId]: ok', tag: _tag);
-      return {'id': doc.id, ...doc.data()!};
+      return {'id': doc.id, ...doc.data() ?? {}};
     } on FirebaseException catch (e) {
       _logger.logError(
         'fetchOne failed [$collection/$documentId]: ${e.code} — ${e.message}',

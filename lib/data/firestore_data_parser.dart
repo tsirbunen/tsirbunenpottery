@@ -87,7 +87,15 @@ class FirestoreDataParser {
         id: data['id'] as String,
         designId: designId,
         imageFileNames: (data['imageFileNames'] as List<dynamic>? ?? [])
-            .whereType<String>()
+            .where((e) {
+              if (e is String) return true;
+              _logger.logWarning(
+                'Piece "${data['id']}" — imageFileNames contains non-String value: $e (${e.runtimeType})',
+                tag: _tag,
+              );
+              return false;
+            })
+            .cast<String>()
             .toList(),
         collectionId: _idOfRef(data, collections, 'collectionId'),
         sold: data['sold'] as bool? ?? false,
@@ -157,11 +165,11 @@ class FirestoreDataParser {
   ) {
     final raw = data[fieldName];
     if (raw is! List) return [];
-    final refIds = raw.map((e) {
+    final validIds = items.map((e) => e.id).toSet();
+    return raw.map((e) {
       if (e is DocumentReference) return e.id;
       return e as String;
-    }).toList();
-    return refIds.where((refId) => items.any((item) => item.id == refId)).toList();
+    }).where(validIds.contains).toList();
   }
 
   String? _idOfRef<T extends Identifiable>(
@@ -175,6 +183,7 @@ class FirestoreDataParser {
             ? value
             : null;
     if (refId == null) return null;
-    return items.any((item) => item.id == refId) ? refId : null;
+    final validIds = items.map((e) => e.id).toSet();
+    return validIds.contains(refId) ? refId : null;
   }
 }

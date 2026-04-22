@@ -19,22 +19,6 @@ Category: Bug / Localization
 
 
 
-**H2** `data/products_repository.dart:204-226`
-Category: Performance
-`_idsOfRefs()` and `_idOfRef()` call `items.any()` (O(n)) for every reference lookup. With large datasets this is O(n²). Pre-build a `Set<String>` of valid IDs once before the loop.
-
-**H3** `data/products_repository.dart:70-154`
-Category: Error Handling / Observability
-`whereType<T>()` silently drops malformed Firestore items. In production, data silently disappears with no alerting. Log at warning level with doc ID and field name; consider reporting rejection rate to analytics.
-
-**H4** `data/firestore_cloud_service.dart:28`
-Category: Null Safety
-`doc.data()!` force-unwraps after an existence check. Firestore can return a document snapshot with `null` data even when `exists == true`. Replace with `doc.data() ?? {}`.
-
-**H5** All BLoC state files
-Category: BLoC / State Design
-Every state's `copyWith()` only allows updating `blocStatus`. Data payload fields (`homePageImageFileName`, `piecesById`, `designsById`, etc.) cannot be updated through `copyWith`, forcing full state reconstruction elsewhere. Extend every `copyWith` to include all fields.
-
 **H6** `widgets/progress_indicator/progress_indicator_xl.dart:37-50`
 Category: Bug / Lifecycle
 `context` and `Theme.of(context)` are accessed inside `Future.delayed(Duration.zero, ...)`. If the widget unmounts before the future resolves, this throws a `FlutterError`. Add `if (!mounted) return;` before any `context` or `setState` call in the callback.
