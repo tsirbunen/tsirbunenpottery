@@ -5,3 +5,4 @@ const String photoBaseUrl =
     'https://res.cloudinary.com/dtit0iggx/image/upload/';
 
 const homePageImageDocId = 'home-page-file-name';
+const ownerPhotoDocId = 'owner-photo-file-name';

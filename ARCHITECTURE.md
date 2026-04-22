@@ -108,7 +108,7 @@ All features must follow this structure:
 | `CollectionsBloc` | BLoC | Hold shaped collections + designs data for the Collections route |
 | `ScrollPositionCache` | plain class | Key→offset map for scroll restoration; never drives rebuilds |
 
-Feature BLoCs use `Bloc<AppBlocEvent, XxxState>` so the shared `BlocStatusChanged` event (defined in `core/state/app_bloc_event.dart`) can be dispatched to any of them. Each feature's own event class (e.g. `PiecesEvent`) still extends `AppBlocEvent` and is re-exported from the feature's event file.
+Each feature BLoC is typed as `Bloc<XxxEvent, XxxState>` where `XxxEvent` is a `sealed class` extending `AppBlocEvent`. Sealed events give exhaustive switch checking — the compiler catches unhandled cases and prevents wrong-event dispatches. `BlocStatusChanged` remains in `core/state/app_bloc_event.dart` for future use (bloc-to-bloc status signalling) but must be added to a feature's sealed hierarchy before it can be dispatched to that bloc.
 
 BLoCs are seeded with initial events in `service_locator.dart` and exposed to the widget tree via `MultiBlocProvider` in `App`.
 

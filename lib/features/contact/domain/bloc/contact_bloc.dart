@@ -1,26 +1,23 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
-import 'package:tsirbunenpottery/core/state/app_bloc_event.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/contact/domain/bloc/contact_event.dart';
 import 'package:tsirbunenpottery/features/contact/domain/bloc/contact_state.dart';
 import 'package:tsirbunenpottery/features/contact/repository/contact_repository.dart';
 
-class ContactBloc extends Bloc<AppBlocEvent, ContactState> {
+class ContactBloc extends Bloc<ContactEvent, ContactState> {
   final ContactRepository _repository;
   final AppLogger _logger;
 
   ContactBloc(this._repository, {required AppLogger logger})
       : _logger = logger,
         super(const ContactState()) {
-    on<AppBlocEvent>(_onEvent);
+    on<ContactEvent>(_onEvent);
   }
 
-  Future<void> _onEvent(AppBlocEvent event, Emitter<ContactState> emit) async {
+  Future<void> _onEvent(ContactEvent event, Emitter<ContactState> emit) async {
     switch (event) {
-      case final BlocStatusChanged e:
-        emit(state.copyWith(blocStatus: e.status));
-      case final FetchOwnerPhoto _:
+      case FetchOwnerPhoto():
         await _onFetch(emit);
     }
   }

@@ -65,6 +65,7 @@ class _ContactFormState extends State<ContactForm> {
               width: 150.0,
               height: 50,
               child: ElevatedButton(
+                // FIXME: Add functionality once mail service available
                 onPressed: null,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: colors.primary.withValues(alpha: 0.8),
@@ -88,6 +89,7 @@ class _ContactFormState extends State<ContactForm> {
       ),
     );
   }
+
 
   Widget _buildTextField(
     ColorScheme colors,

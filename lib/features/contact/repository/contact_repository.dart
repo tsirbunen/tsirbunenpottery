@@ -9,7 +9,7 @@ class ContactRepository {
   Future<String?> fetchOwnerPhotoFileName() async {
     final data = await _cloudService.fetchOne(
       collection: 'miscellaneous',
-      documentId: homePageImageDocId,
+      documentId: ownerPhotoDocId,
     );
     return data?['name'] as String?;
   }

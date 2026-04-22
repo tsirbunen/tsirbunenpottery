@@ -1,27 +1,24 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
-import 'package:tsirbunenpottery/core/state/app_bloc_event.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/categories/domain/bloc/categories_event.dart';
 import 'package:tsirbunenpottery/features/categories/domain/bloc/categories_state.dart';
 import 'package:tsirbunenpottery/features/categories/repository/categories_repository.dart';
 
-class CategoriesBloc extends Bloc<AppBlocEvent, CategoriesState> {
+class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   final CategoriesRepository _repository;
   final AppLogger _logger;
 
   CategoriesBloc(this._repository, {required AppLogger logger})
       : _logger = logger,
         super(const CategoriesState()) {
-    on<AppBlocEvent>(_onEvent);
+    on<CategoriesEvent>(_onEvent);
   }
 
   Future<void> _onEvent(
-      AppBlocEvent event, Emitter<CategoriesState> emit) async {
+      CategoriesEvent event, Emitter<CategoriesState> emit) async {
     switch (event) {
-      case final BlocStatusChanged e:
-        emit(state.copyWith(blocStatus: e.status));
-      case final FetchCategories _:
+      case FetchCategories():
         await _onFetch(emit);
     }
   }

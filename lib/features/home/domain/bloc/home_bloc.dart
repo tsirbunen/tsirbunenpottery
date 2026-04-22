@@ -1,26 +1,23 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
-import 'package:tsirbunenpottery/core/state/app_bloc_event.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/home/domain/bloc/home_event.dart';
 import 'package:tsirbunenpottery/features/home/domain/bloc/home_state.dart';
 import 'package:tsirbunenpottery/features/home/repository/home_repository.dart';
 
-class HomeBloc extends Bloc<AppBlocEvent, HomeState> {
+class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final HomeRepository _repository;
   final AppLogger _logger;
 
   HomeBloc(this._repository, {required AppLogger logger})
       : _logger = logger,
         super(const HomeState()) {
-    on<AppBlocEvent>(_onEvent);
+    on<HomeEvent>(_onEvent);
   }
 
-  Future<void> _onEvent(AppBlocEvent event, Emitter<HomeState> emit) async {
+  Future<void> _onEvent(HomeEvent event, Emitter<HomeState> emit) async {
     switch (event) {
-      case final BlocStatusChanged e:
-        emit(state.copyWith(blocStatus: e.status));
-      case final FetchHomePageImageFileName _:
+      case FetchHomePageImageFileName():
         await _onFetch(emit);
     }
   }

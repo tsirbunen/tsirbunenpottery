@@ -1,26 +1,23 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
-import 'package:tsirbunenpottery/core/state/app_bloc_event.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/designs/domain/bloc/designs_event.dart';
 import 'package:tsirbunenpottery/features/designs/domain/bloc/designs_state.dart';
 import 'package:tsirbunenpottery/features/designs/repository/designs_repository.dart';
 
-class DesignsBloc extends Bloc<AppBlocEvent, DesignsState> {
+class DesignsBloc extends Bloc<DesignsEvent, DesignsState> {
   final DesignsRepository _repository;
   final AppLogger _logger;
 
   DesignsBloc(this._repository, {required AppLogger logger})
       : _logger = logger,
         super(const DesignsState()) {
-    on<AppBlocEvent>(_onEvent);
+    on<DesignsEvent>(_onEvent);
   }
 
-  Future<void> _onEvent(AppBlocEvent event, Emitter<DesignsState> emit) async {
+  Future<void> _onEvent(DesignsEvent event, Emitter<DesignsState> emit) async {
     switch (event) {
-      case final BlocStatusChanged e:
-        emit(state.copyWith(blocStatus: e.status));
-      case final FetchDesigns _:
+      case FetchDesigns():
         await _onFetch(emit);
     }
   }

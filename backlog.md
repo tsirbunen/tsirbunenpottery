@@ -1,4 +1,11 @@
-
+first clear your memory of bugs/issues that you reported earlier, start fresh.                                
+  I want you to get the latest versions of files in the codebase and then start looking for things to refactor   
+  or bugs.  as you go, log all issues you find to @temp_backlog.md file. report to that file all problems big    
+  and small. i am interested in everything from architectural issues and library selection to variable naming.   
+  and remember that the target is to make all the code super clean and super senior-like, as if it was a very    
+  large very complex production app. give the severity of the issue and shortly describe the problem. add all    
+  your findings to the file @temp_backlog.md as you go. you now have the permission to log your results to that  
+  file. 
 
 
 
@@ -29,60 +36,3 @@ Models use json_serializable + freezed but Firestore documents contain DocumentR
 
 FINDING #45 — SEVERITY: HIGH (observability gap)
 pieces_bloc.dart:35-37, categories_bloc.dart:37-39, etc. — Feature blocs catch errors but no logger is injected. Errors are stored in state as e.toString() without being logged with stack traces. Production errors are invisible in monitoring.
-
----
-
-# Summary Tables
-
-Full codebase audit — 2026-04-18.
-
-## HIGH severity
-
-| # | Location | Issue |
-|---|---|---|
-| 13 | `categories_view.dart:81` `collections_view.dart:81` | O(n²) piece lookup: `allPieces.where((p) => pieceIds.contains(p.id))` where `pieceIds` is a `List`. Convert to `Set`. |
-| 15 | `categories_view.dart` `collections_view.dart` | Near-identical files — same double-`BlocBuilder` structure, same `_fetchTriggered` pattern, same `_designsToShow` logic, same O(n²) lookup. Should share a base class or mixin. |
-| 34 | `pieces_view.dart:81` `designs_view.dart:87` `models.dart:40` | Three separate and subtly different implementations of the same grid-params layout algorithm. One canonical function needed. |
-| 40 | `categories_repository.dart` vs `collections_repository.dart` | Collections guards against duplicate piece IDs; categories does not. If a piece appears in a category more than once, the ID list is silently corrupted. |
-| 45 | All feature blocs | No logger injected into feature blocs. Errors are caught and stored in state but never logged — production errors are invisible. |
-| A | All feature states | `PiecesState`, `CategoriesState`, `CollectionsState`, `DesignsState` each store their own full copy of `designsById` and `piecesById`. Memory grows linearly with the number of features. A single shared products store should serve all blocs. |
-| B | All feature bloc catch blocks | `e.toString()` is stored in `BlocStatus.message` and can reach the UI. Raw exception text must never be shown to users. Errors should map to user-friendly messages, and `StackTrace` should be passed to the logger. |
-
-## MEDIUM severity
-
-| # | Location | Issue |
-|---|---|---|
-
-| 9 | All feature views | `_fetchTriggered` boolean flag in `didChangeDependencies` is a fragile one-time fetch pattern. Blocs should be seeded consistently in `service_locator.dart`, as `HomeBloc` already is. |
-| 10 | All feature views | `BlocBuilder<LanguageBloc>` wraps the feature `BlocBuilder`. Any language change rebuilds the entire feature widget tree. |
-| 14 | `categories_view.dart:52` `collections_view.dart:52` | `categoriesById` map, `allPieces.toList()`, and grouped designs are all recomputed on every `build()`. Should be derived once when state changes. |
-| 16 | `items_grid.dart:81` | Unresolved FIXME in production code about horizontal overflow in tests. |
-| 17 | `pieces_view.dart:81` | `_gridParams()` is a near-duplicate of `computeGridParams()` in `models.dart` but takes `List<int>` instead of a `Map`. The two implementations have diverged. |
-| 18 | `bloc_status_view.dart:28` `photo_with_fallback.dart:216` | Widgets call `getIt<AppLogger>()` directly — a hidden service-locator dependency that breaks widget testability. Error logging belongs in the bloc. |
-| 19 | `piece_card.dart:55` | Returns a non-nullable `Photo` with an empty URL when `imageFileNames` is empty. Should return `null` so `PhotoWithFallback` shows the placeholder. |
-| 20 | `photo_with_fallback.dart:127` | `setState()` called inside `initState()` causes a double build. Fields should be set directly without `setState`. |
-| 21 | `single_piece_view.dart:56` | No `BlocStatusView` wrapper. While data is loading, `piece == null` shows "design not found" instead of a loading indicator. UX bug. |
-| 22, 32, 38 | `route_enum.dart` `routes.dart` `ARCHITECTURE.md` | The designs route is fully active in the code (`DesignsRoute` registered, bloc wired up, shown in nav/drawer), but `ARCHITECTURE.md` says it is "commented-out (not active)". Docs and code are out of sync. |
-| 24 | `app_environment.dart:2` | `noNetworkImages` is a mutable static global — untestable and not resettable between test groups. Should use dependency injection. |
-| 25 | `contact_page.dart:13` | Constructor parameter `imageFileName` is declared but never used — the actual value is read from `HomeBloc` instead. |
-| 26 | `contact_page.dart:19` | `ContactPage` reads from `HomeBloc` directly. Cross-feature coupling — Contact should not know about Home state. |
-| 29 | `prepare_blocs_for_tests.dart:30` | `getIt.isRegistered` guard masks test state pollution. State from one test group can silently leak into the next. |
-| 30 | `drawer_for_app_bar.dart:26` `horizontal_navigation.dart:43` | Both iterate `RouteEnum.values`, which includes `designs`. This renders a nav item that leads to a broken or ambiguous route. |
-| 36 | `app_locale.dart:11` | `late Translations translations` is mutable but set exactly once in the constructor. Should be `final`. |
-| 37 | `horizontal_navigation.dart:22` | Reads current path via the internal API `routerDelegate.currentConfiguration.uri.path`. Should use the public `GoRouterState.of(context).uri.path`. |
-| 39 | `collections_repository.dart:36` | Uses `List.contains` to check for duplicate piece IDs — O(n) per piece. Should use a `Set`. |
-| 41 | All domain models | `fromJson`/`toJson` are declared via `json_serializable` but never called from application or test code. `ProductsRepository` manually constructs models from raw maps. |
-| 42 | All domain models | `json_serializable` cannot handle Firestore `DocumentReference` objects, so `fromJson` is fundamentally unusable for Firestore data. Either drop `json_serializable` or add custom converters. |
-| 43 | `pubspec.yaml` | `bloc_test`, `mockito`, and `build_verify` are in `dependencies` instead of `dev_dependencies`. These are test-only libraries that bloat the production web bundle. |
-
-## LOW severity
-
-| # | Location | Issue |
-|---|---|---|
-| 12 | `home_page.dart:76,81` | `textTheme.bodyMedium!` is null-asserted. Should use `?? const TextStyle()` as a fallback. |
-| 23 | `route_controller.dart` | `RouteController` is a stateless class wrapping a single method call. Should be a top-level function. |
-| 27 | `contact_email_with_copy_option.dart:24` | `Clipboard.setData()` is not awaited — write failures are silently ignored. |
-| 28 | `title_with_hover_effect.dart:29,32` | State class `TitleWithHoverEffectState` is public. Should be `_TitleWithHoverEffectState`. |
-| 31 | `drawer_for_app_bar.dart:28,30` | `context.local(route.pageName())` is called twice on consecutive lines. The already-computed `pageName` variable should be reused. |
-| 33 | `routes.dart:23` | `storyRoot = '/story'` is a dead constant — never used anywhere. |
-| 35 | `app_locale.dart:52` | `shouldReload()` returns `true` unconditionally. For a `const` delegate, `false` is correct. |
