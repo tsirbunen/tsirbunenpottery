@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/designs/domain/bloc/designs_event.dart';
-import 'package:tsirbunenpottery/features/designs/domain/models/designs_state/designs_state.dart';
+import 'package:tsirbunenpottery/features/designs/domain/bloc/designs_state.dart';
 import 'package:tsirbunenpottery/features/designs/repository/designs_repository.dart';
 
 class DesignsBloc extends Bloc<DesignsEvent, DesignsState> {

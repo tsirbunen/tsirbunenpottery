@@ -5,7 +5,7 @@ import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
 import 'package:tsirbunenpottery/localization/languages.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_bloc.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_event.dart';
-import 'package:tsirbunenpottery/features/pieces/domain/models/pieces_state/pieces_state.dart';
+import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_state.dart';
 import 'package:tsirbunenpottery/widgets/items_grid/barrel.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';

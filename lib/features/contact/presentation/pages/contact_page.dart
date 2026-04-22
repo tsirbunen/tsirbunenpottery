@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/features/contact/domain/bloc/contact_bloc.dart';
-import 'package:tsirbunenpottery/features/contact/domain/models/contact_state/contact_state.dart';
+import 'package:tsirbunenpottery/features/contact/domain/bloc/contact_state.dart';
 import 'package:tsirbunenpottery/features/contact/presentation/contact_view/contact_form.dart';
 import 'package:tsirbunenpottery/features/contact/presentation/contact_view/photo_and_info.dart';
 import 'package:tsirbunenpottery/widgets/footer/footer.dart';

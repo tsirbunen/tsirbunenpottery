@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/contact/domain/bloc/contact_event.dart';
-import 'package:tsirbunenpottery/features/contact/domain/models/contact_state/contact_state.dart';
+import 'package:tsirbunenpottery/features/contact/domain/bloc/contact_state.dart';
 import 'package:tsirbunenpottery/features/contact/repository/contact_repository.dart';
 
 class ContactBloc extends Bloc<ContactEvent, ContactState> {
