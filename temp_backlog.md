@@ -11,25 +11,13 @@ Severity scale: CRITICAL > HIGH > MEDIUM > LOW
 Category: Bug / Localization
 `.substring(0, 2)` to extract language codes assumes codes are always 2 characters. Locale codes like `zh-Hans` or `en-US` will be silently truncated incorrectly. Use `locale.languageCode` instead.
 
-**C5** `features/pieces/presentation/single_piece_view/design_description.dart:16`
-Category: Null Safety / Crash
-`design.names[language]!` force-unwraps a nullable map lookup. If a design is missing a translation for the active language (data inconsistency or new language added), this crashes at runtime. Use `?? ''` fallback or a safe lookup helper.
 
-**C6** `data/firestore_cloud_service.dart:46`
-Category: Null Safety / Crash
-`.map((doc) => doc.data())` in collection fetch does not guard against documents with null data. Force-unwrapping or directly using the result will crash on any malformed document. Add `.where((d) => d.data() != null)` before mapping.
-
-**C7** `data/products_repository.dart:224`
-Category: Null Safety / Crash
-`value as String` performs a hard cast without a prior type check. If Firestore returns a non-string value in this field, the app throws a `TypeError`. Use `value is String ? value : null` or `value?.toString()`.
 
 ---
 
 ## HIGH
 
-**H1** `data/products_repository.dart` (overall)
-Category: Architecture / SRP
-God repository: parses 4 entity types, resolves cross-references, and holds a cache — all in one class. Violates SRP. Extract `PiecesDataParser`, `DesignsDataParser`, etc. or a dedicated `FirestoreDataParser` service.
+
 
 **H2** `data/products_repository.dart:204-226`
 Category: Performance

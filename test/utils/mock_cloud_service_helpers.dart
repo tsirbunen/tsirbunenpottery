@@ -18,15 +18,20 @@ MockCloudService mockCloudServiceWithData() {
   return mock;
 }
 
-/// Returns a [MockCloudService] with product data and a stubbed home image.
+/// Returns a [MockCloudService] with product data and stubbed home image + owner photo.
 MockCloudService mockCloudServiceWithHomeImageData({
   String fileName = 'hero_image.jpg',
+  String ownerPhotoFileName = 'hero_image.jpg',
 }) {
   final mock = mockCloudServiceWithData();
   when(mock.fetchOne(
     collection: 'miscellaneous',
     documentId: homePageImageDocId,
   )).thenAnswer((_) async => {'name': fileName});
+  when(mock.fetchOne(
+    collection: 'miscellaneous',
+    documentId: ownerPhotoDocId,
+  )).thenAnswer((_) async => {'name': ownerPhotoFileName});
   return mock;
 }
 

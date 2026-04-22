@@ -10,6 +10,7 @@ import 'package:tsirbunenpottery/core/scroll_position_cache/scroll_position_cach
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/data/cloud_service.dart';
 import 'package:tsirbunenpottery/data/firestore_cloud_service.dart';
+import 'package:tsirbunenpottery/data/firestore_data_parser.dart';
 import 'package:tsirbunenpottery/data/products_repository.dart';
 import 'package:tsirbunenpottery/features/categories/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/features/categories/repository/categories_repository.dart';
@@ -45,7 +46,8 @@ void prepareBlocs({CloudService? cloudService}) {
   final contactBloc = ContactBloc(ContactRepository(cloudService), logger: logger);
   contactBloc.add(FetchOwnerPhoto());
 
-  final productsRepository = ProductsRepository(cloudService, logger: logger);
+  final parser = FirestoreDataParser(logger: logger);
+  final productsRepository = ProductsRepository(cloudService, parser, logger: logger);
 
   final piecesBloc = PiecesBloc(PiecesRepository(productsRepository), logger: logger);
   piecesBloc.add(FetchPieces());
@@ -59,7 +61,7 @@ void prepareBlocs({CloudService? cloudService}) {
   final collectionsBloc = CollectionsBloc(CollectionsRepository(productsRepository), logger: logger);
   collectionsBloc.add(FetchCollections());
   final router = buildRouter();
-
+  getIt.registerSingleton<ScrollPositionCache>(ScrollPositionCache());
   getIt.registerSingleton<LanguageBloc>(languageBloc);
   getIt.registerSingleton<HomeBloc>(homeBloc);
   getIt.registerSingleton<ContactBloc>(contactBloc);
@@ -67,7 +69,6 @@ void prepareBlocs({CloudService? cloudService}) {
   getIt.registerSingleton<DesignsBloc>(designsBloc);
   getIt.registerSingleton<CategoriesBloc>(categoriesBloc);
   getIt.registerSingleton<CollectionsBloc>(collectionsBloc);
-  getIt.registerSingleton<ScrollPositionCache>(ScrollPositionCache());
   getIt.registerSingleton<GoRouter>(router);
   getIt.registerSingleton<Environment>(const Environment());
 }

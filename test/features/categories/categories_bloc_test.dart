@@ -2,6 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tsirbunenpottery/core/logging/noop_app_logger.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
+import 'package:tsirbunenpottery/data/firestore_data_parser.dart';
 import 'package:tsirbunenpottery/data/products_repository.dart';
 import 'package:tsirbunenpottery/features/categories/domain/bloc/categories_bloc.dart';
 import 'package:tsirbunenpottery/features/categories/domain/bloc/categories_event.dart';
@@ -11,11 +12,11 @@ import 'package:tsirbunenpottery/features/categories/repository/categories_repos
 import '../../utils/mock_cloud_service_helpers.dart';
 
 CategoriesBloc _makeBlocWithData() => CategoriesBloc(
-    CategoriesRepository(ProductsRepository(mockCloudServiceWithData(), logger: const NoOpAppLogger())),
+    CategoriesRepository(ProductsRepository(mockCloudServiceWithData(), const FirestoreDataParser(logger: NoOpAppLogger()), logger: const NoOpAppLogger())),
     logger: const NoOpAppLogger());
 
 CategoriesBloc _makeBlocFailing() => CategoriesBloc(
-    CategoriesRepository(ProductsRepository(mockCloudServiceFailing(), logger: const NoOpAppLogger())),
+    CategoriesRepository(ProductsRepository(mockCloudServiceFailing(), const FirestoreDataParser(logger: NoOpAppLogger()), logger: const NoOpAppLogger())),
     logger: const NoOpAppLogger());
 
 void main() {

@@ -9,6 +9,7 @@ import 'package:tsirbunenpottery/core/scroll_position_cache/scroll_position_cach
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_event.dart';
 import 'package:tsirbunenpottery/localization/languages.dart';
+import 'package:tsirbunenpottery/data/firestore_data_parser.dart';
 import 'package:tsirbunenpottery/data/products_repository.dart';
 import 'package:tsirbunenpottery/features/categories/domain/bloc/categories_bloc.dart';
 import 'package:tsirbunenpottery/features/categories/domain/bloc/categories_event.dart';
@@ -35,7 +36,7 @@ void prepareBlocsForTests() {
   getIt.reset();
   const logger = NoOpAppLogger();
   getIt.registerSingleton<AppLogger>(logger);
-
+    getIt.registerSingleton<ScrollPositionCache>(ScrollPositionCache());
     final cloudService = mockCloudServiceWithHomeImageData();
 
     final homeRepository = HomeRepository(cloudService);
@@ -45,7 +46,7 @@ void prepareBlocsForTests() {
     final contactBloc = ContactBloc(ContactRepository(cloudService), logger: logger);
     contactBloc.add(FetchOwnerPhoto());
 
-    final productsRepository = ProductsRepository(cloudService, logger: logger);
+    final productsRepository = ProductsRepository(cloudService, FirestoreDataParser(logger: logger), logger: logger);
 
     final piecesBloc = PiecesBloc(PiecesRepository(productsRepository), logger: logger);
     piecesBloc.add(FetchPieces());
@@ -67,17 +68,16 @@ void prepareBlocsForTests() {
     getIt.registerSingleton<DesignsBloc>(designsBloc);
     getIt.registerSingleton<CategoriesBloc>(categoriesBloc);
     getIt.registerSingleton<CollectionsBloc>(collectionsBloc);
-    getIt.registerSingleton<ScrollPositionCache>(ScrollPositionCache());
     getIt.registerSingleton<GoRouter>(buildRouter());
     getIt.registerSingleton<Environment>(const Environment(noNetworkImages: true));
 }
 
 void setUpAndTearDownAllBlocsAndPreventNetworkImages() {
-  setUpAll(() {
+  setUp(() {
     prepareBlocsForTests();
   });
 
-  tearDownAll(() {
+  tearDown(() {
     getIt.reset();
   });
 }

@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tsirbunenpottery/core/logging/noop_app_logger.dart';
+import 'package:tsirbunenpottery/data/firestore_data_parser.dart';
 import 'package:tsirbunenpottery/data/products_repository.dart';
 import 'package:tsirbunenpottery/features/collections/repository/collections_repository.dart';
 
@@ -12,7 +13,7 @@ void main() {
 
       setUp(() {
         repository = CollectionsRepository(
-          ProductsRepository(mockCloudServiceWithData(), logger: const NoOpAppLogger()),
+          ProductsRepository(mockCloudServiceWithData(), const FirestoreDataParser(logger: NoOpAppLogger()), logger: const NoOpAppLogger()),
         );
       });
 

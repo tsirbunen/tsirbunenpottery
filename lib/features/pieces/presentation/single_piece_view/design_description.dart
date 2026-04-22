@@ -13,7 +13,7 @@ class DesignDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String designName = design.names[language]!;
+    final String designName = design.names[language] ?? '';
     final String foodSafetyDetails =
         context.local(Translation.foodSafetyDetails);
 
