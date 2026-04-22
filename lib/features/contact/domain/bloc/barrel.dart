@@ -1,3 +1,3 @@
 export 'contact_bloc.dart';
 export 'contact_event.dart';
-export 'contact_state.dart';
+export '../models/contact_state/contact_state.dart';

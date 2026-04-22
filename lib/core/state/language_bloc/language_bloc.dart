@@ -8,6 +8,6 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
   }
 
   void _onChangeLanguage(ChangeLanguage event, Emitter<LanguageState> emit) {
-    emit(state.copyWith(newLanguage: event.language));
+    emit(state.copyWith(language: event.language));
   }
 }

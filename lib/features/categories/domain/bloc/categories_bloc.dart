@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/categories/domain/bloc/categories_event.dart';
-import 'package:tsirbunenpottery/features/categories/domain/bloc/categories_state.dart';
+import 'package:tsirbunenpottery/features/categories/domain/models/categories_state/categories_state.dart';
 import 'package:tsirbunenpottery/features/categories/repository/categories_repository.dart';
 
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {

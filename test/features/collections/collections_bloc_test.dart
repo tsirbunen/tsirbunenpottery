@@ -6,7 +6,7 @@ import 'package:tsirbunenpottery/data/firestore_data_parser.dart';
 import 'package:tsirbunenpottery/data/products_repository.dart';
 import 'package:tsirbunenpottery/features/collections/domain/bloc/collections_bloc.dart';
 import 'package:tsirbunenpottery/features/collections/domain/bloc/collections_event.dart';
-import 'package:tsirbunenpottery/features/collections/domain/bloc/collections_state.dart';
+import 'package:tsirbunenpottery/features/collections/domain/models/collections_state/collections_state.dart';
 import 'package:tsirbunenpottery/features/collections/repository/collections_repository.dart';
 
 import '../../utils/mock_cloud_service_helpers.dart';

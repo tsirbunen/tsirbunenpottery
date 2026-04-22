@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_event.dart';
-import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_state.dart';
+import 'package:tsirbunenpottery/features/pieces/domain/models/pieces_state/pieces_state.dart';
 import 'package:tsirbunenpottery/features/pieces/repository/pieces_repository.dart';
 
 class PiecesBloc extends Bloc<PiecesEvent, PiecesState> {

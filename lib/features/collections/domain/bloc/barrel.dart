@@ -1,3 +1,3 @@
 export 'collections_bloc.dart';
 export 'collections_event.dart';
-export 'collections_state.dart';
+export '../models/collections_state/collections_state.dart';

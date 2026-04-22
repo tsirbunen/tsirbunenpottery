@@ -5,7 +5,7 @@ import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
 import 'package:tsirbunenpottery/localization/languages.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_bloc.dart';
-import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_state.dart';
+import 'package:tsirbunenpottery/features/pieces/domain/models/pieces_state/pieces_state.dart';
 import 'package:tsirbunenpottery/features/pieces/presentation/single_piece_view/design_description.dart';
 import 'package:tsirbunenpottery/features/pieces/presentation/single_piece_view/piece_photos.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
