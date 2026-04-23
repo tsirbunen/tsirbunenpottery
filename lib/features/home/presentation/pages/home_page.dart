@@ -19,8 +19,12 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageBase(
       pageBody: BlocBuilder<LanguageBloc, LanguageState>(
+          buildWhen: (prev, next) => prev.language != next.language,
           builder: (BuildContext context, LanguageState _) {
         return BlocBuilder<HomeBloc, HomeState>(
+            buildWhen: (prev, next) =>
+                prev.homePageImageFileName != next.homePageImageFileName ||
+                prev.blocStatus != next.blocStatus,
             builder: (BuildContext context, HomeState homeState) {
           final imageFileName = homeState.homePageImageFileName;
 

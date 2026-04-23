@@ -19,9 +19,6 @@ Category: Bug / Localization
 
 
 
-**H7** `features/home/presentation/pages/home_page.dart:21-24`
-Category: Performance / Widget
-`BlocBuilder<LanguageBloc>` wraps `BlocBuilder<HomeBloc>`. Every language change rebuilds the entire home widget tree including the image. Use `buildWhen` to scope each builder to the fields it actually depends on.
 
 **H8** (Global)
 Category: Error Handling
@@ -39,25 +36,16 @@ All errors use `e.toString()` as the message stored in `BlocStatus` and potentia
 
 
 
-**H13** `data/products_repository.dart:156-161`
-Category: Performance
-`_toLanguage()` does a linear scan through the `Language` enum values for every single field parsed from every single document. This is called thousands of times per fetch. Replace with a `Map<String, Language>` lookup table initialized once.
+
 
 **H14** `widgets/items_grid/models.dart:44`
 Category: Bug / Layout
 Integer division `~/` in `computeGridParams` can yield 0 columns if the available width is smaller than the minimum photo width (e.g. narrow screen or test harness). A 0-column `GridView` will throw a layout assertion. Clamp the result to a minimum of 1.
 
-**H15** All BLoC files — catch blocks
-Category: Observability
-`catch (e)` in every fetch handler drops the `StackTrace`. Without it, production errors are near-impossible to diagnose. Change all catch clauses to `catch (e, s)` and pass `s` to the logger.
 
----
 
 ## MEDIUM
 
-**M1** `core/state/app_bloc_event.dart`
-Category: Architecture
-`AppBlocEvent` is a plain abstract class. `BlocStatusChanged` is its only shared child, yet all specific feature events also extend it, creating a confusing flat hierarchy. Convert to a `sealed class` so pattern-matching is exhaustive and self-documenting.
 
 **M2** `core/types/bloc_status/bloc_status.dart:12`
 Category: Error Handling
@@ -191,10 +179,6 @@ Category: Lifecycle
 Category: Architecture / DRY
 Every feature BLoC repeats the same `_onFetch` skeleton: guard against loading, emit loading state, call repository, emit success/error. This is 30+ lines duplicated six times. Extract a `BaseFetchBloc<TEvent, TState, TData>` mixin or abstract class.
 
-**M35** All BLoC state files
-Category: Architecture
-All feature states implement `Equatable` manually with an identical `props` list pattern. Because models use `freezed`, states should too — use `@freezed` to get `==`, `copyWith`, and `toString` for free and eliminate the manual boilerplate.
-
 **M36** `widgets/items_grid/models.dart:3-10`
 Category: Magic Numbers
 Seven breakpoint and sizing constants (`defaultMinPhotoWidth`, `defaultMaxPhotoWidth`, `kNarrowColumnsCount`, etc.) live in a widget-layer models file. These are layout configuration values and belong in a `AppLayoutConstants` file in `theme/` or `utils/`.
@@ -234,10 +218,6 @@ Category: Naming
 ---
 
 ## LOW
-
-**L1** All feature BLoC files
-Category: Dead Code
-`_onBlocStatusChanged` handler is registered in every BLoC. In most it simply re-emits the current state (a no-op). Document why this exists or remove it.
 
 **L2** All BLoC state files
 Category: Dead Code
@@ -314,10 +294,6 @@ Finnish comments appear in `colors.dart` and possibly elsewhere. The engineering
 **L20** `features/pieces/presentation/pages/pieces_page.dart`
 Category: Layering
 The page widget is a thin pass-through that adds no behaviour — it just returns the view. With the current architecture this is correct, but if the page truly has no logic of its own it should at minimum be a `const` constructor with a `const` child.
-
-**L21** All feature state files
-Category: Naming
-State classes inherit from `Equatable` and manually list `props`. With freezed (already used for domain models) this boilerplate is unnecessary. Migrate states to `@freezed` for consistency with the rest of the model layer.
 
 **L22** `widgets/bloc_status_view/bloc_status_view.dart:36`
 Category: Magic Numbers
