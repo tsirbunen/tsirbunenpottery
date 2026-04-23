@@ -38,12 +38,6 @@ All errors use `e.toString()` as the message stored in `BlocStatus` and potentia
 
 
 
-**H14** `widgets/items_grid/models.dart:44`
-Category: Bug / Layout
-Integer division `~/` in `computeGridParams` can yield 0 columns if the available width is smaller than the minimum photo width (e.g. narrow screen or test harness). A 0-column `GridView` will throw a layout assertion. Clamp the result to a minimum of 1.
-
-
-
 ## MEDIUM
 
 
@@ -55,21 +49,12 @@ Category: Error Handling
 Category: Caching / Data Freshness
 `_cache` has no TTL or invalidation path. If the owner updates Firestore while the app is open, the UI shows stale data permanently. Add a cache expiry timestamp or a manual refresh event.
 
-**M4** `features/collections/presentation/collections_view/collections_view.dart` vs `categories_view.dart`
-Category: Code Duplication
-Both views are structurally identical — same fetch pattern, BlocBuilder nesting, `_designsToShow()` logic, and expand/map pipeline. Extract a parameterised `GroupedItemsView<T>` widget to eliminate the duplication.
 
-**M5** `features/contact/presentation/contact_view/contact_form.dart:140-163`
-Category: Code Quality
-Four nearly identical text-style getter methods differing only in font size. Consolidate into `_labelStyle(double size)`.
+
 
 **M6** `localization/app_locale.dart:16`
 Category: Null Safety
 `Localizations.of<AppLocale>(context, AppLocale)!` force-unwraps. In any widget outside the localization scope (e.g. unit test, dialog) this crashes. Return a sensible default or `throw` a descriptive error.
-
-**M7** `widgets/items_grid/items_grid.dart:64`
-Category: Performance
-`_designsById` map is reconstructed on every `build()` call from the full designs list. Cache it in `didUpdateWidget`, rebuilding only when the `designs` reference actually changes.
 
 **M8** `widgets/items_grid/items_grid.dart:81-82`
 Category: Testing / Known Bug
@@ -123,10 +108,6 @@ Category: Anti-pattern
 Category: Type Safety
 Manual `as List<dynamic>` casting against expected Firestore schema. Consider using `json_serializable` (already in the project) for Firestore model deserialization to validate document shape at the data boundary.
 
-**M21** `core/state/language_bloc/language_state.dart`
-Category: Naming
-`copyWith(Language? newLanguage)` — the parameter is named `newLanguage` but the field is `language`. Inconsistent naming between parameter and field. Use the same name as the field.
-
 **M22** `bootstrap/service_locator/service_locator.dart:34`
 Category: Observability
 Logs are fully silenced in release mode. This makes production debugging extremely hard. Use log levels instead: keep `warning` and `error` enabled in release; only suppress `debug` and `verbose`.
@@ -135,13 +116,9 @@ Logs are fully silenced in release mode. This makes production debugging extreme
 Category: Code Quality
 `cloudService ??= FirestoreCloudService()` modifies a parameter in-place inside the function body. This is a confusing mutation pattern. Assign to a local variable: `final service = cloudService ?? FirestoreCloudService()`.
 
-**M24** `widgets/footer/footer.dart:37-40`
-Category: Null Safety / Performance
-`Theme.of(context).textTheme.bodySmall!` force-unwraps inside a `.map()` call. Additionally, `Theme.of(context)` is called once per item in the map instead of once at the top of `build()`. Cache the theme and handle the nullable `bodySmall` safely.
-
-**M25** `widgets/horizontal_navigation/horizontal_navigation.dart:22,35`
-Category: Performance
-`MediaQuery.of(context)` called at least twice in the same `build()`. Cache it at the top: `final mq = MediaQuery.of(context)`.
+**M24** `widgets/footer/footer.dart:37`
+Category: Null Safety
+`Theme.of(context).textTheme.bodySmall!` force-unwraps. Handle the nullable `bodySmall` safely instead.
 
 **M26** `features/home/presentation/pages/home_page.dart:73-81`
 Category: Code Quality
@@ -154,10 +131,6 @@ Category: Lifecycle
 **M28** `widgets/photo_with_fallback/photo_with_fallback.dart:127`
 Category: State Management
 `AppEnvironment.noNetworkImages` is a mutable static global mutated directly in the widget. Mutable statics cannot be reset between tests, making widget tests non-deterministic. Inject this as a parameter or via DI.
-
-**M29** `bootstrap/router/routes.dart:31,81,106`
-Category: Const Correctness
-`NoTransitionPage(child: SomePage(...))` is not `const` at any of these call sites. If page constructors are const, wrap in `const NoTransitionPage(child: const SomePage())` to avoid unnecessary re-allocations on navigation.
 
 **M30** `features/contact/presentation/contact_view/contact_form.dart:8`
 Category: Hardcoded Color
@@ -183,10 +156,6 @@ Every feature BLoC repeats the same `_onFetch` skeleton: guard against loading, 
 Category: Magic Numbers
 Seven breakpoint and sizing constants (`defaultMinPhotoWidth`, `defaultMaxPhotoWidth`, `kNarrowColumnsCount`, etc.) live in a widget-layer models file. These are layout configuration values and belong in a `AppLayoutConstants` file in `theme/` or `utils/`.
 
-**M37** `features/contact/presentation/contact_view/contact_email_with_copy_option.dart:8-9`
-Category: Magic Numbers
-`12.0` font size and `Duration(seconds: 2)` for the copy confirmation timeout are hardcoded. Move to named constants.
-
 **M38** `core/types/bloc_status/bloc_status.dart`
 Category: Dead Code
 `Status.dirty` and `Status.submitting` are defined but never set anywhere in the codebase. Either add usage (e.g. optimistic updates) or remove them to reduce cognitive overhead.
@@ -199,17 +168,9 @@ Category: Magic Numbers
 Category: Magic Numbers
 `Duration(milliseconds: 1250)` for placeholder animation hardcoded. Should be a named constant.
 
-**M41** `widgets/company/company.dart:7-10`
-Category: Magic Numbers / Theme
-`fontSize: 15.0` and `fontSize: 12.0` hardcoded inline instead of using `Theme.of(context).textTheme`. Every font size should come from the theme system.
-
 **M42** `features/home/presentation/pages/home_page.dart:13`
 Category: Magic Numbers
 `photoSize = Size(275.0, 275.0)` hardcoded inline. This is the third occurrence of similar sizes across different files (see also M11). Centralise all photo dimensions.
-
-**M43** `bootstrap/router/route_controller.dart`
-Category: Architecture
-`RouteController` is a class containing a single method with no fields. This is not a class — it is a function. Replace with a top-level function `GoRouter buildRouter()`.
 
 **M44** `features/designs/presentation/designs_view/designs_view.dart:23`
 Category: Naming
@@ -218,10 +179,6 @@ Category: Naming
 ---
 
 ## LOW
-
-**L2** All BLoC state files
-Category: Dead Code
-`Status.dirty` is defined but never set anywhere. Remove or document its intended semantics.
 
 **L3** `bootstrap/router/routes.dart`
 Category: Comment
@@ -259,10 +216,6 @@ Category: Code Quality
 Category: Magic Numbers
 `10.0` dot size and `3.0` spacing hardcoded. Extract as `const _dotSize = 10.0` etc. within the file or in `AppDimensions`.
 
-**L12** `widgets/items_grid/scroll_position_mixin.dart:10`
-Category: Dead Code
-`_initialized` flag is set to `true` once and never read. Remove it; the `ScrollController` being non-null serves the same purpose.
-
 **L13** `features/contact/presentation/contact_view/contact_email_with_copy_option.dart:34`
 Category: Error Handling
 `catch (_) {}` swallows clipboard errors silently. At minimum log at debug level so developers know when clipboard access fails (common on some browsers).
@@ -290,10 +243,6 @@ Nine separate magic-number constants at the top of a small widget file. Either m
 **L19** (Global)
 Category: Non-English Comments
 Finnish comments appear in `colors.dart` and possibly elsewhere. The engineering standard for a production codebase is English-only comments. Translate or remove.
-
-**L20** `features/pieces/presentation/pages/pieces_page.dart`
-Category: Layering
-The page widget is a thin pass-through that adds no behaviour — it just returns the view. With the current architecture this is correct, but if the page truly has no logic of its own it should at minimum be a `const` constructor with a `const` child.
 
 **L22** `widgets/bloc_status_view/bloc_status_view.dart:36`
 Category: Magic Numbers
