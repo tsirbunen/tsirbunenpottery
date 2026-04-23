@@ -19,10 +19,6 @@ Category: Bug / Localization
 
 
 
-**H6** `widgets/progress_indicator/progress_indicator_xl.dart:37-50`
-Category: Bug / Lifecycle
-`context` and `Theme.of(context)` are accessed inside `Future.delayed(Duration.zero, ...)`. If the widget unmounts before the future resolves, this throws a `FlutterError`. Add `if (!mounted) return;` before any `context` or `setState` call in the callback.
-
 **H7** `features/home/presentation/pages/home_page.dart:21-24`
 Category: Performance / Widget
 `BlocBuilder<LanguageBloc>` wraps `BlocBuilder<HomeBloc>`. Every language change rebuilds the entire home widget tree including the image. Use `buildWhen` to scope each builder to the fields it actually depends on.
@@ -39,13 +35,9 @@ No abstract interfaces for repositories. Concrete classes are registered directl
 Category: Security / Error Handling
 All errors use `e.toString()` as the message stored in `BlocStatus` and potentially shown in UI. This leaks internal exception text (file paths, library internals, stack fragments) to end users. Define a custom exception hierarchy and map to safe, user-facing strings.
 
-**H11** `widgets/photo_with_fallback/photo_with_fallback.dart`
-Category: Resource Management
-Image listener management in `didUpdateWidget` is fragile. Rapid URL changes can leave previous listeners attached, causing multiple onLoad callbacks per image. Always call `_removeImageListener()` before adding a new one, unconditionally.
 
-**H12** `main.dart:8-14`
-Category: Error Handling / Startup
-Firebase initialization has no error handling and no timeout. If Firebase is unreachable, the app hangs on a blank screen indefinitely. Wrap in `try/catch` with a user-visible error state, and add a `Future.any([init, timeout])` guard.
+
+
 
 **H13** `data/products_repository.dart:156-161`
 Category: Performance

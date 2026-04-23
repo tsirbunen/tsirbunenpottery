@@ -153,33 +153,29 @@ class _PhotoWithFallbackState extends State<PhotoWithFallback>
   @override
   void didUpdateWidget(covariant PhotoWithFallback oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // If the photo becomes available later or the URL changes,
-    // start loading and animating the image.
-    final newPhoto = widget.photo;
-    final oldPhoto = oldWidget.photo;
-
     if (_noNetworkImages) return;
 
-    final newUrl = newPhoto?.url;
-    final oldUrl = oldPhoto?.url;
+    final newUrl = widget.photo?.url;
+    final oldUrl = oldWidget.photo?.url;
+    if (newUrl == oldUrl) return;
 
-    // Only react when a previously null photo becomes non-null,
-    // or when the URL actually changes.
-    if (newUrl != null && newUrl.isNotEmpty && newUrl != oldUrl) {
-      // Reset loading state and image reference
+    _removeImageListener();
+    _controller?.dispose();
+    _controller = null;
+    _fadeInOpacityAnimation = null;
+
+    if (newUrl != null && newUrl.isNotEmpty) {
       setState(() {
         _isLoading = true;
         _image = null;
       });
-
-      // Dispose any previous controller and image listener before creating new ones
-      _controller?.dispose();
-      _controller = null;
-      _fadeInOpacityAnimation = null;
-      _removeImageListener();
-
       _createFadeImageInAnimation();
       _animateImageFadeInOnImageUploadCompleted();
+    } else {
+      setState(() {
+        _isLoading = false;
+        _image = null;
+      });
     }
   }
 
