@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
-import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
-import 'package:tsirbunenpottery/localization/languages.dart';
-import 'package:tsirbunenpottery/features/categories/domain/bloc/barrel.dart';
-import 'package:tsirbunenpottery/features/designs/domain/models/design/design.dart';
 import 'package:tsirbunenpottery/bootstrap/router/routes.dart';
+import 'package:tsirbunenpottery/features/categories/domain/bloc/barrel.dart';
+import 'package:tsirbunenpottery/widgets/grouped_items_view/grouped_items_view.dart';
 import 'package:tsirbunenpottery/widgets/items_grid/barrel.dart';
-import 'package:tsirbunenpottery/widgets/footer/footer.dart';
-import 'package:tsirbunenpottery/widgets/bloc_status_view/bloc_status_view.dart';
 import 'package:tsirbunenpottery/widgets/page_base/page_base.dart';
 
 class CategoriesView extends StatefulWidget {
@@ -28,86 +23,25 @@ class _CategoriesViewState extends State<CategoriesView>
   @override
   String get scrollTargetName => widget.scrollTargetName;
 
-  void _onRetry() => context.read<CategoriesBloc>().add(FetchCategories());
-
-  Map<String, Map<String, List<String>>> _designsToShow(CategoriesState state) {
-    if (widget.selectedCategoryId != null &&
-        state.categoryDesigns.containsKey(widget.selectedCategoryId)) {
-      return {
-        widget.selectedCategoryId!:
-            state.categoryDesigns[widget.selectedCategoryId]!,
-      };
-    }
-    return state.categoryDesigns;
-  }
-
   @override
   Widget build(BuildContext context) {
     return PageBase(
       scrollController: scrollController,
       pageBody: BlocBuilder<CategoriesBloc, CategoriesState>(
-        builder: (context, state) {
-          final groupedDesigns = _designsToShow(state);
-          final gridParams = computeGridParams(
-            context,
-            groupedDesigns.values.map((v) => v.length).toList(),
-          );
-          final categoriesById = state.categoriesById;
-          final allPieces = state.allPieces;
-
-          return BlocSelector<LanguageBloc, LanguageState, Language>(
-            selector: (langState) => langState.language,
-            builder: (context, language) {
-              return BlocStatusView(
-                status: state.blocStatus,
-                onRetry: _onRetry,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ...groupedDesigns.entries.expand((entry) {
-                      final categoryId = entry.key;
-                      final category = categoriesById[categoryId];
-                      if (category == null) return const <Widget>[];
-
-                      final pieceIdsByDesignId = entry.value;
-
-                      final designs = pieceIdsByDesignId.keys
-                          .map((id) => state.designsById[id])
-                          .whereType<Design>()
-                          .toList();
-
-                      final pieceIds = pieceIdsByDesignId.values
-                          .expand((ids) => ids)
-                          .toSet();
-                      final pieces = allPieces
-                          .where((p) => pieceIds.contains(p.id))
-                          .toList();
-
-                      return [
-                        ItemsGrid(
-                          id: categoryId,
-                          title: category.names[language] ?? '',
-                          designs: designs,
-                          pieces: pieces,
-                          imageFileNamesByDesignId:
-                              state.imageFileNamesByDesignId,
-                          language: language,
-                          gridParams: gridParams,
-                          mode: ViewMode.categories,
-                          onNavigate: (context, id) =>
-                              CategoryRoute(id: id).push(context),
-                          isTheOnlySubView: widget.selectedCategoryId != null,
-                        )
-                      ];
-                    }),
-                    const Footer(),
-                  ],
-                ),
-              );
-            },
-          );
-        },
+        builder: (context, state) => GroupedItemsView(
+          blocStatus: state.blocStatus,
+          groupedDesigns: state.categoryDesigns,
+          selectedGroupId: widget.selectedCategoryId,
+          designsById: state.designsById,
+          allPieces: state.allPieces,
+          imageFileNamesByDesignId: state.imageFileNamesByDesignId,
+          viewMode: ViewMode.categories,
+          groupTitle: (id, lang) =>
+              state.categoriesById[id]?.names[lang] ?? '',
+          onNavigate: (ctx, id) => CategoryRoute(id: id).push(ctx),
+          onRetry: () =>
+              context.read<CategoriesBloc>().add(FetchCategories()),
+        ),
       ),
     );
   }
