@@ -1,28 +1,6 @@
-# Codebase Audit — Fresh Review (2026-04-21)
-
-Severity scale: CRITICAL > HIGH > MEDIUM > LOW
-
----
-
-## CRITICAL
-
-
-**C4** `localization/utils.dart:21-22`
-Category: Bug / Localization
-`.substring(0, 2)` to extract language codes assumes codes are always 2 characters. Locale codes like `zh-Hans` or `en-US` will be silently truncated incorrectly. Use `locale.languageCode` instead.
 
 
 
----
-
-## HIGH
-
-
-
-
-**H8** (Global)
-Category: Error Handling
-No retry backoff anywhere. When a Firestore fetch fails and the user taps Retry, the identical request fires immediately. Under a transient outage this hammers Firestore with no benefit. Add exponential backoff with a cap (e.g. 1s → 2s → 4s → max 30s).
 
 **H9** (Global)
 Category: Architecture / Testability
@@ -136,9 +114,6 @@ Category: State Management
 Category: Hardcoded Color
 `Color.fromARGB(255, 235, 234, 232)` defined inline. This is a design token that belongs in `colors.dart` or `app_theme.dart` — not embedded in a feature widget.
 
-**M31** `features/contact/presentation/contact_view/contact_form.dart:47,65,66`
-Category: Magic Numbers
-`150.0` width, `50.0` height, various spacing values hardcoded inline. Move to `AppDimensions` or the form's own `_ContactFormDimensions` private class.
 
 **M32** `widgets/company/trademark.dart`
 Category: Constants

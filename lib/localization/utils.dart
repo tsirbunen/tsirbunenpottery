@@ -18,8 +18,8 @@ Locale resolveLocale(
   String? code;
   if (selectedLocale == null) {
     code = locales != null && locales.isNotEmpty
-        ? locales[0].toString().substring(0, 2)
-        : supportedLocales.toList()[0].toString().substring(0, 2);
+        ? locales[0].languageCode
+        : supportedLocales.first.languageCode;
   } else {
     code = selectedLocale.languageCode;
   }
