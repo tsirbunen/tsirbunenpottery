@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
+import 'package:tsirbunenpottery/theme/colors.dart' as app_colors;
 
-const double borderRadius = 25.0;
-const SizedBox largeSpacer = SizedBox(height: 50.0);
-const double maxWidth = 350.0;
-const Color inputBackgroundPale = Color.fromARGB(255, 235, 234, 232);
+abstract final class _Dim {
+  static const double borderRadius = 25.0;
+  static const double maxWidth = 350.0;
+  static const Color inputBackground = app_colors.inputFieldBackground;
+  static const double largeSpacerHeight = 50.0;
+  static const double buttonWidth = 150.0;
+  static const double buttonHeight = 50.0;
+  static const double belowButtonSpacing = 12.0;
+  static const double fieldTopPadding = 20.0;
+  static const double fieldInnerPadding = 15.0;
+  static const double titleFontSize = 20.0;
+  static const double inputFontSize = 16.0;
+  static const double buttonFontSize = 18.0;
+}
 
 class ContactForm extends StatefulWidget {
   const ContactForm({super.key});
@@ -39,12 +50,12 @@ class _ContactFormState extends State<ContactForm> {
 
     return Center(
       child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: maxWidth),
+        constraints: const BoxConstraints(maxWidth: _Dim.maxWidth),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            largeSpacer,
+            const SizedBox(height: _Dim.largeSpacerHeight),
             Text(contactUsLabel, style: _titleStyle(textTheme, colors)),
             _buildTextField(
               colors,
@@ -60,23 +71,23 @@ class _ContactFormState extends State<ContactForm> {
               8,
               textTheme,
             ),
-            largeSpacer,
+            const SizedBox(height: _Dim.largeSpacerHeight),
             SizedBox(
-              width: 150.0,
-              height: 50,
+              width: _Dim.buttonWidth,
+              height: _Dim.buttonHeight,
               child: ElevatedButton(
                 // FIXME: Add functionality once mail service available
                 onPressed: null,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: colors.primary.withValues(alpha: 0.8),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(borderRadius),
+                    borderRadius: BorderRadius.circular(_Dim.borderRadius),
                   ),
                 ),
                 child: Text(submitLabel, style: _textStyle(textTheme, colors)),
               ),
             ),
-            const SizedBox(height: 12.0),
+            const SizedBox(height: _Dim.belowButtonSpacing),
             Text(
               comingSoonLabel,
               style: textTheme.bodySmall?.copyWith(
@@ -99,14 +110,14 @@ class _ContactFormState extends State<ContactForm> {
     TextTheme textTheme,
   ) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20.0),
+      padding: const EdgeInsets.only(top: _Dim.fieldTopPadding),
       child: Container(
         decoration: BoxDecoration(
-          color: inputBackgroundPale,
-          borderRadius: BorderRadius.circular(borderRadius),
+          color: _Dim.inputBackground,
+          borderRadius: BorderRadius.circular(_Dim.borderRadius),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(_Dim.fieldInnerPadding),
           child: TextField(
             controller: controller,
             decoration: _inputDecoration(hintText),
@@ -122,10 +133,10 @@ class _ContactFormState extends State<ContactForm> {
     return InputDecoration(
       hintText: hintText,
       filled: true,
-      fillColor: inputBackgroundPale,
+      fillColor: _Dim.inputBackground,
       border: _inputBorder(),
       hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            fontSize: 16.0,
+            fontSize: _Dim.inputFontSize,
             fontWeight: FontWeight.w500,
             color: Theme.of(context).colorScheme.secondary,
           ),
@@ -134,14 +145,14 @@ class _ContactFormState extends State<ContactForm> {
 
   OutlineInputBorder _inputBorder() {
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(borderRadius),
+      borderRadius: BorderRadius.circular(_Dim.borderRadius),
       borderSide: BorderSide.none,
     );
   }
 
   TextStyle _titleStyle(TextTheme textTheme, ColorScheme colors) {
     return textTheme.headlineMedium?.copyWith(
-          fontSize: 20.0,
+          fontSize: _Dim.titleFontSize,
           color: colors.primary,
         ) ??
         const TextStyle();
@@ -149,7 +160,7 @@ class _ContactFormState extends State<ContactForm> {
 
   TextStyle _inputTextStyle(TextTheme textTheme, ColorScheme colors) {
     return textTheme.bodyMedium?.copyWith(
-          fontSize: 16.0,
+          fontSize: _Dim.inputFontSize,
           fontWeight: FontWeight.w500,
           color: colors.primary,
         ) ??
@@ -158,7 +169,7 @@ class _ContactFormState extends State<ContactForm> {
 
   TextStyle _textStyle(TextTheme textTheme, ColorScheme colors) {
     return textTheme.titleMedium?.copyWith(
-          fontSize: 18.0,
+          fontSize: _Dim.buttonFontSize,
           color: colors.surface,
         ) ??
         const TextStyle();

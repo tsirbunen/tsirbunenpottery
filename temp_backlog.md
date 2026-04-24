@@ -106,13 +106,6 @@ Category: Code Quality
 Category: Lifecycle
 `late final ScrollController _scrollController` is initialised in `didChangeDependencies()`. If `didChangeDependencies` fires before `initState` in any edge case, or is skipped in tests, the late field access will throw. Initialize in `initState` instead.
 
-**M28** `widgets/photo_with_fallback/photo_with_fallback.dart:127`
-Category: State Management
-`AppEnvironment.noNetworkImages` is a mutable static global mutated directly in the widget. Mutable statics cannot be reset between tests, making widget tests non-deterministic. Inject this as a parameter or via DI.
-
-**M30** `features/contact/presentation/contact_view/contact_form.dart:8`
-Category: Hardcoded Color
-`Color.fromARGB(255, 235, 234, 232)` defined inline. This is a design token that belongs in `colors.dart` or `app_theme.dart` — not embedded in a feature widget.
 
 
 **M32** `widgets/company/trademark.dart`
