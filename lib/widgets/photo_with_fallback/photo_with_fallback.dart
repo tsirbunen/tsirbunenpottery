@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tsirbunenpottery/bootstrap/environment/app_environment.dart';
+import 'package:tsirbunenpottery/bootstrap/environment/environment_scope.dart';
 import 'package:tsirbunenpottery/bootstrap/service_locator/service_locator.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/widgets/photo_with_fallback/no_image_icon_placeholder.dart';
@@ -45,9 +45,10 @@ class _PhotoWithFallbackState extends State<PhotoWithFallback>
   ImageStream? _imageStream;
   ImageStreamListener? _imageStreamListener;
   bool _isLoading = true;
+  bool _noNetworkImages = false;
+  bool _initialized = false;
   AnimationController? _controller;
   Animation<double>? _fadeInOpacityAnimation;
-  bool _noNetworkImages = false;
   bool _isHovering = false;
 
   @override
@@ -124,13 +125,21 @@ class _PhotoWithFallbackState extends State<PhotoWithFallback>
   @override
   void initState() {
     super.initState();
-    if (getIt<Environment>().noNetworkImages) {
-      _noNetworkImages = true;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_initialized) return;
+    _initialized = true;
+
+    _noNetworkImages = EnvironmentScope.of(context).noNetworkImages;
+    if (_noNetworkImages) {
       _isLoading = false;
+      return;
     }
 
-    if (widget.photo == null || _noNetworkImages) return;
-
+    if (widget.photo == null) return;
     _createFadeImageInAnimation();
     _animateImageFadeInOnImageUploadCompleted();
   }

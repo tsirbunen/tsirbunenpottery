@@ -27,7 +27,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<void> _onFetch(Emitter<HomeState> emit) async {
     if (state.blocStatus.isLoading || state.homePageImageFileName != null) return;
     emit(state.copyWith(blocStatus: const BlocStatus(Status.loading)));
-    await _backoff.wait();
+    final wait = _backoff.wait();
+    if (wait != null) await wait;
     try {
       final fileName = await _repository.fetchHomePageImageFileName();
       _backoff.recordSuccess();

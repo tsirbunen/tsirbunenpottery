@@ -36,40 +36,44 @@ void prepareBlocsForTests() {
   getIt.reset();
   const logger = NoOpAppLogger();
   getIt.registerSingleton<AppLogger>(logger);
-    getIt.registerSingleton<ScrollPositionCache>(ScrollPositionCache());
-    final cloudService = mockCloudServiceWithHomeImageData();
+  getIt.registerSingleton<ScrollPositionCache>(ScrollPositionCache());
+  getIt.registerSingleton<Environment>(const Environment(noNetworkImages: true));
 
-    final homeRepository = HomeRepository(cloudService);
-    final homeBloc = HomeBloc(homeRepository, logger: logger);
-    homeBloc.add(FetchHomePageImageFileName());
+  final cloudService = mockCloudServiceWithHomeImageData();
 
-    final contactBloc = ContactBloc(ContactRepository(cloudService), logger: logger);
-    contactBloc.add(FetchOwnerPhoto());
+  final homeBloc = HomeBloc(HomeRepository(cloudService), logger: logger);
+  homeBloc.add(FetchHomePageImageFileName());
 
-    final productsRepository = ProductsRepository(cloudService, FirestoreDataParser(logger: logger), logger: logger);
+  final contactBloc = ContactBloc(ContactRepository(cloudService), logger: logger);
+  contactBloc.add(FetchOwnerPhoto());
 
-    final piecesBloc = PiecesBloc(PiecesRepository(productsRepository), logger: logger);
-    piecesBloc.add(FetchPieces());
+  final productsRepository = ProductsRepository(
+    cloudService,
+    FirestoreDataParser(logger: logger),
+    logger: logger,
+  );
 
-    final designsBloc = DesignsBloc(DesignsRepository(productsRepository), logger: logger);
-    designsBloc.add(FetchDesigns());
+  final piecesBloc = PiecesBloc(PiecesRepository(productsRepository), logger: logger);
+  piecesBloc.add(FetchPieces());
 
-    final categoriesBloc = CategoriesBloc(CategoriesRepository(productsRepository), logger: logger);
-    categoriesBloc.add(FetchCategories());
+  final designsBloc = DesignsBloc(DesignsRepository(productsRepository), logger: logger);
+  designsBloc.add(FetchDesigns());
 
-    final collectionsBloc = CollectionsBloc(CollectionsRepository(productsRepository), logger: logger);
-    collectionsBloc.add(FetchCollections());
+  final categoriesBloc = CategoriesBloc(CategoriesRepository(productsRepository), logger: logger);
+  categoriesBloc.add(FetchCategories());
 
-    final languageBloc = LanguageBloc()..add(ChangeLanguage(Language.en));
-    getIt.registerSingleton<LanguageBloc>(languageBloc);
-    getIt.registerSingleton<HomeBloc>(homeBloc);
-    getIt.registerSingleton<ContactBloc>(contactBloc);
-    getIt.registerSingleton<PiecesBloc>(piecesBloc);
-    getIt.registerSingleton<DesignsBloc>(designsBloc);
-    getIt.registerSingleton<CategoriesBloc>(categoriesBloc);
-    getIt.registerSingleton<CollectionsBloc>(collectionsBloc);
-    getIt.registerSingleton<GoRouter>(buildRouter());
-    getIt.registerSingleton<Environment>(const Environment(noNetworkImages: true));
+  final collectionsBloc = CollectionsBloc(CollectionsRepository(productsRepository), logger: logger);
+  collectionsBloc.add(FetchCollections());
+
+  final languageBloc = LanguageBloc()..add(ChangeLanguage(Language.en));
+  getIt.registerSingleton<LanguageBloc>(languageBloc);
+  getIt.registerSingleton<HomeBloc>(homeBloc);
+  getIt.registerSingleton<ContactBloc>(contactBloc);
+  getIt.registerSingleton<PiecesBloc>(piecesBloc);
+  getIt.registerSingleton<DesignsBloc>(designsBloc);
+  getIt.registerSingleton<CategoriesBloc>(categoriesBloc);
+  getIt.registerSingleton<CollectionsBloc>(collectionsBloc);
+  getIt.registerSingleton<GoRouter>(buildRouter());
 }
 
 void setUpAndTearDownAllBlocsAndPreventNetworkImages() {

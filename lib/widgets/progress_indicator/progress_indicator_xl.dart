@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 
 class ProgressIndicatorXL extends StatefulWidget {
@@ -11,6 +12,7 @@ class _ProgressIndicatorXLState extends State<ProgressIndicatorXL>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   Animation<Color?>? _animation;
+  Timer? _setupTimer;
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +33,10 @@ class _ProgressIndicatorXLState extends State<ProgressIndicatorXL>
       vsync: this,
       duration: const Duration(seconds: 1),
     );
-
-    // Note: We need to do this async trick to get hold of the context
-    // to be able to access the color scheme of our  app's theme.
-    Future.delayed(Duration.zero, () {
+    _setupTimer = Timer(Duration.zero, () {
+      _setupTimer = null;
       if (!mounted) return;
       final colors = Theme.of(context).colorScheme;
-
       _animation = ColorTween(
         begin: colors.primary,
         end: colors.tertiary,
@@ -45,13 +44,13 @@ class _ProgressIndicatorXLState extends State<ProgressIndicatorXL>
         ..addListener(() {
           setState(() {});
         });
-
       _controller.repeat(reverse: true);
     });
   }
 
   @override
   void dispose() {
+    _setupTimer?.cancel();
     _controller.dispose();
     super.dispose();
   }

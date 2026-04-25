@@ -37,6 +37,7 @@ void prepareBlocs({CloudService? cloudService}) {
 
   cloudService ??= FirestoreCloudService(logger: logger);
 
+  getIt.registerSingleton<Environment>(const Environment());
   final languageBloc = LanguageBloc();
 
   final homeRepository = HomeRepository(cloudService);
@@ -70,5 +71,4 @@ void prepareBlocs({CloudService? cloudService}) {
   getIt.registerSingleton<CategoriesBloc>(categoriesBloc);
   getIt.registerSingleton<CollectionsBloc>(collectionsBloc);
   getIt.registerSingleton<GoRouter>(router);
-  getIt.registerSingleton<Environment>(const Environment());
 }

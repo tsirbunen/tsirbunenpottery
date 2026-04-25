@@ -28,7 +28,8 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   Future<void> _onFetch(Emitter<CategoriesState> emit) async {
     if (state.blocStatus.isLoading || state.categories.isNotEmpty) return;
     emit(state.copyWith(blocStatus: const BlocStatus(Status.loading)));
-    await _backoff.wait();
+    final wait = _backoff.wait();
+    if (wait != null) await wait;
     try {
       final data = await _repository.getData();
       _backoff.recordSuccess();

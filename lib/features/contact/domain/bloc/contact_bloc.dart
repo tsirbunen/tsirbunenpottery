@@ -27,7 +27,8 @@ class ContactBloc extends Bloc<ContactEvent, ContactState> {
   Future<void> _onFetch(Emitter<ContactState> emit) async {
     if (state.blocStatus.isLoading || state.ownerPhotoFileName != null) return;
     emit(state.copyWith(blocStatus: const BlocStatus(Status.loading)));
-    await _backoff.wait();
+    final wait = _backoff.wait();
+    if (wait != null) await wait;
     try {
       final fileName = await _repository.fetchOwnerPhotoFileName();
       _backoff.recordSuccess();
