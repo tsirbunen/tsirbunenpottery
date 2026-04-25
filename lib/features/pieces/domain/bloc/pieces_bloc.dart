@@ -1,48 +1,44 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
-import 'package:tsirbunenpottery/core/retry/retry_backoff.dart';
+import 'package:tsirbunenpottery/core/state/fetch_bloc_mixin.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_event.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_state.dart';
 import 'package:tsirbunenpottery/features/pieces/repository/pieces_repository.dart';
 
-class PiecesBloc extends Bloc<PiecesEvent, PiecesState> {
+class PiecesBloc extends Bloc<PiecesEvent, PiecesState>
+    with FetchBlocMixin<PiecesEvent, PiecesState> {
   final PiecesRepository _repository;
-  final AppLogger _logger;
-  final _backoff = RetryBackoff();
 
-  PiecesBloc(this._repository, {required AppLogger logger})
-      : _logger = logger,
-        super(const PiecesState()) {
+  @override
+  final AppLogger logger;
+
+  @override
+  bool get isLoaded => state.piecesById.isNotEmpty;
+
+  @override
+  String get fetchErrorMessage => 'Failed to fetch pieces';
+
+  @override
+  PiecesState withStatus(BlocStatus status) => state.copyWith(blocStatus: status);
+
+  PiecesBloc(this._repository, {required this.logger}) : super(const PiecesState()) {
     on<PiecesEvent>(_onEvent);
   }
 
   Future<void> _onEvent(PiecesEvent event, Emitter<PiecesState> emit) async {
     switch (event) {
       case FetchPieces():
-        await _onFetch(emit);
-    }
-  }
-
-  Future<void> _onFetch(Emitter<PiecesState> emit) async {
-    if (state.blocStatus.isLoading || state.piecesById.isNotEmpty) return;
-    emit(state.copyWith(blocStatus: const BlocStatus(Status.loading)));
-    final wait = _backoff.wait();
-    if (wait != null) await wait;
-    try {
-      final data = await _repository.getData();
-      _backoff.recordSuccess();
-      emit(PiecesState(
-        piecesById: data.piecesById,
-        designsById: data.designsById,
-        imageFileNamesByDesignId: data.imageFileNamesByDesignId,
-        pieceIdsByDesignId: data.pieceIdsByDesignId,
-        blocStatus: const BlocStatus(Status.ok),
-      ));
-    } catch (e, s) {
-      _backoff.recordFailure();
-      _logger.logError('Failed to fetch pieces', error: e, stackTrace: s, tag: 'PiecesBloc');
-      emit(state.copyWith(blocStatus: BlocStatus(Status.error, message: e.toString())));
+        await runFetch(emit, () async {
+          final data = await _repository.getData();
+          return PiecesState(
+            piecesById: data.piecesById,
+            designsById: data.designsById,
+            imageFileNamesByDesignId: data.imageFileNamesByDesignId,
+            pieceIdsByDesignId: data.pieceIdsByDesignId,
+            blocStatus: const BlocStatus(Status.ok),
+          );
+        });
     }
   }
 }

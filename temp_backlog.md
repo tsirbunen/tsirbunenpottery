@@ -109,13 +109,7 @@ Category: Lifecycle
 
 
 
-**M34** All BLoC files — boilerplate
-Category: Architecture / DRY
-Every feature BLoC repeats the same `_onFetch` skeleton: guard against loading, emit loading state, call repository, emit success/error. This is 30+ lines duplicated six times. Extract a `BaseFetchBloc<TEvent, TState, TData>` mixin or abstract class.
 
-**M38** `core/types/bloc_status/bloc_status.dart`
-Category: Dead Code
-`Status.dirty` and `Status.submitting` are defined but never set anywhere in the codebase. Either add usage (e.g. optimistic updates) or remove them to reduce cognitive overhead.
 
 **M39** `widgets/photo_with_fallback/photo_with_fallback.dart:7`
 Category: Magic Numbers

@@ -1,47 +1,43 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
-import 'package:tsirbunenpottery/core/retry/retry_backoff.dart';
+import 'package:tsirbunenpottery/core/state/fetch_bloc_mixin.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/designs/domain/bloc/designs_event.dart';
 import 'package:tsirbunenpottery/features/designs/domain/bloc/designs_state.dart';
 import 'package:tsirbunenpottery/features/designs/repository/designs_repository.dart';
 
-class DesignsBloc extends Bloc<DesignsEvent, DesignsState> {
+class DesignsBloc extends Bloc<DesignsEvent, DesignsState>
+    with FetchBlocMixin<DesignsEvent, DesignsState> {
   final DesignsRepository _repository;
-  final AppLogger _logger;
-  final _backoff = RetryBackoff();
 
-  DesignsBloc(this._repository, {required AppLogger logger})
-      : _logger = logger,
-        super(const DesignsState()) {
+  @override
+  final AppLogger logger;
+
+  @override
+  bool get isLoaded => state.designsById.isNotEmpty;
+
+  @override
+  String get fetchErrorMessage => 'Failed to fetch designs';
+
+  @override
+  DesignsState withStatus(BlocStatus status) => state.copyWith(blocStatus: status);
+
+  DesignsBloc(this._repository, {required this.logger}) : super(const DesignsState()) {
     on<DesignsEvent>(_onEvent);
   }
 
   Future<void> _onEvent(DesignsEvent event, Emitter<DesignsState> emit) async {
     switch (event) {
       case FetchDesigns():
-        await _onFetch(emit);
-    }
-  }
-
-  Future<void> _onFetch(Emitter<DesignsState> emit) async {
-    if (state.blocStatus.isLoading || state.designsById.isNotEmpty) return;
-    emit(state.copyWith(blocStatus: const BlocStatus(Status.loading)));
-    final wait = _backoff.wait();
-    if (wait != null) await wait;
-    try {
-      final data = await _repository.getData();
-      _backoff.recordSuccess();
-      emit(DesignsState(
-        designsById: data.designsById,
-        imageFileNamesByDesignId: data.imageFileNamesByDesignId,
-        piecesByDesignId: data.piecesByDesignId,
-        blocStatus: const BlocStatus(Status.ok),
-      ));
-    } catch (e, s) {
-      _backoff.recordFailure();
-      _logger.logError('Failed to fetch designs', error: e, stackTrace: s, tag: 'DesignsBloc');
-      emit(state.copyWith(blocStatus: BlocStatus(Status.error, message: e.toString())));
+        await runFetch(emit, () async {
+          final data = await _repository.getData();
+          return DesignsState(
+            designsById: data.designsById,
+            imageFileNamesByDesignId: data.imageFileNamesByDesignId,
+            piecesByDesignId: data.piecesByDesignId,
+            blocStatus: const BlocStatus(Status.ok),
+          );
+        });
     }
   }
 }

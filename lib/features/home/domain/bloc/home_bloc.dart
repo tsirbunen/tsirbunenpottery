@@ -1,45 +1,41 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
-import 'package:tsirbunenpottery/core/retry/retry_backoff.dart';
+import 'package:tsirbunenpottery/core/state/fetch_bloc_mixin.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/home/domain/bloc/home_event.dart';
 import 'package:tsirbunenpottery/features/home/domain/bloc/home_state.dart';
 import 'package:tsirbunenpottery/features/home/repository/home_repository.dart';
 
-class HomeBloc extends Bloc<HomeEvent, HomeState> {
+class HomeBloc extends Bloc<HomeEvent, HomeState>
+    with FetchBlocMixin<HomeEvent, HomeState> {
   final HomeRepository _repository;
-  final AppLogger _logger;
-  final _backoff = RetryBackoff();
 
-  HomeBloc(this._repository, {required AppLogger logger})
-      : _logger = logger,
-        super(const HomeState()) {
+  @override
+  final AppLogger logger;
+
+  @override
+  bool get isLoaded => state.homePageImageFileName != null;
+
+  @override
+  String get fetchErrorMessage => 'Failed to fetch home page image';
+
+  @override
+  HomeState withStatus(BlocStatus status) => state.copyWith(blocStatus: status);
+
+  HomeBloc(this._repository, {required this.logger}) : super(const HomeState()) {
     on<HomeEvent>(_onEvent);
   }
 
   Future<void> _onEvent(HomeEvent event, Emitter<HomeState> emit) async {
     switch (event) {
       case FetchHomePageImageFileName():
-        await _onFetch(emit);
-    }
-  }
-
-  Future<void> _onFetch(Emitter<HomeState> emit) async {
-    if (state.blocStatus.isLoading || state.homePageImageFileName != null) return;
-    emit(state.copyWith(blocStatus: const BlocStatus(Status.loading)));
-    final wait = _backoff.wait();
-    if (wait != null) await wait;
-    try {
-      final fileName = await _repository.fetchHomePageImageFileName();
-      _backoff.recordSuccess();
-      emit(HomeState(
-        homePageImageFileName: fileName,
-        blocStatus: const BlocStatus(Status.ok),
-      ));
-    } catch (e, s) {
-      _backoff.recordFailure();
-      _logger.logError('Failed to fetch home page image', error: e, stackTrace: s, tag: 'HomeBloc');
-      emit(state.copyWith(blocStatus: BlocStatus(Status.error, message: e.toString())));
+        await runFetch(emit, () async {
+          final fileName = await _repository.fetchHomePageImageFileName();
+          return HomeState(
+            homePageImageFileName: fileName,
+            blocStatus: const BlocStatus(Status.ok),
+          );
+        });
     }
   }
 }
