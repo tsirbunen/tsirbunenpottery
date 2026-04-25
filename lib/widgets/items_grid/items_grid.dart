@@ -4,6 +4,7 @@ import 'package:tsirbunenpottery/widgets/items_grid/piece_card.dart';
 import 'package:tsirbunenpottery/theme/app_icons.dart';
 import 'package:tsirbunenpottery/widgets/action_button/action_button.dart';
 import 'package:tsirbunenpottery/features/designs/domain/models/design/design.dart';
+import 'package:tsirbunenpottery/utils/app_layout_constants.dart';
 import 'package:tsirbunenpottery/widgets/items_grid/models.dart';
 import 'package:tsirbunenpottery/widgets/items_grid/scroll_position_mixin.dart';
 import 'package:tsirbunenpottery/widgets/items_grid/title_with_hover_effect.dart';
@@ -67,7 +68,7 @@ class _ItemsGridState extends State<ItemsGrid>
 
   @override
   Widget build(BuildContext context) {
-    final isNarrow = widget.gridParams.availableWidth < showExpandBreakpoint;
+    final isNarrow = widget.gridParams.availableWidth < AppLayoutConstants.showExpandBreakpoint;
     final size = _photoSize(isNarrow);
     final horizontalAlignment =
         isNarrow ? CrossAxisAlignment.center : CrossAxisAlignment.start;
@@ -105,11 +106,11 @@ class _ItemsGridState extends State<ItemsGrid>
         const SizedBox(height: 10.0),
         Container(
           margin: const EdgeInsets.only(
-              left: horizontalGridSpacing, bottom: 20.0),
+              left: AppLayoutConstants.horizontalGridSpacing, bottom: 20.0),
           child: expandAll || widget.isTheOnlySubView
               ? Wrap(
-                  spacing: horizontalGridSpacing,
-                  runSpacing: verticalGridSpacing,
+                  spacing: AppLayoutConstants.horizontalGridSpacing,
+                  runSpacing: AppLayoutConstants.verticalGridSpacing,
                   children: widget.pieces.expand((piece) {
                     final design = designsById[piece.designId];
                     if (design == null) return const <Widget>[];
@@ -133,7 +134,7 @@ class _ItemsGridState extends State<ItemsGrid>
                       return [
                         Padding(
                           padding: const EdgeInsets.only(
-                              right: horizontalGridSpacing),
+                              right: AppLayoutConstants.horizontalGridSpacing),
                           child: PieceCard(
                             piece: piece,
                             design: design,
@@ -155,18 +156,19 @@ class _ItemsGridState extends State<ItemsGrid>
   }
 
   Size _photoSize(bool isNarrow) {
-    final subtraction = widget.isTheOnlySubView ? 0.0 : singleRowSubtraction;
-    final availableWidthPerPhoto = widget.gridParams.availableWidth / kNarrowColumnsCount;
+    final subtraction = widget.isTheOnlySubView ? 0.0 : AppLayoutConstants.singleRowSubtraction;
+    final availableWidthPerPhoto =
+        widget.gridParams.availableWidth / AppLayoutConstants.narrowColumnsCount;
     final adjustedPhotoWidth =
         isNarrow ? availableWidthPerPhoto : widget.gridParams.photoWidth;
-    final width = (adjustedPhotoWidth - horizontalGridSpacing) - subtraction;
+    final width = (adjustedPhotoWidth - AppLayoutConstants.horizontalGridSpacing) - subtraction;
     return Size(width, width * 0.75);
   }
 
   bool _showExpandCollapseButton() {
     final expandNeeded = widget.designs.length > widget.gridParams.itemsPerRow;
     final canShowExpand =
-        showExpandBreakpoint < MediaQuery.of(context).size.width;
+        AppLayoutConstants.showExpandBreakpoint < MediaQuery.of(context).size.width;
     return expandNeeded && canShowExpand && !widget.isTheOnlySubView;
   }
 

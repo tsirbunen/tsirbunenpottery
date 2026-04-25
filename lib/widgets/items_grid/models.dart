@@ -1,13 +1,5 @@
 import 'package:flutter/widgets.dart';
-
-const double singleRowSubtraction = 15.0;
-const double horizontalGridSpacing = 15.0;
-const double verticalGridSpacing = 20.0;
-const double defaultMinPhotoWidth = 175.0;
-const double defaultMaxPhotoWidth = 300.0;
-const double sideMargin = 25.0;
-const double showExpandBreakpoint = 700.0;
-const int kNarrowColumnsCount = 3;
+import 'package:tsirbunenpottery/utils/app_layout_constants.dart';
 
 enum ViewMode {
   pieces,
@@ -42,9 +34,11 @@ GridParams computeGridParams(
   List<int> counts,
 ) {
   final screenWidth = MediaQuery.of(context).size.width;
-  final availableWidth = screenWidth - 2 * sideMargin;
-  final itemsPerRowEstimate = (availableWidth + horizontalGridSpacing) ~/
-      (defaultMinPhotoWidth + horizontalGridSpacing);
+  final availableWidth = screenWidth - 2 * AppLayoutConstants.sideMargin;
+  final itemsPerRowEstimate =
+      (availableWidth + AppLayoutConstants.horizontalGridSpacing) ~/
+          (AppLayoutConstants.defaultMinPhotoWidth +
+              AppLayoutConstants.horizontalGridSpacing);
 
   double width = 0.0;
   int itemsPerRow = 0;
@@ -53,10 +47,11 @@ GridParams computeGridParams(
     if (count == 0) continue;
     final itemsPerThisRow = itemsPerRowEstimate.clamp(1, count);
     if (itemsPerThisRow > itemsPerRow) itemsPerRow = itemsPerThisRow;
-    final totalSpacing = horizontalGridSpacing * (itemsPerThisRow - 1);
-    final photoWidth =
-        ((availableWidth - totalSpacing) / itemsPerThisRow)
-            .clamp(defaultMinPhotoWidth, defaultMaxPhotoWidth);
+    final totalSpacing =
+        AppLayoutConstants.horizontalGridSpacing * (itemsPerThisRow - 1);
+    final photoWidth = ((availableWidth - totalSpacing) / itemsPerThisRow)
+        .clamp(AppLayoutConstants.defaultMinPhotoWidth,
+            AppLayoutConstants.defaultMaxPhotoWidth);
     if (width == 0.0 || photoWidth < width) width = photoWidth;
   }
 

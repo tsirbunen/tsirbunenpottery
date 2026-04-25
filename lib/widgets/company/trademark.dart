@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tsirbunenpottery/utils/app_assets.dart';
 
 const double logoDefaultSize = 40.0; //36.0;
 const double tradeNameDefaultSize = 7.0;
@@ -40,7 +41,7 @@ class Trademark extends StatelessWidget {
         height: width,
         child: Padding(
           padding: padding,
-          child: Image.asset('assets/birdie512.png'),
+          child: Image.asset(AppAssets.birdie),
         ),
       ),
     );

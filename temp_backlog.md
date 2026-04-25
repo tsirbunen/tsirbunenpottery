@@ -108,21 +108,10 @@ Category: Lifecycle
 
 
 
-**M32** `widgets/company/trademark.dart`
-Category: Constants
-`'assets/birdie512.png'` is a hardcoded inline string. Asset paths should be constants in a dedicated `AppAssets` class so they can be refactored without hunting across files.
-
-**M33** `features/pieces/presentation/single_piece_view/piece_photos.dart:26-27`
-Category: Lifecycle
-`_controller` is created in `initState` but `dispose()` doesn't null-check before calling `.dispose()` on it. If an exception prevents `initState` from completing, `dispose()` will throw. Assign `null` initially and use `?. dispose()`.
 
 **M34** All BLoC files — boilerplate
 Category: Architecture / DRY
 Every feature BLoC repeats the same `_onFetch` skeleton: guard against loading, emit loading state, call repository, emit success/error. This is 30+ lines duplicated six times. Extract a `BaseFetchBloc<TEvent, TState, TData>` mixin or abstract class.
-
-**M36** `widgets/items_grid/models.dart:3-10`
-Category: Magic Numbers
-Seven breakpoint and sizing constants (`defaultMinPhotoWidth`, `defaultMaxPhotoWidth`, `kNarrowColumnsCount`, etc.) live in a widget-layer models file. These are layout configuration values and belong in a `AppLayoutConstants` file in `theme/` or `utils/`.
 
 **M38** `core/types/bloc_status/bloc_status.dart`
 Category: Dead Code

@@ -17,7 +17,7 @@ class PiecePhotos extends StatefulWidget {
 
 class _PiecePhotosState extends State<PiecePhotos> {
   late final List<Photo> photos;
-  late final PageController _controller;
+  PageController? _controller;
   int currentIndex = 0;
 
   @override
@@ -29,7 +29,7 @@ class _PiecePhotosState extends State<PiecePhotos> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 
