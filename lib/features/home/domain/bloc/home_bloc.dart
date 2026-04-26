@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
-import 'package:tsirbunenpottery/core/state/fetch_bloc_mixin.dart';
+import 'package:tsirbunenpottery/core/state/bloc_utils/fetch_bloc_mixin.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/home/domain/bloc/home_event.dart';
 import 'package:tsirbunenpottery/features/home/domain/bloc/home_state.dart';

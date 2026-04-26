@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:tsirbunenpottery/core/state/fetch_state.dart';
+import 'package:tsirbunenpottery/core/state/bloc_utils/fetch_state.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 
 part 'home_state.freezed.dart';

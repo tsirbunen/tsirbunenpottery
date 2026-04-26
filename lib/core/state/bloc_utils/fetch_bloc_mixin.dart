@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/core/retry/retry_backoff.dart';
-import 'package:tsirbunenpottery/core/state/fetch_state.dart';
+import 'package:tsirbunenpottery/core/state/bloc_utils/fetch_state.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 
 mixin FetchBlocMixin<E, S extends FetchState> on Bloc<E, S> {
@@ -23,7 +23,7 @@ mixin FetchBlocMixin<E, S extends FetchState> on Bloc<E, S> {
     } catch (e, s) {
       _backoff.recordFailure();
       logger.logError(fetchErrorMessage, error: e, stackTrace: s, tag: runtimeType.toString());
-      emit(withStatus(BlocStatus(Status.error, message: e.toString())));
+      emit(withStatus(const BlocStatus(Status.error)));
     }
   }
 }

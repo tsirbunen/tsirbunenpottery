@@ -1,4 +1,4 @@
-import 'package:tsirbunenpottery/core/state/app_bloc_event.dart';
+import 'package:tsirbunenpottery/core/state/bloc_utils/app_bloc_event.dart';
 
 sealed class ContactEvent extends AppBlocEvent {}
 
