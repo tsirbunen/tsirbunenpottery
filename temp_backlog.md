@@ -6,9 +6,7 @@
 Category: Architecture / Testability
 No abstract interfaces for repositories. Concrete classes are registered directly in GetIt, making them unswappable in unit tests without real Firebase. Add `abstract interface class IProductsRepository` etc. and register implementations against the interfaces.
 
-**H10** (Global)
-Category: Security / Error Handling
-All errors use `e.toString()` as the message stored in `BlocStatus` and potentially shown in UI. This leaks internal exception text (file paths, library internals, stack fragments) to end users. Define a custom exception hierarchy and map to safe, user-facing strings.
+
 
 
 
@@ -57,9 +55,7 @@ If a piece ID is missing from the cache (stale link, bad navigation), the user s
 Category: Architecture / FIXME
 FIXME comment: translation completeness is validated at test runtime, not compile time. Use `build_runner` to generate a lookup that fails compilation when a key is missing.
 
-**M19** `widgets/progress_indicator/progress_indicator_xl.dart:37-50`
-Category: Anti-pattern
-`Future.delayed(Duration.zero)` to defer `Theme.of(context)` is a workaround for an init-order problem. Move color resolution into `didChangeDependencies()`, which is the correct lifecycle hook for inheriting theme/context data.
+
 
 **M20** `data/products_repository.dart:140`
 Category: Type Safety
@@ -73,18 +69,11 @@ Logs are fully silenced in release mode. This makes production debugging extreme
 Category: Code Quality
 `cloudService ??= FirestoreCloudService()` modifies a parameter in-place inside the function body. This is a confusing mutation pattern. Assign to a local variable: `final service = cloudService ?? FirestoreCloudService()`.
 
-**M24** `widgets/footer/footer.dart:37`
-Category: Null Safety
-`Theme.of(context).textTheme.bodySmall!` force-unwraps. Handle the nullable `bodySmall` safely instead.
+
 
 **M26** `features/home/presentation/pages/home_page.dart:73-81`
 Category: Code Quality
 `_subTitleStyle()` and `_mainDescriptionStyle()` are near-identical getters that differ only in font size and weight. Merge into a single `_textStyle({required double size, FontWeight weight = FontWeight.normal})` helper.
-
-**M27** `widgets/items_grid/scroll_position_mixin.dart:8`
-Category: Lifecycle
-`late final ScrollController _scrollController` is initialised in `didChangeDependencies()`. If `didChangeDependencies` fires before `initState` in any edge case, or is skipped in tests, the late field access will throw. Initialize in `initState` instead.
-
 
 
 

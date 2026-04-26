@@ -7,15 +7,12 @@ mixin ScrollPositionMixin<T extends StatefulWidget> on State<T> {
   double _newScrollPosition = 0.0;
   late final ScrollController scrollController;
   late final ScrollPositionCache _cache;
-  bool _initialized = false;
 
   String get scrollTargetName;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (_initialized) return;
-    _initialized = true;
+  void initState() {
+    super.initState();
     _cache = context.read<ScrollPositionCache>();
     _lastInitialScrollPosition = _cache.get(scrollTargetName);
     scrollController =

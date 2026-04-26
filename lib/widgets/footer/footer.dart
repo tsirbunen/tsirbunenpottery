@@ -33,7 +33,7 @@ class Footer extends StatelessWidget {
   }
 
   Iterable<TextButton> _routes(BuildContext context) {
-    final textStyle = Theme.of(context).textTheme.bodySmall!;
+    final textStyle = Theme.of(context).textTheme.bodySmall ?? const TextStyle();
 
     return RouteEnum.values.map(
       (route) {

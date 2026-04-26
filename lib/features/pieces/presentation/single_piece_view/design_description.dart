@@ -74,6 +74,6 @@ class DesignDescription extends StatelessWidget {
   }
 
   TextStyle _infoStyle(BuildContext context) {
-    return Theme.of(context).textTheme.bodySmall!.copyWith(height: 1.0);
+    return (Theme.of(context).textTheme.bodySmall ?? const TextStyle()).copyWith(height: 1.0);
   }
 }
