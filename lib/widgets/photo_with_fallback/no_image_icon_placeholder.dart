@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tsirbunenpottery/theme/app_icons.dart';
+import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_durations.dart';
 
 /// This widget displays an icon that fills a container of given size.
 /// The container can be opted to display a color animation (to, for example,
@@ -38,7 +40,7 @@ class _NoImageIconPlaceholderState extends State<NoImageIconPlaceholder>
             height: widget.size.height,
             color: _animation!.value,
             child: Padding(
-              padding: const EdgeInsets.all(50.0),
+              padding: const EdgeInsets.all(AppDimensions.noImageIconPadding),
               child: FittedBox(
                 fit: BoxFit.cover,
                 child: Icon(
@@ -58,7 +60,7 @@ class _NoImageIconPlaceholderState extends State<NoImageIconPlaceholder>
 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1250),
+      duration: AppDurations.placeholderPulse,
     );
 
     // Note: We need to do this async trick to get hold of the context

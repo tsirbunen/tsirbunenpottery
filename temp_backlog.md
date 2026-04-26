@@ -42,10 +42,6 @@ FIXME comment acknowledges that the widget fails in tests due to horizontal over
 Category: Performance
 `TextPainter` is instantiated fresh for every navigation label on every `build()`. Cache computed widths in a `late final` map initialized once in `initState`.
 
-**M10** `widgets/app_bar/app_bar_customized.dart:8-10`
-Category: Magic Numbers
-`appBarHeight = 81.0` and layout breakpoints have no explanatory note. Document how these values are derived or reference a shared `AppDimensions` constants class.
-
 **M11** `features/contact/presentation/contact_view/photo_and_info.dart:9` and `features/pieces/presentation/single_piece_view/piece_photos.dart:7`
 Category: Duplication / Constants
 `Size(275, 275)` and `Size(300, 300)` are hardcoded inline across multiple files. Move all shared photo sizes to a central `AppSizes` or `AppDimensions` file.
@@ -54,9 +50,7 @@ Category: Duplication / Constants
 Category: Organisation
 Single file mixes Firestore document IDs with UI layout constants. Split into `firestore_constants.dart` and a theme-adjacent sizes file so each has a single, findable responsibility.
 
-**M13** `theme/colors.dart:3`
-Category: Dead Code
-Commented-out color with a Finnish comment. Remove dead code; if the design decision matters, summarise it in English in ARCHITECTURE.md.
+
 
 **M14** `theme/app_theme.dart:32`
 Category: Dead Code
@@ -109,20 +103,6 @@ Category: Lifecycle
 
 
 
-
-
-**M39** `widgets/photo_with_fallback/photo_with_fallback.dart:7`
-Category: Magic Numbers
-`Duration(milliseconds: 1500)` for fade animation is hardcoded inline. Extract to a named constant or make it a configurable widget parameter with a default.
-
-**M40** `widgets/photo_with_fallback/no_image_icon_placeholder.dart:61`
-Category: Magic Numbers
-`Duration(milliseconds: 1250)` for placeholder animation hardcoded. Should be a named constant.
-
-**M42** `features/home/presentation/pages/home_page.dart:13`
-Category: Magic Numbers
-`photoSize = Size(275.0, 275.0)` hardcoded inline. This is the third occurrence of similar sizes across different files (see also M11). Centralise all photo dimensions.
-
 **M44** `features/designs/presentation/designs_view/designs_view.dart:23`
 Category: Naming
 `scrollTargetName` is defined as a getter but its value is constructed from a string literal — it reads like a computed property but is actually a static-ish constant. Rename to a `static const` or extract to `ScrollTarget` enum.
@@ -163,9 +143,7 @@ Category: Code Quality / DRY
 Category: Code Quality
 `if (widget.isAnimated == false)` should be `if (!widget.isAnimated)`. Comparing a bool to a literal is a code smell.
 
-**L11** `features/pieces/presentation/single_piece_view/photo_carousel_indicator.dart:3,22`
-Category: Magic Numbers
-`10.0` dot size and `3.0` spacing hardcoded. Extract as `const _dotSize = 10.0` etc. within the file or in `AppDimensions`.
+
 
 **L13** `features/contact/presentation/contact_view/contact_email_with_copy_option.dart:34`
 Category: Error Handling
@@ -179,25 +157,19 @@ Category: Organisation
 Category: FIXME / Technical Debt
 FIXME comment: "as long as the app is only web...". This is untracked technical debt. Convert to a GitHub issue or remove if not planned.
 
-**L16** `widgets/drawer/drawer_for_app_bar.dart:9`
-Category: Magic Numbers
-`60.0` container width hardcoded. Move to `AppDimensions`.
+
 
 **L17** `core/scroll_position_cache/scroll_position_cache.dart`
 Category: Documentation
 `_positions[target] ?? 0.0` returns `0.0` as a default scroll offset. This implicit default is non-obvious — add a brief comment explaining it's intentional (start at top when no position is cached).
 
-**L18** `widgets/company/trademark.dart`
-Category: Organisation
-Nine separate magic-number constants at the top of a small widget file. Either move them to `AppDimensions`/`AppAssets` or group them into a private inner class `_Sizes` / `_Assets` inside the file.
+
 
 **L19** (Global)
 Category: Non-English Comments
 Finnish comments appear in `colors.dart` and possibly elsewhere. The engineering standard for a production codebase is English-only comments. Translate or remove.
 
-**L22** `widgets/bloc_status_view/bloc_status_view.dart:36`
-Category: Magic Numbers
-`16.0` spacing is hardcoded. Use `AppDimensions` or a theme spacing scale.
+
 
 **L23** `widgets/app_bar/app_bar_right_actions.dart:29-30`
 Category: Readability

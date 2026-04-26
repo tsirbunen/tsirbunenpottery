@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
+import 'package:tsirbunenpottery/utils/app_gaps.dart';
 import 'package:tsirbunenpottery/widgets/progress_indicator/progress_indicator_xl.dart';
 
 class BlocStatusView extends StatelessWidget {
@@ -33,7 +34,7 @@ class BlocStatusView extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             if (onRetry != null) ...[
-              const SizedBox(height: 16.0),
+              AppGaps.v15,
               OutlinedButton(
                 onPressed: onRetry,
                 child: Text(context.local(Translation.retry)),

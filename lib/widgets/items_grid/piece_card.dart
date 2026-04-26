@@ -3,7 +3,9 @@ import 'package:tsirbunenpottery/bootstrap/router/routes.dart';
 import 'package:tsirbunenpottery/features/designs/domain/models/design/design.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/models/piece/piece.dart';
 import 'package:tsirbunenpottery/localization/languages.dart';
-import 'package:tsirbunenpottery/utils/constants.dart';
+import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_gaps.dart';
+import 'package:tsirbunenpottery/utils/app_image_refs.dart';
 import 'package:tsirbunenpottery/widgets/photo_with_fallback/photo_with_fallback.dart';
 
 class PieceCard extends StatelessWidget {
@@ -17,7 +19,7 @@ class PieceCard extends StatelessWidget {
     required this.design,
     required this.piece,
     required this.language,
-    this.size = const Size(200.0, 150.0),
+    this.size = AppDimensions.pieceCardDefaultSize,
   });
 
   @override
@@ -34,7 +36,7 @@ class PieceCard extends StatelessWidget {
             size: size,
             zoomOnHover: true,
           ),
-          const SizedBox(height: 2.0),
+          AppGaps.v5,
           SizedBox(
             width: size.width,
             child: Text(designName,

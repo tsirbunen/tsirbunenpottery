@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tsirbunenpottery/widgets/progress_indicator/progress_indicator_xl.dart';
 
-const opacity = 0.6;
+const _overlayOpacity = 0.6;
 
 class ProgressIndicatorPageOverlay extends StatelessWidget {
   final Widget child;
@@ -20,7 +20,7 @@ class ProgressIndicatorPageOverlay extends StatelessWidget {
         child,
         if (isSubmitting)
           Container(
-            color: Colors.black.withValues(alpha: opacity),
+            color: Colors.black.withValues(alpha: _overlayOpacity),
             child: const Center(
               child: ProgressIndicatorXL(),
             ),

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:tsirbunenpottery/features/contact/presentation/contact_view/contact_email_with_copy_option.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
-import 'package:tsirbunenpottery/utils/constants.dart';
+import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_gaps.dart';
+import 'package:tsirbunenpottery/utils/app_image_refs.dart';
 import 'package:tsirbunenpottery/widgets/company/company.dart';
 import 'package:tsirbunenpottery/widgets/photo_with_fallback/photo_with_fallback.dart';
-
-const Size photoSize = Size(275.0, 275.0);
 
 class PhotoAndInfo extends StatelessWidget {
   final String? imageFileName;
@@ -21,18 +21,18 @@ class PhotoAndInfo extends StatelessWidget {
       children: [
         PhotoWithFallback(
           photo: _photo(imageFileName),
-          size: photoSize,
+          size: AppDimensions.heroPhotoSize,
           zoomOnHover: false,
           isShadeMasked: true,
         ),
-        const SizedBox(height: 20.0),
+        AppGaps.v20,
         SizedBox(
-          width: photoSize.width,
+          width: AppDimensions.heroPhotoSize.width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Company(isDark: false),
-              const SizedBox(height: 10.0),
+              AppGaps.v10,
               Text(
                 storyOnContactPage,
                 overflow: TextOverflow.ellipsis,
@@ -40,7 +40,7 @@ class PhotoAndInfo extends StatelessWidget {
                 softWrap: true,
                 style: _storyStyle(context),
               ),
-              const SizedBox(height: 20.0),
+              AppGaps.v20,
               const ContactEmailWithCopyOption()
             ],
           ),

@@ -1,5 +1,5 @@
 import 'package:tsirbunenpottery/data/cloud_service.dart';
-import 'package:tsirbunenpottery/utils/constants.dart';
+import 'package:tsirbunenpottery/utils/app_image_refs.dart';
 
 class ContactRepository {
   final CloudService _cloudService;

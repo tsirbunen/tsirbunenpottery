@@ -5,12 +5,12 @@ import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
 import 'package:tsirbunenpottery/features/home/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
-import 'package:tsirbunenpottery/utils/constants.dart';
+import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_gaps.dart';
+import 'package:tsirbunenpottery/utils/app_image_refs.dart';
 import 'package:tsirbunenpottery/widgets/bloc_status_view/bloc_status_view.dart';
 import 'package:tsirbunenpottery/widgets/page_base/page_base.dart';
 import 'package:tsirbunenpottery/widgets/photo_with_fallback/photo_with_fallback.dart';
-
-const Size photoSize = Size(275.0, 275.0);
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -34,29 +34,29 @@ class HomePage extends StatelessWidget {
             child: Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding: const EdgeInsets.all(30.0),
+              padding: const EdgeInsets.all(AppDimensions.spacing25),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(context.local(Translation.homeTitle), style: Theme.of(context).textTheme.headlineMedium),
-                  const SizedBox(height: 10.0),
+                  AppGaps.v10,
                   Text(
                     context.local(Translation.appShortDescription),
                     softWrap: true,
                     style: _subTitleStyle(context),
                   ),
-                  const SizedBox(height: 30.0),
+                  AppGaps.v25,
                   Text(
                     context.local(Translation.homeDescription),
                     softWrap: true,
                     textAlign: TextAlign.center,
                     style: _mainDescriptionStyle(context),
                   ),
-                  const SizedBox(height: 20.0),
+                  AppGaps.v20,
                   PhotoWithFallback(
                     photo: _photo(imageFileName),
-                    size: photoSize,
+                    size: AppDimensions.heroPhotoSize,
                     zoomOnHover: false,
                     isShadeMasked: true,
                   ),

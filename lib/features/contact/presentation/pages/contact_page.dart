@@ -4,10 +4,10 @@ import 'package:tsirbunenpottery/features/contact/domain/bloc/contact_bloc.dart'
 import 'package:tsirbunenpottery/features/contact/domain/bloc/contact_state.dart';
 import 'package:tsirbunenpottery/features/contact/presentation/contact_view/contact_form.dart';
 import 'package:tsirbunenpottery/features/contact/presentation/contact_view/photo_and_info.dart';
+import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_gaps.dart';
 import 'package:tsirbunenpottery/widgets/footer/footer.dart';
 import 'package:tsirbunenpottery/widgets/page_base/page_base.dart';
-
-const double showPhotoBreakpoint = 800.0;
 
 class ContactPage extends StatelessWidget {
   const ContactPage({super.key});
@@ -18,11 +18,11 @@ class ContactPage extends StatelessWidget {
       pageBody: BlocBuilder<ContactBloc, ContactState>(
           builder: (BuildContext context, ContactState state) {
         final width = MediaQuery.of(context).size.width;
-        final isHorizontal = width > showPhotoBreakpoint;
+        final isHorizontal = width > AppDimensions.wideScreenBreakpoint;
         final imageFileName = state.ownerPhotoFileName;
 
         return Container(
-          margin: const EdgeInsets.symmetric(horizontal: 25.0),
+          margin: const EdgeInsets.symmetric(horizontal: AppDimensions.spacing25),
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -32,14 +32,14 @@ class ContactPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           PhotoAndInfo(imageFileName: imageFileName),
-                          const SizedBox(width: 50.0),
+                          AppGaps.h50,
                           const ContactForm(),
                         ],
                       )
                     : Column(
                         children: [
                           const ContactForm(),
-                          const SizedBox(height: 30.0),
+                          AppGaps.v25,
                           PhotoAndInfo(imageFileName: imageFileName),
                         ],
                       ),

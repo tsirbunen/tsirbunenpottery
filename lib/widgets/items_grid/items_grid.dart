@@ -4,6 +4,8 @@ import 'package:tsirbunenpottery/widgets/items_grid/piece_card.dart';
 import 'package:tsirbunenpottery/theme/app_icons.dart';
 import 'package:tsirbunenpottery/widgets/action_button/action_button.dart';
 import 'package:tsirbunenpottery/features/designs/domain/models/design/design.dart';
+import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_gaps.dart';
 import 'package:tsirbunenpottery/utils/app_layout_constants.dart';
 import 'package:tsirbunenpottery/widgets/items_grid/models.dart';
 import 'package:tsirbunenpottery/widgets/items_grid/scroll_position_mixin.dart';
@@ -78,7 +80,7 @@ class _ItemsGridState extends State<ItemsGrid>
       crossAxisAlignment: horizontalAlignment,
       children: [
         Container(
-          margin: const EdgeInsets.only(top: 30.0),
+          margin: const EdgeInsets.only(top: AppDimensions.spacing25),
           // FIXME: This component works in development and production, but fails in tests
           // due to horizontal overflow. Figure out the problem.
           child: Row(
@@ -93,7 +95,7 @@ class _ItemsGridState extends State<ItemsGrid>
               ),
               if (_showExpandCollapseButton())
                 Padding(
-                  padding: const EdgeInsets.only(right: 10.0),
+                  padding: const EdgeInsets.only(right: AppDimensions.spacing10),
                   child: ActionButton(
                       iconData: expandAll
                           ? AppIcons.expandUp
@@ -103,10 +105,11 @@ class _ItemsGridState extends State<ItemsGrid>
             ],
           ),
         ),
-        const SizedBox(height: 10.0),
+        AppGaps.v10,
         Container(
           margin: const EdgeInsets.only(
-              left: AppLayoutConstants.horizontalGridSpacing, bottom: 20.0),
+              left: AppLayoutConstants.horizontalGridSpacing,
+              bottom: AppDimensions.spacing20),
           child: expandAll || widget.isTheOnlySubView
               ? Wrap(
                   spacing: AppLayoutConstants.horizontalGridSpacing,
@@ -162,7 +165,7 @@ class _ItemsGridState extends State<ItemsGrid>
     final adjustedPhotoWidth =
         isNarrow ? availableWidthPerPhoto : widget.gridParams.photoWidth;
     final width = (adjustedPhotoWidth - AppLayoutConstants.horizontalGridSpacing) - subtraction;
-    return Size(width, width * 0.75);
+    return Size(width, width * AppDimensions.gridPhotoAspectRatio);
   }
 
   bool _showExpandCollapseButton() {

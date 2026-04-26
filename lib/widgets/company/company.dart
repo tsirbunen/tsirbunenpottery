@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
-
-const double tradeNameFontSize = 15.0;
-const FontWeight tradeNameFontWeight = FontWeight.w900;
-const double descriptionFontSize = 12.0;
-const FontWeight descriptionFontWeight = FontWeight.w500;
+import 'package:tsirbunenpottery/utils/app_typography.dart';
 
 class Company extends StatelessWidget {
   final bool isDark;
@@ -26,18 +22,18 @@ class Company extends StatelessWidget {
         Text(
           tradeName,
           style: TextStyle(
-            fontSize: tradeNameFontSize,
+            fontSize: AppTypography.tradeNameFontSize,
             color: textColor,
-            fontWeight: tradeNameFontWeight,
+            fontWeight: AppTypography.tradeNameFontWeight,
           ),
         ),
         Text(
           shortDescription,
           textAlign: isCentered ? TextAlign.center : TextAlign.start,
           style: TextStyle(
-            fontSize: descriptionFontSize,
+            fontSize: AppTypography.descriptionFontSize,
             color: textColor,
-            fontWeight: descriptionFontWeight,
+            fontWeight: AppTypography.descriptionFontWeight,
           ),
         ),
       ],

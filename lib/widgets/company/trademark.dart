@@ -1,19 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tsirbunenpottery/utils/app_assets.dart';
-
-const double logoDefaultSize = 40.0; //36.0;
-const double tradeNameDefaultSize = 7.0;
-const double textHeight = 1.0;
-const double spacerHeight = 1.0;
-const EdgeInsets padding =
-    EdgeInsets.only(left: 6.0, right: 6.0, bottom: 5.0, top: 1.0);
-const double borderRadius = 50.0;
-const double borderWidth = 1.0;
-const double containerWidthDefault = 55.0; //60.0;
+import 'package:tsirbunenpottery/utils/app_dimensions.dart';
 
 class Trademark extends StatelessWidget {
-  final double logoSize;
-  final double tradeNameSize;
   final bool isInverted;
   final bool hasBorder;
   final void Function()? onPressed;
@@ -21,11 +10,9 @@ class Trademark extends StatelessWidget {
 
   const Trademark({
     super.key,
-    this.logoSize = logoDefaultSize,
-    this.tradeNameSize = tradeNameDefaultSize,
     this.isInverted = true,
     this.hasBorder = false,
-    this.width = containerWidthDefault,
+    this.width = AppDimensions.trademarkWidth,
     this.onPressed,
   });
 
@@ -39,9 +26,9 @@ class Trademark extends StatelessWidget {
         decoration: _decoration(colors),
         width: width,
         height: width,
-        child: Padding(
-          padding: padding,
-          child: Image.asset(AppAssets.birdie),
+        child: const Padding(
+          padding: AppDimensions.trademarkPadding,
+          child: Image(image: AssetImage(AppAssets.birdie)),
         ),
       ),
     );
@@ -50,9 +37,9 @@ class Trademark extends StatelessWidget {
   BoxDecoration _decoration(ColorScheme colors) {
     return BoxDecoration(
       color: isInverted ? colors.primary : Colors.transparent,
-      borderRadius: BorderRadius.circular(borderRadius),
+      borderRadius: BorderRadius.circular(AppDimensions.circularBorderRadius),
       border: hasBorder
-          ? Border.all(color: colors.primary, width: borderWidth)
+          ? Border.all(color: colors.primary, width: AppDimensions.borderWidth)
           : null,
     );
   }

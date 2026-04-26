@@ -1,5 +1,5 @@
 import 'package:mockito/mockito.dart';
-import 'package:tsirbunenpottery/utils/constants.dart';
+import 'package:tsirbunenpottery/utils/app_image_refs.dart';
 
 import '../firebase/firebase_related_mocks.mocks.dart';
 import 'test_data.dart';

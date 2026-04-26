@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tsirbunenpottery/utils/app_dimensions.dart';
 import 'package:tsirbunenpottery/widgets/app_bar/app_bar_left_actions.dart';
 import 'package:tsirbunenpottery/widgets/app_bar/app_bar_right_actions.dart';
 import 'package:tsirbunenpottery/widgets/horizontal_navigation/horizontal_navigation.dart';
-
-// FIXME: As long as the app is only available as the web version, the app bar height
-// should be lowered like here.
-const double appBarHeight = 81.0;
-const double heightBreakpoint = 800.0;
-const double widthBreakpoint = 500.0;
-const double padding = 10.0;
 
 class AppBarCustomized extends StatelessWidget implements PreferredSizeWidget {
   const AppBarCustomized({super.key});
@@ -16,7 +10,7 @@ class AppBarCustomized extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: appBarHeight,
+      height: AppDimensions.appBarHeight,
       decoration: _decoration(context),
       child: Padding(
         padding: _padding(),
@@ -41,19 +35,18 @@ class AppBarCustomized extends StatelessWidget implements PreferredSizeWidget {
   BoxDecoration _decoration(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     return BoxDecoration(
-      border: Border(bottom: BorderSide(width: 1.0, color: colors.onTertiary)),
+      border: Border(bottom: BorderSide(width: AppDimensions.borderWidth, color: colors.onTertiary)),
     );
   }
 
   EdgeInsets _padding() {
-    final bottom =
-         padding;
-    final horizontal =
-       padding;
-
-    return EdgeInsets.only(left: horizontal, right: horizontal, bottom: bottom);
+    return const EdgeInsets.only(
+      left: AppDimensions.appBarPadding,
+      right: AppDimensions.appBarPadding,
+      bottom: AppDimensions.appBarPadding,
+    );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(appBarHeight);
+  Size get preferredSize => const Size.fromHeight(AppDimensions.appBarHeight);
 }

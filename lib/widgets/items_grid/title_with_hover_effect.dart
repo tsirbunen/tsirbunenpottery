@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:tsirbunenpottery/theme/app_icons.dart';
+import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_gaps.dart';
+import 'package:tsirbunenpottery/utils/app_typography.dart';
 
-const double defaultIconFontWeight = 300;
-const double hoveredIconFontWeight = 600;
-const double borderRadius = 50.0;
-const double leftMargin = 10.0;
-const double leftPadding = 15.0;
-const double arrowSpacer = 10.0;
-const double verticalPadding = 10.0;
-const EdgeInsets textWithoutArrowPadding = EdgeInsets.symmetric(
-    horizontal: leftMargin + leftPadding, vertical: verticalPadding);
-const EdgeInsets textWithArrowPadding =
-    EdgeInsets.symmetric(horizontal: leftPadding, vertical: verticalPadding);
+const EdgeInsets _textWithoutArrowPadding = EdgeInsets.symmetric(
+    horizontal: AppDimensions.spacing25, vertical: AppDimensions.spacing10);
+const EdgeInsets _textWithArrowPadding = EdgeInsets.symmetric(
+    horizontal: AppDimensions.spacing15, vertical: AppDimensions.spacing10);
 
 class TitleWithHoverEffect extends StatefulWidget {
   final String title;
@@ -38,7 +34,7 @@ class TitleWithHoverEffectState extends State<TitleWithHoverEffect> {
 
     if (!widget.showEffect) {
       return Padding(
-        padding: textWithoutArrowPadding,
+        padding: _textWithoutArrowPadding,
         child: Text(
           widget.title,
           overflow: TextOverflow.ellipsis,
@@ -52,11 +48,11 @@ class TitleWithHoverEffectState extends State<TitleWithHoverEffect> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: Container(
-        margin: const EdgeInsets.only(left: leftMargin),
+        margin: const EdgeInsets.only(left: AppDimensions.spacing10),
         child: GestureDetector(
           onTap: () => widget.onTap(context),
           child: Padding(
-            padding: textWithArrowPadding,
+            padding: _textWithArrowPadding,
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -65,13 +61,13 @@ class TitleWithHoverEffectState extends State<TitleWithHoverEffect> {
                         style: _titleStyle(context),
                         overflow: TextOverflow.ellipsis,
                         softWrap: false)),
-                const SizedBox(width: arrowSpacer),
+                AppGaps.h10,
                 Icon(
                   AppIcons.forward,
                   color: color,
                   weight: _isHovered
-                      ? hoveredIconFontWeight
-                      : defaultIconFontWeight,
+                      ? AppTypography.hoveredIconWeight
+                      : AppTypography.defaultIconWeight,
                 ),
               ],
             ),
@@ -83,7 +79,7 @@ class TitleWithHoverEffectState extends State<TitleWithHoverEffect> {
 
   TextStyle _titleStyle(BuildContext context) {
     return TextStyle(
-      fontSize: 20,
+      fontSize: AppTypography.sectionTitleFontSize,
       fontWeight: _isHovered ? FontWeight.w700 : FontWeight.w500,
       color: Theme.of(context).colorScheme.primary,
     );

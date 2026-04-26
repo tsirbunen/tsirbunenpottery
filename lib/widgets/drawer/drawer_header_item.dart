@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_gaps.dart';
 import 'package:tsirbunenpottery/widgets/company/company.dart';
 import 'package:tsirbunenpottery/widgets/company/trademark.dart';
 
-const EdgeInsets padding =
-    EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0);
-const double tradeNameFontSize = 15.0;
-const FontWeight tradeNameFontWeight = FontWeight.w900;
-const double descriptionFontSize = 12.0;
-const FontWeight descriptionFontWeight = FontWeight.w500;
-const SizedBox spacer = SizedBox(width: 20);
+const EdgeInsets _padding = EdgeInsets.symmetric(vertical: AppDimensions.spacing10, horizontal: AppDimensions.spacing15);
 
 class DrawerHeaderItem extends StatelessWidget {
   final double width;
@@ -21,11 +17,11 @@ class DrawerHeaderItem extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: padding,
+            padding: _padding,
             child: Row(
               children: [
                 Trademark(isInverted: false, hasBorder: true, width: width),
-                spacer,
+                AppGaps.h20,
                 const Expanded(child: Company(isCentered: false,)),
               ],
             ),
@@ -40,7 +36,7 @@ class DrawerHeaderItem extends StatelessWidget {
     return BoxDecoration(
       border: Border(
           bottom: BorderSide(
-        width: 1.0,
+        width: AppDimensions.borderWidth,
         color: colors.onTertiary,
       )),
     );

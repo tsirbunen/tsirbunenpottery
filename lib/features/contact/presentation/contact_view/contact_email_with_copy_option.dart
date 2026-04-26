@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:tsirbunenpottery/theme/app_icons.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
-import 'package:tsirbunenpottery/utils/constants.dart';
-
-const double descriptionFontSize = 12.0;
-const Duration snackBarDuration = Duration(seconds: 2);
+import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_gaps.dart';
+import 'package:tsirbunenpottery/utils/app_durations.dart';
+import 'package:tsirbunenpottery/utils/app_typography.dart';
 
 class ContactEmailWithCopyOption extends StatelessWidget {
   const ContactEmailWithCopyOption({super.key});
@@ -27,7 +27,7 @@ class ContactEmailWithCopyOption extends StatelessWidget {
           messenger.showSnackBar(
             SnackBar(
               content: Text(emailCopiedToClipboardLabel),
-              duration: snackBarDuration,
+              duration: AppDurations.snackBar,
               backgroundColor: colors.primary,
             ),
           );
@@ -39,16 +39,16 @@ class ContactEmailWithCopyOption extends StatelessWidget {
           message: tapToCopyEmailLabel,
           decoration: _tooltipDecoration(colors),
           textStyle: _tooltipTextStyle(colors),
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          padding: const EdgeInsets.symmetric(horizontal: AppDimensions.spacing10),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(
                 AppIcons.email,
                 color: colors.secondary,
-                weight: iconWeight,
+                weight: AppTypography.defaultIconWeight,
               ),
-              const SizedBox(width: 5.0),
+              AppGaps.h5,
               Flexible(
                 child: Text(
                   contactEmaiLabel,
@@ -66,13 +66,13 @@ class ContactEmailWithCopyOption extends StatelessWidget {
   BoxDecoration _tooltipDecoration(ColorScheme colors) {
     return BoxDecoration(
       color: colors.primary.withValues(alpha: 0.8),
-      borderRadius: BorderRadius.circular(25.0),
+      borderRadius: BorderRadius.circular(AppDimensions.formBorderRadius),
     );
   }
 
   TextStyle _tooltipTextStyle(ColorScheme colors) {
     return TextStyle(
-      fontSize: descriptionFontSize,
+      fontSize: AppTypography.descriptionFontSize,
       color: colors.surface,
       fontWeight: FontWeight.w500,
     );
@@ -80,7 +80,7 @@ class ContactEmailWithCopyOption extends StatelessWidget {
 
   TextStyle _emailTextStyle(ColorScheme colors) {
     return TextStyle(
-      fontSize: descriptionFontSize,
+      fontSize: AppTypography.descriptionFontSize,
       color: colors.secondary,
       fontWeight: FontWeight.w700,
     );

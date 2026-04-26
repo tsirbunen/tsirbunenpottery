@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:tsirbunenpottery/bootstrap/environment/environment_scope.dart';
 import 'package:tsirbunenpottery/bootstrap/service_locator/service_locator.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
+import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_durations.dart';
 import 'package:tsirbunenpottery/widgets/photo_with_fallback/no_image_icon_placeholder.dart';
-
-const Duration fadeInDuration = Duration(milliseconds: 1500);
 
 class Photo {
   final String id;
@@ -90,7 +90,7 @@ class _PhotoWithFallbackState extends State<PhotoWithFallback>
                     // Note: This hack is to remove the vertical thin line
                     // that appears in mobile.
                     child: Padding(
-                      padding: const EdgeInsets.all(1.0),
+                      padding: const EdgeInsets.all(AppDimensions.photoEdgeCorrectionPadding),
                       child: Image(
                         image: _image!,
                         fit: BoxFit.cover,
@@ -192,7 +192,7 @@ class _PhotoWithFallbackState extends State<PhotoWithFallback>
     _controller = AnimationController(
       value: 0.0,
       vsync: this,
-      duration: fadeInDuration,
+      duration: AppDurations.photoFadeIn,
     );
 
     _fadeInOpacityAnimation = CurvedAnimation(

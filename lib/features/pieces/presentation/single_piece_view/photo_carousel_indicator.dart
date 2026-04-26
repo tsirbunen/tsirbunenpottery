@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-const double dotSize = 10.0;
+import 'package:tsirbunenpottery/utils/app_dimensions.dart';
 
 class PhotoCarouselIndicator extends StatelessWidget {
   final int currentIndex;
@@ -14,14 +13,14 @@ class PhotoCarouselIndicator extends StatelessWidget {
     final colors = _dotColors(context);
 
     return Padding(
-      padding: const EdgeInsets.only(top: 10.0),
+      padding: const EdgeInsets.only(top: AppDimensions.spacing10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(photosCount, (index) {
           return Container(
-            margin: const EdgeInsets.symmetric(horizontal: 3.0),
-            width: dotSize,
-            height: dotSize,
+            margin: const EdgeInsets.symmetric(horizontal: AppDimensions.carouselDotSpacing),
+            width: AppDimensions.carouselDotSize,
+            height: AppDimensions.carouselDotSize,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: index == currentIndex ? colors.active : colors.inactive,

@@ -9,12 +9,11 @@ import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_state.dart';
 import 'package:tsirbunenpottery/features/pieces/presentation/single_piece_view/design_description.dart';
 import 'package:tsirbunenpottery/features/pieces/presentation/single_piece_view/piece_photos.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
+import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_gaps.dart';
 import 'package:tsirbunenpottery/widgets/bloc_status_view/bloc_status_view.dart';
 import 'package:tsirbunenpottery/widgets/footer/footer.dart';
 import 'package:tsirbunenpottery/widgets/page_base/page_base.dart';
-
-const double spacing = 20.0;
-const double limit = 600.0;
 
 class SinglePieceView extends StatelessWidget {
   final String id;
@@ -42,23 +41,23 @@ class SinglePieceView extends StatelessWidget {
 
                 return LayoutBuilder(
                   builder: (context, constraints) {
-                    final hasRoomForRow = constraints.maxWidth > limit;
+                    final hasRoomForRow = constraints.maxWidth > AppDimensions.singlePieceViewMaxWidth;
 
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          margin: const EdgeInsets.all(20.0),
+                          margin: const EdgeInsets.all(AppDimensions.spacing20),
                           child: hasRoomForRow
                               ? Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     PiecePhotos(photoNames: piece.imageFileNames),
-                                    const SizedBox(width: spacing),
+                                    AppGaps.h20,
                                     Flexible(
                                       child: ConstrainedBox(
                                         constraints:
-                                            const BoxConstraints(maxWidth: limit),
+                                            const BoxConstraints(maxWidth: AppDimensions.singlePieceViewMaxWidth),
                                         child: DesignDescription(
                                             language: language, design: design),
                                       ),
@@ -69,10 +68,10 @@ class SinglePieceView extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     PiecePhotos(photoNames: piece.imageFileNames),
-                                    const SizedBox(height: spacing),
+                                    AppGaps.v20,
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 15.0),
+                                          horizontal: AppDimensions.spacing15),
                                       child: DesignDescription(
                                           language: language, design: design),
                                     ),

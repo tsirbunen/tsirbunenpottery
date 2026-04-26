@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
-const double containerSize = 50.0;
-const double iconSize = 30.0;
-const double iconWeight = 300.0;
+import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_typography.dart';
 
 class ActionButton extends StatelessWidget {
   final IconData iconData;
@@ -19,13 +17,13 @@ class ActionButton extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
 
     return SizedBox(
-      width: containerSize,
-      height: containerSize,
+      width: AppDimensions.actionButtonSize,
+      height: AppDimensions.actionButtonSize,
       child: IconButton(
         icon: Icon(
           iconData,
-          size: iconSize,
-          weight: iconWeight,
+          size: AppDimensions.iconSize,
+          weight: AppTypography.defaultIconWeight,
           color: colors.primary,
         ),
         onPressed: onPressed,

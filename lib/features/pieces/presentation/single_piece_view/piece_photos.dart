@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tsirbunenpottery/features/pieces/presentation/single_piece_view/photo_carousel_indicator.dart';
-import 'package:tsirbunenpottery/utils/constants.dart';
+import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_image_refs.dart';
 import 'package:tsirbunenpottery/widgets/photo_with_fallback/photo_with_fallback.dart';
-
-const double photoMinWidth = 300.0;
-const Size photoSize = Size(photoMinWidth, photoMinWidth);
 
 class PiecePhotos extends StatefulWidget {
   final List<String> photoNames;
@@ -38,8 +36,8 @@ class _PiecePhotosState extends State<PiecePhotos> {
     return Column(
       children: [
         SizedBox(
-          height: photoSize.height + 10.0,
-          width: photoSize.width + 10.0,
+          height: AppDimensions.piecePhotoSize.height + AppDimensions.spacing10,
+          width: AppDimensions.piecePhotoSize.width + AppDimensions.spacing10,
           child: PageView.builder(
             controller: _controller,
             physics: const ClampingScrollPhysics(),
@@ -47,10 +45,10 @@ class _PiecePhotosState extends State<PiecePhotos> {
             onPageChanged: (index) => setState(() => currentIndex = index),
             itemBuilder: (context, index) {
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                padding: const EdgeInsets.symmetric(horizontal: AppDimensions.spacing5),
                 child: PhotoWithFallback(
                   photo: photos[index],
-                  size: photoSize,
+                  size: AppDimensions.piecePhotoSize,
                   zoomOnHover: false,
                 ),
               );

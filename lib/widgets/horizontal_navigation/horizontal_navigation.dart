@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/bootstrap/router/route_enum.dart';
+import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_typography.dart';
 import 'package:tsirbunenpottery/widgets/company/trademark.dart';
 
-const double spacerWidth = 20.0;
-const SizedBox spacer = SizedBox(width: spacerWidth);
-const FontWeight selectedPageFontWeight = FontWeight.w800;
-const double minWidthForShowNavBarRoutes = 800;
-const double trademarkWidthEstimate = 80.0;
-const double paddingPerItemEstimate = 40.0;
+const SizedBox _spacer = SizedBox(width: AppDimensions.navSpacerWidth);
 
 class HorizontalNavigation extends StatelessWidget {
   const HorizontalNavigation({super.key});
@@ -17,7 +14,7 @@ class HorizontalNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final generalStyle = Theme.of(context).textTheme.headlineSmall!;
-    final boldStyle = generalStyle.copyWith(fontWeight: selectedPageFontWeight);
+    final boldStyle = generalStyle.copyWith(fontWeight: AppTypography.selectedPageFontWeight);
     final currentPath =
         GoRouter.of(context).routerDelegate.currentConfiguration.uri.path;
 
@@ -32,13 +29,13 @@ class HorizontalNavigation extends StatelessWidget {
 
         final canFit = totalWidthEstimate <= maxWidth;
         final isWide =
-            MediaQuery.of(context).size.width > minWidthForShowNavBarRoutes;
+            MediaQuery.of(context).size.width > AppDimensions.wideScreenBreakpoint;
 
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Trademark(isInverted: false, hasBorder: true),
-            if (isWide && canFit) spacer,
+            if (isWide && canFit) _spacer,
             if (isWide && canFit)
               ...RouteEnum.values.map(
                 (route) {
@@ -65,8 +62,10 @@ class HorizontalNavigation extends StatelessWidget {
       (route) => _estimateTextWidth(context.local(route.pageName()), style),
     );
 
-    return approxTextWidths.fold((trademarkWidthEstimate + spacerWidth),
-        (sum, w) => sum + w + paddingPerItemEstimate);
+    return approxTextWidths.fold(
+      AppDimensions.navTrademarkWidthEstimate + AppDimensions.navSpacerWidth,
+      (sum, w) => sum + w + AppDimensions.navItemPaddingEstimate,
+    );
   }
 
   double _estimateTextWidth(String text, TextStyle style) {

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_typography.dart';
 import 'package:tsirbunenpottery/widgets/hover_detector/hover_detector.dart';
 
-const iconSize = 30.0;
-const fontSize = 16.0;
-const itemPadding = EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0);
-const labelPadding = EdgeInsets.only(left: 20.0);
-const double selectedIconFontWeight = 500;
-const double defaultIconFontWeight = 300;
+const _itemPadding = EdgeInsets.symmetric(vertical: AppDimensions.spacing15, horizontal: AppDimensions.spacing15);
+const _labelPadding = EdgeInsets.only(left: AppDimensions.spacing20);
 
 class DrawerRouteItem extends StatelessWidget {
   final String routeLabel;
@@ -32,9 +30,9 @@ class DrawerRouteItem extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
     final generalStyle =
         Theme.of(context).textTheme.headlineMedium?.copyWith(
-              fontSize: fontSize,
+              fontSize: AppTypography.drawerItemFontSize,
             ) ??
-        const TextStyle(fontSize: fontSize);
+        const TextStyle(fontSize: AppTypography.drawerItemFontSize);
     final emphasizedStyle = generalStyle.copyWith(
       fontWeight: FontWeight.w800,
     );
@@ -48,7 +46,7 @@ class DrawerRouteItem extends StatelessWidget {
             GestureDetector(
               onTap: () => _navigateTo(context),
               child: Padding(
-                padding: itemPadding,
+                padding: _itemPadding,
                 child: Row(
                   children: [
                     Container(
@@ -56,16 +54,16 @@ class DrawerRouteItem extends StatelessWidget {
                       alignment: Alignment.center,
                       child: Icon(
                         iconData,
-                        size: iconSize,
+                        size: AppDimensions.iconSize,
                         color: colors.primary,
                         weight: isCurrentRoute
-                            ? selectedIconFontWeight
-                            : defaultIconFontWeight,
+                            ? AppTypography.selectedIconWeight
+                            : AppTypography.defaultIconWeight,
                       ),
                     ),
                     Expanded(
                       child: Padding(
-                        padding: labelPadding,
+                        padding: _labelPadding,
                         child: Text(routeLabel, style: style),
                       ),
                     ),

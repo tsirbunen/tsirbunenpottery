@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/bootstrap/router/route_enum.dart';
-import 'package:tsirbunenpottery/utils/current_page_name_from_settings.dart';
+import 'package:tsirbunenpottery/utils/app_dimensions.dart';
 import 'package:tsirbunenpottery/widgets/drawer/drawer_header_item.dart';
 import 'package:tsirbunenpottery/widgets/drawer/drawer_route_item.dart';
 import 'package:tsirbunenpottery/widgets/drawer/drawer_route_extension.dart';
-
-const double iconAndTrademarkContainerWidth = 60.0;
 
 class DrawerForAppBar extends StatelessWidget {
   const DrawerForAppBar({super.key});
@@ -14,7 +13,7 @@ class DrawerForAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-    final currentPage = currentPageNameFromSettings(context);
+    final currentPage = _currentPageName(context);
 
     return Drawer(
       shape: const ContinuousRectangleBorder(),
@@ -22,7 +21,7 @@ class DrawerForAppBar extends StatelessWidget {
         color: colors.surface,
         child: ListView(
           children: [
-            const DrawerHeaderItem(width: iconAndTrademarkContainerWidth),
+            const DrawerHeaderItem(width: AppDimensions.drawerIconContainerWidth),
             ...RouteEnum.values.map(
               (route) {
                 final pageName = context.local(route.pageName());
@@ -32,7 +31,7 @@ class DrawerForAppBar extends StatelessWidget {
                   iconData: route.iconData,
                   path: route.path(),
                   isCurrentRoute: pageName == currentPage,
-                  width: iconAndTrademarkContainerWidth,
+                  width: AppDimensions.drawerIconContainerWidth,
                 );
               },
             ),
@@ -41,4 +40,10 @@ class DrawerForAppBar extends StatelessWidget {
       ),
     );
   }
+}
+
+String _currentPageName(BuildContext context) {
+  final routeSettings = ModalRoute.of(context)?.settings;
+  if (routeSettings is NoTransitionPage) return routeSettings.name ?? '';
+  return '';
 }

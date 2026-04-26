@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tsirbunenpottery/bootstrap/router/route_enum.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
-
-const double footerBreakpoint = 600.0;
+import 'package:tsirbunenpottery/utils/app_dimensions.dart';
 
 class Footer extends StatelessWidget {
   const Footer({super.key});
@@ -12,14 +11,14 @@ class Footer extends StatelessWidget {
   Widget build(BuildContext context) {
     final routes = _routes(context);
     final width = MediaQuery.of(context).size.width;
-    final isHorizontal = width > footerBreakpoint;
+    final isHorizontal = width > AppDimensions.narrowScreenBreakpoint;
 
     return Container(
-        margin: const EdgeInsets.only(top: 50.0),
+        margin: const EdgeInsets.only(top: AppDimensions.spacing50),
         decoration: _decoration(context),
         width: double.infinity,
         child: Padding(
-          padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+          padding: const EdgeInsets.only(top: AppDimensions.spacing5, bottom: AppDimensions.spacing5),
           child: isHorizontal
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -58,7 +57,7 @@ class Footer extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
     return BoxDecoration(
       // color: colors.onTertiary, // Is it better with the background color or without?
-      border: Border(top: BorderSide(width: 1.0, color: colors.onTertiary)),
+      border: Border(top: BorderSide(width: AppDimensions.borderWidth, color: colors.onTertiary)),
     );
   }
 }
