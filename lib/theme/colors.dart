@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-// Tämä täysvalkoinen, niin ei näy tastat niin hullusti?
 const Color background = Color.fromARGB(255, 255, 255, 255);
-//  Color.fromARGB(255, 242, 242, 242);
 const Color extremelyPale = Color.fromARGB(255, 222, 221, 218);
 const Color inputFieldBackground = Color.fromARGB(255, 235, 234, 232);
 const Color pale = Color.fromARGB(255, 199, 198, 193);

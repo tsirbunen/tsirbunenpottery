@@ -8,7 +8,7 @@ import 'package:tsirbunenpottery/utils/app_durations.dart';
 /// indicate loading status).
 class NoImageIconPlaceholder extends StatefulWidget {
   final Size size;
-  final bool? isAnimated;
+  final bool isAnimated;
   final IconData? iconData;
   const NoImageIconPlaceholder({
     super.key,
@@ -56,7 +56,7 @@ class _NoImageIconPlaceholderState extends State<NoImageIconPlaceholder>
   @override
   void initState() {
     super.initState();
-    if (widget.isAnimated == false) return;
+    if (!widget.isAnimated) return;
 
     _controller = AnimationController(
       vsync: this,

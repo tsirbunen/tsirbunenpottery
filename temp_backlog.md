@@ -42,23 +42,8 @@ FIXME comment acknowledges that the widget fails in tests due to horizontal over
 Category: Performance
 `TextPainter` is instantiated fresh for every navigation label on every `build()`. Cache computed widths in a `late final` map initialized once in `initState`.
 
-**M11** `features/contact/presentation/contact_view/photo_and_info.dart:9` and `features/pieces/presentation/single_piece_view/piece_photos.dart:7`
-Category: Duplication / Constants
-`Size(275, 275)` and `Size(300, 300)` are hardcoded inline across multiple files. Move all shared photo sizes to a central `AppSizes` or `AppDimensions` file.
-
-**M12** `utils/constants.dart`
-Category: Organisation
-Single file mixes Firestore document IDs with UI layout constants. Split into `firestore_constants.dart` and a theme-adjacent sizes file so each has a single, findable responsibility.
 
 
-
-**M14** `theme/app_theme.dart:32`
-Category: Dead Code
-`// fontSize: 12,` commented out with no context. Remove or explain why it's preserved.
-
-**M15** `bootstrap/service_locator/service_locator.dart`
-Category: Architecture
-All repositories are directly instantiated inline without a factory abstraction. As the feature count grows this file will become a god file. Extract a `DependencyModule` per feature layer.
 
 **M16** All BLoC files
 Category: Observability
@@ -123,9 +108,6 @@ Multiple const-eligible widgets are missing the `const` keyword. Run `flutter an
 Category: Naming
 `_onFetch` is the private handler name in every BLoC. When a breakpoint or log message fires, it's hard to tell which BLoC you're in. Rename to `_onFetchPieces`, `_onFetchDesigns`, etc.
 
-**L6** `features/categories/presentation/categories_view/categories_view.dart:68-102`
-Category: Readability
-Multi-level `expand()` + `where()` pipeline inlined in `build()` is hard to follow. Extract `_buildWidgetsForCategory(Category c)` to separate logic from layout.
 
 **L7** (Global)
 Category: Testing
@@ -139,19 +121,13 @@ No crash reporting integration (Sentry, Firebase Crashlytics). Errors are logged
 Category: Code Quality / DRY
 `tag = 'App'` default parameter is copy-pasted across three separate method signatures. Extract as `static const String _defaultTag = 'App'` and reference it.
 
-**L10** `widgets/photo_with_fallback/no_image_icon_placeholder.dart:57`
-Category: Code Quality
-`if (widget.isAnimated == false)` should be `if (!widget.isAnimated)`. Comparing a bool to a literal is a code smell.
-
 
 
 **L13** `features/contact/presentation/contact_view/contact_email_with_copy_option.dart:34`
 Category: Error Handling
 `catch (_) {}` swallows clipboard errors silently. At minimum log at debug level so developers know when clipboard access fails (common on some browsers).
 
-**L14** `theme/app_theme.dart`
-Category: Organisation
-`themeData` getter is 50+ lines. Extract sub-sections (`_textTheme()`, `_colorScheme()`, `_inputDecorationTheme()`) for readability and easier future maintenance.
+
 
 **L15** `widgets/app_bar/app_bar_customized.dart:6-8`
 Category: FIXME / Technical Debt
@@ -159,22 +135,3 @@ FIXME comment: "as long as the app is only web...". This is untracked technical 
 
 
 
-**L17** `core/scroll_position_cache/scroll_position_cache.dart`
-Category: Documentation
-`_positions[target] ?? 0.0` returns `0.0` as a default scroll offset. This implicit default is non-obvious — add a brief comment explaining it's intentional (start at top when no position is cached).
-
-
-
-**L19** (Global)
-Category: Non-English Comments
-Finnish comments appear in `colors.dart` and possibly elsewhere. The engineering standard for a production codebase is English-only comments. Translate or remove.
-
-
-
-**L23** `widgets/app_bar/app_bar_right_actions.dart:29-30`
-Category: Readability
-Inline ternary for language-toggle label. Extract as `_languageLabel(Language lang)` for clarity.
-
-**L24** `widgets/drawer/drawer_route_item.dart:5-10`
-Category: Organisation
-Six layout constants defined locally in a small widget file. Move to `AppDimensions` or a shared `DrawerConstants` class.

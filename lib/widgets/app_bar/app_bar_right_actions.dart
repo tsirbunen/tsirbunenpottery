@@ -26,9 +26,7 @@ class AppBarRightActions extends StatelessWidget {
             // and English, we are fine with this very simple implementation.
             ActionButton(
               onPressed: () {
-                final newLanguage =
-                    currentLanguage == Language.en ? Language.fi : Language.en;
-                _onChangeLanguage(context, newLanguage);
+                _onChangeLanguage(context, _newLanguage(currentLanguage));
               },
               iconData: AppIcons.language,
             ),
@@ -37,6 +35,9 @@ class AppBarRightActions extends StatelessWidget {
       },
     );
   }
+
+  Language _newLanguage(Language current) =>
+      current == Language.en ? Language.fi : Language.en;
 
   void _onChangeLanguage(BuildContext context, Language language) {
     context.read<LanguageBloc>().add(ChangeLanguage(language));
