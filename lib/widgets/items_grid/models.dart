@@ -27,6 +27,8 @@ extension ScrollTargetExtension on ViewMode {
         return 'pieces-$direction';
     }
   }
+
+  String get fixedScrollTargetName => scrollTargetName(null, null);
 }
 
 GridParams computeGridParams(

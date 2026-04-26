@@ -23,7 +23,7 @@ class PiecesView extends StatefulWidget {
 class _PiecesViewState extends State<PiecesView>
     with ScrollPositionMixin<PiecesView> {
   @override
-  String get scrollTargetName => ViewMode.pieces.scrollTargetName(null, null);
+  String get scrollTargetName => ViewMode.pieces.fixedScrollTargetName;
 
   void _onRetry() => context.read<PiecesBloc>().add(FetchPieces());
 

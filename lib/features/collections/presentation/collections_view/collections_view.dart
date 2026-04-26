@@ -11,9 +11,6 @@ class CollectionsView extends StatefulWidget {
 
   const CollectionsView({super.key, this.selectedCollectionId});
 
-  String get scrollTargetName =>
-      ViewMode.collections.scrollTargetName(null, selectedCollectionId);
-
   @override
   State<CollectionsView> createState() => _CollectionsViewState();
 }
@@ -21,7 +18,8 @@ class CollectionsView extends StatefulWidget {
 class _CollectionsViewState extends State<CollectionsView>
     with ScrollPositionMixin<CollectionsView> {
   @override
-  String get scrollTargetName => widget.scrollTargetName;
+  String get scrollTargetName =>
+      ViewMode.collections.scrollTargetName(null, widget.selectedCollectionId);
 
   @override
   Widget build(BuildContext context) {

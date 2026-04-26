@@ -88,10 +88,6 @@ Category: Lifecycle
 
 
 
-**M44** `features/designs/presentation/designs_view/designs_view.dart:23`
-Category: Naming
-`scrollTargetName` is defined as a getter but its value is constructed from a string literal — it reads like a computed property but is actually a static-ish constant. Rename to a `static const` or extract to `ScrollTarget` enum.
-
 ---
 
 ## LOW

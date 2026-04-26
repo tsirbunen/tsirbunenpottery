@@ -11,9 +11,6 @@ class CategoriesView extends StatefulWidget {
 
   const CategoriesView({super.key, this.selectedCategoryId});
 
-  String get scrollTargetName =>
-      ViewMode.categories.scrollTargetName(selectedCategoryId, null);
-
   @override
   State<CategoriesView> createState() => _CategoriesViewState();
 }
@@ -21,7 +18,8 @@ class CategoriesView extends StatefulWidget {
 class _CategoriesViewState extends State<CategoriesView>
     with ScrollPositionMixin<CategoriesView> {
   @override
-  String get scrollTargetName => widget.scrollTargetName;
+  String get scrollTargetName =>
+      ViewMode.categories.scrollTargetName(widget.selectedCategoryId, null);
 
   @override
   Widget build(BuildContext context) {
