@@ -139,8 +139,7 @@ class _ContactFormState extends State<ContactForm> {
   }
 
   TextStyle _titleStyle(TextTheme textTheme, ColorScheme colors) {
-    return textTheme.headlineMedium?.copyWith(
-          fontSize: AppTypography.sectionTitleFontSize,
+    return textTheme.titleMedium?.copyWith(
           color: colors.primary,
         ) ??
         const TextStyle();
@@ -157,7 +156,6 @@ class _ContactFormState extends State<ContactForm> {
 
   TextStyle _textStyle(TextTheme textTheme, ColorScheme colors) {
     return textTheme.titleMedium?.copyWith(
-          fontSize: AppTypography.buttonFontSize,
           color: colors.surface,
         ) ??
         const TextStyle();

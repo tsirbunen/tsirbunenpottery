@@ -29,11 +29,6 @@ class AppTheme {
         fontWeight: FontWeight.w500,
         color: veryDark,
       ),
-      labelSmall: TextStyle(
-        fontSize: 10,
-        fontWeight: FontWeight.w800,
-        color: pale,
-      ),
       labelMedium: TextStyle(
         fontSize: 10,
         fontWeight: FontWeight.w500,

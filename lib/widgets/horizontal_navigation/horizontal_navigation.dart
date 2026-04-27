@@ -43,8 +43,8 @@ class _HorizontalNavigationState extends State<HorizontalNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    final generalStyle = Theme.of(context).textTheme.headlineSmall!;
-    final boldStyle = generalStyle.copyWith(fontWeight: AppTypography.selectedPageFontWeight);
+    final generalStyle = Theme.of(context).textTheme.headlineSmall ?? const TextStyle();
+    final boldStyle = generalStyle.emphasized;
     final currentPath =
         GoRouter.of(context).routerDelegate.currentConfiguration.uri.path;
 

@@ -78,10 +78,11 @@ class TitleWithHoverEffectState extends State<TitleWithHoverEffect> {
   }
 
   TextStyle _titleStyle(BuildContext context) {
-    return TextStyle(
-      fontSize: AppTypography.sectionTitleFontSize,
-      fontWeight: _isHovered ? FontWeight.w700 : FontWeight.w500,
-      color: Theme.of(context).colorScheme.primary,
-    );
+ final textTheme = Theme.of(context).textTheme;
+       return textTheme.titleMedium?.copyWith(
+          fontWeight: _isHovered ? FontWeight.w700 : FontWeight.w500,
+          color: Theme.of(context).colorScheme.primary,
+        ) ??
+        const TextStyle();
   }
 }

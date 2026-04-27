@@ -33,9 +33,7 @@ class DrawerRouteItem extends StatelessWidget {
               fontSize: AppTypography.drawerItemFontSize,
             ) ??
         const TextStyle(fontSize: AppTypography.drawerItemFontSize);
-    final emphasizedStyle = generalStyle.copyWith(
-      fontWeight: FontWeight.w800,
-    );
+    final emphasizedStyle = generalStyle.emphasized;
     final style = isCurrentRoute ? emphasizedStyle : generalStyle;
 
     return HoverDetector(builder: (BuildContext context, bool isHovering) {
