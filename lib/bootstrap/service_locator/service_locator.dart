@@ -5,7 +5,7 @@ import 'package:tsirbunenpottery/bootstrap/environment/app_environment.dart';
 import 'package:tsirbunenpottery/bootstrap/router/route_controller.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/core/logging/dev_app_logger.dart';
-import 'package:tsirbunenpottery/core/logging/noop_app_logger.dart';
+import 'package:tsirbunenpottery/core/logging/release_app_logger.dart';
 import 'package:tsirbunenpottery/core/scroll_position_cache/scroll_position_cache.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/data/cloud_service.dart';
@@ -32,23 +32,23 @@ final getIt = GetIt.instance;
 
 void prepareBlocs({CloudService? cloudService}) {
   final logger =
-      kReleaseMode ? const NoOpAppLogger() : const DevAppLogger();
+      kReleaseMode ? const ReleaseAppLogger() : const DevAppLogger();
   getIt.registerSingleton<AppLogger>(logger);
 
-  cloudService ??= FirestoreCloudService(logger: logger);
+  final service = cloudService ?? FirestoreCloudService(logger: logger);
 
   getIt.registerSingleton<Environment>(const Environment());
   final languageBloc = LanguageBloc();
 
-  final homeRepository = HomeRepository(cloudService);
+  final homeRepository = HomeRepository(service);
   final homeBloc = HomeBloc(homeRepository, logger: logger);
   homeBloc.add(FetchHomePageImageFileName());
 
-  final contactBloc = ContactBloc(ContactRepository(cloudService), logger: logger);
+  final contactBloc = ContactBloc(ContactRepository(service), logger: logger);
   contactBloc.add(FetchOwnerPhoto());
 
   final parser = FirestoreDataParser(logger: logger);
-  final productsRepository = ProductsRepository(cloudService, parser, logger: logger);
+  final productsRepository = ProductsRepository(service, parser, logger: logger);
 
   final piecesBloc = PiecesBloc(PiecesRepository(productsRepository), logger: logger);
   piecesBloc.add(FetchPieces());
