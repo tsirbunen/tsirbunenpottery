@@ -48,10 +48,6 @@ Category: Observability
 Category: UX / Error Handling
 If a piece ID is missing from the cache (stale link, bad navigation), the user sees generic text with no recovery action. Add a "back to all pieces" button or auto-pop after a short delay.
 
-**M18** `localization/validate_translations.dart:4`
-Category: Architecture / FIXME
-FIXME comment: translation completeness is validated at test runtime, not compile time. Use `build_runner` to generate a lookup that fails compilation when a key is missing.
-
 
 
 

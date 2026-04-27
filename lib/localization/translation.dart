@@ -37,9 +37,3 @@ enum Translation {
   dataLoadError,
   retry,
 }
-
-extension TranslationToKey on Translation {
-  String toKey() {
-    return toString().split('.').last;
-  }
-}

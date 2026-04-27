@@ -3,76 +3,23 @@ import 'package:tsirbunenpottery/localization/en.dart';
 import 'package:tsirbunenpottery/localization/fi.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
 import 'package:tsirbunenpottery/localization/translations.dart';
-import 'package:tsirbunenpottery/localization/validate_translations.dart';
 import '../utils/barrel.dart';
-
-class MockTranslations implements Translations {
-  final Map<String, String> _all;
-  MockTranslations(this._all);
-
-  @override
-  String get language => 'Mock';
-
-  @override
-  String translate(Translation key) => _all[key.name] ?? '';
-
-  @override
-  Map<String, String> get all => _all;
-}
 
 void main() {
   group('Localizations >', () {
     setUpAndTearDownAllBlocsAndPreventNetworkImages();
-    test('does not throw when all keys match', () {
-      final en = En();
-      expect(() => validateTranslations(en), returnsNormally);
-    });
 
-    test('throws when keys are missing', () {
-      final en = En();
-      final modifiedTranslations = {
-        ...en.all,
-      }..remove('tradeName');
+    test('all keys return non-empty strings for every language', () {
+      final languages = <Translations>[En(), Fi()];
 
-      final mockTranslations = MockTranslations(modifiedTranslations);
-
-      expect(
-        () => validateTranslations(mockTranslations),
-        throwsA(predicate((e) =>
-            e is Exception &&
-            e.toString().contains('is missing the following keys:'))),
-      );
-    });
-
-    test('throws when extra keys are present', () {
-      final en = En();
-      final modifiedTranslations = {
-        ...en.all,
-        'extraKey': 'Extra Value',
-      };
-
-      final mockTranslations = MockTranslations(modifiedTranslations);
-
-      expect(
-        () => validateTranslations(mockTranslations),
-        throwsA(predicate((e) =>
-            e is Exception &&
-            e.toString().contains('has extra keys that are not in the enum:'))),
-      );
-    });
-
-    test('all app language translations are valid', () {
-      final appLanguages = [
-        En(),
-        Fi(),
-      ];
-
-      for (final language in appLanguages) {
-        expect(
-          () => validateTranslations(language),
-          returnsNormally,
-          reason: 'Language ${language.language} has missing or extra keys',
-        );
+      for (final lang in languages) {
+        for (final key in Translation.values) {
+          expect(
+            lang.translate(key),
+            isNotEmpty,
+            reason: '${lang.language} has empty string for key "${key.name}"',
+          );
+        }
       }
     });
   });

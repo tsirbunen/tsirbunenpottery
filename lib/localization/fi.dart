@@ -7,53 +7,51 @@ class Fi implements Translations {
   String get language => Language.fi.name;
 
   @override
-  String translate(Translation key) => all[key.name] ?? '';
-
-  @override
-  Map<String, String> get all => {
-        'tradeName': 'TSIRBUNEN POTTERY',
-        'appShortDescription': 'ylellisempää arkea',
-        'homeTitle': 'tsirbunen pottery',
-        'homeDescription':
-            'Etsitkö kahvimukia, nuudelikulhoa tai salaattilautasta?\n'
-            'Piristäisikö posliinisormus tai seinäreliefi arkeasi?\n'
-            'Nämä ja paljon muuta löydät\n'
-            'Tsirbunen Potteryn valikoimasta.\n\n'
-            'Kaikki tuotteet on yksitellen käsin rakennettu,\n'
-            'eikä kahta täysin samanlaista tuotetta löydy.\n'
-            'Valikoima elää: kun yksi työ lähtee uuteen kotiin,\n'
-            'tilalle tulee jotain muuta.\n\n'
-            'Jos valikoimasta ei löydy oikeanlaista tuotetta,\n'
-            'ota rohkeasti yhteyttä - kuvan kanssa tai ilman!\n'
-            'Toteutan mielelläni tilaustöitä.',
-        'chineseCharacter': '泥',
-        'home': 'Koti',
-        'pieces': 'Tuotteet',
-        'categories': 'Kategoriat',
-        'collections': 'Kokoelmat',
-        'designs': 'Mallit',
-        'story': 'Tarina',
-        'contact': 'Yhteystiedot',
-        'english': 'Englanti',
-        'finnish': 'Suomi',
-        'allDesigns': 'Kaikki mallit',
-        'allPieces': 'Kaikki tuotteet',
-        'designNotFound': 'Mallia ei löydy',
-        'productDetails': 'Tuotteen tiedot',
-        'foodSafetyTitle': 'Elintarviketurvallisuus',
-        'foodSafetyDetails': foodSafetyDetails,
-        'contactUs': 'Ota yhteyttä',
-        'contactTitlePlaceholder': 'Otsikko...',
-        'contactMessagePlaceholder': 'Viesti...',
-        'submitLabel': 'Lähetä',
-        'comingSoon': 'Tulossa pian',
-        'emailCopiedToClipboard': 'Sähköposti kopioitu leikepöydälle',
-        'tapToCopyEmail': 'Kopioi sähköposti napauttamalla sitä!',
-        'contactEmail': 'tsirbunenpottery@gmail.com',
-        'storyOnContactPage':
-            'Käsityönä valmistettu alusta loppuun, ei kahta samanlaista.',
-        'dataLoadError': 'Tietojen lataus epäonnistui. Yritä myöhemmin uudelleen.',
-        'retry': 'Yritä uudelleen',
+  String translate(Translation key) => switch (key) {
+        Translation.tradeName => 'TSIRBUNEN POTTERY',
+        Translation.appShortDescription => 'ylellisempää arkea',
+        Translation.homeTitle => 'tsirbunen pottery',
+        Translation.homeDescription =>
+          'Etsitkö kahvimukia, nuudelikulhoa tai salaattilautasta?\n'
+              'Piristäisikö posliinisormus tai seinäreliefi arkeasi?\n'
+              'Nämä ja paljon muuta löydät\n'
+              'Tsirbunen Potteryn valikoimasta.\n\n'
+              'Kaikki tuotteet on yksitellen käsin rakennettu,\n'
+              'eikä kahta täysin samanlaista tuotetta löydy.\n'
+              'Valikoima elää: kun yksi työ lähtee uuteen kotiin,\n'
+              'tilalle tulee jotain muuta.\n\n'
+              'Jos valikoimasta ei löydy oikeanlaista tuotetta,\n'
+              'ota rohkeasti yhteyttä - kuvan kanssa tai ilman!\n'
+              'Toteutan mielelläni tilaustöitä.',
+        Translation.chineseCharacter => '泥',
+        Translation.home => 'Koti',
+        Translation.pieces => 'Tuotteet',
+        Translation.categories => 'Kategoriat',
+        Translation.collections => 'Kokoelmat',
+        Translation.designs => 'Mallit',
+        Translation.story => 'Tarina',
+        Translation.contact => 'Yhteystiedot',
+        Translation.english => 'Englanti',
+        Translation.finnish => 'Suomi',
+        Translation.allDesigns => 'Kaikki mallit',
+        Translation.allPieces => 'Kaikki tuotteet',
+        Translation.designNotFound => 'Mallia ei löydy',
+        Translation.productDetails => 'Tuotteen tiedot',
+        Translation.foodSafetyTitle => 'Elintarviketurvallisuus',
+        Translation.foodSafetyDetails => _foodSafetyDetails,
+        Translation.contactUs => 'Ota yhteyttä',
+        Translation.contactTitlePlaceholder => 'Otsikko...',
+        Translation.contactMessagePlaceholder => 'Viesti...',
+        Translation.submitLabel => 'Lähetä',
+        Translation.comingSoon => 'Tulossa pian',
+        Translation.emailCopiedToClipboard => 'Sähköposti kopioitu leikepöydälle',
+        Translation.tapToCopyEmail => 'Kopioi sähköposti napauttamalla sitä!',
+        Translation.contactEmail => 'tsirbunenpottery@gmail.com',
+        Translation.storyOnContactPage =>
+          'Käsityönä valmistettu alusta loppuun, ei kahta samanlaista.',
+        Translation.dataLoadError =>
+          'Tietojen lataus epäonnistui. Yritä myöhemmin uudelleen.',
+        Translation.retry => 'Yritä uudelleen',
       };
 }
 
@@ -68,4 +66,4 @@ const List<String> foodSafetyInfo = [
   'Turvallisuutesi on meille tärkeää! Kiitos ymmärryksestäsi!'
 ];
 
-String foodSafetyDetails = foodSafetyInfo.join(' ');
+final String _foodSafetyDetails = foodSafetyInfo.join(' ');
