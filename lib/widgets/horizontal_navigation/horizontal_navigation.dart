@@ -8,8 +8,38 @@ import 'package:tsirbunenpottery/widgets/company/trademark.dart';
 
 const SizedBox _spacer = SizedBox(width: AppDimensions.navSpacerWidth);
 
-class HorizontalNavigation extends StatelessWidget {
+class HorizontalNavigation extends StatefulWidget {
   const HorizontalNavigation({super.key});
+
+  @override
+  State<HorizontalNavigation> createState() => _HorizontalNavigationState();
+}
+
+class _HorizontalNavigationState extends State<HorizontalNavigation> {
+  double _totalWidthEstimate = 0;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final style = Theme.of(context).textTheme.headlineSmall!;
+    _totalWidthEstimate = _computeTotalWidth(style);
+  }
+
+  double _computeTotalWidth(TextStyle style) {
+    return RouteEnum.values.fold(
+      AppDimensions.navTrademarkWidthEstimate + AppDimensions.navSpacerWidth,
+      (sum, route) => sum + _measureText(context.local(route.pageName()), style),
+    );
+  }
+
+  double _measureText(String text, TextStyle style) {
+    final tp = TextPainter(
+      text: TextSpan(text: text, style: style),
+      maxLines: 1,
+      textDirection: TextDirection.ltr,
+    )..layout();
+    return tp.width + 30.0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +50,7 @@ class HorizontalNavigation extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final maxWidth = constraints.maxWidth;
-
-        final totalWidthEstimate = _estimateRouteLabelsTotalWidth(
-          context,
-          generalStyle,
-        );
-
-        final canFit = totalWidthEstimate <= maxWidth;
+        final canFit = _totalWidthEstimate <= constraints.maxWidth;
         final isWide =
             MediaQuery.of(context).size.width > AppDimensions.wideScreenBreakpoint;
 
@@ -55,25 +78,5 @@ class HorizontalNavigation extends StatelessWidget {
         );
       },
     );
-  }
-
-  double _estimateRouteLabelsTotalWidth(BuildContext context, TextStyle style) {
-    final approxTextWidths = RouteEnum.values.map(
-      (route) => _estimateTextWidth(context.local(route.pageName()), style),
-    );
-
-    return approxTextWidths.fold(
-      AppDimensions.navTrademarkWidthEstimate + AppDimensions.navSpacerWidth,
-      (sum, w) => sum + w + AppDimensions.navItemPaddingEstimate,
-    );
-  }
-
-  double _estimateTextWidth(String text, TextStyle style) {
-    final tp = TextPainter(
-      text: TextSpan(text: text, style: style),
-      maxLines: 1,
-      textDirection: TextDirection.ltr,
-    )..layout();
-    return tp.width + 30.0;
   }
 }

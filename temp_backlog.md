@@ -37,10 +37,6 @@ Category: Null Safety
 Category: Testing / Known Bug
 FIXME comment acknowledges that the widget fails in tests due to horizontal overflow. Fix the test setup (wrap in `SizedBox` with explicit constraints) or convert to a tracked issue. Leaving an acknowledged broken test in production code is not acceptable.
 
-**M9** `widgets/horizontal_navigation/horizontal_navigation.dart:72-79`
-Category: Performance
-`TextPainter` is instantiated fresh for every navigation label on every `build()`. Cache computed widths in a `late final` map initialized once in `initState`.
-
 
 
 
