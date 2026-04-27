@@ -8,11 +8,7 @@ import 'package:tsirbunenpottery/features/home/presentation/pages/home_page.dart
 import 'package:tsirbunenpottery/features/pieces/presentation/pages/single_piece_page.dart';
 import 'package:tsirbunenpottery/features/pieces/presentation/pages/pieces_page.dart';
 
-// Note: We want to use type-safe routes, and for that, go_router supports using routes
-// generated with the go_router_builder package (that uses build_runner under the hood).
-// Using "part" to import code is generally discouraged by the Dart team, but widely used
-// in the Flutter community in cases of code generation and here we also resort to that
-// to import the generated code parts.
+// go_router_builder requires `part` to inject generated route mixins into this library.
 part 'routes.g.dart';
 
 const piecesRoot = '/pieces';

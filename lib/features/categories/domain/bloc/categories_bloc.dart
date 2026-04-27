@@ -23,10 +23,10 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState>
   CategoriesState withStatus(BlocStatus status) => state.copyWith(blocStatus: status);
 
   CategoriesBloc(this._repository, {required this.logger}) : super(const CategoriesState()) {
-    on<CategoriesEvent>(_onEvent);
+    on<CategoriesEvent>(_onFetchCategories);
   }
 
-  Future<void> _onEvent(CategoriesEvent event, Emitter<CategoriesState> emit) async {
+  Future<void> _onFetchCategories(CategoriesEvent event, Emitter<CategoriesState> emit) async {
     switch (event) {
       case FetchCategories():
         await runFetch(emit, () async {

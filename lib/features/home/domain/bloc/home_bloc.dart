@@ -23,10 +23,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState>
   HomeState withStatus(BlocStatus status) => state.copyWith(blocStatus: status);
 
   HomeBloc(this._repository, {required this.logger}) : super(const HomeState()) {
-    on<HomeEvent>(_onEvent);
+    on<HomeEvent>(_onFetchHome);
   }
 
-  Future<void> _onEvent(HomeEvent event, Emitter<HomeState> emit) async {
+  Future<void> _onFetchHome(HomeEvent event, Emitter<HomeState> emit) async {
     switch (event) {
       case FetchHomePageImageFileName():
         await runFetch(emit, () async {

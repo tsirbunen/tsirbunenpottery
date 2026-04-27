@@ -54,12 +54,6 @@ FIXME comment: translation completeness is validated at test runtime, not compil
 
 
 
-**M20** `data/products_repository.dart:140`
-Category: Type Safety
-Manual `as List<dynamic>` casting against expected Firestore schema. Consider using `json_serializable` (already in the project) for Firestore model deserialization to validate document shape at the data boundary.
-
-
-
 
 
 **M26** `features/home/presentation/pages/home_page.dart:73-81`
@@ -72,26 +66,12 @@ Category: Code Quality
 
 ## LOW
 
-**L3** `bootstrap/router/routes.dart`
-Category: Comment
-Comment apologetically notes that `part` files are discouraged. If code gen is the accepted trade-off, just leave a one-line note about why — remove the hand-wringing.
-
-**L4** Various widget files
-Category: Const Correctness
-Multiple const-eligible widgets are missing the `const` keyword. Run `flutter analyze` and address all `prefer_const_constructors` and `prefer_const_literals_to_create_immutables` lints.
-
-**L5** All feature BLoC files
-Category: Naming
-`_onFetch` is the private handler name in every BLoC. When a breakpoint or log message fires, it's hard to tell which BLoC you're in. Rename to `_onFetchPieces`, `_onFetchDesigns`, etc.
 
 
 **L7** (Global)
 Category: Testing
 No unit tests for any repository or BLoC. Production-grade apps require near-100% unit test coverage on business logic. Add `bloc_test` tests for all BLoCs and `mockito`/`mocktail` fakes for repositories.
 
-**L8** (Global)
-Category: Observability
-No crash reporting integration (Sentry, Firebase Crashlytics). Errors are logged locally but never reported to an external service. Add Crashlytics before public launch.
 
 
 **L13** `features/contact/presentation/contact_view/contact_email_with_copy_option.dart:34`

@@ -23,10 +23,10 @@ class DesignsBloc extends Bloc<DesignsEvent, DesignsState>
   DesignsState withStatus(BlocStatus status) => state.copyWith(blocStatus: status);
 
   DesignsBloc(this._repository, {required this.logger}) : super(const DesignsState()) {
-    on<DesignsEvent>(_onEvent);
+    on<DesignsEvent>(_onFetchDesigns);
   }
 
-  Future<void> _onEvent(DesignsEvent event, Emitter<DesignsState> emit) async {
+  Future<void> _onFetchDesigns(DesignsEvent event, Emitter<DesignsState> emit) async {
     switch (event) {
       case FetchDesigns():
         await runFetch(emit, () async {

@@ -3,6 +3,8 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tsirbunenpottery/bootstrap/environment/app_environment.dart';
 import 'package:tsirbunenpottery/bootstrap/router/route_controller.dart';
+import 'package:tsirbunenpottery/core/crash_reporting/crash_reporter.dart';
+import 'package:tsirbunenpottery/core/crash_reporting/no_op_crash_reporter.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/core/logging/dev_app_logger.dart';
 import 'package:tsirbunenpottery/core/logging/release_app_logger.dart';
@@ -34,6 +36,7 @@ void prepareBlocs({CloudService? cloudService}) {
   final logger =
       kReleaseMode ? const ReleaseAppLogger() : const DevAppLogger();
   getIt.registerSingleton<AppLogger>(logger);
+  getIt.registerSingleton<CrashReporter>(const NoOpCrashReporter());
 
   final service = cloudService ?? FirestoreCloudService(logger: logger);
 

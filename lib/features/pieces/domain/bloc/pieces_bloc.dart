@@ -23,10 +23,10 @@ class PiecesBloc extends Bloc<PiecesEvent, PiecesState>
   PiecesState withStatus(BlocStatus status) => state.copyWith(blocStatus: status);
 
   PiecesBloc(this._repository, {required this.logger}) : super(const PiecesState()) {
-    on<PiecesEvent>(_onEvent);
+    on<PiecesEvent>(_onFetchPieces);
   }
 
-  Future<void> _onEvent(PiecesEvent event, Emitter<PiecesState> emit) async {
+  Future<void> _onFetchPieces(PiecesEvent event, Emitter<PiecesState> emit) async {
     switch (event) {
       case FetchPieces():
         await runFetch(emit, () async {

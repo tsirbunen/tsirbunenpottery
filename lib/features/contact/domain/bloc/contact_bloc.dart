@@ -23,10 +23,10 @@ class ContactBloc extends Bloc<ContactEvent, ContactState>
   ContactState withStatus(BlocStatus status) => state.copyWith(blocStatus: status);
 
   ContactBloc(this._repository, {required this.logger}) : super(const ContactState()) {
-    on<ContactEvent>(_onEvent);
+    on<ContactEvent>(_onFetchContact);
   }
 
-  Future<void> _onEvent(ContactEvent event, Emitter<ContactState> emit) async {
+  Future<void> _onFetchContact(ContactEvent event, Emitter<ContactState> emit) async {
     switch (event) {
       case FetchOwnerPhoto():
         await runFetch(emit, () async {

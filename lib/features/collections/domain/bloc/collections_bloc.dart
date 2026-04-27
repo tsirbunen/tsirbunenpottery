@@ -23,10 +23,10 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState>
   CollectionsState withStatus(BlocStatus status) => state.copyWith(blocStatus: status);
 
   CollectionsBloc(this._repository, {required this.logger}) : super(const CollectionsState()) {
-    on<CollectionsEvent>(_onEvent);
+    on<CollectionsEvent>(_onFetchCollections);
   }
 
-  Future<void> _onEvent(CollectionsEvent event, Emitter<CollectionsState> emit) async {
+  Future<void> _onFetchCollections(CollectionsEvent event, Emitter<CollectionsState> emit) async {
     switch (event) {
       case FetchCollections():
         await runFetch(emit, () async {
