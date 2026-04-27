@@ -28,11 +28,6 @@ Category: Caching / Data Freshness
 
 
 
-
-**M6** `localization/app_locale.dart:16`
-Category: Null Safety
-`Localizations.of<AppLocale>(context, AppLocale)!` force-unwraps. In any widget outside the localization scope (e.g. unit test, dialog) this crashes. Return a sensible default or `throw` a descriptive error.
-
 **M8** `widgets/items_grid/items_grid.dart:81-82`
 Category: Testing / Known Bug
 FIXME comment acknowledges that the widget fails in tests due to horizontal overflow. Fix the test setup (wrap in `SizedBox` with explicit constraints) or convert to a tracked issue. Leaving an acknowledged broken test in production code is not acceptable.
@@ -43,11 +38,6 @@ FIXME comment acknowledges that the widget fails in tests due to horizontal over
 **M16** All BLoC files
 Category: Observability
 `_onFetch()` silently drops events when `isLoading == true`. During development this masks unexpected double-dispatches. Add a debug-level log: `_logger.debug('FetchXxx dropped — already loading')`.
-
-**M17** `features/pieces/presentation/single_piece_view/single_piece_view.dart:34-40`
-Category: UX / Error Handling
-If a piece ID is missing from the cache (stale link, bad navigation), the user sees generic text with no recovery action. Add a "back to all pieces" button or auto-pop after a short delay.
-
 
 
 

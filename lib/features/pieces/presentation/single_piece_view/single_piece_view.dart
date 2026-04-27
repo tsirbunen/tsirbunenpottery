@@ -2,6 +2,8 @@ import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_bloc.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tsirbunenpottery/bootstrap/router/route_enum.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
 import 'package:tsirbunenpottery/localization/languages.dart';
@@ -34,9 +36,24 @@ class SinglePieceView extends StatelessWidget {
                 final designId = piece?.designId;
                 final design = state.designsById[designId];
                 final designName = design?.names[language];
-                final designNotFound = context.local(Translation.designNotFound);
                 if (design == null || designName == null || piece == null) {
-                  return Center(child: Text(designNotFound));
+                  return Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          context.local(Translation.pieceNotFound),
+                          style: Theme.of(context).textTheme.bodyMedium,
+                          textAlign: TextAlign.center,
+                        ),
+                        AppGaps.v15,
+                        OutlinedButton(
+                          onPressed: () => context.go(RouteEnum.pieces.path()),
+                          child: Text(context.local(Translation.backToPieces)),
+                        ),
+                      ],
+                    ),
+                  );
                 }
 
                 return LayoutBuilder(

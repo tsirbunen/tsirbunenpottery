@@ -13,7 +13,14 @@ class AppLocale {
   AppLocale(this.locale) : translations = locale.languageCode == 'fi' ? Fi() : En();
 
   static AppLocale of(final BuildContext context) {
-    return Localizations.of<AppLocale>(context, AppLocale)!;
+    final locale = Localizations.of<AppLocale>(context, AppLocale);
+    if (locale == null) {
+      throw FlutterError(
+        'AppLocale.of() was called with a context that does not contain an AppLocale.\n'
+        'Ensure AppLocale.delegate is listed in MaterialApp.localizationsDelegates.',
+      );
+    }
+    return locale;
   }
 
   static const LocalizationsDelegate<AppLocale> delegate =
@@ -46,9 +53,7 @@ class CustomLocalizationsDelegate extends LocalizationsDelegate<AppLocale> {
   bool shouldReload(CustomLocalizationsDelegate old) => false;
 }
 
-// Note: This is to enable the use of translation with a very short syntax,
-// for example context.local('tradeName'), instead the the general
-// Local.of(context).translate('tradeName')
+// Enables short-form translation: context.local(Translation.tradeName)
 extension LocalizedTranslationBuildContext on BuildContext {
   String local(final Translation key) => AppLocale.of(this).translate(key);
 }

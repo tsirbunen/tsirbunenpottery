@@ -38,6 +38,8 @@ class En implements Translations {
         Translation.allDesigns => 'All Designs',
         Translation.allPieces => 'All Pieces',
         Translation.designNotFound => 'Design not found',
+        Translation.pieceNotFound => 'Piece not found',
+        Translation.backToPieces => 'Back to all pieces',
         Translation.productDetails => 'Product Details',
         Translation.foodSafetyTitle => 'Food Safety Information',
         Translation.foodSafetyDetails => _foodSafetyDetails,

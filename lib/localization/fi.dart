@@ -36,6 +36,8 @@ class Fi implements Translations {
         Translation.allDesigns => 'Kaikki mallit',
         Translation.allPieces => 'Kaikki tuotteet',
         Translation.designNotFound => 'Mallia ei löydy',
+        Translation.pieceNotFound => 'Tuotetta ei löydy',
+        Translation.backToPieces => 'Takaisin kaikkiin tuotteisiin',
         Translation.productDetails => 'Tuotteen tiedot',
         Translation.foodSafetyTitle => 'Elintarviketurvallisuus',
         Translation.foodSafetyDetails => _foodSafetyDetails,

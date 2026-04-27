@@ -21,6 +21,8 @@ enum Translation {
   allPieces,
   // Design view:
   designNotFound,
+  pieceNotFound,
+  backToPieces,
   productDetails,
   foodSafetyTitle,
   foodSafetyDetails,
