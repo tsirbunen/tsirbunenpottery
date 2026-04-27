@@ -5,13 +5,15 @@ import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 class DevAppLogger implements AppLogger {
   const DevAppLogger();
 
+  static const String _defaultTag = 'App';
+
   @override
-  void logInfo(String message, {String tag = 'App'}) {
+  void logInfo(String message, {String tag = _defaultTag}) {
     dev.log(message, name: tag, level: 800);
   }
 
   @override
-  void logWarning(String message, {String tag = 'App', Object? error}) {
+  void logWarning(String message, {String tag = _defaultTag, Object? error}) {
     dev.log(message, name: tag, level: 900, error: error);
   }
 
@@ -20,7 +22,7 @@ class DevAppLogger implements AppLogger {
     String message, {
     required Object error,
     StackTrace? stackTrace,
-    String tag = 'App',
+    String tag = _defaultTag,
   }) {
     dev.log(
       message,

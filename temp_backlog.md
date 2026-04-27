@@ -58,13 +58,7 @@ FIXME comment: translation completeness is validated at test runtime, not compil
 Category: Type Safety
 Manual `as List<dynamic>` casting against expected Firestore schema. Consider using `json_serializable` (already in the project) for Firestore model deserialization to validate document shape at the data boundary.
 
-**M22** `bootstrap/service_locator/service_locator.dart:34`
-Category: Observability
-Logs are fully silenced in release mode. This makes production debugging extremely hard. Use log levels instead: keep `warning` and `error` enabled in release; only suppress `debug` and `verbose`.
 
-**M23** `bootstrap/service_locator/service_locator.dart:37`
-Category: Code Quality
-`cloudService ??= FirestoreCloudService()` modifies a parameter in-place inside the function body. This is a confusing mutation pattern. Assign to a local variable: `final service = cloudService ?? FirestoreCloudService()`.
 
 
 
@@ -98,11 +92,6 @@ No unit tests for any repository or BLoC. Production-grade apps require near-100
 **L8** (Global)
 Category: Observability
 No crash reporting integration (Sentry, Firebase Crashlytics). Errors are logged locally but never reported to an external service. Add Crashlytics before public launch.
-
-**L9** `core/logging/dev_app_logger.dart:9,14,23`
-Category: Code Quality / DRY
-`tag = 'App'` default parameter is copy-pasted across three separate method signatures. Extract as `static const String _defaultTag = 'App'` and reference it.
-
 
 
 **L13** `features/contact/presentation/contact_view/contact_email_with_copy_option.dart:34`
