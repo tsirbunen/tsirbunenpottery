@@ -11,59 +11,74 @@ import 'package:tsirbunenpottery/localization/languages.dart';
 
 const _tag = 'FirestoreDataParser';
 
+abstract final class _Fields {
+  static const id = 'id';
+  static const names = 'names';
+  static const description = 'description';
+  static const details = 'details';
+  static const categoryIds = 'categoryIds';
+  static const designId = 'designId';
+  static const collectionId = 'collectionId';
+  static const imageFileNames = 'imageFileNames';
+  static const sold = 'sold';
+}
+
 class FirestoreDataParser {
   final AppLogger _logger;
 
   const FirestoreDataParser({required AppLogger logger}) : _logger = logger;
 
   Collection? parseCollection(Map<String, dynamic> data) {
+    final id = data[_Fields.id];
+    if (id is! String) {
+      _logger.logWarning('Collection missing id field', tag: _tag);
+      return null;
+    }
     try {
       return Collection(
-        id: data['id'] as String,
-        description: _toStringTranslations(data, 'description'),
-        names: _toStringTranslations(data, 'names'),
+        id: id,
+        description: _toStringTranslations(data, _Fields.description),
+        names: _toStringTranslations(data, _Fields.names),
       );
     } catch (e) {
-      _logger.logWarning(
-        'Failed to parse collection "${data['id']}": $e',
-        tag: _tag,
-        error: e,
-      );
+      _logger.logWarning('Failed to parse collection "$id": $e', tag: _tag, error: e);
       return null;
     }
   }
 
   Category? parseCategory(Map<String, dynamic> data) {
+    final id = data[_Fields.id];
+    if (id is! String) {
+      _logger.logWarning('Category missing id field', tag: _tag);
+      return null;
+    }
     try {
       return Category(
-        id: data['id'] as String,
-        names: _toStringTranslations(data, 'names'),
+        id: id,
+        names: _toStringTranslations(data, _Fields.names),
       );
     } catch (e) {
-      _logger.logWarning(
-        'Failed to parse category "${data['id']}": $e',
-        tag: _tag,
-        error: e,
-      );
+      _logger.logWarning('Failed to parse category "$id": $e', tag: _tag, error: e);
       return null;
     }
   }
 
   Design? parseDesign(Map<String, dynamic> data, List<Category> categories) {
+    final id = data[_Fields.id];
+    if (id is! String) {
+      _logger.logWarning('Design missing id field', tag: _tag);
+      return null;
+    }
     try {
       return Design(
-        id: data['id'] as String,
-        names: _toStringTranslations(data, 'names'),
-        categoryIds: _idsOfRefs<Category>(data, categories, 'categoryIds'),
-        description: _toStringTranslations(data, 'description'),
-        details: _toStringMapTranslations(data, 'details'),
+        id: id,
+        names: _toStringTranslations(data, _Fields.names),
+        categoryIds: _idsOfRefs<Category>(data, categories, _Fields.categoryIds),
+        description: _toStringTranslations(data, _Fields.description),
+        details: _toStringMapTranslations(data, _Fields.details),
       );
     } catch (e) {
-      _logger.logWarning(
-        'Failed to parse design "${data['id']}": $e',
-        tag: _tag,
-        error: e,
-      );
+      _logger.logWarning('Failed to parse design "$id": $e', tag: _tag, error: e);
       return null;
     }
   }
@@ -73,39 +88,39 @@ class FirestoreDataParser {
     List<Design> designs,
     List<Collection> collections,
   ) {
+    final id = data[_Fields.id];
+    if (id is! String) {
+      _logger.logWarning('Piece missing id field', tag: _tag);
+      return null;
+    }
     try {
-      final designId = _idOfRef<Design>(data, designs, 'designId');
+      final designId = _idOfRef<Design>(data, designs, _Fields.designId);
       if (designId == null) {
-        _logger.logWarning(
-          'Skipping piece "${data['id']}" — designId missing or unresolved',
-          tag: _tag,
-        );
+        _logger.logWarning('Skipping piece "$id" — designId missing or unresolved', tag: _tag);
         return null;
       }
 
       return Piece(
-        id: data['id'] as String,
+        id: id,
         designId: designId,
-        imageFileNames: (data['imageFileNames'] as List<dynamic>? ?? [])
+        imageFileNames: (data[_Fields.imageFileNames] is! List
+                ? <dynamic>[]
+                : data[_Fields.imageFileNames] as List<dynamic>)
             .where((e) {
               if (e is String) return true;
               _logger.logWarning(
-                'Piece "${data['id']}" — imageFileNames contains non-String value: $e (${e.runtimeType})',
+                'Piece "$id" — imageFileNames contains non-String value: $e (${e.runtimeType})',
                 tag: _tag,
               );
               return false;
             })
             .cast<String>()
             .toList(),
-        collectionId: _idOfRef(data, collections, 'collectionId'),
-        sold: data['sold'] as bool? ?? false,
+        collectionId: _idOfRef(data, collections, _Fields.collectionId),
+        sold: data[_Fields.sold] is bool ? data[_Fields.sold] as bool : false,
       );
     } catch (e) {
-      _logger.logWarning(
-        'Failed to parse piece "${data['id']}": $e',
-        tag: _tag,
-        error: e,
-      );
+      _logger.logWarning('Failed to parse piece "$id": $e', tag: _tag, error: e);
       return null;
     }
   }
@@ -117,8 +132,7 @@ class FirestoreDataParser {
     return null;
   }
 
-  Map<Language, String> _toStringTranslations(
-      Map<String, dynamic> data, String fieldName) {
+  Map<Language, String> _toStringTranslations(Map<String, dynamic> data, String fieldName) {
     final raw = data[fieldName];
     if (raw is! Map<String, dynamic>) return {};
     final result = <Language, String>{};
@@ -140,9 +154,18 @@ class FirestoreDataParser {
       final language = _toLanguage(entry.key);
       if (language == null) continue;
       try {
-        final Map<String, dynamic> parsedMap = entry.value is String
-            ? jsonDecode(entry.value as String) as Map<String, dynamic>
-            : (entry.value as Map).cast<String, dynamic>();
+        final Map<String, dynamic> parsedMap;
+        if (entry.value is String) {
+          parsedMap = jsonDecode(entry.value as String) as Map<String, dynamic>;
+        } else if (entry.value is Map) {
+          parsedMap = (entry.value as Map).cast<String, dynamic>();
+        } else {
+          _logger.logWarning(
+            'Unexpected type for "$fieldName.${entry.key}": ${entry.value.runtimeType}',
+            tag: _tag,
+          );
+          continue;
+        }
         result[language] = parsedMap.map(
           (k, v) => MapEntry(k, v is String ? v : v.toString()),
         );
@@ -152,7 +175,6 @@ class FirestoreDataParser {
           tag: _tag,
           error: e,
         );
-        continue;
       }
     }
     return result;
@@ -166,10 +188,15 @@ class FirestoreDataParser {
     final raw = data[fieldName];
     if (raw is! List) return [];
     final validIds = items.map((e) => e.id).toSet();
-    return raw.map((e) {
-      if (e is DocumentReference) return e.id;
-      return e as String;
-    }).where(validIds.contains).toList();
+    return raw
+        .map((e) {
+          if (e is DocumentReference) return e.id;
+          if (e is String) return e;
+          return null;
+        })
+        .whereType<String>()
+        .where(validIds.contains)
+        .toList();
   }
 
   String? _idOfRef<T extends Identifiable>(
