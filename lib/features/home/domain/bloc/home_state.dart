@@ -7,7 +7,7 @@ part 'home_state.freezed.dart';
 @freezed
 abstract class HomeState with _$HomeState implements FetchState {
   const factory HomeState({
-    @Default(BlocStatus(Status.ok)) BlocStatus blocStatus,
+    @Default(BlocStatus.ok()) BlocStatus blocStatus,
     String? homePageImageFileName,
   }) = _HomeState;
 }

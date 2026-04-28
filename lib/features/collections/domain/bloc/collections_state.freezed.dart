@@ -328,7 +328,7 @@ extension CollectionsStatePatterns on CollectionsState {
 
 class _CollectionsState extends CollectionsState {
   const _CollectionsState(
-      {this.blocStatus = const BlocStatus(Status.ok),
+      {this.blocStatus = const BlocStatus.ok(),
       final List<Collection> collections = const [],
       final Map<String, Design> designsById = const {},
       final Map<String, Piece> piecesById = const {},

@@ -35,7 +35,7 @@ class DesignsBloc extends Bloc<DesignsEvent, DesignsState>
             designsById: data.designsById,
             imageFileNamesByDesignId: data.imageFileNamesByDesignId,
             piecesByDesignId: data.piecesByDesignId,
-            blocStatus: const BlocStatus(Status.ok),
+            blocStatus: const BlocStatus.ok(),
           );
         });
     }

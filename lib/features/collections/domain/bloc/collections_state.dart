@@ -12,7 +12,7 @@ abstract class CollectionsState with _$CollectionsState implements FetchState {
   const CollectionsState._();
 
   const factory CollectionsState({
-    @Default(BlocStatus(Status.ok)) BlocStatus blocStatus,
+    @Default(BlocStatus.ok()) BlocStatus blocStatus,
     @Default([]) List<Collection> collections,
     @Default({}) Map<String, Design> designsById,
     @Default({}) Map<String, Piece> piecesById,

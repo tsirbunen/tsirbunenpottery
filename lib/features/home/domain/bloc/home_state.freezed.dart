@@ -245,8 +245,7 @@ extension HomeStatePatterns on HomeState {
 
 class _HomeState implements HomeState {
   const _HomeState(
-      {this.blocStatus = const BlocStatus(Status.ok),
-      this.homePageImageFileName});
+      {this.blocStatus = const BlocStatus.ok(), this.homePageImageFileName});
 
   @override
   @JsonKey()

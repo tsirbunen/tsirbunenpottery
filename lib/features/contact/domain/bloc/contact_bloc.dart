@@ -33,7 +33,7 @@ class ContactBloc extends Bloc<ContactEvent, ContactState>
           final fileName = await _repository.fetchOwnerPhotoFileName();
           return ContactState(
             ownerPhotoFileName: fileName,
-            blocStatus: const BlocStatus(Status.ok),
+            blocStatus: const BlocStatus.ok(),
           );
         });
     }

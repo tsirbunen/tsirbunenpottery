@@ -12,7 +12,7 @@ abstract class CategoriesState with _$CategoriesState implements FetchState {
   const CategoriesState._();
 
   const factory CategoriesState({
-    @Default(BlocStatus(Status.ok)) BlocStatus blocStatus,
+    @Default(BlocStatus.ok()) BlocStatus blocStatus,
     @Default([]) List<Category> categories,
     @Default({}) Map<String, Design> designsById,
     @Default({}) Map<String, Piece> piecesById,

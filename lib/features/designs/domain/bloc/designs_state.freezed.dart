@@ -286,7 +286,7 @@ extension DesignsStatePatterns on DesignsState {
 
 class _DesignsState extends DesignsState {
   const _DesignsState(
-      {this.blocStatus = const BlocStatus(Status.ok),
+      {this.blocStatus = const BlocStatus.ok(),
       final Map<String, Design> designsById = const {},
       final Map<String, List<String>> imageFileNamesByDesignId = const {},
       final Map<String, List<Piece>> piecesByDesignId = const {}})

@@ -33,7 +33,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState>
           final fileName = await _repository.fetchHomePageImageFileName();
           return HomeState(
             homePageImageFileName: fileName,
-            blocStatus: const BlocStatus(Status.ok),
+            blocStatus: const BlocStatus.ok(),
           );
         });
     }

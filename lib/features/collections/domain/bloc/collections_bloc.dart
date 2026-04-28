@@ -37,7 +37,7 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState>
             piecesById: data.piecesById,
             collectionDesigns: data.collectionDesigns,
             imageFileNamesByDesignId: data.imageFileNamesByDesignId,
-            blocStatus: const BlocStatus(Status.ok),
+            blocStatus: const BlocStatus.ok(),
           );
         });
     }

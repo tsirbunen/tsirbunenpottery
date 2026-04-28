@@ -18,7 +18,7 @@ mixin FetchBlocMixin<E, S extends FetchState> on Bloc<E, S> {
       logger.logDebug('$runtimeType fetch dropped — already loading', tag: runtimeType.toString());
       return;
     }
-    emit(withStatus(const BlocStatus(Status.loading)));
+    emit(withStatus(const BlocStatus.loading()));
     final wait = _backoff.wait();
     if (wait != null) await wait;
     try {
@@ -27,7 +27,11 @@ mixin FetchBlocMixin<E, S extends FetchState> on Bloc<E, S> {
     } catch (e, s) {
       _backoff.recordFailure();
       logger.logError(fetchErrorMessage, error: e, stackTrace: s, tag: runtimeType.toString());
-      emit(withStatus(const BlocStatus(Status.error)));
+      emit(withStatus(BlocStatus.error(
+        message: fetchErrorMessage,
+        originalError: e,
+        stackTrace: s,
+      )));
     }
   }
 }

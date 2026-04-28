@@ -11,7 +11,7 @@ abstract class DesignsState with _$DesignsState implements FetchState {
   const DesignsState._();
 
   const factory DesignsState({
-    @Default(BlocStatus(Status.ok)) BlocStatus blocStatus,
+    @Default(BlocStatus.ok()) BlocStatus blocStatus,
     @Default({}) Map<String, Design> designsById,
     @Default({}) Map<String, List<String>> imageFileNamesByDesignId,
     @Default({}) Map<String, List<Piece>> piecesByDesignId,

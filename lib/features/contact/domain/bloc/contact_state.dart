@@ -7,7 +7,7 @@ part 'contact_state.freezed.dart';
 @freezed
 abstract class ContactState with _$ContactState implements FetchState {
   const factory ContactState({
-    @Default(BlocStatus(Status.ok)) BlocStatus blocStatus,
+    @Default(BlocStatus.ok()) BlocStatus blocStatus,
     String? ownerPhotoFileName,
   }) = _ContactState;
 }

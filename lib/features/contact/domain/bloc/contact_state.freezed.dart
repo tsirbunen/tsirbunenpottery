@@ -246,7 +246,7 @@ extension ContactStatePatterns on ContactState {
 
 class _ContactState implements ContactState {
   const _ContactState(
-      {this.blocStatus = const BlocStatus(Status.ok), this.ownerPhotoFileName});
+      {this.blocStatus = const BlocStatus.ok(), this.ownerPhotoFileName});
 
   @override
   @JsonKey()

@@ -328,7 +328,7 @@ extension CategoriesStatePatterns on CategoriesState {
 
 class _CategoriesState extends CategoriesState {
   const _CategoriesState(
-      {this.blocStatus = const BlocStatus(Status.ok),
+      {this.blocStatus = const BlocStatus.ok(),
       final List<Category> categories = const [],
       final Map<String, Design> designsById = const {},
       final Map<String, Piece> piecesById = const {},
