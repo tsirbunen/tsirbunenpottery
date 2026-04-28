@@ -8,6 +8,11 @@ class DevAppLogger implements AppLogger {
   static const String _defaultTag = 'App';
 
   @override
+  void logDebug(String message, {String tag = _defaultTag}) {
+    dev.log(message, name: tag, level: 700);
+  }
+
+  @override
   void logInfo(String message, {String tag = _defaultTag}) {
     dev.log(message, name: tag, level: 800);
   }

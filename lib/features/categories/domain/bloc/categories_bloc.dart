@@ -8,7 +8,7 @@ import 'package:tsirbunenpottery/features/categories/repository/categories_repos
 
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState>
     with FetchBlocMixin<CategoriesEvent, CategoriesState> {
-  final CategoriesRepository _repository;
+  final ICategoriesRepository _repository;
 
   @override
   final AppLogger logger;

@@ -8,6 +8,9 @@ class ReleaseAppLogger implements AppLogger {
   static const String _defaultTag = 'App';
 
   @override
+  void logDebug(String message, {String tag = _defaultTag}) {}
+
+  @override
   void logInfo(String message, {String tag = _defaultTag}) {}
 
   @override

@@ -11,11 +11,16 @@ typedef CategoriesData = ({
   Map<String, List<String>> imageFileNamesByDesignId,
 });
 
-class CategoriesRepository {
-  final ProductsRepository _productsRepository;
+abstract interface class ICategoriesRepository {
+  Future<CategoriesData> getData();
+}
+
+class CategoriesRepository implements ICategoriesRepository {
+  final IProductsRepository _productsRepository;
 
   CategoriesRepository(this._productsRepository);
 
+  @override
   Future<CategoriesData> getData() async {
     final products = await _productsRepository.getProducts();
 

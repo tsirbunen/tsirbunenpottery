@@ -13,7 +13,11 @@ mixin FetchBlocMixin<E, S extends FetchState> on Bloc<E, S> {
   final _backoff = RetryBackoff();
 
   Future<void> runFetch(Emitter<S> emit, Future<S> Function() fetch) async {
-    if (state.blocStatus.isLoading || isLoaded) return;
+    if (isLoaded) return;
+    if (state.blocStatus.isLoading) {
+      logger.logDebug('$runtimeType fetch dropped — already loading', tag: runtimeType.toString());
+      return;
+    }
     emit(withStatus(const BlocStatus(Status.loading)));
     final wait = _backoff.wait();
     if (wait != null) await wait;

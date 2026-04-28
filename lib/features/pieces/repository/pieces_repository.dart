@@ -9,11 +9,16 @@ typedef PiecesData = ({
   Map<String, List<String>> pieceIdsByDesignId,
 });
 
-class PiecesRepository {
-  final ProductsRepository _productsRepository;
+abstract interface class IPiecesRepository {
+  Future<PiecesData> getData();
+}
+
+class PiecesRepository implements IPiecesRepository {
+  final IProductsRepository _productsRepository;
 
   PiecesRepository(this._productsRepository);
 
+  @override
   Future<PiecesData> getData() async {
     final products = await _productsRepository.getProducts();
 

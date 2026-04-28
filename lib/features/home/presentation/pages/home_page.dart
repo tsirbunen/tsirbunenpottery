@@ -39,7 +39,10 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(context.local(Translation.homeTitle), style: Theme.of(context).textTheme.headlineMedium),
+                  Text(
+                    context.local(Translation.homeTitle), 
+                    style: _headlineStyle(context)
+                  ),
                   AppGaps.v10,
                   Text(
                     context.local(Translation.appShortDescription),
@@ -67,6 +70,11 @@ class HomePage extends StatelessWidget {
         });
       }),
     );
+  }
+
+    TextStyle _headlineStyle(BuildContext context) {
+    return (Theme.of(context).textTheme.headlineMedium) ?? const TextStyle();
+
   }
 
   Photo? _photo(String? fileName) {

@@ -15,7 +15,11 @@ typedef AllProductsData = ({
   List<Collection> collections,
 });
 
-class ProductsRepository {
+abstract interface class IProductsRepository {
+  Future<AllProductsData> getProducts();
+}
+
+class ProductsRepository implements IProductsRepository {
   final CloudService _cloudService;
   final FirestoreDataParser _parser;
   final AppLogger _logger;
@@ -27,6 +31,7 @@ class ProductsRepository {
     required AppLogger logger,
   }) : _logger = logger;
 
+  @override
   Future<AllProductsData> getProducts() {
     return _cache ??= _fetchAllFromCloud();
   }

@@ -8,7 +8,7 @@ import 'package:tsirbunenpottery/features/home/repository/home_repository.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState>
     with FetchBlocMixin<HomeEvent, HomeState> {
-  final HomeRepository _repository;
+  final IHomeRepository _repository;
 
   @override
   final AppLogger logger;

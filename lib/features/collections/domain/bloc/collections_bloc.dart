@@ -8,7 +8,7 @@ import 'package:tsirbunenpottery/features/collections/repository/collections_rep
 
 class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState>
     with FetchBlocMixin<CollectionsEvent, CollectionsState> {
-  final CollectionsRepository _repository;
+  final ICollectionsRepository _repository;
 
   @override
   final AppLogger logger;

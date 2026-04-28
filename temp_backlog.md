@@ -2,19 +2,6 @@
 
 
 
-**H9** (Global)
-Category: Architecture / Testability
-No abstract interfaces for repositories. Concrete classes are registered directly in GetIt, making them unswappable in unit tests without real Firebase. Add `abstract interface class IProductsRepository` etc. and register implementations against the interfaces.
-
-
-
-
-
-
-
-
-
-
 ## MEDIUM
 
 
@@ -33,11 +20,6 @@ Category: Testing / Known Bug
 FIXME comment acknowledges that the widget fails in tests due to horizontal overflow. Fix the test setup (wrap in `SizedBox` with explicit constraints) or convert to a tracked issue. Leaving an acknowledged broken test in production code is not acceptable.
 
 
-
-
-**M16** All BLoC files
-Category: Observability
-`_onFetch()` silently drops events when `isLoading == true`. During development this masks unexpected double-dispatches. Add a debug-level log: `_logger.debug('FetchXxx dropped — already loading')`.
 
 
 

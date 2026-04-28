@@ -8,7 +8,7 @@ import 'package:tsirbunenpottery/features/pieces/repository/pieces_repository.da
 
 class PiecesBloc extends Bloc<PiecesEvent, PiecesState>
     with FetchBlocMixin<PiecesEvent, PiecesState> {
-  final PiecesRepository _repository;
+  final IPiecesRepository _repository;
 
   @override
   final AppLogger logger;

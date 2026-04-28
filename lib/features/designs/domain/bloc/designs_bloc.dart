@@ -8,7 +8,7 @@ import 'package:tsirbunenpottery/features/designs/repository/designs_repository.
 
 class DesignsBloc extends Bloc<DesignsEvent, DesignsState>
     with FetchBlocMixin<DesignsEvent, DesignsState> {
-  final DesignsRepository _repository;
+  final IDesignsRepository _repository;
 
   @override
   final AppLogger logger;

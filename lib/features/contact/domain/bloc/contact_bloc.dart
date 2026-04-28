@@ -8,7 +8,7 @@ import 'package:tsirbunenpottery/features/contact/repository/contact_repository.
 
 class ContactBloc extends Bloc<ContactEvent, ContactState>
     with FetchBlocMixin<ContactEvent, ContactState> {
-  final ContactRepository _repository;
+  final IContactRepository _repository;
 
   @override
   final AppLogger logger;

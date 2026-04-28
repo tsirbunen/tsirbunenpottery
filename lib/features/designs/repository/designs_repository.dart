@@ -8,11 +8,16 @@ typedef DesignsData = ({
   Map<String, List<Piece>> piecesByDesignId,
 });
 
-class DesignsRepository {
-  final ProductsRepository _productsRepository;
+abstract interface class IDesignsRepository {
+  Future<DesignsData> getData();
+}
+
+class DesignsRepository implements IDesignsRepository {
+  final IProductsRepository _productsRepository;
 
   DesignsRepository(this._productsRepository);
 
+  @override
   Future<DesignsData> getData() async {
     final products = await _productsRepository.getProducts();
 
