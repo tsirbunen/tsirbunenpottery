@@ -7,17 +7,6 @@ _Generated 2026-04-28. Treat every item as a candidate for discussion, not as a 
 
 
 
-### 2-D. `BlocStatus.success()` is a dead state variant
-File: `lib/core/types/bloc_status/bloc_status.dart:23`
-`Status.success` exists in the `Status` enum and `BlocStatus.success()` constructor exists, but no bloc ever emits this status. `BlocStatusView` has no branch for it. Remove `success` or use it (e.g., for one-off operations like a form submit) and wire up a success UI state.
-
-### 2-E. `BlocStatus` lacks value-equality (`==` / `hashCode`)
-File: `lib/core/types/bloc_status/bloc_status.dart`
-`BlocStatus` is a plain class with no `==` override. It is stored as a field in freezed states. Freezed uses `==` on all fields to determine if a state changed — but since `BlocStatus` uses reference equality, two `BlocStatus.ok()` instances are NOT equal even though they represent the same state. This means every fetch completion emits a "changed" state even if status didn't logically change, causing unnecessary rebuilds in all `BlocBuilder`/`BlocSelector` widgets. Fix: implement `==` and `hashCode` on `BlocStatus`, or convert it to a freezed/sealed class.
-
-### 2-F. `isLoaded` guard is data-content-based, not load-completion-based
-File: `lib/core/state/bloc_utils/fetch_bloc_mixin.dart:9`
-All feature blocs implement `isLoaded` by checking if the data collection is non-empty (e.g., `state.piecesById.isNotEmpty`). If the backend legitimately returns an empty collection (zero pieces, zero designs), `isLoaded` stays `false` permanently and any retry will re-fetch forever. The guard should be based on whether a successful response was received, not on the content. Consider a separate `_hasFetched` boolean flag, or rely on `blocStatus.isOk` combined with a "tried at least once" sentinel.
 
 ### 2-G. Cached `Future` in `ProductsRepository` is poisoned on error
 File: `lib/data/products_repository.dart:36`
@@ -31,9 +20,7 @@ Both fetch a single document from the same `miscellaneous` collection (different
 File: `lib/bootstrap/service_locator/service_locator.dart`
 `ProductsRepository`, `PiecesRepository`, `DesignsRepository`, etc. are created as local variables in `prepareBlocs()` and not registered in GetIt. As the app grows (new feature that needs `ProductsRepository`) the developer must manually thread dependencies through `prepareBlocs()`. Consider registering `ProductsRepository` as a GetIt singleton.
 
-### 2-J. `prepareBlocs()` has a dangling `buildRouter()` call without a blank line separator
-File: `lib/bootstrap/service_locator/service_locator.dart:67`
-`final router = buildRouter();` is embedded in the middle of the registration block without a separating blank line. Minor formatting but affects readability.
+
 
 ---
 

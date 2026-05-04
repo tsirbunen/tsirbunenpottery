@@ -14,9 +14,6 @@ class PiecesBloc extends Bloc<PiecesEvent, PiecesState>
   final AppLogger logger;
 
   @override
-  bool get isLoaded => state.piecesById.isNotEmpty;
-
-  @override
   String get fetchErrorMessage => 'Failed to fetch pieces';
 
   @override

@@ -14,9 +14,6 @@ class ContactBloc extends Bloc<ContactEvent, ContactState>
   final AppLogger logger;
 
   @override
-  bool get isLoaded => state.ownerPhotoFileName != null;
-
-  @override
   String get fetchErrorMessage => 'Failed to fetch owner photo';
 
   @override

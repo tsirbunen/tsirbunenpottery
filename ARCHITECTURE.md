@@ -33,7 +33,7 @@ lib/
     scroll_position_cache/
       scroll_position_cache.dart   # Plain class: key→offset cache for scroll restoration (no BLoC)
     state/
-      app_bloc_event.dart          # Shared AppBlocEvent base + BlocStatusChanged (all feature blocs extend this)
+      app_bloc_event.dart          # Shared AppBlocEvent base (all feature blocs extend this)
       language/                    # App-wide UI state: runtime language toggle
       navigation/                  # Back-navigation history stack (drives AppBar back arrow)
 
@@ -108,7 +108,7 @@ All features must follow this structure:
 | `CollectionsBloc` | BLoC | Hold shaped collections + designs data for the Collections route |
 | `ScrollPositionCache` | plain class | Key→offset map for scroll restoration; never drives rebuilds |
 
-Each feature BLoC is typed as `Bloc<XxxEvent, XxxState>` where `XxxEvent` is a `sealed class` extending `AppBlocEvent`. Sealed events give exhaustive switch checking — the compiler catches unhandled cases and prevents wrong-event dispatches. `BlocStatusChanged` remains in `core/state/app_bloc_event.dart` for future use (bloc-to-bloc status signalling) but must be added to a feature's sealed hierarchy before it can be dispatched to that bloc.
+Each feature BLoC is typed as `Bloc<XxxEvent, XxxState>` where `XxxEvent` is a `sealed class` extending `AppBlocEvent`. Sealed events give exhaustive switch checking — the compiler catches unhandled cases and prevents wrong-event dispatches.
 
 BLoCs are seeded with initial events in `service_locator.dart` and exposed to the widget tree via `MultiBlocProvider` in `App`.
 

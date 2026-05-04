@@ -2,7 +2,6 @@ enum Status {
   error,
   loading,
   ok,
-  success,
 }
 
 class BlocStatus {
@@ -20,7 +19,6 @@ class BlocStatus {
 
   const BlocStatus.ok() : this._(status: Status.ok);
   const BlocStatus.loading() : this._(status: Status.loading);
-  const BlocStatus.success() : this._(status: Status.success);
   const BlocStatus.error({
     required String message,
     Object? originalError,
@@ -35,5 +33,15 @@ class BlocStatus {
   bool get isLoading => status == Status.loading;
   bool get isError => status == Status.error;
   bool get isOk => status == Status.ok;
-  bool get isSuccess => status == Status.success;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BlocStatus &&
+          status == other.status &&
+          message == other.message &&
+          originalError == other.originalError;
+
+  @override
+  int get hashCode => Object.hash(status, message, originalError);
 }

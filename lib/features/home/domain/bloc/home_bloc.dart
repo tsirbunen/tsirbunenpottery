@@ -14,9 +14,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState>
   final AppLogger logger;
 
   @override
-  bool get isLoaded => state.homePageImageFileName != null;
-
-  @override
   String get fetchErrorMessage => 'Failed to fetch home page image';
 
   @override

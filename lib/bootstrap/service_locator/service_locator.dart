@@ -65,7 +65,9 @@ void prepareBlocs({CloudService? cloudService}) {
 
   final collectionsBloc = CollectionsBloc(CollectionsRepository(productsRepository), logger: logger);
   collectionsBloc.add(FetchCollections());
+
   final router = buildRouter();
+
   getIt.registerSingleton<ScrollPositionCache>(ScrollPositionCache());
   getIt.registerSingleton<LanguageBloc>(languageBloc);
   getIt.registerSingleton<HomeBloc>(homeBloc);

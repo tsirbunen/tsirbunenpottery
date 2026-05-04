@@ -14,9 +14,6 @@ class DesignsBloc extends Bloc<DesignsEvent, DesignsState>
   final AppLogger logger;
 
   @override
-  bool get isLoaded => state.designsById.isNotEmpty;
-
-  @override
   String get fetchErrorMessage => 'Failed to fetch designs';
 
   @override

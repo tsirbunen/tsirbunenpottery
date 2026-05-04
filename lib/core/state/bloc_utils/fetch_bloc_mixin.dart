@@ -6,14 +6,14 @@ import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 
 mixin FetchBlocMixin<E, S extends FetchState> on Bloc<E, S> {
   AppLogger get logger;
-  bool get isLoaded;
   String get fetchErrorMessage;
   S withStatus(BlocStatus status);
 
   final _backoff = RetryBackoff();
+  bool _hasFetched = false;
 
   Future<void> runFetch(Emitter<S> emit, Future<S> Function() fetch) async {
-    if (isLoaded) return;
+    if (_hasFetched) return;
     if (state.blocStatus.isLoading) {
       logger.logDebug('$runtimeType fetch dropped — already loading', tag: runtimeType.toString());
       return;
@@ -23,6 +23,7 @@ mixin FetchBlocMixin<E, S extends FetchState> on Bloc<E, S> {
     if (wait != null) await wait;
     try {
       emit(await fetch());
+      _hasFetched = true;
       _backoff.recordSuccess();
     } catch (e, s) {
       _backoff.recordFailure();

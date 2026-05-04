@@ -14,9 +14,6 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState>
   final AppLogger logger;
 
   @override
-  bool get isLoaded => state.categories.isNotEmpty;
-
-  @override
   String get fetchErrorMessage => 'Failed to fetch categories';
 
   @override

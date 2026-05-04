@@ -14,9 +14,6 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState>
   final AppLogger logger;
 
   @override
-  bool get isLoaded => state.collections.isNotEmpty;
-
-  @override
   String get fetchErrorMessage => 'Failed to fetch collections';
 
   @override
