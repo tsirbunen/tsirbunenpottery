@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 

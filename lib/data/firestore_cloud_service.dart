@@ -26,10 +26,11 @@ class FirestoreCloudService implements CloudService {
       }
       _logger.logInfo('fetchOne [$collection/$documentId]: ok', tag: _tag);
       return {'id': doc.id, ...doc.data() ?? {}};
-    } on FirebaseException catch (e) {
+    } on FirebaseException catch (e, s) {
       _logger.logError(
         'fetchOne failed [$collection/$documentId]: ${e.code} — ${e.message}',
         error: e,
+        stackTrace: s,
         tag: _tag,
       );
       rethrow;
@@ -47,10 +48,11 @@ class FirestoreCloudService implements CloudService {
           .toList();
       _logger.logInfo('fetchMany [$collection]: ${docs.length} docs', tag: _tag);
       return docs;
-    } on FirebaseException catch (e) {
+    } on FirebaseException catch (e, s) {
       _logger.logError(
         'fetchMany failed [$collection]: ${e.code} — ${e.message}',
         error: e,
+        stackTrace: s,
         tag: _tag,
       );
       rethrow;

@@ -1,9 +1,12 @@
-import 'dart:developer' as dev;
+import 'dart:async';
 
+import 'package:tsirbunenpottery/core/crash_reporting/crash_reporter.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 
 class ReleaseAppLogger implements AppLogger {
-  const ReleaseAppLogger();
+  final CrashReporter _crashReporter;
+
+  const ReleaseAppLogger(this._crashReporter);
 
   static const String _defaultTag = 'App';
 
@@ -14,9 +17,7 @@ class ReleaseAppLogger implements AppLogger {
   void logInfo(String message, {String tag = _defaultTag}) {}
 
   @override
-  void logWarning(String message, {String tag = _defaultTag, Object? error}) {
-    dev.log(message, name: tag, level: 900, error: error);
-  }
+  void logWarning(String message, {String tag = _defaultTag, Object? error}) {}
 
   @override
   void logError(
@@ -25,12 +26,6 @@ class ReleaseAppLogger implements AppLogger {
     StackTrace? stackTrace,
     String tag = _defaultTag,
   }) {
-    dev.log(
-      message,
-      name: tag,
-      level: 1000,
-      error: error,
-      stackTrace: stackTrace,
-    );
+    unawaited(_crashReporter.recordError(error, stackTrace));
   }
 }

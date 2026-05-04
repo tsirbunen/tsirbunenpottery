@@ -33,10 +33,11 @@ import 'package:tsirbunenpottery/features/pieces/repository/pieces_repository.da
 final getIt = GetIt.instance;
 
 void prepareBlocs({CloudService? cloudService}) {
+  const crashReporter = NoOpCrashReporter();
   final logger =
-      kReleaseMode ? const ReleaseAppLogger() : const DevAppLogger();
+      kReleaseMode ? ReleaseAppLogger(crashReporter) : const DevAppLogger();
   getIt.registerSingleton<AppLogger>(logger);
-  getIt.registerSingleton<CrashReporter>(const NoOpCrashReporter());
+  getIt.registerSingleton<CrashReporter>(crashReporter);
 
   final service = cloudService ?? FirestoreCloudService(logger: logger);
 
