@@ -3,23 +3,9 @@ _Generated 2026-04-28. Treat every item as a candidate for discussion, not as a 
 
 
 
----
-
-## 3. ROUTING
-
-
-
----
-
 ## 4. STATE / BLOC
 
-### 4-A. `LanguageEvent` is not a sealed class — inconsistent with all feature bloc events
-File: `lib/core/state/language_bloc/language_event.dart`
-`class LanguageEvent {}` — unlike all feature bloc events (`sealed class PiecesEvent`), `LanguageEvent` is a plain class. Adding a new language event won't produce an "unhandled case" compiler warning. Fix: `sealed class LanguageEvent`.
 
-### 4-B. `LanguageEvent` does not extend `AppBlocEvent`
-File: `lib/core/state/language_bloc/language_event.dart:3`
-All feature bloc events extend `AppBlocEvent`. `LanguageEvent` does not. If intentional (language is pure UI state), document this exception in ARCHITECTURE.md. Otherwise make it consistent.
 
 ### 4-C. `FetchBlocMixin._backoff` is per-bloc with no global network coordination
 File: `lib/core/state/bloc_utils/fetch_bloc_mixin.dart:13`

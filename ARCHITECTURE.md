@@ -33,7 +33,8 @@ lib/
     scroll_position_cache/
       scroll_position_cache.dart   # Plain class: key→offset cache for scroll restoration (no BLoC)
     state/
-      app_bloc_event.dart          # Shared AppBlocEvent base (all feature blocs extend this)
+      bloc_utils/
+        app_bloc_event.dart        # Shared AppBlocEvent base (all feature blocs extend this)
       language/                    # App-wide UI state: runtime language toggle
       navigation/                  # Back-navigation history stack (drives AppBar back arrow)
 
@@ -113,7 +114,7 @@ Each feature BLoC is typed as `Bloc<XxxEvent, XxxState>` where `XxxEvent` is a `
 BLoCs are seeded with initial events in `service_locator.dart` and exposed to the widget tree via `MultiBlocProvider` in `App`.
 
 ## Back navigation
-Detail routes (e.g. `/pieces/:id`, `/categories/:id`) are pushed via go_router's `.push()`, which maintains a proper browser history stack. `AppBarLeftActions` detects detail routes via `GoRouterState.of(context).pathParameters.containsKey('id')` and calls `GoRouter.of(context).pop()` — no custom history stack needed.
+Detail routes (e.g. `/pieces/:id`, `/categories/:id`) are pushed via go_router's `.push()`, which maintains a proper browser history stack. `AppBarLeftActions` detects a back stack via `GoRouter.of(context).canPop()` and calls `GoRouter.of(context).pop()` — no custom history stack needed, and no coupling to route parameter names.
 
 ## Data flow
 ```

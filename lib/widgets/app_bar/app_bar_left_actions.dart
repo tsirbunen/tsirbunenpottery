@@ -8,10 +8,9 @@ class AppBarLeftActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDetailRoute =
-        GoRouterState.of(context).pathParameters.containsKey('id');
+    final canPop = GoRouter.of(context).canPop();
 
-    if (isDetailRoute) {
+    if (canPop) {
       return ActionButton(
         onPressed: () => GoRouter.of(context).pop(),
         iconData: AppIcons.back,
