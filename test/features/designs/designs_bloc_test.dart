@@ -28,8 +28,8 @@ void main() {
       test('initial state is ok status with empty data', () {
         final bloc = _makeBlocWithData();
         expect(bloc.state.blocStatus.status, Status.ok);
-        expect(bloc.state.designsById, isEmpty);
-        expect(bloc.state.piecesByDesignId, isEmpty);
+        expect(bloc.state.designs, isEmpty);
+        expect(bloc.state.representativePieces, isEmpty);
         bloc.close();
       });
 
@@ -45,8 +45,8 @@ void main() {
           predicate<DesignsState>(
             (s) =>
                 s.blocStatus.status == Status.ok &&
-                s.designsById.length == 3 &&
-                s.piecesByDesignId.length == 3,
+                s.designs.length == 3 &&
+                s.representativePieces.length == 3,
             'ok state with data',
           ),
         ],
@@ -73,7 +73,7 @@ void main() {
         expect: () => [
           predicate<DesignsState>((s) => s.blocStatus.status == Status.loading),
           predicate<DesignsState>(
-              (s) => s.blocStatus.status == Status.ok && s.designsById.length == 3),
+              (s) => s.blocStatus.status == Status.ok && s.designs.length == 3),
         ],
       );
     });

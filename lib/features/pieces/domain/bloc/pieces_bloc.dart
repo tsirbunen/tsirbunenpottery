@@ -36,7 +36,8 @@ class PiecesBloc extends Bloc<PiecesEvent, PiecesState>
             piecesById: data.piecesById,
             designsById: data.designsById,
             imageFileNamesByDesignId: data.imageFileNamesByDesignId,
-            pieceIdsByDesignId: data.pieceIdsByDesignId,
+            allDesigns: data.designsById.values.toList(),
+            allPieces: data.piecesById.values.toList(),
             blocStatus: const BlocStatus.ok(),
           );
         });

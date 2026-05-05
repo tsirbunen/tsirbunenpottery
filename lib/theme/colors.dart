@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const Color background = Color.fromARGB(255, 255, 255, 255);
+const Color background = Colors.white;
 const Color extremelyPale = Color.fromARGB(255, 222, 221, 218);
 const Color inputFieldBackground = Color.fromARGB(255, 235, 234, 232);
 const Color pale = Color.fromARGB(255, 199, 198, 193);

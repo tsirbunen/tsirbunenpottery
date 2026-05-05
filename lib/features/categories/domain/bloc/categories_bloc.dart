@@ -33,11 +33,11 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState>
         await runFetch(emit, () async {
           final data = await _repository.getData();
           return CategoriesState(
-            categories: data.categories,
             designsById: data.designsById,
-            piecesById: data.piecesById,
             categoryDesigns: data.categoryDesigns,
             imageFileNamesByDesignId: data.imageFileNamesByDesignId,
+            categoriesById: {for (final c in data.categories) c.id: c},
+            allPieces: data.piecesById.values.toList(),
             blocStatus: const BlocStatus.ok(),
           );
         });

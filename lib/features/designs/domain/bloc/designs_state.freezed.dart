@@ -15,9 +15,9 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DesignsState {
   BlocStatus get blocStatus;
-  Map<String, Design> get designsById;
   Map<String, List<String>> get imageFileNamesByDesignId;
-  Map<String, List<Piece>> get piecesByDesignId;
+  List<Design> get designs;
+  List<Piece> get representativePieces;
 
   /// Create a copy of DesignsState
   /// with the given fields replaced by the non-null parameter values.
@@ -34,25 +34,24 @@ mixin _$DesignsState {
             other is DesignsState &&
             (identical(other.blocStatus, blocStatus) ||
                 other.blocStatus == blocStatus) &&
-            const DeepCollectionEquality()
-                .equals(other.designsById, designsById) &&
             const DeepCollectionEquality().equals(
                 other.imageFileNamesByDesignId, imageFileNamesByDesignId) &&
+            const DeepCollectionEquality().equals(other.designs, designs) &&
             const DeepCollectionEquality()
-                .equals(other.piecesByDesignId, piecesByDesignId));
+                .equals(other.representativePieces, representativePieces));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       blocStatus,
-      const DeepCollectionEquality().hash(designsById),
       const DeepCollectionEquality().hash(imageFileNamesByDesignId),
-      const DeepCollectionEquality().hash(piecesByDesignId));
+      const DeepCollectionEquality().hash(designs),
+      const DeepCollectionEquality().hash(representativePieces));
 
   @override
   String toString() {
-    return 'DesignsState(blocStatus: $blocStatus, designsById: $designsById, imageFileNamesByDesignId: $imageFileNamesByDesignId, piecesByDesignId: $piecesByDesignId)';
+    return 'DesignsState(blocStatus: $blocStatus, imageFileNamesByDesignId: $imageFileNamesByDesignId, designs: $designs, representativePieces: $representativePieces)';
   }
 }
 
@@ -64,9 +63,9 @@ abstract mixin class $DesignsStateCopyWith<$Res> {
   @useResult
   $Res call(
       {BlocStatus blocStatus,
-      Map<String, Design> designsById,
       Map<String, List<String>> imageFileNamesByDesignId,
-      Map<String, List<Piece>> piecesByDesignId});
+      List<Design> designs,
+      List<Piece> representativePieces});
 }
 
 /// @nodoc
@@ -82,27 +81,27 @@ class _$DesignsStateCopyWithImpl<$Res> implements $DesignsStateCopyWith<$Res> {
   @override
   $Res call({
     Object? blocStatus = null,
-    Object? designsById = null,
     Object? imageFileNamesByDesignId = null,
-    Object? piecesByDesignId = null,
+    Object? designs = null,
+    Object? representativePieces = null,
   }) {
     return _then(_self.copyWith(
       blocStatus: null == blocStatus
           ? _self.blocStatus
           : blocStatus // ignore: cast_nullable_to_non_nullable
               as BlocStatus,
-      designsById: null == designsById
-          ? _self.designsById
-          : designsById // ignore: cast_nullable_to_non_nullable
-              as Map<String, Design>,
       imageFileNamesByDesignId: null == imageFileNamesByDesignId
           ? _self.imageFileNamesByDesignId
           : imageFileNamesByDesignId // ignore: cast_nullable_to_non_nullable
               as Map<String, List<String>>,
-      piecesByDesignId: null == piecesByDesignId
-          ? _self.piecesByDesignId
-          : piecesByDesignId // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<Piece>>,
+      designs: null == designs
+          ? _self.designs
+          : designs // ignore: cast_nullable_to_non_nullable
+              as List<Design>,
+      representativePieces: null == representativePieces
+          ? _self.representativePieces
+          : representativePieces // ignore: cast_nullable_to_non_nullable
+              as List<Piece>,
     ));
   }
 }
@@ -202,17 +201,17 @@ extension DesignsStatePatterns on DesignsState {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
             BlocStatus blocStatus,
-            Map<String, Design> designsById,
             Map<String, List<String>> imageFileNamesByDesignId,
-            Map<String, List<Piece>> piecesByDesignId)?
+            List<Design> designs,
+            List<Piece> representativePieces)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _DesignsState() when $default != null:
-        return $default(_that.blocStatus, _that.designsById,
-            _that.imageFileNamesByDesignId, _that.piecesByDesignId);
+        return $default(_that.blocStatus, _that.imageFileNamesByDesignId,
+            _that.designs, _that.representativePieces);
       case _:
         return orElse();
     }
@@ -235,16 +234,16 @@ extension DesignsStatePatterns on DesignsState {
   TResult when<TResult extends Object?>(
     TResult Function(
             BlocStatus blocStatus,
-            Map<String, Design> designsById,
             Map<String, List<String>> imageFileNamesByDesignId,
-            Map<String, List<Piece>> piecesByDesignId)
+            List<Design> designs,
+            List<Piece> representativePieces)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _DesignsState():
-        return $default(_that.blocStatus, _that.designsById,
-            _that.imageFileNamesByDesignId, _that.piecesByDesignId);
+        return $default(_that.blocStatus, _that.imageFileNamesByDesignId,
+            _that.designs, _that.representativePieces);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -266,16 +265,16 @@ extension DesignsStatePatterns on DesignsState {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
             BlocStatus blocStatus,
-            Map<String, Design> designsById,
             Map<String, List<String>> imageFileNamesByDesignId,
-            Map<String, List<Piece>> piecesByDesignId)?
+            List<Design> designs,
+            List<Piece> representativePieces)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _DesignsState() when $default != null:
-        return $default(_that.blocStatus, _that.designsById,
-            _that.imageFileNamesByDesignId, _that.piecesByDesignId);
+        return $default(_that.blocStatus, _that.imageFileNamesByDesignId,
+            _that.designs, _that.representativePieces);
       case _:
         return null;
     }
@@ -284,29 +283,19 @@ extension DesignsStatePatterns on DesignsState {
 
 /// @nodoc
 
-class _DesignsState extends DesignsState {
+class _DesignsState implements DesignsState {
   const _DesignsState(
       {this.blocStatus = const BlocStatus.ok(),
-      final Map<String, Design> designsById = const {},
       final Map<String, List<String>> imageFileNamesByDesignId = const {},
-      final Map<String, List<Piece>> piecesByDesignId = const {}})
-      : _designsById = designsById,
-        _imageFileNamesByDesignId = imageFileNamesByDesignId,
-        _piecesByDesignId = piecesByDesignId,
-        super._();
+      final List<Design> designs = const [],
+      final List<Piece> representativePieces = const []})
+      : _imageFileNamesByDesignId = imageFileNamesByDesignId,
+        _designs = designs,
+        _representativePieces = representativePieces;
 
   @override
   @JsonKey()
   final BlocStatus blocStatus;
-  final Map<String, Design> _designsById;
-  @override
-  @JsonKey()
-  Map<String, Design> get designsById {
-    if (_designsById is EqualUnmodifiableMapView) return _designsById;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_designsById);
-  }
-
   final Map<String, List<String>> _imageFileNamesByDesignId;
   @override
   @JsonKey()
@@ -317,13 +306,23 @@ class _DesignsState extends DesignsState {
     return EqualUnmodifiableMapView(_imageFileNamesByDesignId);
   }
 
-  final Map<String, List<Piece>> _piecesByDesignId;
+  final List<Design> _designs;
   @override
   @JsonKey()
-  Map<String, List<Piece>> get piecesByDesignId {
-    if (_piecesByDesignId is EqualUnmodifiableMapView) return _piecesByDesignId;
+  List<Design> get designs {
+    if (_designs is EqualUnmodifiableListView) return _designs;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_piecesByDesignId);
+    return EqualUnmodifiableListView(_designs);
+  }
+
+  final List<Piece> _representativePieces;
+  @override
+  @JsonKey()
+  List<Piece> get representativePieces {
+    if (_representativePieces is EqualUnmodifiableListView)
+      return _representativePieces;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_representativePieces);
   }
 
   /// Create a copy of DesignsState
@@ -341,25 +340,24 @@ class _DesignsState extends DesignsState {
             other is _DesignsState &&
             (identical(other.blocStatus, blocStatus) ||
                 other.blocStatus == blocStatus) &&
-            const DeepCollectionEquality()
-                .equals(other._designsById, _designsById) &&
             const DeepCollectionEquality().equals(
                 other._imageFileNamesByDesignId, _imageFileNamesByDesignId) &&
+            const DeepCollectionEquality().equals(other._designs, _designs) &&
             const DeepCollectionEquality()
-                .equals(other._piecesByDesignId, _piecesByDesignId));
+                .equals(other._representativePieces, _representativePieces));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       blocStatus,
-      const DeepCollectionEquality().hash(_designsById),
       const DeepCollectionEquality().hash(_imageFileNamesByDesignId),
-      const DeepCollectionEquality().hash(_piecesByDesignId));
+      const DeepCollectionEquality().hash(_designs),
+      const DeepCollectionEquality().hash(_representativePieces));
 
   @override
   String toString() {
-    return 'DesignsState(blocStatus: $blocStatus, designsById: $designsById, imageFileNamesByDesignId: $imageFileNamesByDesignId, piecesByDesignId: $piecesByDesignId)';
+    return 'DesignsState(blocStatus: $blocStatus, imageFileNamesByDesignId: $imageFileNamesByDesignId, designs: $designs, representativePieces: $representativePieces)';
   }
 }
 
@@ -373,9 +371,9 @@ abstract mixin class _$DesignsStateCopyWith<$Res>
   @useResult
   $Res call(
       {BlocStatus blocStatus,
-      Map<String, Design> designsById,
       Map<String, List<String>> imageFileNamesByDesignId,
-      Map<String, List<Piece>> piecesByDesignId});
+      List<Design> designs,
+      List<Piece> representativePieces});
 }
 
 /// @nodoc
@@ -392,27 +390,27 @@ class __$DesignsStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   $Res call({
     Object? blocStatus = null,
-    Object? designsById = null,
     Object? imageFileNamesByDesignId = null,
-    Object? piecesByDesignId = null,
+    Object? designs = null,
+    Object? representativePieces = null,
   }) {
     return _then(_DesignsState(
       blocStatus: null == blocStatus
           ? _self.blocStatus
           : blocStatus // ignore: cast_nullable_to_non_nullable
               as BlocStatus,
-      designsById: null == designsById
-          ? _self._designsById
-          : designsById // ignore: cast_nullable_to_non_nullable
-              as Map<String, Design>,
       imageFileNamesByDesignId: null == imageFileNamesByDesignId
           ? _self._imageFileNamesByDesignId
           : imageFileNamesByDesignId // ignore: cast_nullable_to_non_nullable
               as Map<String, List<String>>,
-      piecesByDesignId: null == piecesByDesignId
-          ? _self._piecesByDesignId
-          : piecesByDesignId // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<Piece>>,
+      designs: null == designs
+          ? _self._designs
+          : designs // ignore: cast_nullable_to_non_nullable
+              as List<Design>,
+      representativePieces: null == representativePieces
+          ? _self._representativePieces
+          : representativePieces // ignore: cast_nullable_to_non_nullable
+              as List<Piece>,
     ));
   }
 }

@@ -9,19 +9,12 @@ part 'collections_state.freezed.dart';
 
 @freezed
 abstract class CollectionsState with _$CollectionsState implements FetchState {
-  const CollectionsState._();
-
   const factory CollectionsState({
     @Default(BlocStatus.ok()) BlocStatus blocStatus,
-    @Default([]) List<Collection> collections,
     @Default({}) Map<String, Design> designsById,
-    @Default({}) Map<String, Piece> piecesById,
     @Default({}) Map<String, Map<String, List<String>>> collectionDesigns,
     @Default({}) Map<String, List<String>> imageFileNamesByDesignId,
+    @Default({}) Map<String, Collection> collectionsById,
+    @Default([]) List<Piece> allPieces,
   }) = _CollectionsState;
-
-  Map<String, Collection> get collectionsById =>
-      {for (final c in collections) c.id: c};
-
-  List<Piece> get allPieces => piecesById.values.toList();
 }

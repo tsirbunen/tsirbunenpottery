@@ -28,7 +28,7 @@ void main() {
       test('initial state is ok status with empty collections', () {
         final bloc = _makeBlocWithData();
         expect(bloc.state.blocStatus.status, Status.ok);
-        expect(bloc.state.collections, isEmpty);
+        expect(bloc.state.collectionsById, isEmpty);
         expect(bloc.state.collectionDesigns, isEmpty);
         bloc.close();
       });
@@ -45,7 +45,7 @@ void main() {
           predicate<CollectionsState>(
             (s) =>
                 s.blocStatus.status == Status.ok &&
-                s.collections.length == 3 &&
+                s.collectionsById.length == 3 &&
                 s.collectionDesigns.containsKey('coll-1') &&
                 !s.collectionDesigns.containsKey('coll-3'),
             'ok state — empty collection excluded from designs map',
@@ -74,7 +74,7 @@ void main() {
         expect: () => [
           predicate<CollectionsState>((s) => s.blocStatus.status == Status.loading),
           predicate<CollectionsState>(
-              (s) => s.blocStatus.status == Status.ok && s.collections.length == 3),
+              (s) => s.blocStatus.status == Status.ok && s.collectionsById.length == 3),
         ],
       );
     });

@@ -50,17 +50,7 @@ Both are `Symbols.email_rounded`. If the drawer icon for "Contact" should be dif
 File: `lib/theme/app_icons.dart:9,25`
 Both are `Symbols.local_cafe_rounded`. The coffee cup serves as both the nav icon for "Pieces" and the "no image" placeholder. Use a semantic icon for no-image (`Symbols.image_not_supported_rounded`).
 
-### 7-D. `AppGaps` is missing steps that `AppDimensions` defines
-File: `lib/utils/app_gaps.dart`
-`AppDimensions` defines `spacing15` and `spacing25`. `AppGaps` has no `h15` or `h25`. Code uses inline `SizedBox(width: AppDimensions.spacing15)` when gap widgets are missing — inconsistent pattern.
 
-### 7-E. `colors.dart` uses verbose `Color.fromARGB(255, 255, 255, 255)` for white
-File: `lib/theme/colors.dart:3`
-`Colors.white` (or `const Color(0xFFFFFFFF)`) is more readable and immediately communicates intent.
-
-### 7-F. `app_status_bar_color.dart` uses raw color constants before theme is available
-File: `lib/theme/app_status_bar_color.dart:8-9`
-`statusBarColor: pale` — raw constant. On future dark-mode support, this would need to be dynamic. At minimum, document that this is called before `runApp()` and cannot be theme-driven.
 
 ---
 

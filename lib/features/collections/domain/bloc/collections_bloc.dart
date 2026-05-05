@@ -33,11 +33,11 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState>
         await runFetch(emit, () async {
           final data = await _repository.getData();
           return CollectionsState(
-            collections: data.collections,
             designsById: data.designsById,
-            piecesById: data.piecesById,
             collectionDesigns: data.collectionDesigns,
             imageFileNamesByDesignId: data.imageFileNamesByDesignId,
+            collectionsById: {for (final c in data.collections) c.id: c},
+            allPieces: data.piecesById.values.toList(),
             blocStatus: const BlocStatus.ok(),
           );
         });

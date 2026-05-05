@@ -8,17 +8,12 @@ part 'pieces_state.freezed.dart';
 
 @freezed
 abstract class PiecesState with _$PiecesState implements FetchState {
-  const PiecesState._();
-
   const factory PiecesState({
     @Default(BlocStatus.ok()) BlocStatus blocStatus,
     @Default({}) Map<String, Piece> piecesById,
     @Default({}) Map<String, Design> designsById,
     @Default({}) Map<String, List<String>> imageFileNamesByDesignId,
-    @Default({}) Map<String, List<String>> pieceIdsByDesignId,
+    @Default([]) List<Design> allDesigns,
+    @Default([]) List<Piece> allPieces,
   }) = _PiecesState;
-
-  List<Design> get allDesigns => designsById.values.toList();
-
-  List<Piece> get allPieces => piecesById.values.toList();
 }

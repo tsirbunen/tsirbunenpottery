@@ -28,7 +28,7 @@ void main() {
       test('initial state is ok status with empty collections', () {
         final bloc = _makeBlocWithData();
         expect(bloc.state.blocStatus.status, Status.ok);
-        expect(bloc.state.categories, isEmpty);
+        expect(bloc.state.categoriesById, isEmpty);
         expect(bloc.state.categoryDesigns, isEmpty);
         bloc.close();
       });
@@ -45,7 +45,7 @@ void main() {
           predicate<CategoriesState>(
             (s) =>
                 s.blocStatus.status == Status.ok &&
-                s.categories.length == 4 &&
+                s.categoriesById.length == 4 &&
                 s.categoryDesigns.containsKey('cat-1') &&
                 !s.categoryDesigns.containsKey('cat-4'),
             'ok state with data — empty category excluded',

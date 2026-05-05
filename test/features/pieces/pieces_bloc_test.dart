@@ -47,7 +47,8 @@ void main() {
                 s.blocStatus.status == Status.ok &&
                 s.piecesById.length == 6 &&
                 s.designsById.length == 3 &&
-                s.pieceIdsByDesignId['design-3']?.length == 3,
+                s.allPieces.length == 6 &&
+                s.allDesigns.length == 3,
             'ok state with data',
           ),
         ],

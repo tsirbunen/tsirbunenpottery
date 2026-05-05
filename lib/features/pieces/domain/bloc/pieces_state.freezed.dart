@@ -18,7 +18,8 @@ mixin _$PiecesState {
   Map<String, Piece> get piecesById;
   Map<String, Design> get designsById;
   Map<String, List<String>> get imageFileNamesByDesignId;
-  Map<String, List<String>> get pieceIdsByDesignId;
+  List<Design> get allDesigns;
+  List<Piece> get allPieces;
 
   /// Create a copy of PiecesState
   /// with the given fields replaced by the non-null parameter values.
@@ -41,7 +42,8 @@ mixin _$PiecesState {
             const DeepCollectionEquality().equals(
                 other.imageFileNamesByDesignId, imageFileNamesByDesignId) &&
             const DeepCollectionEquality()
-                .equals(other.pieceIdsByDesignId, pieceIdsByDesignId));
+                .equals(other.allDesigns, allDesigns) &&
+            const DeepCollectionEquality().equals(other.allPieces, allPieces));
   }
 
   @override
@@ -51,11 +53,12 @@ mixin _$PiecesState {
       const DeepCollectionEquality().hash(piecesById),
       const DeepCollectionEquality().hash(designsById),
       const DeepCollectionEquality().hash(imageFileNamesByDesignId),
-      const DeepCollectionEquality().hash(pieceIdsByDesignId));
+      const DeepCollectionEquality().hash(allDesigns),
+      const DeepCollectionEquality().hash(allPieces));
 
   @override
   String toString() {
-    return 'PiecesState(blocStatus: $blocStatus, piecesById: $piecesById, designsById: $designsById, imageFileNamesByDesignId: $imageFileNamesByDesignId, pieceIdsByDesignId: $pieceIdsByDesignId)';
+    return 'PiecesState(blocStatus: $blocStatus, piecesById: $piecesById, designsById: $designsById, imageFileNamesByDesignId: $imageFileNamesByDesignId, allDesigns: $allDesigns, allPieces: $allPieces)';
   }
 }
 
@@ -70,7 +73,8 @@ abstract mixin class $PiecesStateCopyWith<$Res> {
       Map<String, Piece> piecesById,
       Map<String, Design> designsById,
       Map<String, List<String>> imageFileNamesByDesignId,
-      Map<String, List<String>> pieceIdsByDesignId});
+      List<Design> allDesigns,
+      List<Piece> allPieces});
 }
 
 /// @nodoc
@@ -89,7 +93,8 @@ class _$PiecesStateCopyWithImpl<$Res> implements $PiecesStateCopyWith<$Res> {
     Object? piecesById = null,
     Object? designsById = null,
     Object? imageFileNamesByDesignId = null,
-    Object? pieceIdsByDesignId = null,
+    Object? allDesigns = null,
+    Object? allPieces = null,
   }) {
     return _then(_self.copyWith(
       blocStatus: null == blocStatus
@@ -108,10 +113,14 @@ class _$PiecesStateCopyWithImpl<$Res> implements $PiecesStateCopyWith<$Res> {
           ? _self.imageFileNamesByDesignId
           : imageFileNamesByDesignId // ignore: cast_nullable_to_non_nullable
               as Map<String, List<String>>,
-      pieceIdsByDesignId: null == pieceIdsByDesignId
-          ? _self.pieceIdsByDesignId
-          : pieceIdsByDesignId // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<String>>,
+      allDesigns: null == allDesigns
+          ? _self.allDesigns
+          : allDesigns // ignore: cast_nullable_to_non_nullable
+              as List<Design>,
+      allPieces: null == allPieces
+          ? _self.allPieces
+          : allPieces // ignore: cast_nullable_to_non_nullable
+              as List<Piece>,
     ));
   }
 }
@@ -214,7 +223,8 @@ extension PiecesStatePatterns on PiecesState {
             Map<String, Piece> piecesById,
             Map<String, Design> designsById,
             Map<String, List<String>> imageFileNamesByDesignId,
-            Map<String, List<String>> pieceIdsByDesignId)?
+            List<Design> allDesigns,
+            List<Piece> allPieces)?
         $default, {
     required TResult orElse(),
   }) {
@@ -222,7 +232,7 @@ extension PiecesStatePatterns on PiecesState {
     switch (_that) {
       case _PiecesState() when $default != null:
         return $default(_that.blocStatus, _that.piecesById, _that.designsById,
-            _that.imageFileNamesByDesignId, _that.pieceIdsByDesignId);
+            _that.imageFileNamesByDesignId, _that.allDesigns, _that.allPieces);
       case _:
         return orElse();
     }
@@ -248,14 +258,15 @@ extension PiecesStatePatterns on PiecesState {
             Map<String, Piece> piecesById,
             Map<String, Design> designsById,
             Map<String, List<String>> imageFileNamesByDesignId,
-            Map<String, List<String>> pieceIdsByDesignId)
+            List<Design> allDesigns,
+            List<Piece> allPieces)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _PiecesState():
         return $default(_that.blocStatus, _that.piecesById, _that.designsById,
-            _that.imageFileNamesByDesignId, _that.pieceIdsByDesignId);
+            _that.imageFileNamesByDesignId, _that.allDesigns, _that.allPieces);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -280,14 +291,15 @@ extension PiecesStatePatterns on PiecesState {
             Map<String, Piece> piecesById,
             Map<String, Design> designsById,
             Map<String, List<String>> imageFileNamesByDesignId,
-            Map<String, List<String>> pieceIdsByDesignId)?
+            List<Design> allDesigns,
+            List<Piece> allPieces)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _PiecesState() when $default != null:
         return $default(_that.blocStatus, _that.piecesById, _that.designsById,
-            _that.imageFileNamesByDesignId, _that.pieceIdsByDesignId);
+            _that.imageFileNamesByDesignId, _that.allDesigns, _that.allPieces);
       case _:
         return null;
     }
@@ -296,18 +308,19 @@ extension PiecesStatePatterns on PiecesState {
 
 /// @nodoc
 
-class _PiecesState extends PiecesState {
+class _PiecesState implements PiecesState {
   const _PiecesState(
       {this.blocStatus = const BlocStatus.ok(),
       final Map<String, Piece> piecesById = const {},
       final Map<String, Design> designsById = const {},
       final Map<String, List<String>> imageFileNamesByDesignId = const {},
-      final Map<String, List<String>> pieceIdsByDesignId = const {}})
+      final List<Design> allDesigns = const [],
+      final List<Piece> allPieces = const []})
       : _piecesById = piecesById,
         _designsById = designsById,
         _imageFileNamesByDesignId = imageFileNamesByDesignId,
-        _pieceIdsByDesignId = pieceIdsByDesignId,
-        super._();
+        _allDesigns = allDesigns,
+        _allPieces = allPieces;
 
   @override
   @JsonKey()
@@ -340,14 +353,22 @@ class _PiecesState extends PiecesState {
     return EqualUnmodifiableMapView(_imageFileNamesByDesignId);
   }
 
-  final Map<String, List<String>> _pieceIdsByDesignId;
+  final List<Design> _allDesigns;
   @override
   @JsonKey()
-  Map<String, List<String>> get pieceIdsByDesignId {
-    if (_pieceIdsByDesignId is EqualUnmodifiableMapView)
-      return _pieceIdsByDesignId;
+  List<Design> get allDesigns {
+    if (_allDesigns is EqualUnmodifiableListView) return _allDesigns;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_pieceIdsByDesignId);
+    return EqualUnmodifiableListView(_allDesigns);
+  }
+
+  final List<Piece> _allPieces;
+  @override
+  @JsonKey()
+  List<Piece> get allPieces {
+    if (_allPieces is EqualUnmodifiableListView) return _allPieces;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_allPieces);
   }
 
   /// Create a copy of PiecesState
@@ -372,7 +393,9 @@ class _PiecesState extends PiecesState {
             const DeepCollectionEquality().equals(
                 other._imageFileNamesByDesignId, _imageFileNamesByDesignId) &&
             const DeepCollectionEquality()
-                .equals(other._pieceIdsByDesignId, _pieceIdsByDesignId));
+                .equals(other._allDesigns, _allDesigns) &&
+            const DeepCollectionEquality()
+                .equals(other._allPieces, _allPieces));
   }
 
   @override
@@ -382,11 +405,12 @@ class _PiecesState extends PiecesState {
       const DeepCollectionEquality().hash(_piecesById),
       const DeepCollectionEquality().hash(_designsById),
       const DeepCollectionEquality().hash(_imageFileNamesByDesignId),
-      const DeepCollectionEquality().hash(_pieceIdsByDesignId));
+      const DeepCollectionEquality().hash(_allDesigns),
+      const DeepCollectionEquality().hash(_allPieces));
 
   @override
   String toString() {
-    return 'PiecesState(blocStatus: $blocStatus, piecesById: $piecesById, designsById: $designsById, imageFileNamesByDesignId: $imageFileNamesByDesignId, pieceIdsByDesignId: $pieceIdsByDesignId)';
+    return 'PiecesState(blocStatus: $blocStatus, piecesById: $piecesById, designsById: $designsById, imageFileNamesByDesignId: $imageFileNamesByDesignId, allDesigns: $allDesigns, allPieces: $allPieces)';
   }
 }
 
@@ -403,7 +427,8 @@ abstract mixin class _$PiecesStateCopyWith<$Res>
       Map<String, Piece> piecesById,
       Map<String, Design> designsById,
       Map<String, List<String>> imageFileNamesByDesignId,
-      Map<String, List<String>> pieceIdsByDesignId});
+      List<Design> allDesigns,
+      List<Piece> allPieces});
 }
 
 /// @nodoc
@@ -422,7 +447,8 @@ class __$PiecesStateCopyWithImpl<$Res> implements _$PiecesStateCopyWith<$Res> {
     Object? piecesById = null,
     Object? designsById = null,
     Object? imageFileNamesByDesignId = null,
-    Object? pieceIdsByDesignId = null,
+    Object? allDesigns = null,
+    Object? allPieces = null,
   }) {
     return _then(_PiecesState(
       blocStatus: null == blocStatus
@@ -441,10 +467,14 @@ class __$PiecesStateCopyWithImpl<$Res> implements _$PiecesStateCopyWith<$Res> {
           ? _self._imageFileNamesByDesignId
           : imageFileNamesByDesignId // ignore: cast_nullable_to_non_nullable
               as Map<String, List<String>>,
-      pieceIdsByDesignId: null == pieceIdsByDesignId
-          ? _self._pieceIdsByDesignId
-          : pieceIdsByDesignId // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<String>>,
+      allDesigns: null == allDesigns
+          ? _self._allDesigns
+          : allDesigns // ignore: cast_nullable_to_non_nullable
+              as List<Design>,
+      allPieces: null == allPieces
+          ? _self._allPieces
+          : allPieces // ignore: cast_nullable_to_non_nullable
+              as List<Piece>,
     ));
   }
 }

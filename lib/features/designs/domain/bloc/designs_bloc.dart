@@ -32,10 +32,14 @@ class DesignsBloc extends Bloc<DesignsEvent, DesignsState>
       case FetchDesigns():
         await runFetch(emit, () async {
           final data = await _repository.getData();
+          final designs = data.designsById.values.toList();
           return DesignsState(
-            designsById: data.designsById,
             imageFileNamesByDesignId: data.imageFileNamesByDesignId,
-            piecesByDesignId: data.piecesByDesignId,
+            designs: designs,
+            representativePieces: designs
+                .map((d) => data.piecesByDesignId[d.id]?.firstOrNull)
+                .nonNulls
+                .toList(),
             blocStatus: const BlocStatus.ok(),
           );
         });

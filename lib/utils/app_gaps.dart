@@ -13,6 +13,8 @@ abstract final class AppGaps {
   // Horizontal gaps
   static const Widget h5 = SizedBox(width: AppDimensions.spacing5);
   static const Widget h10 = SizedBox(width: AppDimensions.spacing10);
+  static const Widget h15 = SizedBox(width: AppDimensions.spacing15);
   static const Widget h20 = SizedBox(width: AppDimensions.spacing20);
+  static const Widget h25 = SizedBox(width: AppDimensions.spacing25);
   static const Widget h50 = SizedBox(width: AppDimensions.spacing50);
 }
