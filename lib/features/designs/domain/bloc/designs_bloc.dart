@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
+import 'package:tsirbunenpottery/core/retry/retry_backoff.dart';
 import 'package:tsirbunenpottery/core/state/bloc_utils/fetch_bloc_mixin.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/designs/domain/bloc/designs_event.dart';
@@ -14,12 +15,15 @@ class DesignsBloc extends Bloc<DesignsEvent, DesignsState>
   final AppLogger logger;
 
   @override
+  final RetryBackoff backoff;
+
+  @override
   String get fetchErrorMessage => 'Failed to fetch designs';
 
   @override
   DesignsState withStatus(BlocStatus status) => state.copyWith(blocStatus: status);
 
-  DesignsBloc(this._repository, {required this.logger}) : super(const DesignsState()) {
+  DesignsBloc(this._repository, {required this.logger, required this.backoff}) : super(const DesignsState()) {
     on<DesignsEvent>(_onFetchDesigns);
   }
 

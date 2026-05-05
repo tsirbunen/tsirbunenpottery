@@ -3,24 +3,6 @@ _Generated 2026-04-28. Treat every item as a candidate for discussion, not as a 
 
 
 
-## 4. STATE / BLOC
-
-
-
-### 4-C. `FetchBlocMixin._backoff` is per-bloc with no global network coordination
-File: `lib/core/state/bloc_utils/fetch_bloc_mixin.dart:13`
-Each bloc has its own independent `RetryBackoff`. On startup, all blocs fire simultaneously. On network failure, each bloc independently grows its backoff — no global "network is unavailable" signal prevents thundering herd retries. Consider a shared `BackoffCoordinator`.
-
-### 4-D. Computed state getters rebuild collections on every access (not memoized)
-Files:
-- `lib/features/pieces/domain/bloc/pieces_state.dart:21-24` — `allDesigns`, `allPieces`
-- `lib/features/designs/domain/bloc/designs_state.dart:20-25` — `designs`, `representativePieces`
-- `lib/features/categories/domain/bloc/categories_state.dart:23-26` — `categoriesById`, `allPieces`
-- `lib/features/collections/domain/bloc/collections_state.dart:23-26` — `collectionsById`, `allPieces`
-
-These are computed getters on freezed classes — they call `.toList()` or build a map on every access. Every call creates a new collection object. In `build()` methods, always assign to a local variable once: `final designs = state.designs;`.
-
----
 
 ## 5. DATA LAYER
 

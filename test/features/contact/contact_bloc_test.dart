@@ -1,6 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tsirbunenpottery/core/logging/noop_app_logger.dart';
+import 'package:tsirbunenpottery/core/retry/retry_backoff.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/contact/domain/bloc/contact_bloc.dart';
 import 'package:tsirbunenpottery/features/contact/domain/bloc/contact_event.dart';
@@ -12,11 +13,13 @@ import '../../utils/mock_cloud_service_helpers.dart';
 ContactBloc _makeBlocWithData() => ContactBloc(
       ContactRepository(mockCloudServiceWithHomeImageData()),
       logger: const NoOpAppLogger(),
+      backoff: RetryBackoff(),
     );
 
 ContactBloc _makeBlocFailing() => ContactBloc(
       ContactRepository(mockCloudServiceFailing()),
       logger: const NoOpAppLogger(),
+      backoff: RetryBackoff(),
     );
 
 void main() {

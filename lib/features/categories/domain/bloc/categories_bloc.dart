@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
+import 'package:tsirbunenpottery/core/retry/retry_backoff.dart';
 import 'package:tsirbunenpottery/core/state/bloc_utils/fetch_bloc_mixin.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/categories/domain/bloc/categories_event.dart';
@@ -14,12 +15,15 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState>
   final AppLogger logger;
 
   @override
+  final RetryBackoff backoff;
+
+  @override
   String get fetchErrorMessage => 'Failed to fetch categories';
 
   @override
   CategoriesState withStatus(BlocStatus status) => state.copyWith(blocStatus: status);
 
-  CategoriesBloc(this._repository, {required this.logger}) : super(const CategoriesState()) {
+  CategoriesBloc(this._repository, {required this.logger, required this.backoff}) : super(const CategoriesState()) {
     on<CategoriesEvent>(_onFetchCategories);
   }
 

@@ -8,6 +8,7 @@ import 'package:tsirbunenpottery/core/crash_reporting/no_op_crash_reporter.dart'
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/core/logging/dev_app_logger.dart';
 import 'package:tsirbunenpottery/core/logging/release_app_logger.dart';
+import 'package:tsirbunenpottery/core/retry/retry_backoff.dart';
 import 'package:tsirbunenpottery/core/scroll_position_cache/scroll_position_cache.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/data/cloud_service.dart';
@@ -45,27 +46,30 @@ void prepareBlocs({CloudService? cloudService}) {
   getIt.registerSingleton<Environment>(const Environment());
   final languageBloc = LanguageBloc();
 
-  final homeRepository = HomeRepository(service);
-  final homeBloc = HomeBloc(homeRepository, logger: logger);
+  final sharedBackoff = RetryBackoff();
+
+  // Standalone fetches — each uses CloudService directly.
+  final homeBloc = HomeBloc(HomeRepository(service), logger: logger, backoff: sharedBackoff);
   homeBloc.add(FetchHomePageImageFileName());
 
-  final contactBloc = ContactBloc(ContactRepository(service), logger: logger);
+  final contactBloc = ContactBloc(ContactRepository(service), logger: logger, backoff: sharedBackoff);
   contactBloc.add(FetchOwnerPhoto());
 
+  // Product blocs — all share a single ProductsRepository cache.
   final parser = FirestoreDataParser(logger: logger);
   final productsRepository = ProductsRepository(service, parser, logger: logger);
   getIt.registerSingleton<ProductsRepository>(productsRepository);
 
-  final piecesBloc = PiecesBloc(PiecesRepository(productsRepository), logger: logger);
+  final piecesBloc = PiecesBloc(PiecesRepository(productsRepository), logger: logger, backoff: sharedBackoff);
   piecesBloc.add(FetchPieces());
 
-  final designsBloc = DesignsBloc(DesignsRepository(productsRepository), logger: logger);
+  final designsBloc = DesignsBloc(DesignsRepository(productsRepository), logger: logger, backoff: sharedBackoff);
   designsBloc.add(FetchDesigns());
 
-  final categoriesBloc = CategoriesBloc(CategoriesRepository(productsRepository), logger: logger);
+  final categoriesBloc = CategoriesBloc(CategoriesRepository(productsRepository), logger: logger, backoff: sharedBackoff);
   categoriesBloc.add(FetchCategories());
 
-  final collectionsBloc = CollectionsBloc(CollectionsRepository(productsRepository), logger: logger);
+  final collectionsBloc = CollectionsBloc(CollectionsRepository(productsRepository), logger: logger, backoff: sharedBackoff);
   collectionsBloc.add(FetchCollections());
 
   final router = buildRouter();

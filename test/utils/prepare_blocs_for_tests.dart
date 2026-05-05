@@ -5,6 +5,7 @@ import 'package:tsirbunenpottery/bootstrap/router/route_controller.dart';
 import 'package:tsirbunenpottery/bootstrap/service_locator/service_locator.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/core/logging/noop_app_logger.dart';
+import 'package:tsirbunenpottery/core/retry/retry_backoff.dart';
 import 'package:tsirbunenpottery/core/scroll_position_cache/scroll_position_cache.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_event.dart';
@@ -40,11 +41,12 @@ void prepareBlocsForTests() {
   getIt.registerSingleton<Environment>(const Environment(noNetworkImages: true));
 
   final cloudService = mockCloudServiceWithHomeImageData();
+  final sharedBackoff = RetryBackoff();
 
-  final homeBloc = HomeBloc(HomeRepository(cloudService), logger: logger);
+  final homeBloc = HomeBloc(HomeRepository(cloudService), logger: logger, backoff: sharedBackoff);
   homeBloc.add(FetchHomePageImageFileName());
 
-  final contactBloc = ContactBloc(ContactRepository(cloudService), logger: logger);
+  final contactBloc = ContactBloc(ContactRepository(cloudService), logger: logger, backoff: sharedBackoff);
   contactBloc.add(FetchOwnerPhoto());
 
   final productsRepository = ProductsRepository(
@@ -53,16 +55,16 @@ void prepareBlocsForTests() {
     logger: logger,
   );
 
-  final piecesBloc = PiecesBloc(PiecesRepository(productsRepository), logger: logger);
+  final piecesBloc = PiecesBloc(PiecesRepository(productsRepository), logger: logger, backoff: sharedBackoff);
   piecesBloc.add(FetchPieces());
 
-  final designsBloc = DesignsBloc(DesignsRepository(productsRepository), logger: logger);
+  final designsBloc = DesignsBloc(DesignsRepository(productsRepository), logger: logger, backoff: sharedBackoff);
   designsBloc.add(FetchDesigns());
 
-  final categoriesBloc = CategoriesBloc(CategoriesRepository(productsRepository), logger: logger);
+  final categoriesBloc = CategoriesBloc(CategoriesRepository(productsRepository), logger: logger, backoff: sharedBackoff);
   categoriesBloc.add(FetchCategories());
 
-  final collectionsBloc = CollectionsBloc(CollectionsRepository(productsRepository), logger: logger);
+  final collectionsBloc = CollectionsBloc(CollectionsRepository(productsRepository), logger: logger, backoff: sharedBackoff);
   collectionsBloc.add(FetchCollections());
 
   final languageBloc = LanguageBloc()..add(ChangeLanguage(Language.en));
