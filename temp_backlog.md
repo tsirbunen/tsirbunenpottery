@@ -3,34 +3,11 @@ _Generated 2026-04-28. Treat every item as a candidate for discussion, not as a 
 
 
 
-## 2. ARCHITECTURE / BIG PICTURE
-
-
-
-
-### 2-G. Cached `Future` in `ProductsRepository` is poisoned on error
-File: `lib/data/products_repository.dart:36`
-`_cache ??= _fetchAllFromCloud()` stores the Future itself. If `_fetchAllFromCloud()` throws, the Future is stored as a failed Future. All subsequent calls return the same failed Future immediately — the cache is poisoned and retries are impossible without re-instantiating `ProductsRepository`. Fix: in `_fetchAllFromCloud`, on catch, reset `_cache = null` before rethrowing (or catch at the assignment site and null the cache on failure).
-
-
-
-
-
 ---
 
 ## 3. ROUTING
 
-### 3-A. Top-level root constants in `routes.dart` are redundant namespace pollution
-File: `lib/bootstrap/router/routes.dart:14-18`
-`piecesRoot`, `collectionsRoot`, `categoriesRoot`, `designsRoot`, `contactRoot` are top-level `const` strings. Each is used exactly once as the value of a `static const path` inside a route class. Remove the top-level ones; the `static const path` is already the source of truth.
 
-### 3-B. Back-button detection relies on hardcoded path parameter name `'id'`
-File: `lib/widgets/app_bar/app_bar_left_actions.dart:12`
-`GoRouterState.of(context).pathParameters.containsKey('id')` — if a future route uses a different parameter name (`:slug`, `:productId`), the back button will silently not appear. A safer approach: use `GoRouter.of(context).canPop()`.
-
-### 3-C. Detail routes render the full parent page with a filter — not a true detail page
-Files: `lib/bootstrap/router/routes.dart:76-78`, `lib/bootstrap/router/routes.dart:101-103`
-`CollectionRoute` → `CollectionsPage(selectedCollectionId: id)`, `CategoryRoute` → `CategoriesPage(selectedCategoryId: id)`. The detail route instantiates the same stateful widget as the list page. Full widget rebuild on navigation, scroll restoration runs again for the filtered view, and it makes future independent detail lifecycle/state harder.
 
 ---
 

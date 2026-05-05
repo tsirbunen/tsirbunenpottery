@@ -33,7 +33,10 @@ class ProductsRepository implements IProductsRepository {
 
   @override
   Future<AllProductsData> getProducts() {
-    return _cache ??= _fetchAllFromCloud();
+    return _cache ??= _fetchAllFromCloud().catchError((Object e) {
+      _cache = null;
+      throw e;
+    });
   }
 
   Future<AllProductsData> _fetchAllFromCloud() async {

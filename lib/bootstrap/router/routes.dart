@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tsirbunenpottery/features/categories/presentation/pages/single_category_page.dart';
 import 'package:tsirbunenpottery/features/collections/presentation/pages/collections_page.dart';
+import 'package:tsirbunenpottery/features/collections/presentation/pages/single_collection_page.dart';
 import 'package:tsirbunenpottery/features/contact/presentation/pages/contact_page.dart';
 import 'package:tsirbunenpottery/features/categories/presentation/pages/categories_page.dart';
 import 'package:tsirbunenpottery/features/designs/presentation/pages/designs_page.dart';
@@ -74,7 +76,7 @@ class CollectionRoute extends GoRouteData with $CollectionRoute {
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) =>
-      NoTransitionPage(child: CollectionsPage(selectedCollectionId: id));
+      NoTransitionPage(child: SingleCollectionPage(id: id));
 }
 
 @TypedGoRoute<CategoriesRoute>(
@@ -99,7 +101,7 @@ class CategoryRoute extends GoRouteData with $CategoryRoute {
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) =>
-      NoTransitionPage(child: CategoriesPage(selectedCategoryId: id));
+      NoTransitionPage(child: SingleCategoryPage(id: id));
 }
 
 @TypedGoRoute<DesignsRoute>(path: DesignsRoute.path)
