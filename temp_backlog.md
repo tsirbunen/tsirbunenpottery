@@ -12,13 +12,7 @@ _Generated 2026-04-28. Treat every item as a candidate for discussion, not as a 
 File: `lib/data/products_repository.dart:36`
 `_cache ??= _fetchAllFromCloud()` stores the Future itself. If `_fetchAllFromCloud()` throws, the Future is stored as a failed Future. All subsequent calls return the same failed Future immediately — the cache is poisoned and retries are impossible without re-instantiating `ProductsRepository`. Fix: in `_fetchAllFromCloud`, on catch, reset `_cache = null` before rethrowing (or catch at the assignment site and null the cache on failure).
 
-### 2-H. `HomeRepository` and `ContactRepository` each make a separate Firestore call to `miscellaneous`
-Files: `lib/features/home/repository/home_repository.dart`, `lib/features/contact/repository/contact_repository.dart`
-Both fetch a single document from the same `miscellaneous` collection (different doc IDs). These could be batched into a single `fetchMany` call or merged into one `MiscRepository`. At startup, two unnecessary round-trips fire simultaneously.
 
-### 2-I. Feature repositories are not registered in GetIt — manual threading required as app grows
-File: `lib/bootstrap/service_locator/service_locator.dart`
-`ProductsRepository`, `PiecesRepository`, `DesignsRepository`, etc. are created as local variables in `prepareBlocs()` and not registered in GetIt. As the app grows (new feature that needs `ProductsRepository`) the developer must manually thread dependencies through `prepareBlocs()`. Consider registering `ProductsRepository` as a GetIt singleton.
 
 
 

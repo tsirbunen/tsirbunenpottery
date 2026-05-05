@@ -40,6 +40,7 @@ void prepareBlocs({CloudService? cloudService}) {
   getIt.registerSingleton<CrashReporter>(crashReporter);
 
   final service = cloudService ?? FirestoreCloudService(logger: logger);
+  getIt.registerSingleton<CloudService>(service);
 
   getIt.registerSingleton<Environment>(const Environment());
   final languageBloc = LanguageBloc();
@@ -53,6 +54,7 @@ void prepareBlocs({CloudService? cloudService}) {
 
   final parser = FirestoreDataParser(logger: logger);
   final productsRepository = ProductsRepository(service, parser, logger: logger);
+  getIt.registerSingleton<ProductsRepository>(productsRepository);
 
   final piecesBloc = PiecesBloc(PiecesRepository(productsRepository), logger: logger);
   piecesBloc.add(FetchPieces());
