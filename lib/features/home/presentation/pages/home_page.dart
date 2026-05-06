@@ -10,6 +10,7 @@ import 'package:tsirbunenpottery/utils/app_gaps.dart';
 import 'package:tsirbunenpottery/utils/app_image_refs.dart';
 import 'package:tsirbunenpottery/widgets/bloc_status_view/bloc_status_view.dart';
 import 'package:tsirbunenpottery/widgets/page_base/page_base.dart';
+import 'package:tsirbunenpottery/widgets/photo_with_fallback/photo.dart';
 import 'package:tsirbunenpottery/widgets/photo_with_fallback/photo_with_fallback.dart';
 
 class HomePage extends StatelessWidget {

@@ -56,13 +56,8 @@ Both are `Symbols.local_cafe_rounded`. The coffee cup serves as both the nav ico
 
 ## 8. WIDGETS — SHARED
 
-### 8-A. `Photo` class is defined inside `photo_with_fallback.dart` but used widely
-File: `lib/widgets/photo_with_fallback/photo_with_fallback.dart:9-19`
-`Photo` is used in `piece_card.dart`, `photo_and_info.dart`, `home_page.dart`, and `piece_photos.dart`. A model class used by many unrelated files should have its own file (e.g., `lib/widgets/photo_with_fallback/photo.dart`) or live in a shared model location, not be embedded in a widget implementation file.
 
-### 8-B. `PhotoWithFallback` calls `getIt<AppLogger>()` directly — service locator anti-pattern in presentation
-File: `lib/widgets/photo_with_fallback/photo_with_fallback.dart:218`
-Widgets should receive dependencies through the widget tree (constructor, `BuildContext`, `BlocProvider`), not reach into the service locator. This breaks testability (must initialise GetIt to unit-test this widget) and couples presentation to the DI framework. Pass `AppLogger` as a constructor parameter or access via `context.read<AppLogger>()` if provided up the tree.
+
 
 ### 8-C. `ProgressIndicatorXL` and `NoImageIconPlaceholder` use `Timer(Duration.zero, ...)` anti-pattern
 Files: `lib/widgets/progress_indicator/progress_indicator_xl.dart:36-48`, `lib/widgets/photo_with_fallback/no_image_icon_placeholder.dart:68-79`

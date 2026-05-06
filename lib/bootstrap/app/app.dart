@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tsirbunenpottery/bootstrap/environment/app_environment.dart';
 import 'package:tsirbunenpottery/bootstrap/environment/environment_scope.dart';
 import 'package:tsirbunenpottery/bootstrap/service_locator/service_locator.dart';
+import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/core/scroll_position_cache/scroll_position_cache.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
@@ -25,8 +26,11 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return EnvironmentScope(
       environment: getIt<Environment>(),
-      child: RepositoryProvider.value(
-        value: getIt.get<ScrollPositionCache>(),
+      child: MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider.value(value: getIt.get<AppLogger>()),
+          RepositoryProvider.value(value: getIt.get<ScrollPositionCache>()),
+        ],
         child: MultiBlocProvider(
           providers: [
             BlocProvider.value(value: getIt.get<LanguageBloc>()),

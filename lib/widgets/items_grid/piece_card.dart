@@ -6,6 +6,7 @@ import 'package:tsirbunenpottery/localization/languages.dart';
 import 'package:tsirbunenpottery/utils/app_dimensions.dart';
 import 'package:tsirbunenpottery/utils/app_gaps.dart';
 import 'package:tsirbunenpottery/utils/app_image_refs.dart';
+import 'package:tsirbunenpottery/widgets/photo_with_fallback/photo.dart';
 import 'package:tsirbunenpottery/widgets/photo_with_fallback/photo_with_fallback.dart';
 
 class PieceCard extends StatelessWidget {

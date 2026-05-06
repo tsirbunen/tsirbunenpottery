@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tsirbunenpottery/features/pieces/presentation/single_piece_view/photo_carousel_indicator.dart';
 import 'package:tsirbunenpottery/utils/app_dimensions.dart';
 import 'package:tsirbunenpottery/utils/app_image_refs.dart';
+import 'package:tsirbunenpottery/widgets/photo_with_fallback/photo.dart';
 import 'package:tsirbunenpottery/widgets/photo_with_fallback/photo_with_fallback.dart';
 
 class PiecePhotos extends StatefulWidget {

@@ -1,22 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/bootstrap/environment/environment_scope.dart';
-import 'package:tsirbunenpottery/bootstrap/service_locator/service_locator.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/utils/app_dimensions.dart';
 import 'package:tsirbunenpottery/utils/app_durations.dart';
 import 'package:tsirbunenpottery/widgets/photo_with_fallback/no_image_icon_placeholder.dart';
-
-class Photo {
-  final String id;
-  final String url;
-  final bool? isMainPhoto;
-
-  const Photo({
-    required this.id,
-    required this.url,
-    this.isMainPhoto,
-  });
-}
+import 'package:tsirbunenpottery/widgets/photo_with_fallback/photo.dart';
 
 class PhotoWithFallback extends StatefulWidget {
   final Photo? photo;
@@ -50,6 +39,7 @@ class _PhotoWithFallbackState extends State<PhotoWithFallback>
   AnimationController? _controller;
   Animation<double>? _fadeInOpacityAnimation;
   bool _isHovering = false;
+  late final AppLogger _logger;
 
   @override
   Widget build(BuildContext context) {
@@ -133,6 +123,7 @@ class _PhotoWithFallbackState extends State<PhotoWithFallback>
     if (_initialized) return;
     _initialized = true;
 
+    _logger = context.read<AppLogger>();
     _noNetworkImages = EnvironmentScope.of(context).noNetworkImages;
     if (_noNetworkImages) {
       _isLoading = false;
@@ -216,7 +207,7 @@ class _PhotoWithFallbackState extends State<PhotoWithFallback>
       },
       onError: (dynamic exception, StackTrace? stackTrace) {
         if (!mounted) return;
-        getIt<AppLogger>().logWarning(
+        _logger.logWarning(
           'Image load failed: $exception',
           tag: 'PhotoWithFallback',
           error: exception,
