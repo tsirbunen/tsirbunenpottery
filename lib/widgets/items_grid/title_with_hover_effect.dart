@@ -22,10 +22,10 @@ class TitleWithHoverEffect extends StatefulWidget {
   });
 
   @override
-  TitleWithHoverEffectState createState() => TitleWithHoverEffectState();
+  State<TitleWithHoverEffect> createState() => _TitleWithHoverEffectState();
 }
 
-class TitleWithHoverEffectState extends State<TitleWithHoverEffect> {
+class _TitleWithHoverEffectState extends State<TitleWithHoverEffect> {
   bool _isHovered = false;
 
   @override

@@ -13,7 +13,7 @@ class DrawerForAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-    final currentPage = _currentPageName(context);
+    final currentPath = GoRouterState.of(context).uri.path;
 
     return Drawer(
       shape: const ContinuousRectangleBorder(),
@@ -23,27 +23,17 @@ class DrawerForAppBar extends StatelessWidget {
           children: [
             const DrawerHeaderItem(width: AppDimensions.drawerIconContainerWidth),
             ...RouteEnum.values.map(
-              (route) {
-                final pageName = context.local(route.pageName());
-                
-                return DrawerRouteItem(
-                  routeLabel: pageName,
-                  iconData: route.iconData,
-                  path: route.path(),
-                  isCurrentRoute: pageName == currentPage,
-                  width: AppDimensions.drawerIconContainerWidth,
-                );
-              },
+              (route) => DrawerRouteItem(
+                routeLabel: context.local(route.pageName()),
+                iconData: route.iconData,
+                path: route.path(),
+                isCurrentRoute: route.path() == currentPath,
+                width: AppDimensions.drawerIconContainerWidth,
+              ),
             ),
           ],
         ),
       ),
     );
   }
-}
-
-String _currentPageName(BuildContext context) {
-  final routeSettings = ModalRoute.of(context)?.settings;
-  if (routeSettings is NoTransitionPage) return routeSettings.name ?? '';
-  return '';
 }

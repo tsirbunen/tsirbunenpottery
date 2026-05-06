@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
@@ -17,18 +18,26 @@ class HorizontalNavigation extends StatefulWidget {
 
 class _HorizontalNavigationState extends State<HorizontalNavigation> {
   double _totalWidthEstimate = 0;
+  TextStyle? _cachedStyle;
+  List<String>? _cachedPageNames;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     final style = Theme.of(context).textTheme.headlineSmall!;
-    _totalWidthEstimate = _computeTotalWidth(style);
+    final pageNames = RouteEnum.values.map((r) => context.local(r.pageName())).toList();
+
+    if (style == _cachedStyle && listEquals(_cachedPageNames, pageNames)) return;
+
+    _cachedStyle = style;
+    _cachedPageNames = pageNames;
+    _totalWidthEstimate = _computeTotalWidth(style, pageNames);
   }
 
-  double _computeTotalWidth(TextStyle style) {
-    return RouteEnum.values.fold(
+  double _computeTotalWidth(TextStyle style, List<String> pageNames) {
+    return pageNames.fold(
       AppDimensions.navTrademarkWidthEstimate + AppDimensions.navSpacerWidth,
-      (sum, route) => sum + _measureText(context.local(route.pageName()), style),
+      (sum, name) => sum + _measureText(name, style),
     );
   }
 
@@ -38,15 +47,14 @@ class _HorizontalNavigationState extends State<HorizontalNavigation> {
       maxLines: 1,
       textDirection: TextDirection.ltr,
     )..layout();
-    return tp.width + 30.0;
+    return tp.width + AppDimensions.navItemPaddingEstimate;
   }
 
   @override
   Widget build(BuildContext context) {
     final generalStyle = Theme.of(context).textTheme.headlineSmall ?? const TextStyle();
     final boldStyle = generalStyle.emphasized;
-    final currentPath =
-        GoRouter.of(context).routerDelegate.currentConfiguration.uri.path;
+    final currentPath = GoRouterState.of(context).uri.path;
 
     return LayoutBuilder(
       builder: (context, constraints) {

@@ -16,21 +16,11 @@ class AppBarRightActions extends StatelessWidget {
       builder: (BuildContext context, LanguageState state) {
         final currentLanguage = state.language;
 
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Note: Later, if there are more actions available, change
-            // this implementation to use, for example, some kind of popup menu.
-            // As the only action currently available is a change between Finnish
-            // and English, we are fine with this very simple implementation.
-            ActionButton(
-              onPressed: () {
-                _onChangeLanguage(context, _newLanguage(currentLanguage));
-              },
-              iconData: AppIcons.language,
-            ),
-          ],
+        return ActionButton(
+          onPressed: () {
+            _onChangeLanguage(context, _newLanguage(currentLanguage));
+          },
+          iconData: AppIcons.language,
         );
       },
     );

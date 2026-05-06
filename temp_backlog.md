@@ -57,29 +57,6 @@ Both are `Symbols.local_cafe_rounded`. The coffee cup serves as both the nav ico
 ## 8. WIDGETS — SHARED
 
 
-### 8-E. `AppBarRightActions` wraps a single widget in a `Row` unnecessarily
-File: `lib/widgets/app_bar/app_bar_right_actions.dart:19-35`
-A `Row` with one child adds nothing — the `ActionButton` would align correctly on its own. The inline comment explaining this is a placeholder for future children is exactly the kind of rationale that belongs in a PR description, not the code. Remove the `Row` until there are multiple children.
-
-### 8-F. `TitleWithHoverEffectState` is a public state class — should be private
-File: `lib/widgets/items_grid/title_with_hover_effect.dart:28`
-`class TitleWithHoverEffectState` should be `_TitleWithHoverEffectState`. State classes should always be private unless exposed via `GlobalKey`, which is not the case here.
-
-### 8-G. `HorizontalNavigation._measureText` adds magic number `+ 30.0`
-File: `lib/widgets/horizontal_navigation/horizontal_navigation.dart:41`
-`return tp.width + 30.0;` — 30.0 represents padding around each nav text button but is unnamed. Note that `AppDimensions.navItemPaddingEstimate = 40.0` already exists and is close — reconcile or use one constant.
-
-### 8-H. `HorizontalNavigation` creates `TextPainter` objects on every `didChangeDependencies` call
-File: `lib/widgets/horizontal_navigation/horizontal_navigation.dart:28-33`
-`_computeTotalWidth` creates and lays out a `TextPainter` per route item on every dependency change, including every window resize. For a web app this fires frequently. Memoize by caching the result keyed on text style + locale.
-
-### 8-I. `DrawerForAppBar` detects current page via `ModalRoute.of(context)?.settings` — fragile with go_router
-File: `lib/widgets/drawer/drawer_for_app_bar.dart:45-48`
-`ModalRoute.of(context)?.settings` + `is NoTransitionPage` check is go_router-implementation-specific and may break with router configuration changes. Use `GoRouterState.of(context).uri.path` and compare against `route.path()`.
-
-### 8-J. `DrawerRouteItem` uses `GestureDetector` instead of `InkWell`
-File: `lib/widgets/drawer/drawer_route_item.dart:44`
-`GestureDetector` for a tappable list item loses Material ink splash feedback. `InkWell` with `onTap` and `onHover` provides proper visual feedback and is idiomatic for list items. The nested `HoverDetector` + `GestureDetector` could be flattened into a single `InkWell`.
 
 ### 8-K. `ItemsGrid.scrollTargetName` passes `id` for both `categoryId` and `collectionId` parameters
 File: `lib/widgets/items_grid/items_grid.dart:43`

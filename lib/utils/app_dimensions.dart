@@ -15,7 +15,7 @@ abstract final class AppDimensions {
   // Horizontal navigation layout estimates
   static const double navSpacerWidth = 20.0;
   static const double navTrademarkWidthEstimate = 80.0;
-  static const double navItemPaddingEstimate = 40.0;
+  static const double navItemPaddingEstimate = 25.0;
 
   // Trademark widget
   static const double trademarkWidth = 55.0;

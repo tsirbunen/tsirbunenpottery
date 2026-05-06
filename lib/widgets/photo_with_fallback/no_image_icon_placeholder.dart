@@ -55,7 +55,9 @@ class _NoImageIconPlaceholderState extends State<NoImageIconPlaceholder>
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
 
-    if (_animation == null) return Container();
+    if (_animation == null) {
+      return SizedBox(width: widget.size.width, height: widget.size.height);
+    }
 
     return AnimatedBuilder(
         animation: _animation!,
