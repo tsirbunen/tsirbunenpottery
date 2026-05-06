@@ -67,9 +67,8 @@ void main() {
       blocTest<PiecesBloc, PiecesState>(
         'FetchPieces is a no-op once data is loaded',
         build: _makeBlocWithData,
-        act: (bloc) async {
+        act: (bloc) {
           bloc.add(FetchPieces());
-          await Future<void>.delayed(Duration.zero);
           bloc.add(FetchPieces());
         },
         expect: () => [

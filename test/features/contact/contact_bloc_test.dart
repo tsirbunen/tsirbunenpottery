@@ -63,9 +63,8 @@ void main() {
       blocTest<ContactBloc, ContactState>(
         'FetchOwnerPhoto is a no-op once data is loaded',
         build: _makeBlocWithData,
-        act: (bloc) async {
+        act: (bloc) {
           bloc.add(FetchOwnerPhoto());
-          await Future<void>.delayed(Duration.zero);
           bloc.add(FetchOwnerPhoto());
         },
         expect: () => [

@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 
 class ProgressIndicatorXL extends StatefulWidget {
@@ -12,7 +11,30 @@ class _ProgressIndicatorXLState extends State<ProgressIndicatorXL>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   Animation<Color?>? _animation;
-  Timer? _setupTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_animation != null) return;
+    final colors = Theme.of(context).colorScheme;
+    _animation = ColorTween(
+      begin: colors.primary,
+      end: colors.tertiary,
+    ).animate(_controller)
+      ..addListener(() {
+        setState(() {});
+      });
+    _controller.repeat(reverse: true);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,30 +49,7 @@ class _ProgressIndicatorXLState extends State<ProgressIndicatorXL>
   }
 
   @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    );
-    _setupTimer = Timer(Duration.zero, () {
-      _setupTimer = null;
-      if (!mounted) return;
-      final colors = Theme.of(context).colorScheme;
-      _animation = ColorTween(
-        begin: colors.primary,
-        end: colors.tertiary,
-      ).animate(_controller)
-        ..addListener(() {
-          setState(() {});
-        });
-      _controller.repeat(reverse: true);
-    });
-  }
-
-  @override
   void dispose() {
-    _setupTimer?.cancel();
     _controller.dispose();
     super.dispose();
   }

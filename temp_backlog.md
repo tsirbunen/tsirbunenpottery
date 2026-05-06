@@ -57,16 +57,6 @@ Both are `Symbols.local_cafe_rounded`. The coffee cup serves as both the nav ico
 ## 8. WIDGETS — SHARED
 
 
-
-
-### 8-C. `ProgressIndicatorXL` and `NoImageIconPlaceholder` use `Timer(Duration.zero, ...)` anti-pattern
-Files: `lib/widgets/progress_indicator/progress_indicator_xl.dart:36-48`, `lib/widgets/photo_with_fallback/no_image_icon_placeholder.dart:68-79`
-Using `Timer(Duration.zero, ...)` to defer `Theme.of(context)` access is fragile and unnecessary. The canonical approach is `didChangeDependencies()` — called after `initState` with a valid context and re-called whenever an `InheritedWidget` changes. The `Timer` pattern risks firing after `dispose()` and adds microtask overhead.
-
-### 8-D. `NoImageIconPlaceholder.build` returns empty `Container()` before animation is ready — causes layout flash
-File: `lib/widgets/photo_with_fallback/no_image_icon_placeholder.dart:33`
-`if (_animation == null) return Container();` — zero-size widget for one frame before the timer fires, causing a layout shift. Return a correctly-sized container: `Container(width: widget.size.width, height: widget.size.height)`.
-
 ### 8-E. `AppBarRightActions` wraps a single widget in a `Row` unnecessarily
 File: `lib/widgets/app_bar/app_bar_right_actions.dart:19-35`
 A `Row` with one child adds nothing — the `ActionButton` would align correctly on its own. The inline comment explaining this is a placeholder for future children is exactly the kind of rationale that belongs in a PR description, not the code. Remove the `Row` until there are multiple children.

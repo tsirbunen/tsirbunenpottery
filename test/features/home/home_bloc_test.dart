@@ -63,9 +63,8 @@ void main() {
       blocTest<HomeBloc, HomeState>(
         'FetchHomePageImageFileName is a no-op once data is loaded',
         build: _makeBlocWithData,
-        act: (bloc) async {
+        act: (bloc) {
           bloc.add(FetchHomePageImageFileName());
-          await Future<void>.delayed(Duration.zero);
           bloc.add(FetchHomePageImageFileName());
         },
         expect: () => [

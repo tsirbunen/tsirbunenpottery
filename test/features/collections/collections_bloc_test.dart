@@ -66,9 +66,8 @@ void main() {
       blocTest<CollectionsBloc, CollectionsState>(
         'FetchCollections is a no-op once data is loaded',
         build: _makeBlocWithData,
-        act: (bloc) async {
+        act: (bloc) {
           bloc.add(FetchCollections());
-          await Future<void>.delayed(Duration.zero);
           bloc.add(FetchCollections());
         },
         expect: () => [

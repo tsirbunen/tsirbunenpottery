@@ -27,6 +27,31 @@ class _NoImageIconPlaceholderState extends State<NoImageIconPlaceholder>
   Animation<Color?>? _animation;
 
   @override
+  void initState() {
+    super.initState();
+    if (!widget.isAnimated) return;
+    _controller = AnimationController(
+      vsync: this,
+      duration: AppDurations.placeholderPulse,
+    );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!widget.isAnimated || _animation != null) return;
+    final colors = Theme.of(context).colorScheme;
+    _animation = ColorTween(
+      begin: colors.surface,
+      end: colors.onTertiary,
+    ).animate(_controller!)
+      ..addListener(() {
+        setState(() {});
+      });
+    _controller!.repeat(reverse: true);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
 
@@ -51,34 +76,6 @@ class _NoImageIconPlaceholderState extends State<NoImageIconPlaceholder>
             ),
           );
         });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    if (!widget.isAnimated) return;
-
-    _controller = AnimationController(
-      vsync: this,
-      duration: AppDurations.placeholderPulse,
-    );
-
-    // Note: We need to do this async trick to get hold of the context
-    // to be able to access the color scheme of our app's theme.
-    Future.delayed(Duration.zero, () {
-      if (!mounted) return;
-      final colors = Theme.of(context).colorScheme;
-
-      _animation = ColorTween(
-        begin: colors.surface,
-        end: colors.onTertiary,
-      ).animate(_controller!)
-        ..addListener(() {
-          setState(() {});
-        });
-
-      _controller!.repeat(reverse: true);
-    });
   }
 
   @override
