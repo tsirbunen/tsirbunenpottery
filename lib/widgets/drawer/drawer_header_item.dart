@@ -14,19 +14,15 @@ class DrawerHeaderItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: _decoration(context),
-      child: Column(
-        children: [
-          Padding(
-            padding: _padding,
-            child: Row(
-              children: [
-                Trademark(isInverted: false, hasBorder: true, width: width),
-                AppGaps.h20,
-                const Expanded(child: Company(isCentered: false,)),
-              ],
-            ),
-          ),
-        ],
+      child: Padding(
+        padding: _padding,
+        child: Row(
+          children: [
+            Trademark(isInverted: false, hasBorder: true, width: width),
+            AppGaps.h20,
+            const Expanded(child: Company()),
+          ],
+        ),
       ),
     );
   }

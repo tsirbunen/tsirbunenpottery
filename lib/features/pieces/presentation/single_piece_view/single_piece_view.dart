@@ -5,8 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tsirbunenpottery/bootstrap/router/route_enum.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
-import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
-import 'package:tsirbunenpottery/localization/languages.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/bloc/pieces_state.dart';
 import 'package:tsirbunenpottery/features/pieces/presentation/single_piece_view/design_description.dart';
 import 'package:tsirbunenpottery/features/pieces/presentation/single_piece_view/piece_photos.dart';
@@ -24,20 +22,20 @@ class SinglePieceView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final language = context.select((LanguageBloc b) => b.state.language);
+
     return PageBase(
       pageBody: BlocBuilder<PiecesBloc, PiecesState>(
         builder: (context, state) {
+          final piece = state.piecesById[id];
+          final designId = piece?.designId;
+          final design = state.designsById[designId];
+          final designName = design?.names[language];
+
           return BlocStatusView(
             status: state.blocStatus,
-            child: BlocSelector<LanguageBloc, LanguageState, Language>(
-              selector: (langState) => langState.language,
-              builder: (context, language) {
-                final piece = state.piecesById[id];
-                final designId = piece?.designId;
-                final design = state.designsById[designId];
-                final designName = design?.names[language];
-                if (design == null || designName == null || piece == null) {
-                  return Center(
+            child: (design == null || designName == null || piece == null)
+                ? Center(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -53,55 +51,47 @@ class SinglePieceView extends StatelessWidget {
                         ),
                       ],
                     ),
-                  );
-                }
+                  )
+                : LayoutBuilder(
+                    builder: (context, constraints) {
+                      final hasRoomForRow = constraints.maxWidth > AppDimensions.singlePieceViewMaxWidth;
 
-                return LayoutBuilder(
-                  builder: (context, constraints) {
-                    final hasRoomForRow = constraints.maxWidth > AppDimensions.singlePieceViewMaxWidth;
-
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.all(AppDimensions.spacing20),
-                          child: hasRoomForRow
-                              ? Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    PiecePhotos(photoNames: piece.imageFileNames),
-                                    AppGaps.h20,
-                                    Flexible(
-                                      child: ConstrainedBox(
-                                        constraints:
-                                            const BoxConstraints(maxWidth: AppDimensions.singlePieceViewMaxWidth),
-                                        child: DesignDescription(
-                                            language: language, design: design),
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.all(AppDimensions.spacing20),
+                            child: hasRoomForRow
+                                ? Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      PiecePhotos(photoNames: piece.imageFileNames),
+                                      AppGaps.h20,
+                                      Flexible(
+                                        child: ConstrainedBox(
+                                          constraints: const BoxConstraints(maxWidth: AppDimensions.singlePieceViewMaxWidth),
+                                          child: DesignDescription(language: language, design: design),
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                )
-                              : Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    PiecePhotos(photoNames: piece.imageFileNames),
-                                    AppGaps.v20,
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: AppDimensions.spacing15),
-                                      child: DesignDescription(
-                                          language: language, design: design),
-                                    ),
-                                  ],
-                                ),
-                        ),
-                        const Footer(),
-                      ],
-                    );
-                  },
-                );
-              },
-            ),
+                                    ],
+                                  )
+                                : Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      PiecePhotos(photoNames: piece.imageFileNames),
+                                      AppGaps.v20,
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: AppDimensions.spacing15),
+                                        child: DesignDescription(language: language, design: design),
+                                      ),
+                                    ],
+                                  ),
+                          ),
+                          const Footer(),
+                        ],
+                      );
+                    },
+                  ),
           );
         },
       ),

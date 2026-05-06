@@ -66,29 +66,12 @@ File: `lib/widgets/items_grid/items_grid.dart:43`
 File: `lib/widgets/items_grid/items_grid.dart:84-85`
 `// FIXME: This component works in development and production, but fails in tests due to horizontal overflow.` — a known test failure is being tolerated. Root cause should be investigated and fixed (likely a `Row` inside an unbounded width in the test environment).
 
-### 8-M. `Company` widget ignores `isCentered` for column alignment — dead parameter bug
-File: `lib/widgets/company/company.dart:20`
-The conditional `crossAxisAlignment` line is commented out and replaced with hardcoded `CrossAxisAlignment.center`. The `isCentered` parameter is accepted but has no effect on the column layout — only on `textAlign` of the subtitle. This is either a regression (accidentally dropped the conditional) or a dead parameter.
 
-### 8-N. `DrawerHeaderItem` has a superfluous outer `Column` with a single child
-File: `lib/widgets/drawer/drawer_header_item.dart:17-29`
-`Container` → `Column` (1 child: `Padding`) → `Row` — the outer `Column` adds a widget tree node with no benefit. Flatten to `Container` → `Padding` → `Row`.
 
-### 8-O. `Footer._routes` wraps each `TextButton.child` in a single-child `Column`
-File: `lib/widgets/footer/footer.dart:42-45`
-`child: Column(children: [Text(...)])` — a `Column` with a single `Text` child. The `Text` should be the direct child of `TextButton`.
-
-### 8-P. `Footer._routes` returns `Iterable<TextButton>` rather than `List<TextButton>`
-File: `lib/widgets/footer/footer.dart:35`
-Returning a lazy `Iterable` that is then spread with `[...routes]` is less explicit than returning a `List`. Return type should be `List<TextButton>` and call `.toList()` inside.
-
----
 
 ## 9. FEATURES — PRESENTATION
 
-### 9-A. `HomePage` uses two nested `BlocBuilder`s — `BlocSelector` would be cleaner
-File: `lib/features/home/presentation/pages/home_page.dart:21-71`
-`BlocBuilder<LanguageBloc>` wraps `BlocBuilder<HomeBloc>`. Use independent `BlocSelector`s for each field to reduce rebuild coupling and nesting depth.
+
 
 ### 9-B. `HomePage._headlineStyle` has a formatting error — method body misaligned
 File: `lib/features/home/presentation/pages/home_page.dart:75-78`

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
-import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
 import 'package:tsirbunenpottery/features/home/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
@@ -18,58 +16,50 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PageBase(
-      pageBody: BlocBuilder<LanguageBloc, LanguageState>(
-          buildWhen: (prev, next) => prev.language != next.language,
-          builder: (BuildContext context, LanguageState _) {
-        return BlocBuilder<HomeBloc, HomeState>(
-            buildWhen: (prev, next) =>
-                prev.homePageImageFileName != next.homePageImageFileName ||
-                prev.blocStatus != next.blocStatus,
-            builder: (BuildContext context, HomeState homeState) {
-          final imageFileName = homeState.homePageImageFileName;
+    final imageFileName = context.select((HomeBloc b) => b.state.homePageImageFileName);
+    final blocStatus = context.select((HomeBloc b) => b.state.blocStatus);
 
-          return BlocStatusView(
-            status: homeState.blocStatus,
-            onRetry: () => context.read<HomeBloc>().add(FetchHomePageImageFileName()),
-            child: Align(
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(AppDimensions.spacing25),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    context.local(Translation.homeTitle), 
-                    style: _headlineStyle(context)
-                  ),
-                  AppGaps.v10,
-                  Text(
-                    context.local(Translation.appShortDescription),
-                    softWrap: true,
-                    style: _subTitleStyle(context),
-                  ),
-                  AppGaps.v25,
-                  Text(
-                    context.local(Translation.homeDescription),
-                    softWrap: true,
-                    textAlign: TextAlign.center,
-                    style: _mainDescriptionStyle(context),
-                  ),
-                  AppGaps.v20,
-                  PhotoWithFallback(
-                    photo: _photo(imageFileName),
-                    size: AppDimensions.heroPhotoSize,
-                    zoomOnHover: false,
-                    isShadeMasked: true,
-                  ),
-                ],
-              ),
+    return PageBase(
+      pageBody: BlocStatusView(
+        status: blocStatus,
+        onRetry: () => context.read<HomeBloc>().add(FetchHomePageImageFileName()),
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: Padding(
+            padding: const EdgeInsets.all(AppDimensions.spacing25),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  context.local(Translation.homeTitle),
+                  style: _headlineStyle(context),
+                ),
+                AppGaps.v10,
+                Text(
+                  context.local(Translation.appShortDescription),
+                  softWrap: true,
+                  style: _subTitleStyle(context),
+                ),
+                AppGaps.v25,
+                Text(
+                  context.local(Translation.homeDescription),
+                  softWrap: true,
+                  textAlign: TextAlign.center,
+                  style: _mainDescriptionStyle(context),
+                ),
+                AppGaps.v20,
+                PhotoWithFallback(
+                  photo: _photo(imageFileName),
+                  size: AppDimensions.heroPhotoSize,
+                  zoomOnHover: false,
+                  isShadeMasked: true,
+                ),
+              ],
             ),
-          ));
-        });
-      }),
+          ),
+        ),
+      ),
     );
   }
 

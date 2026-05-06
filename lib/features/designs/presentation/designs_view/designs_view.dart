@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
-import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
-import 'package:tsirbunenpottery/localization/languages.dart';
 import 'package:tsirbunenpottery/features/designs/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
@@ -27,41 +25,37 @@ class _DesignsViewState extends State<DesignsView>
 
   @override
   Widget build(BuildContext context) {
+    final language = context.select((LanguageBloc b) => b.state.language);
+
     return PageBase(
       scrollController: scrollController,
       pageBody: BlocBuilder<DesignsBloc, DesignsState>(
         builder: (context, state) {
           final designs = state.designs;
           final representativePieces = state.representativePieces;
-
           final gridParams = computeGridParams(context, [designs.length]);
 
-          return BlocSelector<LanguageBloc, LanguageState, Language>(
-            selector: (langState) => langState.language,
-            builder: (context, language) {
-              return BlocStatusView(
-                status: state.blocStatus,
-                onRetry: _onRetry,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ItemsGrid(
-                      id: 'designs',
-                      title: context.local(Translation.allDesigns),
-                      designs: designs,
-                      pieces: representativePieces,
-                      imageFileNamesByDesignId: state.imageFileNamesByDesignId,
-                      language: language,
-                      gridParams: gridParams,
-                      mode: ViewMode.designs,
-                      isTheOnlySubView: true,
-                    ),
-                    const Footer(),
-                  ],
+          return BlocStatusView(
+            status: state.blocStatus,
+            onRetry: _onRetry,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ItemsGrid(
+                  id: 'designs',
+                  title: context.local(Translation.allDesigns),
+                  designs: designs,
+                  pieces: representativePieces,
+                  imageFileNamesByDesignId: state.imageFileNamesByDesignId,
+                  language: language,
+                  gridParams: gridParams,
+                  mode: ViewMode.designs,
+                  isTheOnlySubView: true,
                 ),
-              );
-            },
+                const Footer(),
+              ],
+            ),
           );
         },
       ),

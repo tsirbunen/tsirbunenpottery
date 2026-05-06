@@ -5,8 +5,7 @@ import 'package:tsirbunenpottery/utils/app_typography.dart';
 
 class Company extends StatelessWidget {
   final bool isDark;
-  final bool isCentered;
-  const Company({super.key, this.isDark = true, this.isCentered = false});
+  const Company({super.key, this.isDark = true});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,6 @@ class Company extends StatelessWidget {
     final textColor = isDark ? colors.primary : colors.secondary;
 
     return Column(
-      // crossAxisAlignment: isCentered ? CrossAxisAlignment.center : CrossAxisAlignment.start,
       crossAxisAlignment:  CrossAxisAlignment.center,
       children: [
         Text(
@@ -29,7 +27,6 @@ class Company extends StatelessWidget {
         ),
         Text(
           shortDescription,
-          textAlign: isCentered ? TextAlign.center : TextAlign.start,
           style: TextStyle(
             fontSize: AppTypography.descriptionFontSize,
             color: textColor,

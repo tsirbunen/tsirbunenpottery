@@ -39,11 +39,7 @@ class Footer extends StatelessWidget {
       (route) {
         return TextButton(
           onPressed: () => _navigateTo(context, route.path()),
-          child: Column(
-            children: [
-              Text(context.local(route.pageName()), style: textStyle),
-            ],
-          ),
+          child: Text(context.local(route.pageName()), style: textStyle),
         );
       },
     );

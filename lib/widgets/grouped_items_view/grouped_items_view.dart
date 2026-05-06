@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tsirbunenpottery/core/state/language_bloc/language_bloc.dart';
-import 'package:tsirbunenpottery/core/state/language_bloc/language_state.dart';
 import 'package:tsirbunenpottery/core/types/bloc_status/bloc_status.dart';
 import 'package:tsirbunenpottery/features/designs/domain/models/design/design.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/models/piece/piece.dart';
@@ -74,30 +73,26 @@ class GroupedItemsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final language = context.select((LanguageBloc b) => b.state.language);
     final visibleGroups = _visibleGroups();
     final gridParams = computeGridParams(
       context,
       visibleGroups.values.map((v) => v.length).toList(),
     );
 
-    return BlocSelector<LanguageBloc, LanguageState, Language>(
-      selector: (state) => state.language,
-      builder: (context, language) {
-        return BlocStatusView(
-          status: blocStatus,
-          onRetry: onRetry,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ...visibleGroups.entries.map(
-                (group) => _buildItemsGridForGroup(group.key, group.value, language, gridParams),
-              ),
-              const Footer(),
-            ],
+    return BlocStatusView(
+      status: blocStatus,
+      onRetry: onRetry,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          ...visibleGroups.entries.map(
+            (group) => _buildItemsGridForGroup(group.key, group.value, language, gridParams),
           ),
-        );
-      },
+          const Footer(),
+        ],
+      ),
     );
   }
 }
