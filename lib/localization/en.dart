@@ -58,6 +58,8 @@ class En implements Translations {
         Translation.firebaseInitError =>
           'Could not connect. Please refresh and try again.',
         Translation.retry => 'Try again',
+        Translation.pageNotFound => 'Page not found',
+        Translation.goHome => 'Go to Home',
       };
 }
 

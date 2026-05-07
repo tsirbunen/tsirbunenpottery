@@ -15,16 +15,16 @@ class ProgressIndicatorPageOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (!isSubmitting) return child;
     return Stack(
       children: [
         child,
-        if (isSubmitting)
-          Container(
-            color: Colors.black.withValues(alpha: _overlayOpacity),
-            child: const Center(
-              child: ProgressIndicatorXL(),
-            ),
+        Container(
+          color: Colors.black.withValues(alpha: _overlayOpacity),
+          child: const Center(
+            child: ProgressIndicatorXL(),
           ),
+        ),
       ],
     );
   }

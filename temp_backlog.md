@@ -270,17 +270,6 @@ File: `lib/features/pieces/domain/models/piece/piece.dart`
 File: `lib/core/crash_reporting/no_op_crash_reporter.dart`
 `Future<void> report(...) async {}` — the `async` keyword on an empty method allocates a `Future<void>` on every call (microtask queue). Use `void report(...) {}` instead and adjust the `CrashReporter` interface if needed.
 
-### 16-E. `_padding()` helper in `PieceCard` is an instance method returning a const value — should be `static const`
-File: `lib/widgets/items_grid/piece_card.dart`
-`EdgeInsets _padding() => const EdgeInsets.symmetric(horizontal: 8.0)` — this is a zero-argument instance method returning a constant. Declare it `static const _padding = EdgeInsets.symmetric(horizontal: 8.0)` to remove the call overhead and signal immutability.
-
-### 16-F. `_decoration()` in `PieceCard` is an instance method that doesn't use `this` — should be `static`
-File: `lib/widgets/items_grid/piece_card.dart`
-Same pattern as 16-E. Instance methods that don't access instance state should be `static` (or top-level private) to make it clear they have no side effects on the object.
-
-### 16-G. `ProgressIndicatorPageOverlay` always renders a `Stack` even when the overlay is hidden
-File: `lib/widgets/progress_indicator/progress_indicator_page_overlay.dart`
-When `showProgressIndicator` is false the overlay `Container` is invisible but the `Stack` is still in the widget tree with its `children` list. Use `if (showProgressIndicator) ...` inside `children` to avoid the unnecessary node.
 
 ### 16-H. Stale `// Note:` comments throughout
 Files: `lib/main.dart:22-24`, `lib/bootstrap/service_locator/service_locator.dart:52`, `lib/widgets/app_bar/app_bar_right_actions.dart:23`, others

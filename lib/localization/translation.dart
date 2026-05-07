@@ -39,4 +39,7 @@ enum Translation {
   dataLoadError,
   firebaseInitError,
   retry,
+  // Not-found page:
+  pageNotFound,
+  goHome,
 }

@@ -28,9 +28,6 @@ import 'package:tsirbunenpottery/features/home/repository/home_repository.dart';
 import 'package:tsirbunenpottery/features/pieces/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/features/pieces/repository/pieces_repository.dart';
 
-// We use the service locator pattern to provide instances of the blocs so that
-// for example bloc-to-bloc communication is easier. We also prepare all the blocs
-// here (like pass the necessary repositories and add initializing events where needed).
 final getIt = GetIt.instance;
 
 void prepareBlocs({CloudService? cloudService, AppLogger? logger, Environment? environment}) {

@@ -56,6 +56,8 @@ class Fi implements Translations {
         Translation.firebaseInitError =>
           'Yhteys epäonnistui. Päivitä sivu ja yritä uudelleen.',
         Translation.retry => 'Yritä uudelleen',
+        Translation.pageNotFound => 'Sivua ei löydy',
+        Translation.goHome => 'Siirry etusivulle',
       };
 }
 
