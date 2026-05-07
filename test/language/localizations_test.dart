@@ -17,7 +17,7 @@ void main() {
           expect(
             lang.translate(key),
             isNotEmpty,
-            reason: '${lang.language} has empty string for key "${key.name}"',
+            reason: '${lang.runtimeType} has empty string for key "${key.name}"',
           );
         }
       }

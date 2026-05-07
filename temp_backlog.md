@@ -1,7 +1,3 @@
-# Senior Engineering Audit — Full Codebase
-_Generated 2026-04-28. Treat every item as a candidate for discussion, not as a definitive bug list._
-
-
 
 
 ## 5. DATA LAYER
@@ -154,10 +150,6 @@ Files: `lib/features/pieces/repository/pieces_repository.dart`, `lib/features/de
 Files: `lib/widgets/bloc_status_view/bloc_status_view.dart`, `lib/data/products_repository.dart`
 When a fetch fails, `BlocStatusView` shows a retry button that re-dispatches the fetch event. But `ProductsRepository._cache` is already set to the failed Future (see 2-G). The re-dispatched event calls `getProducts()` which immediately returns the failed Future again — the retry button appears to work but always fails instantly. Fix 2-G first; the retry button only becomes functional after that.
 
-### 13-E. `DesignsState.representativePieces` iterates `designs` twice
-File: `lib/features/designs/domain/bloc/designs_state.dart:20-25`
-`get designs` builds a list from the map; `get representativePieces` calls `designs.map(...)` — a second iteration over the newly allocated list. Both getters allocate on every call. Memoize or compute in the bloc before emission.
-
 ### 13-F. `RetryBackoff.wait()` returning `null` is a production workaround for a test detail
 File: `lib/core/retry/retry_backoff.dart`
 Returning `null` on the first attempt (instead of `Future.value(Duration.zero)`) exists to avoid an artificial delay in tests. The correct fix is to make the base delay injectable (default 0 in tests, real value in production) rather than encoding test-awareness into production logic.
@@ -170,9 +162,6 @@ When `FeatureBloc` emits any state change, the outer `BlocBuilder` rebuilds, whi
 Files: `lib/features/categories/presentation/pages/categories_page.dart`, `lib/features/collections/presentation/pages/collections_page.dart`
 `final categoriesById = {for (final c in state.categories) c.id: c}` is built on every `build` call. This is already available as a state getter — use `state.categoriesById` directly (though see 4-D about memoisation).
 
-### 13-I. `sold` field exists on `Piece` model but is never rendered
-File: `lib/features/pieces/domain/models/piece/piece.dart`
-`final bool sold;` is parsed, stored in state, and transmitted through the entire data pipeline — but no widget reads it. Either show sold status (badge, greyed card) or document that it is reserved for the purchase flow and suppress the field until then.
 
 ### 13-J. Dart 3 expression switch opportunities missed throughout
 Files: `lib/localization/translations.dart`, `lib/bootstrap/router/route_enum.dart`, `lib/core/types/bloc_status/bloc_status.dart`, `lib/data/firestore_data_parser.dart`
@@ -234,13 +223,9 @@ The hero image and owner photo both default to the same filename string in mock 
 
 ## 15. LOCALIZATION / DATA
 
-### 15-A. `foodSafetyInfo` is a public top-level function in both `en.dart` and `fi.dart` — symbol collision risk
-Files: `lib/localization/en.dart:62`, `lib/localization/fi.dart:60`
-Both files define a top-level function with the same name `foodSafetyInfo`. Dart will not complain as long as both aren't imported into the same file without a prefix — but if they ever are (e.g., in a test that imports both), there will be a compile error. Move the helper inside the class/switch or make it private (`_foodSafetyInfo`).
 
-### 15-B. Dead public export in `translations.dart`
-File: `lib/localization/translations.dart`
-`Translations` re-exports the `Language` enum via a public getter that nothing outside localization uses. Verify and remove unused public surface.
+
+
 
 ### 15-C. `details` dual-format confirms Firestore data inconsistency — technical debt not tracked
 File: `lib/data/firestore_data_parser.dart:157-166`

@@ -9,7 +9,8 @@ abstract class Piece with _$Piece implements Identifiable {
     required String id,
     required String designId,
     required List<String> imageFileNames,
-    required bool sold,
+    required bool sold, // intentionally unrendered — reserved for the purchase flow
+
     String? collectionId,
   }) = _Piece;
 }

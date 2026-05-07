@@ -72,7 +72,7 @@ or
 `flutter build web --release --web-renderer html` (not working aymore?)
 `flutter build web --release`
 Probably this works (does not shake off some icons):
-` flutter build web --no-tree-shake-icons `
+` flutter build web --no-tree-shake-icons  --release`
 
 No need to drag the directory **/build/web/** to Netlify anymore as Netlify deployment happens automatically on pushing to GitHub main. You can run the web build locally with
 `flutter run -d chrome`

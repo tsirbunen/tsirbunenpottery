@@ -1,11 +1,7 @@
-import 'package:tsirbunenpottery/localization/languages.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
 import 'package:tsirbunenpottery/localization/translations.dart';
 
 class Fi implements Translations {
-  @override
-  String get language => Language.fi.name;
-
   @override
   String translate(Translation key) => switch (key) {
         Translation.tradeName => 'TSIRBUNEN POTTERY',
@@ -61,7 +57,7 @@ class Fi implements Translations {
       };
 }
 
-const List<String> foodSafetyInfo = [
+const List<String> _foodSafetyInfo = [
   'Käytämme kaupallisesti valmistettuja lasitteita, jotka on tarkoitettu elintarviketurvallisiksi.',
   'Emme kuitenkaan suorita itsenäistä laboratoriotestausta jokaiselle yksittäiselle kappaleelle.',
   'Tarkista kaikki esineet, joita aiot käyttää ruoan kanssa, varmistaaksesi että',
@@ -72,4 +68,4 @@ const List<String> foodSafetyInfo = [
   'Turvallisuutesi on meille tärkeää! Kiitos ymmärryksestäsi!'
 ];
 
-final String _foodSafetyDetails = foodSafetyInfo.join(' ');
+final String _foodSafetyDetails = _foodSafetyInfo.join(' ');
