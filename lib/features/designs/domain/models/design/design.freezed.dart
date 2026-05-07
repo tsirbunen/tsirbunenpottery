@@ -27,9 +27,6 @@ mixin _$Design {
   $DesignCopyWith<Design> get copyWith =>
       _$DesignCopyWithImpl<Design>(this as Design, _$identity);
 
-  /// Serializes this Design to a JSON map.
-  Map<String, dynamic> toJson();
-
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
@@ -44,7 +41,6 @@ mixin _$Design {
             const DeepCollectionEquality().equals(other.details, details));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -295,7 +291,7 @@ extension DesignPatterns on Design {
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _Design implements Design {
   const _Design(
       {required this.id,
@@ -307,7 +303,6 @@ class _Design implements Design {
         _categoryIds = categoryIds,
         _description = description,
         _details = details;
-  factory _Design.fromJson(Map<String, dynamic> json) => _$DesignFromJson(json);
 
   @override
   final String id;
@@ -352,13 +347,6 @@ class _Design implements Design {
       __$DesignCopyWithImpl<_Design>(this, _$identity);
 
   @override
-  Map<String, dynamic> toJson() {
-    return _$DesignToJson(
-      this,
-    );
-  }
-
-  @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
@@ -372,7 +360,6 @@ class _Design implements Design {
             const DeepCollectionEquality().equals(other._details, _details));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,

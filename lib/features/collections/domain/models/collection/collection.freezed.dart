@@ -25,9 +25,6 @@ mixin _$Collection {
   $CollectionCopyWith<Collection> get copyWith =>
       _$CollectionCopyWithImpl<Collection>(this as Collection, _$identity);
 
-  /// Serializes this Collection to a JSON map.
-  Map<String, dynamic> toJson();
-
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
@@ -39,7 +36,6 @@ mixin _$Collection {
                 .equals(other.description, description));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -262,7 +258,7 @@ extension CollectionPatterns on Collection {
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _Collection implements Collection {
   const _Collection(
       {required this.id,
@@ -270,8 +266,6 @@ class _Collection implements Collection {
       required final Map<Language, String> description})
       : _names = names,
         _description = description;
-  factory _Collection.fromJson(Map<String, dynamic> json) =>
-      _$CollectionFromJson(json);
 
   @override
   final String id;
@@ -300,13 +294,6 @@ class _Collection implements Collection {
       __$CollectionCopyWithImpl<_Collection>(this, _$identity);
 
   @override
-  Map<String, dynamic> toJson() {
-    return _$CollectionToJson(
-      this,
-    );
-  }
-
-  @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
@@ -317,7 +304,6 @@ class _Collection implements Collection {
                 .equals(other._description, _description));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,

@@ -3,7 +3,6 @@ import 'package:tsirbunenpottery/data/identifiable.dart';
 import 'package:tsirbunenpottery/localization/languages.dart';
 
 part 'design.freezed.dart';
-part 'design.g.dart';
 
 @freezed
 abstract class Design with _$Design implements Identifiable {
@@ -14,6 +13,4 @@ abstract class Design with _$Design implements Identifiable {
     required Map<Language, String> description,
     required Map<Language, Map<String, String>> details,
   }) = _Design;
-
-  factory Design.fromJson(Map<String, Object?> json) => _$DesignFromJson(json);
 }

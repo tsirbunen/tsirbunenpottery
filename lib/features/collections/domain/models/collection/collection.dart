@@ -3,7 +3,6 @@ import 'package:tsirbunenpottery/data/identifiable.dart';
 import 'package:tsirbunenpottery/localization/languages.dart';
 
 part 'collection.freezed.dart';
-part 'collection.g.dart';
 
 @freezed
 abstract class Collection with _$Collection implements Identifiable {
@@ -12,7 +11,4 @@ abstract class Collection with _$Collection implements Identifiable {
     required Map<Language, String> names,
     required Map<Language, String> description,
   }) = _Collection;
-
-  factory Collection.fromJson(Map<String, Object?> json) =>
-      _$CollectionFromJson(json);
 }

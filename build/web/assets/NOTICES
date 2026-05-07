@@ -21425,7 +21425,6 @@ limitations under the License.
 
 --------------------------------------------------------------------------------
 json_annotation
-json_serializable
 platform
 
 Copyright 2017, the Dart project authors. All rights reserved.

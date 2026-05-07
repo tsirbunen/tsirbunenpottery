@@ -27,9 +27,6 @@ mixin _$Piece {
   $PieceCopyWith<Piece> get copyWith =>
       _$PieceCopyWithImpl<Piece>(this as Piece, _$identity);
 
-  /// Serializes this Piece to a JSON map.
-  Map<String, dynamic> toJson();
-
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
@@ -45,7 +42,6 @@ mixin _$Piece {
                 other.collectionId == collectionId));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, designId,
       const DeepCollectionEquality().hash(imageFileNames), sold, collectionId);
@@ -279,7 +275,7 @@ extension PiecePatterns on Piece {
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _Piece implements Piece {
   const _Piece(
       {required this.id,
@@ -288,7 +284,6 @@ class _Piece implements Piece {
       required this.sold,
       this.collectionId})
       : _imageFileNames = imageFileNames;
-  factory _Piece.fromJson(Map<String, dynamic> json) => _$PieceFromJson(json);
 
   @override
   final String id;
@@ -316,13 +311,6 @@ class _Piece implements Piece {
       __$PieceCopyWithImpl<_Piece>(this, _$identity);
 
   @override
-  Map<String, dynamic> toJson() {
-    return _$PieceToJson(
-      this,
-    );
-  }
-
-  @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
@@ -337,7 +325,6 @@ class _Piece implements Piece {
                 other.collectionId == collectionId));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, designId,
       const DeepCollectionEquality().hash(_imageFileNames), sold, collectionId);

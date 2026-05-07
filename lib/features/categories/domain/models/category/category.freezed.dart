@@ -24,9 +24,6 @@ mixin _$Category {
   $CategoryCopyWith<Category> get copyWith =>
       _$CategoryCopyWithImpl<Category>(this as Category, _$identity);
 
-  /// Serializes this Category to a JSON map.
-  Map<String, dynamic> toJson();
-
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
@@ -36,7 +33,6 @@ mixin _$Category {
             const DeepCollectionEquality().equals(other.names, names));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, id, const DeepCollectionEquality().hash(names));
@@ -241,13 +237,11 @@ extension CategoryPatterns on Category {
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _Category implements Category {
   const _Category(
       {required this.id, required final Map<Language, String> names})
       : _names = names;
-  factory _Category.fromJson(Map<String, dynamic> json) =>
-      _$CategoryFromJson(json);
 
   @override
   final String id;
@@ -268,13 +262,6 @@ class _Category implements Category {
       __$CategoryCopyWithImpl<_Category>(this, _$identity);
 
   @override
-  Map<String, dynamic> toJson() {
-    return _$CategoryToJson(
-      this,
-    );
-  }
-
-  @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
@@ -283,7 +270,6 @@ class _Category implements Category {
             const DeepCollectionEquality().equals(other._names, _names));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, id, const DeepCollectionEquality().hash(_names));
