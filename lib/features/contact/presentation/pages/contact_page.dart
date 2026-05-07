@@ -5,6 +5,7 @@ import 'package:tsirbunenpottery/features/contact/domain/bloc/contact_state.dart
 import 'package:tsirbunenpottery/features/contact/presentation/contact_view/contact_form.dart';
 import 'package:tsirbunenpottery/features/contact/presentation/contact_view/photo_and_info.dart';
 import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_spacing.dart';
 import 'package:tsirbunenpottery/utils/app_gaps.dart';
 import 'package:tsirbunenpottery/widgets/footer/footer.dart';
 import 'package:tsirbunenpottery/widgets/page_base/page_base.dart';
@@ -22,7 +23,7 @@ class ContactPage extends StatelessWidget {
         final imageFileName = state.ownerPhotoFileName;
 
         return Container(
-          margin: const EdgeInsets.symmetric(horizontal: AppDimensions.spacing25),
+          margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing25),
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,

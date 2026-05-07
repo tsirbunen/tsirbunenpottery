@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tsirbunenpottery/bootstrap/router/route_enum.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_spacing.dart';
 
 class Footer extends StatelessWidget {
   const Footer({super.key});
@@ -14,11 +15,11 @@ class Footer extends StatelessWidget {
     final isHorizontal = width > AppDimensions.narrowScreenBreakpoint;
 
     return Container(
-        margin: const EdgeInsets.only(top: AppDimensions.spacing50),
+        margin: const EdgeInsets.only(top: AppSpacing.spacing50),
         decoration: _decoration(context),
         width: double.infinity,
         child: Padding(
-          padding: const EdgeInsets.only(top: AppDimensions.spacing5, bottom: AppDimensions.spacing5),
+          padding: const EdgeInsets.only(top: AppSpacing.spacing5, bottom: AppSpacing.spacing5),
           child: isHorizontal
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.center,

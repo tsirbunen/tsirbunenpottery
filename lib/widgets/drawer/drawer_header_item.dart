@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_spacing.dart';
 import 'package:tsirbunenpottery/utils/app_gaps.dart';
 import 'package:tsirbunenpottery/widgets/company/company.dart';
 import 'package:tsirbunenpottery/widgets/company/trademark.dart';
 
-const EdgeInsets _padding = EdgeInsets.symmetric(vertical: AppDimensions.spacing10, horizontal: AppDimensions.spacing15);
+const EdgeInsets _padding = EdgeInsets.symmetric(vertical: AppSpacing.spacing10, horizontal: AppSpacing.spacing15);
 
 class DrawerHeaderItem extends StatelessWidget {
   final double width;

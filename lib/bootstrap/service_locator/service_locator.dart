@@ -33,7 +33,7 @@ import 'package:tsirbunenpottery/features/pieces/repository/pieces_repository.da
 // here (like pass the necessary repositories and add initializing events where needed).
 final getIt = GetIt.instance;
 
-void prepareBlocs({CloudService? cloudService, AppLogger? logger}) {
+void prepareBlocs({CloudService? cloudService, AppLogger? logger, Environment? environment}) {
   const crashReporter = NoOpCrashReporter();
   final resolvedLogger =
       logger ?? (kReleaseMode ? ReleaseAppLogger(crashReporter) : const DevAppLogger());
@@ -43,7 +43,7 @@ void prepareBlocs({CloudService? cloudService, AppLogger? logger}) {
   final service = cloudService ?? FirestoreCloudService(logger: resolvedLogger);
   getIt.registerSingleton<CloudService>(service);
 
-  getIt.registerSingleton<Environment>(const Environment());
+  getIt.registerSingleton<Environment>(environment ?? const Environment());
   final languageBloc = LanguageBloc();
 
   final sharedBackoff = RetryBackoff();

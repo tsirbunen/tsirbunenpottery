@@ -1,5 +1,5 @@
 abstract final class AppLayoutConstants {
-  static const double singleRowSubtraction = 15.0;
+  static const double groupedRowPhotoWidthInset = 15.0;
   static const double horizontalGridSpacing = 15.0;
   static const double verticalGridSpacing = 20.0;
   static const double defaultMinPhotoWidth = 175.0;

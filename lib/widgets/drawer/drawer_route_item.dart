@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_spacing.dart';
 import 'package:tsirbunenpottery/utils/app_typography.dart';
 import 'package:tsirbunenpottery/widgets/hover_detector/hover_detector.dart';
 
-const _itemPadding = EdgeInsets.symmetric(vertical: AppDimensions.spacing15, horizontal: AppDimensions.spacing15);
-const _labelPadding = EdgeInsets.only(left: AppDimensions.spacing20);
+const _itemPadding = EdgeInsets.symmetric(vertical: AppSpacing.spacing15, horizontal: AppSpacing.spacing15);
+const _labelPadding = EdgeInsets.only(left: AppSpacing.spacing20);
 
 class DrawerRouteItem extends StatelessWidget {
   final String routeLabel;

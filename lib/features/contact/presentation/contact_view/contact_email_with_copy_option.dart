@@ -4,6 +4,7 @@ import 'package:tsirbunenpottery/theme/app_icons.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
 import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_spacing.dart';
 import 'package:tsirbunenpottery/utils/app_gaps.dart';
 import 'package:tsirbunenpottery/utils/app_durations.dart';
 import 'package:tsirbunenpottery/utils/app_typography.dart';
@@ -39,7 +40,7 @@ class ContactEmailWithCopyOption extends StatelessWidget {
           message: tapToCopyEmailLabel,
           decoration: _tooltipDecoration(colors),
           textStyle: _tooltipTextStyle(colors),
-          padding: const EdgeInsets.symmetric(horizontal: AppDimensions.spacing10),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing10),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [

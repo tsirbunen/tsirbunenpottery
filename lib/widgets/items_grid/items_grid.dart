@@ -5,6 +5,7 @@ import 'package:tsirbunenpottery/theme/app_icons.dart';
 import 'package:tsirbunenpottery/widgets/action_button/action_button.dart';
 import 'package:tsirbunenpottery/features/designs/domain/models/design/design.dart';
 import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_spacing.dart';
 import 'package:tsirbunenpottery/utils/app_gaps.dart';
 import 'package:tsirbunenpottery/utils/app_layout_constants.dart';
 import 'package:tsirbunenpottery/widgets/items_grid/models.dart';
@@ -80,7 +81,7 @@ class _ItemsGridState extends State<ItemsGrid>
       crossAxisAlignment: horizontalAlignment,
       children: [
         Container(
-          margin: const EdgeInsets.only(top: AppDimensions.spacing25),
+          margin: const EdgeInsets.only(top: AppSpacing.spacing25),
           // FIXME: This component works in development and production, but fails in tests
           // due to horizontal overflow. Figure out the problem.
           child: Row(
@@ -95,7 +96,7 @@ class _ItemsGridState extends State<ItemsGrid>
               ),
               if (_showExpandCollapseButton())
                 Padding(
-                  padding: const EdgeInsets.only(right: AppDimensions.spacing10),
+                  padding: const EdgeInsets.only(right: AppSpacing.spacing10),
                   child: ActionButton(
                       iconData: expandAll
                           ? AppIcons.expandUp
@@ -109,7 +110,7 @@ class _ItemsGridState extends State<ItemsGrid>
         Container(
           margin: const EdgeInsets.only(
               left: AppLayoutConstants.horizontalGridSpacing,
-              bottom: AppDimensions.spacing20),
+              bottom: AppSpacing.spacing20),
           child: expandAll || widget.isTheOnlySubView
               ? Wrap(
                   spacing: AppLayoutConstants.horizontalGridSpacing,
@@ -159,7 +160,7 @@ class _ItemsGridState extends State<ItemsGrid>
   }
 
   Size _photoSize(bool isNarrow) {
-    final subtraction = widget.isTheOnlySubView ? 0.0 : AppLayoutConstants.singleRowSubtraction;
+    final subtraction = widget.isTheOnlySubView ? 0.0 : AppLayoutConstants.groupedRowPhotoWidthInset;
     final availableWidthPerPhoto =
         widget.gridParams.availableWidth / AppLayoutConstants.narrowColumnsCount;
     final adjustedPhotoWidth =

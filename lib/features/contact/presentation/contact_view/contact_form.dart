@@ -3,6 +3,7 @@ import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
 import 'package:tsirbunenpottery/theme/colors.dart' as app_colors;
 import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_spacing.dart';
 import 'package:tsirbunenpottery/utils/app_gaps.dart';
 import 'package:tsirbunenpottery/utils/app_typography.dart';
 
@@ -98,14 +99,14 @@ class _ContactFormState extends State<ContactForm> {
     TextTheme textTheme,
   ) {
     return Padding(
-      padding: const EdgeInsets.only(top: AppDimensions.spacing20),
+      padding: const EdgeInsets.only(top: AppSpacing.spacing20),
       child: Container(
         decoration: BoxDecoration(
           color: app_colors.inputFieldBackground,
           borderRadius: BorderRadius.circular(AppDimensions.formBorderRadius),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(AppDimensions.spacing15),
+          padding: const EdgeInsets.all(AppSpacing.spacing15),
           child: TextField(
             controller: controller,
             decoration: _inputDecoration(hintText),

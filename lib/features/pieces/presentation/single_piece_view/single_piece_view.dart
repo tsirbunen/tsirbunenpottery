@@ -10,6 +10,7 @@ import 'package:tsirbunenpottery/features/pieces/presentation/single_piece_view/
 import 'package:tsirbunenpottery/features/pieces/presentation/single_piece_view/piece_photos.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
 import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_spacing.dart';
 import 'package:tsirbunenpottery/utils/app_gaps.dart';
 import 'package:tsirbunenpottery/widgets/bloc_status_view/bloc_status_view.dart';
 import 'package:tsirbunenpottery/widgets/footer/footer.dart';
@@ -60,7 +61,7 @@ class SinglePieceView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            margin: const EdgeInsets.all(AppDimensions.spacing20),
+                            margin: const EdgeInsets.all(AppSpacing.spacing20),
                             child: hasRoomForRow
                                 ? Row(
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,7 +82,7 @@ class SinglePieceView extends StatelessWidget {
                                       PiecePhotos(photoNames: piece.imageFileNames),
                                       AppGaps.v20,
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: AppDimensions.spacing15),
+                                        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing15),
                                         child: DesignDescription(language: language, design: design),
                                       ),
                                     ],

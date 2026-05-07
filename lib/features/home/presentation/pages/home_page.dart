@@ -4,6 +4,7 @@ import 'package:tsirbunenpottery/features/home/domain/bloc/barrel.dart';
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
 import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_spacing.dart';
 import 'package:tsirbunenpottery/utils/app_gaps.dart';
 import 'package:tsirbunenpottery/utils/app_image_refs.dart';
 import 'package:tsirbunenpottery/widgets/bloc_status_view/bloc_status_view.dart';
@@ -26,7 +27,7 @@ class HomePage extends StatelessWidget {
         child: Align(
           alignment: Alignment.topCenter,
           child: Padding(
-            padding: const EdgeInsets.all(AppDimensions.spacing25),
+            padding: const EdgeInsets.all(AppSpacing.spacing25),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,

@@ -3,7 +3,7 @@ import 'package:tsirbunenpottery/features/designs/domain/models/design/design.da
 import 'package:tsirbunenpottery/localization/app_locale.dart';
 import 'package:tsirbunenpottery/localization/languages.dart';
 import 'package:tsirbunenpottery/localization/translation.dart';
-import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_spacing.dart';
 import 'package:tsirbunenpottery/utils/app_gaps.dart';
 
 class DesignDescription extends StatelessWidget {
@@ -36,7 +36,7 @@ class DesignDescription extends StatelessWidget {
         AppGaps.v5,
         ..._details().map(
           (entry) => Padding(
-            padding: const EdgeInsets.only(bottom: AppDimensions.spacing5),
+            padding: const EdgeInsets.only(bottom: AppSpacing.spacing5),
             child: Text(entry, style: _infoStyle(context)),
           ),
         ),

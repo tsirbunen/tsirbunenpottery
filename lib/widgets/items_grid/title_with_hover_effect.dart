@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:tsirbunenpottery/theme/app_icons.dart';
-import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_spacing.dart';
 import 'package:tsirbunenpottery/utils/app_gaps.dart';
 import 'package:tsirbunenpottery/utils/app_typography.dart';
 
 const EdgeInsets _textWithoutArrowPadding = EdgeInsets.symmetric(
-    horizontal: AppDimensions.spacing25, vertical: AppDimensions.spacing10);
+    horizontal: AppSpacing.spacing25, vertical: AppSpacing.spacing10);
 const EdgeInsets _textWithArrowPadding = EdgeInsets.symmetric(
-    horizontal: AppDimensions.spacing15, vertical: AppDimensions.spacing10);
+    horizontal: AppSpacing.spacing15, vertical: AppSpacing.spacing10);
 
 class TitleWithHoverEffect extends StatefulWidget {
   final String title;
@@ -48,7 +48,7 @@ class _TitleWithHoverEffectState extends State<TitleWithHoverEffect> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: Container(
-        margin: const EdgeInsets.only(left: AppDimensions.spacing10),
+        margin: const EdgeInsets.only(left: AppSpacing.spacing10),
         child: GestureDetector(
           onTap: () => widget.onTap(context),
           child: Padding(

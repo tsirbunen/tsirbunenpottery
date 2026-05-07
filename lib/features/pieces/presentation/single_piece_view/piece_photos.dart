@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tsirbunenpottery/features/pieces/presentation/single_piece_view/photo_carousel_indicator.dart';
 import 'package:tsirbunenpottery/utils/app_dimensions.dart';
+import 'package:tsirbunenpottery/utils/app_spacing.dart';
 import 'package:tsirbunenpottery/utils/app_image_refs.dart';
 import 'package:tsirbunenpottery/widgets/photo_with_fallback/photo.dart';
 import 'package:tsirbunenpottery/widgets/photo_with_fallback/photo_with_fallback.dart';
@@ -37,8 +38,8 @@ class _PiecePhotosState extends State<PiecePhotos> {
     return Column(
       children: [
         SizedBox(
-          height: AppDimensions.piecePhotoSize.height + AppDimensions.spacing10,
-          width: AppDimensions.piecePhotoSize.width + AppDimensions.spacing10,
+          height: AppDimensions.piecePhotoSize.height + AppSpacing.spacing10,
+          width: AppDimensions.piecePhotoSize.width + AppSpacing.spacing10,
           child: PageView.builder(
             controller: _controller,
             physics: const ClampingScrollPhysics(),
@@ -46,7 +47,7 @@ class _PiecePhotosState extends State<PiecePhotos> {
             onPageChanged: (index) => setState(() => currentIndex = index),
             itemBuilder: (context, index) {
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppDimensions.spacing5),
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing5),
                 child: PhotoWithFallback(
                   photo: photos[index],
                   size: AppDimensions.piecePhotoSize,

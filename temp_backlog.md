@@ -130,18 +130,6 @@ File: `lib/features/contact/presentation/contact_view/contact_email_with_copy_op
 
 
 
----
-
-## 12. MISCELLANEOUS NAMING / CONSISTENCY
-
-### 12-A. `AppLayoutConstants.singleRowSubtraction` has an unclear name
-File: `lib/utils/app_layout_constants.dart:2`
-`singleRowSubtraction = 15.0` — the name doesn't communicate what is being subtracted or why. Used in `ItemsGrid._photoSize()` when `isTheOnlySubView` is false. Rename to something descriptive (e.g., `horizontalScrollRowWidthCorrection`) or add a comment explaining the intent.
-
-### 12-B. `AppDimensions` mixes semantic layout values with a generic spacing scale
-File: `lib/utils/app_dimensions.dart`
-Constants like `appBarHeight` (semantic) and `spacing5` (generic scale) live in the same class. As the app grows, separate `AppSpacing` (scale) from `AppDimensions` (semantic) for clarity.
-
 ### 12-C. `foodSafetyInfo` list and `_foodSafetyDetails` join are duplicated in `en.dart` and `fi.dart`
 Files: `lib/localization/en.dart:62-73`, `lib/localization/fi.dart:60-71`
 Identical list construction pattern duplicated. Move the join logic into the `translate()` method, or unify into a shared helper so the pattern only exists once.
@@ -156,9 +144,7 @@ Identical list construction pattern duplicated. Move the join logic into the `tr
 File: `lib/localization/validate_translations.dart`
 ARCHITECTURE.md says "validate_translations.dart catches missing keys at test time" but the file is never imported in any test file. The validation is silently not running. Wire it into `localizations_test.dart` or a dedicated test that calls `validateTranslations()` at startup.
 
-### 13-B. go_router has no `errorBuilder` / 404 handler
-File: `lib/bootstrap/router/route_controller.dart`
-If a user navigates to an unknown path, go_router shows a blank white screen in release mode (the default error widget is debug-only). Add `errorBuilder: (context, state) => const NotFoundPage()` so unknown routes degrade gracefully.
+
 
 ### 13-C. Unsafe `as String?` casts in feature repositories
 Files: `lib/features/pieces/repository/pieces_repository.dart`, `lib/features/designs/repository/designs_repository.dart`, `lib/features/categories/repository/categories_repository.dart`, `lib/features/collections/repository/collections_repository.dart`
