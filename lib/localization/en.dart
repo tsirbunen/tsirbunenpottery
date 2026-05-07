@@ -55,6 +55,8 @@ class En implements Translations {
           'Handmade from start to finish, no two alike.',
         Translation.dataLoadError =>
           'Could not load data. Please try again later.',
+        Translation.firebaseInitError =>
+          'Could not connect. Please refresh and try again.',
         Translation.retry => 'Try again',
       };
 }

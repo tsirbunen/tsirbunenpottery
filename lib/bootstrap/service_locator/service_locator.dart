@@ -33,14 +33,14 @@ import 'package:tsirbunenpottery/features/pieces/repository/pieces_repository.da
 // here (like pass the necessary repositories and add initializing events where needed).
 final getIt = GetIt.instance;
 
-void prepareBlocs({CloudService? cloudService}) {
+void prepareBlocs({CloudService? cloudService, AppLogger? logger}) {
   const crashReporter = NoOpCrashReporter();
-  final logger =
-      kReleaseMode ? ReleaseAppLogger(crashReporter) : const DevAppLogger();
-  getIt.registerSingleton<AppLogger>(logger);
+  final resolvedLogger =
+      logger ?? (kReleaseMode ? ReleaseAppLogger(crashReporter) : const DevAppLogger());
+  getIt.registerSingleton<AppLogger>(resolvedLogger);
   getIt.registerSingleton<CrashReporter>(crashReporter);
 
-  final service = cloudService ?? FirestoreCloudService(logger: logger);
+  final service = cloudService ?? FirestoreCloudService(logger: resolvedLogger);
   getIt.registerSingleton<CloudService>(service);
 
   getIt.registerSingleton<Environment>(const Environment());
@@ -49,27 +49,27 @@ void prepareBlocs({CloudService? cloudService}) {
   final sharedBackoff = RetryBackoff();
 
   // Standalone fetches — each uses CloudService directly.
-  final homeBloc = HomeBloc(HomeRepository(service), logger: logger, backoff: sharedBackoff);
+  final homeBloc = HomeBloc(HomeRepository(service), logger: resolvedLogger, backoff: sharedBackoff);
   homeBloc.add(FetchHomePageImageFileName());
 
-  final contactBloc = ContactBloc(ContactRepository(service), logger: logger, backoff: sharedBackoff);
+  final contactBloc = ContactBloc(ContactRepository(service), logger: resolvedLogger, backoff: sharedBackoff);
   contactBloc.add(FetchOwnerPhoto());
 
   // Product blocs — all share a single ProductsRepository cache.
-  final parser = FirestoreDataParser(logger: logger);
-  final productsRepository = ProductsRepository(service, parser, logger: logger);
+  final parser = FirestoreDataParser(logger: resolvedLogger);
+  final productsRepository = ProductsRepository(service, parser, logger: resolvedLogger);
   getIt.registerSingleton<ProductsRepository>(productsRepository);
 
-  final piecesBloc = PiecesBloc(PiecesRepository(productsRepository), logger: logger, backoff: sharedBackoff);
+  final piecesBloc = PiecesBloc(PiecesRepository(productsRepository), logger: resolvedLogger, backoff: sharedBackoff);
   piecesBloc.add(FetchPieces());
 
-  final designsBloc = DesignsBloc(DesignsRepository(productsRepository), logger: logger, backoff: sharedBackoff);
+  final designsBloc = DesignsBloc(DesignsRepository(productsRepository), logger: resolvedLogger, backoff: sharedBackoff);
   designsBloc.add(FetchDesigns());
 
-  final categoriesBloc = CategoriesBloc(CategoriesRepository(productsRepository), logger: logger, backoff: sharedBackoff);
+  final categoriesBloc = CategoriesBloc(CategoriesRepository(productsRepository), logger: resolvedLogger, backoff: sharedBackoff);
   categoriesBloc.add(FetchCategories());
 
-  final collectionsBloc = CollectionsBloc(CollectionsRepository(productsRepository), logger: logger, backoff: sharedBackoff);
+  final collectionsBloc = CollectionsBloc(CollectionsRepository(productsRepository), logger: resolvedLogger, backoff: sharedBackoff);
   collectionsBloc.add(FetchCollections());
 
   final router = buildRouter();

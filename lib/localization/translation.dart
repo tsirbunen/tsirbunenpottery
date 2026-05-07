@@ -37,5 +37,6 @@ enum Translation {
   contactEmail,
   storyOnContactPage,
   dataLoadError,
+  firebaseInitError,
   retry,
 }

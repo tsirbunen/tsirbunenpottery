@@ -53,6 +53,8 @@ class Fi implements Translations {
           'Käsityönä valmistettu alusta loppuun, ei kahta samanlaista.',
         Translation.dataLoadError =>
           'Tietojen lataus epäonnistui. Yritä myöhemmin uudelleen.',
+        Translation.firebaseInitError =>
+          'Yhteys epäonnistui. Päivitä sivu ja yritä uudelleen.',
         Translation.retry => 'Yritä uudelleen',
       };
 }

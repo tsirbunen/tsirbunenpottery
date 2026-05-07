@@ -121,30 +121,6 @@ File: `lib/features/contact/presentation/contact_view/contact_email_with_copy_op
 
 ## 10. MAIN / BOOTSTRAP
 
-### 10-A. `main.dart` swallows Firebase init exception silently
-File: `lib/main.dart:17`
-`} catch (_) {` — the exception is completely discarded. At minimum log to `debugPrint` before the logger is initialized so the cause of "could not connect" is visible during development.
-
-### 10-B. `FirebaseErrorApp` is not localized — hardcoded English
-File: `lib/bootstrap/app/firebase_error_app.dart:13`
-`'Could not connect. Please refresh and try again.'` appears before the localization system is initialized. At minimum show both Finnish and English, or use the app's default locale (`Language.fi`).
-
-### 10-C. `FirebaseErrorApp` uses raw color constants instead of theme colors
-File: `lib/bootstrap/app/firebase_error_app.dart:12-15`
-`app_colors.background` and `app_colors.medium` are used directly. Since `FirebaseErrorApp` creates its own `MaterialApp`, it could include `theme: const AppTheme().themeData` and use `Theme.of(context).colorScheme`.
-
-### 10-D. Explanatory comment in `main.dart` about `getIt` violates no-obvious-comments rule
-File: `lib/main.dart:22-24`
-`// Note: We use the getIt service locator to help us manage our dependencies...` — this explains what the code obviously does. Remove.
-
-### 10-E. `app.dart` imports every feature bloc individually — will grow unbounded
-File: `lib/bootstrap/app/app.dart:10-15`
-Six explicit bloc barrel imports. Consider a top-level `lib/features/barrel.dart` or extracting the `MultiBlocProvider` setup into a dedicated widget.
-
-### 10-F. Mixed `getIt.get<>()` and `getIt<>()` call styles in `app.dart`
-File: `lib/bootstrap/app/app.dart:29,45`
-Both `getIt.get<T>()` and `getIt<T>()` are used. They are equivalent but inconsistent. Standardise on the call form `getIt<T>()` throughout the codebase.
-
 ---
 
 ## 11. TESTING
@@ -152,9 +128,7 @@ Both `getIt.get<T>()` and `getIt<T>()` are used. They are equivalent but inconsi
 ### 11-A. Contact feature has no view test
 `test/features/contact/` contains only `contact_bloc_test.dart`. All other features have corresponding view tests. The contact view is complex (form, photo, email copy widget). Add `contact_view_test.dart`.
 
-### 11-B. `prepareBlocsForTests()` duplicates production `prepareBlocs()` setup
-Files: `test/utils/prepare_blocs_for_tests.dart`, `lib/bootstrap/service_locator/service_locator.dart`
-Any change to `prepareBlocs()` must be manually mirrored in the test version. Since `prepareBlocs()` already accepts an optional `CloudService`, it could also accept an optional `AppLogger` and be called directly from tests, eliminating the duplicate.
+
 
 ---
 
