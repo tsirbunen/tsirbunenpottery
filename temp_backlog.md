@@ -266,9 +266,7 @@ File: `lib/widgets/grouped_items_view/grouped_items_view.dart`
 File: `lib/features/pieces/domain/models/piece/piece.dart`
 `designName: data['designName'] as String? ?? ''` — an empty string is treated as a valid name. Downstream, `'' ` renders nothing and is indistinguishable from "field missing from Firestore". Use `null` as the fallback and let the UI decide whether to show a placeholder.
 
-### 16-D. `NoOpCrashReporter` methods are `async` for no reason
-File: `lib/core/crash_reporting/no_op_crash_reporter.dart`
-`Future<void> report(...) async {}` — the `async` keyword on an empty method allocates a `Future<void>` on every call (microtask queue). Use `void report(...) {}` instead and adjust the `CrashReporter` interface if needed.
+
 
 
 ### 16-H. Stale `// Note:` comments throughout

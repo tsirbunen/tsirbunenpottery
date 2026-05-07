@@ -4,8 +4,8 @@ final class NoOpCrashReporter implements CrashReporter {
   const NoOpCrashReporter();
 
   @override
-  Future<void> recordError(Object error, StackTrace? stackTrace, {bool fatal = false}) async {}
+  void recordError(Object error, StackTrace? stackTrace, {bool fatal = false}) {}
 
   @override
-  Future<void> log(String message) async {}
+  void log(String message) {}
 }

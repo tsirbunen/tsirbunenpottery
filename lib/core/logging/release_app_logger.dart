@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:tsirbunenpottery/core/crash_reporting/crash_reporter.dart';
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 
@@ -26,6 +24,6 @@ class ReleaseAppLogger implements AppLogger {
     StackTrace? stackTrace,
     String tag = _defaultTag,
   }) {
-    unawaited(_crashReporter.recordError(error, stackTrace));
+    _crashReporter.recordError(error, stackTrace);
   }
 }
