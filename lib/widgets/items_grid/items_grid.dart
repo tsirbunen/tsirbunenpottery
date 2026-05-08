@@ -41,7 +41,7 @@ class ItemsGrid extends StatefulWidget {
   });
 
   String get scrollTargetName {
-    return mode.scrollTargetName(id, id, isHorizontal: true);
+    return mode.scrollTargetName(id, isHorizontal: true);
   }
 
   @override
@@ -82,8 +82,6 @@ class _ItemsGridState extends State<ItemsGrid>
       children: [
         Container(
           margin: const EdgeInsets.only(top: AppSpacing.spacing25),
-          // FIXME: This component works in development and production, but fails in tests
-          // due to horizontal overflow. Figure out the problem.
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

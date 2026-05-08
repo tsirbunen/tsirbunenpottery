@@ -19,7 +19,7 @@ class _CategoriesViewState extends State<CategoriesView>
     with ScrollPositionMixin<CategoriesView> {
   @override
   String get scrollTargetName =>
-      ViewMode.categories.scrollTargetName(widget.selectedCategoryId, null);
+      ViewMode.categories.scrollTargetName(widget.selectedCategoryId);
 
   @override
   Widget build(BuildContext context) {

@@ -35,7 +35,7 @@ class Fi implements Translations {
         Translation.backToPieces => 'Takaisin kaikkiin tuotteisiin',
         Translation.productDetails => 'Tuotteen tiedot',
         Translation.foodSafetyTitle => 'Elintarviketurvallisuus',
-        Translation.foodSafetyDetails => _foodSafetyDetails,
+        Translation.foodSafetyDetails => _foodSafetyInfo.join(' '),
         Translation.contactUs => 'Ota yhteyttä',
         Translation.contactTitlePlaceholder => 'Otsikko...',
         Translation.contactMessagePlaceholder => 'Viesti...',
@@ -67,4 +67,3 @@ const List<String> _foodSafetyInfo = [
   'Turvallisuutesi on meille tärkeää! Kiitos ymmärryksestäsi!'
 ];
 
-final String _foodSafetyDetails = _foodSafetyInfo.join(' ');

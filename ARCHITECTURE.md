@@ -61,7 +61,6 @@ lib/
     app_locale.dart                # Locale helpers
     utils.dart                     # Locale resolution helpers
     translations.dart              # Runtime lookup
-    validate_translations.dart     # Asserts all keys have translations
 
   theme/
     app_theme.dart                 # ThemeData
@@ -69,7 +68,9 @@ lib/
     app_status_bar_color.dart      # Platform status bar color setup
 
   utils/
-    constants.dart                 # App-wide constants (e.g. Firestore doc IDs)
+    app_firestore_refs.dart        # FirestoreCollections — Firestore collection name constants
+    app_image_refs.dart            # photoBaseUrl, Firestore document ID constants
+    app_scroll_keys.dart           # AppScrollKeys — scroll position cache key fragments
     current_page_name_from_settings.dart
 
   widgets/                         # Shared, reusable widgets (no business logic)
@@ -128,7 +129,7 @@ Firestore → CloudService → ProductsRepository (shared cache) → FeatureRepo
 ## Localization
 - All user-visible strings are keyed by `Translation` enum.
 - Add a new string: add to enum, then add to `en.dart` and `fi.dart`.
-- `validate_translations.dart` catches missing keys at test time.
+- `test/language/localizations_test.dart` asserts every key returns a non-empty string for every language.
 
 ## Code generation
 Run after changing freezed models or go_router routes:

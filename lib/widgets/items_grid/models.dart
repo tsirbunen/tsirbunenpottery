@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:tsirbunenpottery/utils/app_layout_constants.dart';
+import 'package:tsirbunenpottery/utils/app_scroll_keys.dart';
 
 enum ViewMode {
   pieces,
@@ -8,27 +9,27 @@ enum ViewMode {
   designs,
 }
 
+String _groupedKey(String key, String direction, String? groupId) =>
+    groupId == null ? key : '$key-$direction-$groupId';
+
+String _fixedKey(String key, String direction) => '$key-$direction';
+
 extension ScrollTargetExtension on ViewMode {
-  String scrollTargetName(String? categoryId, String? collectionId,
-      {bool isHorizontal = false}) {
-    final direction = isHorizontal ? 'horizontal' : 'vertical';
+  String scrollTargetName(String? groupId, {bool isHorizontal = false}) {
+    final direction = isHorizontal ? AppScrollKeys.horizontal : AppScrollKeys.vertical;
     switch (this) {
       case ViewMode.categories:
-        return categoryId == null
-            ? 'categories'
-            : 'category-$direction-$categoryId';
+        return _groupedKey(AppScrollKeys.categories, direction, groupId);
       case ViewMode.collections:
-        return collectionId == null
-            ? 'collections'
-            : 'collection-$direction-$collectionId';
+        return _groupedKey(AppScrollKeys.collections, direction, groupId);
       case ViewMode.designs:
-        return 'designs-$direction';
+        return _fixedKey(AppScrollKeys.designs, direction);
       case ViewMode.pieces:
-        return 'pieces-$direction';
+        return _fixedKey(AppScrollKeys.pieces, direction);
     }
   }
 
-  String get fixedScrollTargetName => scrollTargetName(null, null);
+  String get fixedScrollTargetName => scrollTargetName(null);
 }
 
 GridParams computeGridParams(

@@ -37,7 +37,7 @@ class En implements Translations {
         Translation.backToPieces => 'Back to all pieces',
         Translation.productDetails => 'Product Details',
         Translation.foodSafetyTitle => 'Food Safety Information',
-        Translation.foodSafetyDetails => _foodSafetyDetails,
+        Translation.foodSafetyDetails => _foodSafetyInfo.join(' '),
         Translation.contactUs => 'Contact Us',
         Translation.contactTitlePlaceholder => 'Title...',
         Translation.contactMessagePlaceholder => 'Message...',
@@ -69,4 +69,3 @@ const List<String> _foodSafetyInfo = [
   'Your safety matters to us! Thank you for understanding!'
 ];
 
-final String _foodSafetyDetails = _foodSafetyInfo.join(' ');

@@ -1,38 +1,5 @@
 
 
-## 7. THEME / STYLE
-
-### 7-A. `headlineSmall` is named "headline" but sized identically to body text
-File: `lib/theme/app_theme.dart:29-33`
-`headlineSmall` is 14px at w500 — the same size as `bodyMedium` (14px w400). A "headline" should be visually distinct from body text. The naming misleads readers of the theme. Consider a custom theme extension or a better-named slot.
-
-### 7-B. `AppIcons.contact` and `AppIcons.email` are duplicate icons
-File: `lib/theme/app_icons.dart:11,23`
-Both are `Symbols.email_rounded`. If the drawer icon for "Contact" should be different from the in-page email icon, use separate icon values.
-
-### 7-C. `AppIcons.noImage` and `AppIcons.pieces` are duplicate icons
-File: `lib/theme/app_icons.dart:9,25`
-Both are `Symbols.local_cafe_rounded`. The coffee cup serves as both the nav icon for "Pieces" and the "no image" placeholder. Use a semantic icon for no-image (`Symbols.image_not_supported_rounded`).
-
-
-
----
-
-## 8. WIDGETS — SHARED
-
-
-
-### 8-K. `ItemsGrid.scrollTargetName` passes `id` for both `categoryId` and `collectionId` parameters
-File: `lib/widgets/items_grid/items_grid.dart:43`
-`mode.scrollTargetName(id, id, isHorizontal: true)` — passes the same value for both semantically different parameters. The wrong argument is silently ignored based on `ViewMode`. Semantically incorrect even though the resulting string is correct today. Refactor `scrollTargetName` to accept a single `groupId` parameter.
-
-### 8-L. `ItemsGrid` has an unresolved `FIXME` for a test horizontal overflow issue
-File: `lib/widgets/items_grid/items_grid.dart:84-85`
-`// FIXME: This component works in development and production, but fails in tests due to horizontal overflow.` — a known test failure is being tolerated. Root cause should be investigated and fixed (likely a `Row` inside an unbounded width in the test environment).
-
-
-
-
 ## 9. FEATURES — PRESENTATION
 
 
@@ -77,42 +44,12 @@ File: `lib/features/pieces/presentation/single_piece_view/design_description.dar
 File: `lib/widgets/grouped_items_view/grouped_items_view.dart:58-60`
 `allPieces.where((p) => pieceIds.contains(p.id))` — O(n) across all pieces for each group. The parent state already has `piecesById` as a map. Pass `piecesById` instead of `allPieces` and look up pieces by ID: O(k) where k = pieces in this group.
 
-### 9-L. `_contactEmaiLabel` variable name has a typo ("Emai" instead of "Email")
-File: `lib/features/contact/presentation/contact_view/contact_email_with_copy_option.dart:17`
-`final contactEmaiLabel` — missing the 'l'. Minor but incorrect naming in production code.
-
----
-
-## 10. MAIN / BOOTSTRAP
-
----
-
-## 11. TESTING
-
-### 11-A. Contact feature has no view test
-`test/features/contact/` contains only `contact_bloc_test.dart`. All other features have corresponding view tests. The contact view is complex (form, photo, email copy widget). Add `contact_view_test.dart`.
 
 
-
-### 12-C. `foodSafetyInfo` list and `_foodSafetyDetails` join are duplicated in `en.dart` and `fi.dart`
-Files: `lib/localization/en.dart:62-73`, `lib/localization/fi.dart:60-71`
-Identical list construction pattern duplicated. Move the join logic into the `translate()` method, or unify into a shared helper so the pattern only exists once.
-
----
-
----
 
 ## 13. ARCHITECTURE / CORRECTNESS — SECOND PASS
 
-### 13-A. `validate_translations.dart` is never imported or called
-File: `lib/localization/validate_translations.dart`
-ARCHITECTURE.md says "validate_translations.dart catches missing keys at test time" but the file is never imported in any test file. The validation is silently not running. Wire it into `localizations_test.dart` or a dedicated test that calls `validateTranslations()` at startup.
 
-
-
-### 13-C. Unsafe `as String?` casts in feature repositories
-Files: `lib/features/pieces/repository/pieces_repository.dart`, `lib/features/designs/repository/designs_repository.dart`, `lib/features/categories/repository/categories_repository.dart`, `lib/features/collections/repository/collections_repository.dart`
-`data['someField'] as String?` — if Firestore returns a non-string value for that field the cast throws a `TypeError` at runtime, bypassing the repository's error boundary and crashing the bloc. Use `data['someField'] is String ? data['someField'] as String : null` or add a typed helper.
 
 ### 13-D. Retry button in `BlocStatusView` is non-functional — poisoned `ProductsRepository` cache blocks recovery
 Files: `lib/widgets/bloc_status_view/bloc_status_view.dart`, `lib/data/products_repository.dart`

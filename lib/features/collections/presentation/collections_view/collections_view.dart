@@ -19,7 +19,7 @@ class _CollectionsViewState extends State<CollectionsView>
     with ScrollPositionMixin<CollectionsView> {
   @override
   String get scrollTargetName =>
-      ViewMode.collections.scrollTargetName(null, widget.selectedCollectionId);
+      ViewMode.collections.scrollTargetName(widget.selectedCollectionId);
 
   @override
   Widget build(BuildContext context) {
