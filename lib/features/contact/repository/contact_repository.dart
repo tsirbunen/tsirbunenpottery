@@ -1,4 +1,5 @@
 import 'package:tsirbunenpottery/data/cloud_service.dart';
+import 'package:tsirbunenpottery/utils/app_firestore_refs.dart';
 import 'package:tsirbunenpottery/utils/app_image_refs.dart';
 
 abstract interface class IContactRepository {
@@ -13,7 +14,7 @@ class ContactRepository implements IContactRepository {
   @override
   Future<String?> fetchOwnerPhotoFileName() async {
     final data = await _cloudService.fetchOne(
-      collection: 'miscellaneous',
+      collection: FirestoreCollections.miscellaneous,
       documentId: ownerPhotoDocId,
     );
     return data?['name'] as String?;

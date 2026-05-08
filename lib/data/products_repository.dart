@@ -1,6 +1,7 @@
 import 'package:tsirbunenpottery/core/logging/app_logger.dart';
 import 'package:tsirbunenpottery/data/cloud_service.dart';
 import 'package:tsirbunenpottery/data/firestore_data_parser.dart';
+import 'package:tsirbunenpottery/utils/app_firestore_refs.dart';
 import 'package:tsirbunenpottery/features/categories/domain/models/category/category.dart';
 import 'package:tsirbunenpottery/features/collections/domain/models/collection/collection.dart';
 import 'package:tsirbunenpottery/features/designs/domain/models/design/design.dart';
@@ -42,10 +43,10 @@ class ProductsRepository implements IProductsRepository {
   Future<AllProductsData> _fetchAllFromCloud() async {
     final [collectionsData, categoriesData, designsData, piecesData] =
         await Future.wait([
-      _cloudService.fetchMany(collection: 'collections'),
-      _cloudService.fetchMany(collection: 'categories'),
-      _cloudService.fetchMany(collection: 'designs'),
-      _cloudService.fetchMany(collection: 'pieces'),
+      _cloudService.fetchMany(collection: FirestoreCollections.collections),
+      _cloudService.fetchMany(collection: FirestoreCollections.categories),
+      _cloudService.fetchMany(collection: FirestoreCollections.designs),
+      _cloudService.fetchMany(collection: FirestoreCollections.pieces),
     ]);
 
     final collections =

@@ -1,37 +1,5 @@
 
 
-## 5. DATA LAYER
-
-### 5-A. Firestore collection name strings are hardcoded inline throughout the data layer
-Files: `lib/data/products_repository.dart:40-43`, `lib/features/home/repository/home_repository.dart:16`, `lib/features/contact/repository/contact_repository.dart:16`
-String literals `'pieces'`, `'designs'`, `'collections'`, `'categories'`, `'miscellaneous'` are hardcoded at the call site. `utils/constants.dart` already holds `homePageImageDocId` and `ownerPhotoDocId`. Centralise all Firestore collection/document ID strings there — a typo silently returns empty data.
-
-### 5-B. `firestore_data_parser.dart` handles `details` as both JSON string and Map
-File: `lib/data/firestore_data_parser.dart:157-166`
-`_toStringMapTranslations` accepts the value as either a raw `Map` or a JSON-encoded `String`. This accommodates a data inconsistency in Firestore where some documents store `details` as a serialized JSON string and others as a native Firestore map. Normalise the Firestore data and remove the JSON decode path.
-
-### 5-C. `_toLanguage` does a linear scan for language lookup
-File: `lib/data/firestore_data_parser.dart:128-133`
-`for (final lang in Language.values) { if (lang.name == key) return lang; }` — O(n) per field per document parsed. Replace with a cached `Map<String, Language>` lookup at the class level, or use `Language.values.firstWhereOrNull((l) => l.name == key)`.
-
----
-
-## 6. LOCALIZATION
-
-### 6-A. `Translation.story` is a live enum case for a commented-out feature
-File: `lib/localization/translation.dart:8`
-`Translation.story` is translated in `en.dart` and `fi.dart` but the Story route is entirely commented out. Either remove the key or restore the route. Dead enum cases add confusion in exhaustive switches.
-
-### 6-B. `AppLocale.of()` uses `FlutterError` — should use `assert`
-File: `lib/localization/app_locale.dart:16-23`
-Flutter's idiomatic "not found in tree" pattern uses an `AssertionError`/`assert` in debug mode. `FlutterError` is for rendering/layout errors. Use: `assert(locale != null, 'No AppLocale found...')` then `return locale!`.
-
-### 6-C. `isSupported` iterates an `Iterable` with `contains` — O(n) on every locale resolution
-File: `lib/localization/app_locale.dart:44`
-`AppLocale.supportedLocales.contains(locale)` — `supportedLocales` returns a lazy `Iterable<Locale>`, so `contains` is O(n). Convert to a `Set` for O(1) lookup.
-
----
-
 ## 7. THEME / STYLE
 
 ### 7-A. `headlineSmall` is named "headline" but sized identically to body text

@@ -1,4 +1,5 @@
 import 'package:tsirbunenpottery/data/cloud_service.dart';
+import 'package:tsirbunenpottery/utils/app_firestore_refs.dart';
 import 'package:tsirbunenpottery/utils/app_image_refs.dart';
 
 abstract interface class IHomeRepository {
@@ -13,7 +14,7 @@ class HomeRepository implements IHomeRepository {
   @override
   Future<String?> fetchHomePageImageFileName() async {
     final data = await _cloudService.fetchOne(
-      collection: 'miscellaneous',
+      collection: FirestoreCollections.miscellaneous,
       documentId: homePageImageDocId,
     );
     return data?['name'] as String?;

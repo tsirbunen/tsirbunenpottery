@@ -25,7 +25,6 @@ class Fi implements Translations {
         Translation.categories => 'Kategoriat',
         Translation.collections => 'Kokoelmat',
         Translation.designs => 'Mallit',
-        Translation.story => 'Tarina',
         Translation.contact => 'Yhteystiedot',
         Translation.english => 'Englanti',
         Translation.finnish => 'Suomi',

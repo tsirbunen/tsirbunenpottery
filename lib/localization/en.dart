@@ -27,7 +27,6 @@ class En implements Translations {
         Translation.categories => 'Categories',
         Translation.collections => 'Collections',
         Translation.designs => 'Designs',
-        Translation.story => 'Story',
         Translation.contact => 'Contact',
         Translation.english => 'English',
         Translation.finnish => 'Finnish',

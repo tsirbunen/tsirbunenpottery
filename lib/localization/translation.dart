@@ -5,7 +5,6 @@ enum Translation {
   categories,
   collections,
   designs,
-  story,
   contact,
   // App and app bar labels:
   tradeName,

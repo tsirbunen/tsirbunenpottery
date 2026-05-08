@@ -14,13 +14,12 @@ class AppLocale {
 
   static AppLocale of(final BuildContext context) {
     final locale = Localizations.of<AppLocale>(context, AppLocale);
-    if (locale == null) {
-      throw FlutterError(
-        'AppLocale.of() was called with a context that does not contain an AppLocale.\n'
-        'Ensure AppLocale.delegate is listed in MaterialApp.localizationsDelegates.',
-      );
-    }
-    return locale;
+    assert(
+      locale != null,
+      'AppLocale.of() was called with a context that does not contain an AppLocale.\n'
+      'Ensure AppLocale.delegate is listed in MaterialApp.localizationsDelegates.',
+    );
+    return locale!;
   }
 
   static const LocalizationsDelegate<AppLocale> delegate =
@@ -30,10 +29,10 @@ class AppLocale {
     return translations.translate(key);
   }
 
-  static Iterable<Locale> get supportedLocales => [
+  static Set<Locale> get supportedLocales => {
         const Locale('en'),
         const Locale('fi'),
-      ];
+      };
 }
 
 class CustomLocalizationsDelegate extends LocalizationsDelegate<AppLocale> {

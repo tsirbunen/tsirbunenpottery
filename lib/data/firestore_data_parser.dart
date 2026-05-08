@@ -24,6 +24,10 @@ abstract final class _Fields {
 }
 
 class FirestoreDataParser {
+  static final _languageByName = {
+    for (final lang in Language.values) lang.name: lang,
+  };
+
   final AppLogger _logger;
 
   const FirestoreDataParser({required AppLogger logger}) : _logger = logger;
@@ -125,12 +129,7 @@ class FirestoreDataParser {
     }
   }
 
-  Language? _toLanguage(String key) {
-    for (final lang in Language.values) {
-      if (lang.name == key) return lang;
-    }
-    return null;
-  }
+  Language? _toLanguage(String key) => _languageByName[key];
 
   Map<Language, String> _toStringTranslations(Map<String, dynamic> data, String fieldName) {
     final raw = data[fieldName];
