@@ -40,12 +40,6 @@ Horizontal: `[PhotoAndInfo, ContactForm]`. Vertical: `[ContactForm, PhotoAndInfo
 File: `lib/features/pieces/presentation/single_piece_view/design_description.dart:63`
 `Theme.of(context).textTheme.bodyMedium!` — forced unwrap. Use `?? const TextStyle()` for consistency with the rest of the codebase.
 
-### 9-K. `GroupedItemsView._buildItemsGridForGroup` filters `allPieces` by iterating the full list
-File: `lib/widgets/grouped_items_view/grouped_items_view.dart:58-60`
-`allPieces.where((p) => pieceIds.contains(p.id))` — O(n) across all pieces for each group. The parent state already has `piecesById` as a map. Pass `piecesById` instead of `allPieces` and look up pieces by ID: O(k) where k = pieces in this group.
-
-
-
 
 ## 13. ARCHITECTURE / CORRECTNESS — SECOND PASS
 

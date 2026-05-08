@@ -31,7 +31,7 @@ class _CollectionsViewState extends State<CollectionsView>
           groupedDesigns: state.collectionDesigns,
           selectedGroupId: widget.selectedCollectionId,
           designsById: state.designsById,
-          allPieces: state.allPieces,
+          piecesById: state.piecesById,
           imageFileNamesByDesignId: state.imageFileNamesByDesignId,
           viewMode: ViewMode.collections,
           groupTitle: (id, lang) =>

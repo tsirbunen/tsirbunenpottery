@@ -15,6 +15,6 @@ abstract class CollectionsState with _$CollectionsState implements FetchState {
     @Default({}) Map<String, Map<String, List<String>>> collectionDesigns,
     @Default({}) Map<String, List<String>> imageFileNamesByDesignId,
     @Default({}) Map<String, Collection> collectionsById,
-    @Default([]) List<Piece> allPieces,
+    @Default({}) Map<String, Piece> piecesById,
   }) = _CollectionsState;
 }

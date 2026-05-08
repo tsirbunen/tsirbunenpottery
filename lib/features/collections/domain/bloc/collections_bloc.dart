@@ -37,7 +37,7 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState>
             collectionDesigns: data.collectionDesigns,
             imageFileNamesByDesignId: data.imageFileNamesByDesignId,
             collectionsById: {for (final c in data.collections) c.id: c},
-            allPieces: data.piecesById.values.toList(),
+            piecesById: data.piecesById,
             blocStatus: const BlocStatus.ok(),
           );
         });

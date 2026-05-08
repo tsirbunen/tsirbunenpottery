@@ -37,7 +37,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState>
             categoryDesigns: data.categoryDesigns,
             imageFileNamesByDesignId: data.imageFileNamesByDesignId,
             categoriesById: {for (final c in data.categories) c.id: c},
-            allPieces: data.piecesById.values.toList(),
+            piecesById: data.piecesById,
             blocStatus: const BlocStatus.ok(),
           );
         });

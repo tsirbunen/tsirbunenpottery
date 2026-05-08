@@ -31,7 +31,7 @@ class _CategoriesViewState extends State<CategoriesView>
           groupedDesigns: state.categoryDesigns,
           selectedGroupId: widget.selectedCategoryId,
           designsById: state.designsById,
-          allPieces: state.allPieces,
+          piecesById: state.piecesById,
           imageFileNamesByDesignId: state.imageFileNamesByDesignId,
           viewMode: ViewMode.categories,
           groupTitle: (id, lang) =>

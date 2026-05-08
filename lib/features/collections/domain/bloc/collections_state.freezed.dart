@@ -19,7 +19,7 @@ mixin _$CollectionsState {
   Map<String, Map<String, List<String>>> get collectionDesigns;
   Map<String, List<String>> get imageFileNamesByDesignId;
   Map<String, Collection> get collectionsById;
-  List<Piece> get allPieces;
+  Map<String, Piece> get piecesById;
 
   /// Create a copy of CollectionsState
   /// with the given fields replaced by the non-null parameter values.
@@ -44,7 +44,8 @@ mixin _$CollectionsState {
                 other.imageFileNamesByDesignId, imageFileNamesByDesignId) &&
             const DeepCollectionEquality()
                 .equals(other.collectionsById, collectionsById) &&
-            const DeepCollectionEquality().equals(other.allPieces, allPieces));
+            const DeepCollectionEquality()
+                .equals(other.piecesById, piecesById));
   }
 
   @override
@@ -55,11 +56,11 @@ mixin _$CollectionsState {
       const DeepCollectionEquality().hash(collectionDesigns),
       const DeepCollectionEquality().hash(imageFileNamesByDesignId),
       const DeepCollectionEquality().hash(collectionsById),
-      const DeepCollectionEquality().hash(allPieces));
+      const DeepCollectionEquality().hash(piecesById));
 
   @override
   String toString() {
-    return 'CollectionsState(blocStatus: $blocStatus, designsById: $designsById, collectionDesigns: $collectionDesigns, imageFileNamesByDesignId: $imageFileNamesByDesignId, collectionsById: $collectionsById, allPieces: $allPieces)';
+    return 'CollectionsState(blocStatus: $blocStatus, designsById: $designsById, collectionDesigns: $collectionDesigns, imageFileNamesByDesignId: $imageFileNamesByDesignId, collectionsById: $collectionsById, piecesById: $piecesById)';
   }
 }
 
@@ -75,7 +76,7 @@ abstract mixin class $CollectionsStateCopyWith<$Res> {
       Map<String, Map<String, List<String>>> collectionDesigns,
       Map<String, List<String>> imageFileNamesByDesignId,
       Map<String, Collection> collectionsById,
-      List<Piece> allPieces});
+      Map<String, Piece> piecesById});
 }
 
 /// @nodoc
@@ -96,7 +97,7 @@ class _$CollectionsStateCopyWithImpl<$Res>
     Object? collectionDesigns = null,
     Object? imageFileNamesByDesignId = null,
     Object? collectionsById = null,
-    Object? allPieces = null,
+    Object? piecesById = null,
   }) {
     return _then(_self.copyWith(
       blocStatus: null == blocStatus
@@ -119,10 +120,10 @@ class _$CollectionsStateCopyWithImpl<$Res>
           ? _self.collectionsById
           : collectionsById // ignore: cast_nullable_to_non_nullable
               as Map<String, Collection>,
-      allPieces: null == allPieces
-          ? _self.allPieces
-          : allPieces // ignore: cast_nullable_to_non_nullable
-              as List<Piece>,
+      piecesById: null == piecesById
+          ? _self.piecesById
+          : piecesById // ignore: cast_nullable_to_non_nullable
+              as Map<String, Piece>,
     ));
   }
 }
@@ -226,7 +227,7 @@ extension CollectionsStatePatterns on CollectionsState {
             Map<String, Map<String, List<String>>> collectionDesigns,
             Map<String, List<String>> imageFileNamesByDesignId,
             Map<String, Collection> collectionsById,
-            List<Piece> allPieces)?
+            Map<String, Piece> piecesById)?
         $default, {
     required TResult orElse(),
   }) {
@@ -239,7 +240,7 @@ extension CollectionsStatePatterns on CollectionsState {
             _that.collectionDesigns,
             _that.imageFileNamesByDesignId,
             _that.collectionsById,
-            _that.allPieces);
+            _that.piecesById);
       case _:
         return orElse();
     }
@@ -266,7 +267,7 @@ extension CollectionsStatePatterns on CollectionsState {
             Map<String, Map<String, List<String>>> collectionDesigns,
             Map<String, List<String>> imageFileNamesByDesignId,
             Map<String, Collection> collectionsById,
-            List<Piece> allPieces)
+            Map<String, Piece> piecesById)
         $default,
   ) {
     final _that = this;
@@ -278,7 +279,7 @@ extension CollectionsStatePatterns on CollectionsState {
             _that.collectionDesigns,
             _that.imageFileNamesByDesignId,
             _that.collectionsById,
-            _that.allPieces);
+            _that.piecesById);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -304,7 +305,7 @@ extension CollectionsStatePatterns on CollectionsState {
             Map<String, Map<String, List<String>>> collectionDesigns,
             Map<String, List<String>> imageFileNamesByDesignId,
             Map<String, Collection> collectionsById,
-            List<Piece> allPieces)?
+            Map<String, Piece> piecesById)?
         $default,
   ) {
     final _that = this;
@@ -316,7 +317,7 @@ extension CollectionsStatePatterns on CollectionsState {
             _that.collectionDesigns,
             _that.imageFileNamesByDesignId,
             _that.collectionsById,
-            _that.allPieces);
+            _that.piecesById);
       case _:
         return null;
     }
@@ -332,12 +333,12 @@ class _CollectionsState implements CollectionsState {
       final Map<String, Map<String, List<String>>> collectionDesigns = const {},
       final Map<String, List<String>> imageFileNamesByDesignId = const {},
       final Map<String, Collection> collectionsById = const {},
-      final List<Piece> allPieces = const []})
+      final Map<String, Piece> piecesById = const {}})
       : _designsById = designsById,
         _collectionDesigns = collectionDesigns,
         _imageFileNamesByDesignId = imageFileNamesByDesignId,
         _collectionsById = collectionsById,
-        _allPieces = allPieces;
+        _piecesById = piecesById;
 
   @override
   @JsonKey()
@@ -380,13 +381,13 @@ class _CollectionsState implements CollectionsState {
     return EqualUnmodifiableMapView(_collectionsById);
   }
 
-  final List<Piece> _allPieces;
+  final Map<String, Piece> _piecesById;
   @override
   @JsonKey()
-  List<Piece> get allPieces {
-    if (_allPieces is EqualUnmodifiableListView) return _allPieces;
+  Map<String, Piece> get piecesById {
+    if (_piecesById is EqualUnmodifiableMapView) return _piecesById;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_allPieces);
+    return EqualUnmodifiableMapView(_piecesById);
   }
 
   /// Create a copy of CollectionsState
@@ -413,7 +414,7 @@ class _CollectionsState implements CollectionsState {
             const DeepCollectionEquality()
                 .equals(other._collectionsById, _collectionsById) &&
             const DeepCollectionEquality()
-                .equals(other._allPieces, _allPieces));
+                .equals(other._piecesById, _piecesById));
   }
 
   @override
@@ -424,11 +425,11 @@ class _CollectionsState implements CollectionsState {
       const DeepCollectionEquality().hash(_collectionDesigns),
       const DeepCollectionEquality().hash(_imageFileNamesByDesignId),
       const DeepCollectionEquality().hash(_collectionsById),
-      const DeepCollectionEquality().hash(_allPieces));
+      const DeepCollectionEquality().hash(_piecesById));
 
   @override
   String toString() {
-    return 'CollectionsState(blocStatus: $blocStatus, designsById: $designsById, collectionDesigns: $collectionDesigns, imageFileNamesByDesignId: $imageFileNamesByDesignId, collectionsById: $collectionsById, allPieces: $allPieces)';
+    return 'CollectionsState(blocStatus: $blocStatus, designsById: $designsById, collectionDesigns: $collectionDesigns, imageFileNamesByDesignId: $imageFileNamesByDesignId, collectionsById: $collectionsById, piecesById: $piecesById)';
   }
 }
 
@@ -446,7 +447,7 @@ abstract mixin class _$CollectionsStateCopyWith<$Res>
       Map<String, Map<String, List<String>>> collectionDesigns,
       Map<String, List<String>> imageFileNamesByDesignId,
       Map<String, Collection> collectionsById,
-      List<Piece> allPieces});
+      Map<String, Piece> piecesById});
 }
 
 /// @nodoc
@@ -467,7 +468,7 @@ class __$CollectionsStateCopyWithImpl<$Res>
     Object? collectionDesigns = null,
     Object? imageFileNamesByDesignId = null,
     Object? collectionsById = null,
-    Object? allPieces = null,
+    Object? piecesById = null,
   }) {
     return _then(_CollectionsState(
       blocStatus: null == blocStatus
@@ -490,10 +491,10 @@ class __$CollectionsStateCopyWithImpl<$Res>
           ? _self._collectionsById
           : collectionsById // ignore: cast_nullable_to_non_nullable
               as Map<String, Collection>,
-      allPieces: null == allPieces
-          ? _self._allPieces
-          : allPieces // ignore: cast_nullable_to_non_nullable
-              as List<Piece>,
+      piecesById: null == piecesById
+          ? _self._piecesById
+          : piecesById // ignore: cast_nullable_to_non_nullable
+              as Map<String, Piece>,
     ));
   }
 }

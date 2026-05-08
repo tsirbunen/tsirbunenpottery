@@ -15,6 +15,6 @@ abstract class CategoriesState with _$CategoriesState implements FetchState {
     @Default({}) Map<String, Map<String, List<String>>> categoryDesigns,
     @Default({}) Map<String, List<String>> imageFileNamesByDesignId,
     @Default({}) Map<String, Category> categoriesById,
-    @Default([]) List<Piece> allPieces,
+    @Default({}) Map<String, Piece> piecesById,
   }) = _CategoriesState;
 }

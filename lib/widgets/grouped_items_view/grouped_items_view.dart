@@ -14,7 +14,7 @@ class GroupedItemsView extends StatelessWidget {
   final Map<String, Map<String, List<String>>> groupedDesigns;
   final String? selectedGroupId;
   final Map<String, Design> designsById;
-  final List<Piece> allPieces;
+  final Map<String, Piece> piecesById;
   final Map<String, List<String>> imageFileNamesByDesignId;
   final ViewMode viewMode;
   final String Function(String groupId, Language language) groupTitle;
@@ -27,7 +27,7 @@ class GroupedItemsView extends StatelessWidget {
     required this.groupedDesigns,
     this.selectedGroupId,
     required this.designsById,
-    required this.allPieces,
+    required this.piecesById,
     required this.imageFileNamesByDesignId,
     required this.viewMode,
     required this.groupTitle,
@@ -54,8 +54,11 @@ class GroupedItemsView extends StatelessWidget {
         .whereType<Design>()
         .toList();
 
-    final pieceIds = pieceIdsByDesignId.values.expand((ids) => ids).toSet();
-    final pieces = allPieces.where((p) => pieceIds.contains(p.id)).toList();
+    final pieces = pieceIdsByDesignId.values
+        .expand((ids) => ids)
+        .map((id) => piecesById[id])
+        .whereType<Piece>()
+        .toList();
 
     return ItemsGrid(
       id: groupId,

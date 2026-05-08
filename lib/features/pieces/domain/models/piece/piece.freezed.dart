@@ -17,7 +17,7 @@ mixin _$Piece {
   String get id;
   String get designId;
   List<String> get imageFileNames;
-  bool get sold;
+  bool get sold; // intentionally unrendered — reserved for the purchase flow
   String? get collectionId;
 
   /// Create a copy of Piece
@@ -299,6 +299,7 @@ class _Piece implements Piece {
 
   @override
   final bool sold;
+// intentionally unrendered — reserved for the purchase flow
   @override
   final String? collectionId;
 

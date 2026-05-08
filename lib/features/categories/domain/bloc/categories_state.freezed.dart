@@ -19,7 +19,7 @@ mixin _$CategoriesState {
   Map<String, Map<String, List<String>>> get categoryDesigns;
   Map<String, List<String>> get imageFileNamesByDesignId;
   Map<String, Category> get categoriesById;
-  List<Piece> get allPieces;
+  Map<String, Piece> get piecesById;
 
   /// Create a copy of CategoriesState
   /// with the given fields replaced by the non-null parameter values.
@@ -44,7 +44,8 @@ mixin _$CategoriesState {
                 other.imageFileNamesByDesignId, imageFileNamesByDesignId) &&
             const DeepCollectionEquality()
                 .equals(other.categoriesById, categoriesById) &&
-            const DeepCollectionEquality().equals(other.allPieces, allPieces));
+            const DeepCollectionEquality()
+                .equals(other.piecesById, piecesById));
   }
 
   @override
@@ -55,11 +56,11 @@ mixin _$CategoriesState {
       const DeepCollectionEquality().hash(categoryDesigns),
       const DeepCollectionEquality().hash(imageFileNamesByDesignId),
       const DeepCollectionEquality().hash(categoriesById),
-      const DeepCollectionEquality().hash(allPieces));
+      const DeepCollectionEquality().hash(piecesById));
 
   @override
   String toString() {
-    return 'CategoriesState(blocStatus: $blocStatus, designsById: $designsById, categoryDesigns: $categoryDesigns, imageFileNamesByDesignId: $imageFileNamesByDesignId, categoriesById: $categoriesById, allPieces: $allPieces)';
+    return 'CategoriesState(blocStatus: $blocStatus, designsById: $designsById, categoryDesigns: $categoryDesigns, imageFileNamesByDesignId: $imageFileNamesByDesignId, categoriesById: $categoriesById, piecesById: $piecesById)';
   }
 }
 
@@ -75,7 +76,7 @@ abstract mixin class $CategoriesStateCopyWith<$Res> {
       Map<String, Map<String, List<String>>> categoryDesigns,
       Map<String, List<String>> imageFileNamesByDesignId,
       Map<String, Category> categoriesById,
-      List<Piece> allPieces});
+      Map<String, Piece> piecesById});
 }
 
 /// @nodoc
@@ -96,7 +97,7 @@ class _$CategoriesStateCopyWithImpl<$Res>
     Object? categoryDesigns = null,
     Object? imageFileNamesByDesignId = null,
     Object? categoriesById = null,
-    Object? allPieces = null,
+    Object? piecesById = null,
   }) {
     return _then(_self.copyWith(
       blocStatus: null == blocStatus
@@ -119,10 +120,10 @@ class _$CategoriesStateCopyWithImpl<$Res>
           ? _self.categoriesById
           : categoriesById // ignore: cast_nullable_to_non_nullable
               as Map<String, Category>,
-      allPieces: null == allPieces
-          ? _self.allPieces
-          : allPieces // ignore: cast_nullable_to_non_nullable
-              as List<Piece>,
+      piecesById: null == piecesById
+          ? _self.piecesById
+          : piecesById // ignore: cast_nullable_to_non_nullable
+              as Map<String, Piece>,
     ));
   }
 }
@@ -226,7 +227,7 @@ extension CategoriesStatePatterns on CategoriesState {
             Map<String, Map<String, List<String>>> categoryDesigns,
             Map<String, List<String>> imageFileNamesByDesignId,
             Map<String, Category> categoriesById,
-            List<Piece> allPieces)?
+            Map<String, Piece> piecesById)?
         $default, {
     required TResult orElse(),
   }) {
@@ -239,7 +240,7 @@ extension CategoriesStatePatterns on CategoriesState {
             _that.categoryDesigns,
             _that.imageFileNamesByDesignId,
             _that.categoriesById,
-            _that.allPieces);
+            _that.piecesById);
       case _:
         return orElse();
     }
@@ -266,7 +267,7 @@ extension CategoriesStatePatterns on CategoriesState {
             Map<String, Map<String, List<String>>> categoryDesigns,
             Map<String, List<String>> imageFileNamesByDesignId,
             Map<String, Category> categoriesById,
-            List<Piece> allPieces)
+            Map<String, Piece> piecesById)
         $default,
   ) {
     final _that = this;
@@ -278,7 +279,7 @@ extension CategoriesStatePatterns on CategoriesState {
             _that.categoryDesigns,
             _that.imageFileNamesByDesignId,
             _that.categoriesById,
-            _that.allPieces);
+            _that.piecesById);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -304,7 +305,7 @@ extension CategoriesStatePatterns on CategoriesState {
             Map<String, Map<String, List<String>>> categoryDesigns,
             Map<String, List<String>> imageFileNamesByDesignId,
             Map<String, Category> categoriesById,
-            List<Piece> allPieces)?
+            Map<String, Piece> piecesById)?
         $default,
   ) {
     final _that = this;
@@ -316,7 +317,7 @@ extension CategoriesStatePatterns on CategoriesState {
             _that.categoryDesigns,
             _that.imageFileNamesByDesignId,
             _that.categoriesById,
-            _that.allPieces);
+            _that.piecesById);
       case _:
         return null;
     }
@@ -332,12 +333,12 @@ class _CategoriesState implements CategoriesState {
       final Map<String, Map<String, List<String>>> categoryDesigns = const {},
       final Map<String, List<String>> imageFileNamesByDesignId = const {},
       final Map<String, Category> categoriesById = const {},
-      final List<Piece> allPieces = const []})
+      final Map<String, Piece> piecesById = const {}})
       : _designsById = designsById,
         _categoryDesigns = categoryDesigns,
         _imageFileNamesByDesignId = imageFileNamesByDesignId,
         _categoriesById = categoriesById,
-        _allPieces = allPieces;
+        _piecesById = piecesById;
 
   @override
   @JsonKey()
@@ -379,13 +380,13 @@ class _CategoriesState implements CategoriesState {
     return EqualUnmodifiableMapView(_categoriesById);
   }
 
-  final List<Piece> _allPieces;
+  final Map<String, Piece> _piecesById;
   @override
   @JsonKey()
-  List<Piece> get allPieces {
-    if (_allPieces is EqualUnmodifiableListView) return _allPieces;
+  Map<String, Piece> get piecesById {
+    if (_piecesById is EqualUnmodifiableMapView) return _piecesById;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_allPieces);
+    return EqualUnmodifiableMapView(_piecesById);
   }
 
   /// Create a copy of CategoriesState
@@ -412,7 +413,7 @@ class _CategoriesState implements CategoriesState {
             const DeepCollectionEquality()
                 .equals(other._categoriesById, _categoriesById) &&
             const DeepCollectionEquality()
-                .equals(other._allPieces, _allPieces));
+                .equals(other._piecesById, _piecesById));
   }
 
   @override
@@ -423,11 +424,11 @@ class _CategoriesState implements CategoriesState {
       const DeepCollectionEquality().hash(_categoryDesigns),
       const DeepCollectionEquality().hash(_imageFileNamesByDesignId),
       const DeepCollectionEquality().hash(_categoriesById),
-      const DeepCollectionEquality().hash(_allPieces));
+      const DeepCollectionEquality().hash(_piecesById));
 
   @override
   String toString() {
-    return 'CategoriesState(blocStatus: $blocStatus, designsById: $designsById, categoryDesigns: $categoryDesigns, imageFileNamesByDesignId: $imageFileNamesByDesignId, categoriesById: $categoriesById, allPieces: $allPieces)';
+    return 'CategoriesState(blocStatus: $blocStatus, designsById: $designsById, categoryDesigns: $categoryDesigns, imageFileNamesByDesignId: $imageFileNamesByDesignId, categoriesById: $categoriesById, piecesById: $piecesById)';
   }
 }
 
@@ -445,7 +446,7 @@ abstract mixin class _$CategoriesStateCopyWith<$Res>
       Map<String, Map<String, List<String>>> categoryDesigns,
       Map<String, List<String>> imageFileNamesByDesignId,
       Map<String, Category> categoriesById,
-      List<Piece> allPieces});
+      Map<String, Piece> piecesById});
 }
 
 /// @nodoc
@@ -466,7 +467,7 @@ class __$CategoriesStateCopyWithImpl<$Res>
     Object? categoryDesigns = null,
     Object? imageFileNamesByDesignId = null,
     Object? categoriesById = null,
-    Object? allPieces = null,
+    Object? piecesById = null,
   }) {
     return _then(_CategoriesState(
       blocStatus: null == blocStatus
@@ -489,10 +490,10 @@ class __$CategoriesStateCopyWithImpl<$Res>
           ? _self._categoriesById
           : categoriesById // ignore: cast_nullable_to_non_nullable
               as Map<String, Category>,
-      allPieces: null == allPieces
-          ? _self._allPieces
-          : allPieces // ignore: cast_nullable_to_non_nullable
-              as List<Piece>,
+      piecesById: null == piecesById
+          ? _self._piecesById
+          : piecesById // ignore: cast_nullable_to_non_nullable
+              as Map<String, Piece>,
     ));
   }
 }
